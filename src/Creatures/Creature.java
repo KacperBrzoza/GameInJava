@@ -2,10 +2,10 @@ package Creatures;
 
 public class Creature {
 
-    private int cost;
-    private int attack;
-    private int hp;
-    private String power;
+    private final int cost;
+    private final int attack;
+    private final int hp;
+    private final String power;
     //image;
 
     public Creature(int cost, int attack, int hp){

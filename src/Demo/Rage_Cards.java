@@ -1,6 +1,5 @@
 package Demo;
 
-import Creatures.Creature;
 import Rage_Cards.R_Card;
 
 import java.util.ArrayList;
@@ -13,7 +12,8 @@ import java.util.Random;
 public class Rage_Cards {
     private final List<R_Card> cards;
 
-    //public initialization()
+    //tu będzie inicjalizacja stosu kart Rage
+    public void initialization(){};
 
     public Rage_Cards(){
         cards = new ArrayList<>();
