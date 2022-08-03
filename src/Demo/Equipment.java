@@ -26,8 +26,10 @@ public class Equipment {
                     fields.get(i).quantity++;
                     break;
                 }
-                if (i + 1 == fields.size())
+                if (i + 1 == fields.size()) {
                     fields.add(new Field(creature));
+                    break;
+                }
             }
         }
     }
