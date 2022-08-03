@@ -14,6 +14,10 @@ public class Creature {
         this.power = "brak";
     }
 
+    public int getCost(){
+        return cost;
+    }
+
     public int getAttack(){
         return attack;
     }
@@ -21,6 +25,26 @@ public class Creature {
     public int getHp(){
         return hp;
     }
+
+    public String getPower(){
+        return power;
+    }
+
+
+    public boolean theSame(Creature c) {
+
+        if(this.getCost() != c.getCost())
+            return false;
+
+        if(this.getAttack() != c.getAttack())
+            return false;
+
+        if(this.getHp() != c.getHp())
+            return false;
+
+        return true;
+    }
+
 
     //wypisywanie statystyk na potrzeby testu, normalnie będą obrazki
     @Override
@@ -34,7 +58,6 @@ public class Creature {
 
     //skrócona wersja statystyk do wypisywania postaci na planszy
     public String onBoard(){
-        String staty = attack + "/" + hp + "/" + "power";
-        return staty;
+        return attack + "/" + hp + "/" + power;
     }
 }

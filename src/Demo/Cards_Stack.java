@@ -16,19 +16,26 @@ public class Cards_Stack {
         creatures = new ArrayList<>();
         creatures.add(new Creature(0, 4, 2));
         creatures.add(new Creature(0, 2, 3));
-        creatures.add(new Creature(1, 2, 2));
+        for(int i = 0; i < 3; i++)
+            creatures.add(new Creature(1, 2, 2));
         creatures.add(new Creature(2, 2, 2));
         creatures.add(new Creature(2, 1, 3));
         creatures.add(new Creature(2, 3, 1));
         creatures.add(new Creature(3, 4, 1));
-        creatures.add(new Creature(3, 3, 2));
-        creatures.add(new Creature(4, 2, 4));
+        for(int i = 0; i < 5; i++)
+            creatures.add(new Creature(3, 3, 2));
+        for(int i = 0; i < 3; i++)
+            creatures.add(new Creature(4, 2, 4));
         creatures.add(new Creature(4, 5, 1));
-        creatures.add(new Creature(4, 4, 2));
-        creatures.add(new Creature(4, 3, 3));
+        for(int i = 0; i < 3; i++)
+            creatures.add(new Creature(4, 4, 2));
+        for(int i = 0; i < 3; i++)
+            creatures.add(new Creature(4, 3, 3));
         creatures.add(new Creature(5, 5, 2));
-        creatures.add(new Creature(5, 4, 3));
-        creatures.add(new Creature(5, 3, 4));
+        for(int i = 0; i < 3; i++)
+            creatures.add(new Creature(5, 4, 3));
+        for(int i = 0; i < 3; i++)
+            creatures.add(new Creature(5, 3, 4));
         creatures.add(new Creature(6, 5, 3));
         creatures.add(new Creature(6, 3, 5));
         creatures.add(new Creature(6, 4, 4));
@@ -58,7 +65,7 @@ public class Cards_Stack {
         creatures.add(new Creature(11, 7, 6));
         creatures.add(new Creature(11, 6, 7));
         creatures.add(new Creature(12, 7, 7));
-        
+
         /*
         TU BĘDZIE DUUUUŻO STWORÓW W PRZYSZŁOŚCI
          */

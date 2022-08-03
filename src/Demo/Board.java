@@ -172,12 +172,12 @@ public class Board {
         String plansza = "";
         for(int i = 0; i < 5; i++){
             if(line2.get(i).empty)
-                plansza += " ---> ";
+                plansza += " <--- ";
             else
                 plansza += line2.get(i).creature.onBoard();
 
             if(i < 4)
-                plansza += "|";
+                plansza += " | ";
             else
                 plansza += "\n";
         }
@@ -194,7 +194,7 @@ public class Board {
                 plansza += line1.get(i).creature.onBoard();
 
             if(i < 4)
-                plansza += "|";
+                plansza += " | ";
             else
                 plansza += "\n";
         }

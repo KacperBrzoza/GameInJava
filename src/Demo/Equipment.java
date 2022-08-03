@@ -17,12 +17,18 @@ public class Equipment {
     //jeśli tak, to jedynie zwiększa licznik pola, na którym się znajduje
     //w przeciwnym wypadku tworzy nowe pole dla tego stwora
     public void addCreature(Creature creature){
-        for(int i = 0; i < fields.size(); i++){
-            if(fields.get(i).creature.equals(creature)){
-                fields.get(i).quantity++;
+        if(fields.size() == 0){
+            fields.add(new Field(creature));
+        }
+        else {
+            for (int i = 0; i < fields.size(); i++) {
+                if (fields.get(i).creature.theSame(creature)) {
+                    fields.get(i).quantity++;
+                    break;
+                }
+                if (i + 1 == fields.size())
+                    fields.add(new Field(creature));
             }
-            if(i+1 == fields.size())
-                fields.add(new Field(creature));
         }
     }
 
@@ -36,6 +42,10 @@ public class Equipment {
         else
             fields.remove(index);
         return creature;
+    }
+
+    public int checkCost(int index){
+        return fields.get(index).creature.getCost();
     }
 
     //wielkosc ekwipunku
@@ -52,7 +62,8 @@ public class Equipment {
             stan_eq += fields.get(i).creature;
             if(fields.get(i).quantity > 1)
                 stan_eq += " | ILOSC: " + fields.get(i).quantity;
-            stan_eq += "\n";
+            if(i+1 != fields.size())
+                stan_eq += "\n";
         }
         return stan_eq;
     }
