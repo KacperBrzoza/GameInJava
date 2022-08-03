@@ -38,11 +38,17 @@ public class Equipment {
         return creature;
     }
 
+    //wielkosc ekwipunku
+    public int size(){
+        return fields.size();
+    }
+
     //funkcja tymczasowa na potrzeby testów
     @Override
     public String toString(){
         String stan_eq = "";
         for (int i = 0; i < fields.size(); i++){
+            stan_eq += "(" + i + ") ";
             stan_eq += fields.get(i).creature;
             if(fields.get(i).quantity > 1)
                 stan_eq += " | ILOSC: " + fields.get(i).quantity;
