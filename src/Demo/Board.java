@@ -38,7 +38,7 @@ public class Board {
 
             //jeżeli na ostatnim polu linii pierwszego gracza jest stwór, to...
             if(!line1.get(4).empty){
-                
+
                 ///...trafia on na stos kart odrzuconych
                 discardeds.putCard(line1.get(4).removeCard());
             }
