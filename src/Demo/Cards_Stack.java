@@ -84,5 +84,7 @@ public class Cards_Stack {
     //UWAGI:
     //- można się zastanowić co ma się stać w przypadku wyczerpania się kart
     // Czy koniec gry?
+    //Preferencja osobista (Zalezy czy bysmy chcieli,zeby gracze grali bardzo dlugo, czy chcemy zrownowazone gry - Tak jak w Hearthstone
+    //odbieranie coraz wiecej zycia po wyczerpaniu stosu kart
     // Czy ponowna inicjalizacja całego "stosu" zakrytych kart?
 }

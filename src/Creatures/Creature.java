@@ -1,5 +1,6 @@
 package Creatures;
 
+//Klasa do dziedziczenia z niej
 public class Creature {
 
     private final int cost;
