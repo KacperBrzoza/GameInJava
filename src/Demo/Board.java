@@ -5,6 +5,8 @@ import Creatures.Creature;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.System.exit;
+
 public class Board {
 
     //dwie równoległe linie, po jednej dla każdego gracza, po nich będą poruszać się stwory
@@ -39,13 +41,13 @@ public class Board {
                 if(p2.showShields() == -1){
                     p1.score += 2.0;
                     p2.score -= 0.5;
-                    //koniec_gry();
+                    endGame(p1, p2);
                 }
                 //w przeciwnym razie zdobywa kartę Rage
                 else{
                     p1.score += 1.0;
                     p2.score -= 0.5;
-                    p2.rage.putCard(rage_cards.giveCard());
+                    p2.rage.putCard(null);
                     //karta Rage sie aktywuje
                 }
             }
@@ -70,12 +72,12 @@ public class Board {
                 if(p1.showShields() == -1){
                     p2.score += 2.0;
                     p1.score -= 0.5;
-                    //koniec_gry();
+                    endGame(p1, p2);
                 }
                 else{
                     p2.score += 1.0;
                     p1.score -= 0.5;
-                    p1.rage.putCard(rage_cards.giveCard());
+                    p1.rage.putCard(null);
                     //karta Rage sie aktywuje
                 }
             }
@@ -163,6 +165,13 @@ public class Board {
                     p1.counter--;
             }
         }
+    }
+
+    public void endGame(Player p1, Player p2){
+        System.out.println("\n" + "\n" + "\n" + "\n" + "\n"  + "\n" + "\n" + "\n" + "\n" + "\n");
+        System.out.println("GRA SKOŃCZONA!");
+        System.out.println("Gracz 1 " + p1.score + ":" + p2.score + " Gracz 2");
+        exit(0);
     }
 
 

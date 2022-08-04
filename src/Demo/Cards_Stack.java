@@ -83,4 +83,6 @@ public class Cards_Stack {
 
     //UWAGI:
     //- można się zastanowić co ma się stać w przypadku wyczerpania się kart
+    // Czy koniec gry?
+    // Czy ponowna inicjalizacja całego "stosu" zakrytych kart?
 }

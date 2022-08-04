@@ -50,6 +50,7 @@ public class Game {
 
         //1. przejścia stworów w stronę bazy przeciwnika
         board.move(p1, p2, discarded, rage_cards);
+        System.out.println(this);
         System.out.println(board);
 
         //2. dobrania kart stworów lub żetonów waluty. Gracz ma dwa dobrania
@@ -92,6 +93,7 @@ public class Game {
             }
             //podejrzenie planszy
             else if(number == 2){
+                System.out.println(this);
                 System.out.println(board);
             }
             //pass
@@ -126,6 +128,13 @@ public class Game {
             }
             System.out.println("Pozostałe ruchy: " + p.select);
         }
+    }
+
+    @Override
+    public String toString(){
+        String stan_gry = "Gracz 1 | tarcze: " + p1.showShields() + " | punkty: " + p1.score + "\n";
+        stan_gry += "Gracz 2 | tarcze: " + p2.showShields() + " | punkty: " + p2.score + "\n";
+        return stan_gry;
     }
 
     public void clear(){
