@@ -23,8 +23,7 @@ public class Discardeds_Stack {
         if(discarded.size() == 0)
             return null;
         else {
-            Creature creature = discarded.pop();
-            return creature;
+            return discarded.pop();
         }
     }
 }

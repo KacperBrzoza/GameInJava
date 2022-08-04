@@ -1,13 +1,19 @@
 package Rage_Cards;
 
-public class R_Card {
+import Demo.Discardeds_Stack;
 
-    //tryb natychmiastowy lub stały
-    //moc
+import Demo.Money;
+import Demo.Player;
+
+public abstract class R_Card{
+
+    public String name;
+
+    public void effect(Player p, Discardeds_Stack discarded){}
+    public void effect(Player p, Money money){}
 
     @Override
     public String toString(){
-        String staty = " . ";
-        return staty;
+        return this.name;
     }
 }

@@ -1,6 +1,6 @@
 package Demo;
 
-import Rage_Cards.R_Card;
+import Rage_Cards.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,13 @@ public class Rage_Cards {
     private final List<R_Card> cards;
 
     //tu będzie inicjalizacja stosu kart Rage
-    public void initialization(){};
+    public void initialization(){
+        cards.add(new Resurrection());
+        cards.add(new Profit());
+        /*
+        TU BĘDZIE JESZCZE SPORO KART RAGE
+         */
+    }
 
     public Rage_Cards(){
         cards = new ArrayList<>();

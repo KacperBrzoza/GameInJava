@@ -1,6 +1,7 @@
 package Demo;
 
 import Creatures.Creature;
+import Rage_Cards.R_Card;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,12 +29,12 @@ public class Board {
 
 
     //ruch stworow pojedynczego gracza
-    public void move(Player p1, Player p2, Discardeds_Stack discardeds, Rage_Cards rage_cards){
+    public void move(Player p1, Player p2, Discardeds_Stack discarded, Rage_Cards rage_cards){
         //gdy tura pierwszego
         if(p1.id == 1){
             //stwor na ostatnim polu wchodzi do bazy przeciwnika
             if(!line1.get(4).empty){
-                discardeds.putCard(line1.get(4).removeCard());
+                discarded.putCard(line1.get(4).removeCard());
                 p1.counter--;
 
                 //przeciwnik traci tarcze i jeśli wychodzi na minus, to przegrywa grę
@@ -47,8 +48,9 @@ public class Board {
                 else{
                     p1.score += 1.0;
                     p2.score -= 0.5;
-                    p2.rage.putCard(null);
-                    //karta Rage sie aktywuje
+                    R_Card rage_card = rage_cards.giveCard();
+                    p2.rage.putCard(rage_card);
+                    rage_card.effect(p2, discarded);
                 }
             }
             //następnie pozostałe stwory się przemieszczają i atakują stwory przeciwnika
@@ -56,7 +58,7 @@ public class Board {
                 if(!line1.get(i).empty){
                     line1.get(i +1 ).putCard(line1.get(i).removeCard());
                     if(!line2.get(i + 1).empty) {
-                        if(fight(line1.get(i + 1), line2.get(i + 1), discardeds))
+                        if(fight(line1.get(i + 1), line2.get(i + 1), discarded))
                             p2.counter--;
                     }
                 }
@@ -65,7 +67,7 @@ public class Board {
         //gdy tura drugiego; różnica jest taka, że stwory gracza 2 idą w drugą stronę
         else {
             if(!line2.get(0).empty){
-                discardeds.putCard(line2.get(0).removeCard());
+                discarded.putCard(line2.get(0).removeCard());
                 p2.counter--;
 
                 p1.loseShield();
@@ -77,15 +79,16 @@ public class Board {
                 else{
                     p2.score += 1.0;
                     p1.score -= 0.5;
-                    p1.rage.putCard(null);
-                    //karta Rage sie aktywuje
+                    R_Card rage_card = rage_cards.giveCard();
+                    p1.rage.putCard(rage_card);
+                    rage_card.effect(p1, discarded);
                 }
             }
             for(int i = 1; i <= 4; i++){
                 if(!line2.get(i).empty){
                     line2.get(i - 1).putCard(line2.get(i).removeCard());
                     if(!line1.get(i - 1).empty) {
-                        if(fight(line2.get(i - 1), line1.get(i - 1), discardeds))
+                        if(fight(line2.get(i - 1), line1.get(i - 1), discarded))
                             p1.counter--;
                     }
                 }

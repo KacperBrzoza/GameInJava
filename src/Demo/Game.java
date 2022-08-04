@@ -2,7 +2,6 @@ package Demo;
 
 import Creatures.Creature;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Game {
