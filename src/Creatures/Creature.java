@@ -32,6 +32,7 @@ public class Creature {
     }
 
 
+    //porównywanie dwóch stworów
     public boolean theSame(Creature c) {
 
         if(this.getCost() != c.getCost())
@@ -41,6 +42,9 @@ public class Creature {
             return false;
 
         if(this.getHp() != c.getHp())
+            return false;
+
+        if(!this.getPower().equals(c.getPower()))
             return false;
 
         return true;

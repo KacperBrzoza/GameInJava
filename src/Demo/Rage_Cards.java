@@ -16,6 +16,10 @@ public class Rage_Cards {
     public void initialization(){
         cards.add(new Resurrection());
         cards.add(new Profit());
+        cards.add(new Recruiting());
+        cards.add(new Counterpunch());
+        cards.add(new FinalWord());
+        cards.add(new PowerPack());
         /*
         TU BĘDZIE JESZCZE SPORO KART RAGE
          */
@@ -47,7 +51,7 @@ public class Rage_Cards {
         String my_cards = "";
         for(int i = 0; i < cards.size(); i++)
         {
-            my_cards += cards.get(i) + "\n";
+            my_cards += cards.get(i).getDescription() + "\n";
         }
         return my_cards;
     }

@@ -1,19 +1,22 @@
 package Rage_Cards;
 
-import Demo.Discardeds_Stack;
+import Demo.*;
 
-import Demo.Money;
-import Demo.Player;
-
+//klasa abstrakcyjna ogólnie kart Rage
 public abstract class R_Card{
 
-    public String name;
+    protected String name;
+    protected String description;
 
-    public void effect(Player p, Discardeds_Stack discarded){}
-    public void effect(Player p, Money money){}
+    //na tej metodzie "do przeciążania" opierają się karty Rage
+    public void effect(Player p1, Player p2, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money){}
 
     @Override
     public String toString(){
         return this.name;
+    }
+
+    public String getDescription(){
+        return this.name + " - " + this.description;
     }
 }

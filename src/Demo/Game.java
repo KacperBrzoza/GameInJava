@@ -34,9 +34,9 @@ public class Game {
         }
     }
 
-    //początkowe zasoby dla każdego gracza
+    //początkowe zasoby dla każdego gracza (3 żetony waluty i 3 karty stworów)
     public void startGame(Player p){
-        for(int i = 0; i < 5; i++){
+        for(int i = 0; i < 3; i++){
             p.eq.addCreature(cards.giveCard());
             p.money += money.giveMoney();
         }
@@ -48,9 +48,11 @@ public class Game {
         System.out.println("\nTURA GRACZA " + p1.id);
 
         //1. przejścia stworów w stronę bazy przeciwnika
-        board.move(p1, p2, discarded, rage_cards);
+        board.move(p1, p2, discarded, cards,  rage_cards, money);
+
         System.out.println(this);
         System.out.println(board);
+        p1.showMoney();
 
         //2. dobrania kart stworów lub żetonów waluty. Gracz ma dwa dobrania
         draw(p1);
@@ -59,7 +61,7 @@ public class Game {
         //3. wystawienia tylu stworów na ile stać gracza, o ile jakieś ma, przestrzegając limitu 4 swoich stworów na planszy
         while (p1.counter < 4 && p1.eq.size() >= 1){
             System.out.println("Pieniądze: " + p1.money);
-            System.out.println("1 - wybierz karte \n 2 - podejrzyj plansze \n 3 - spasuj");
+            System.out.println("1 - wybierz karte \n 2 - podejrzyj plansze \n 3 - spasuj \n 4 - obejrzyj swoje karty Rage");
 
             Scanner scan = new Scanner(System.in);
             int number = scan.nextInt();
@@ -68,7 +70,7 @@ public class Game {
                 System.out.println("\nTwój ekwpiunek:");
                 System.out.println(p1.eq);
                 System.out.println("(" + p1.eq.size() + ") cofnij");
-                System.out.println("Pieniądze: " + p1.money);
+                p1.showMoney();
 
                 number = -1;
                 while (number < 0 || number > p1.eq.size()){
@@ -99,13 +101,17 @@ public class Game {
             else if(number == 3){
                 break;
             }
+            //podejrzenie swoich kart Rage
+            else if(number == 4){
+                System.out.println(p1.rage);
+            }
         }
 
         //wyczyszczenie ekranu na koniec tury
         clear();
     }
 
-    //pozwala graczowi dobrać 2x żeton waluty || 2x kartę stwora || 1x to i 1x to
+    //pozwala graczowi dobrać 2x żeton waluty  lub  2x kartę stwora  lub  1x to i 1x to
     public void draw(Player p){
         p.select = 2;
         while(p.select > 0){

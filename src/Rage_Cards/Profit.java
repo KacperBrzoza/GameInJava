@@ -1,16 +1,17 @@
 package Rage_Cards;
 
-import Demo.Money;
-import Demo.Player;
+import Demo.*;
 
+//gracz natychmiast dobiera 5 żetonów waluty
 public class Profit extends R_Card{
     public Profit(){
         this.name = "Profit";
+        this.description = "dobierasz 5 żetonów waluty (jednorazowa)";
     }
 
-    public void effect(Player p, Money money){
+    public void effect(Player p1, Player p2, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money){
         for (int i = 0; i < 5; i++){
-            p.money += money.giveMoney();
+            p1.money += money.giveMoney();
         }
     }
 }

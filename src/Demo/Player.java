@@ -29,4 +29,6 @@ public class Player {
     public int showShields(){
        return shields;
     }
+
+    public void showMoney(){System.out.println("Pieniądze: " + money);}
 }

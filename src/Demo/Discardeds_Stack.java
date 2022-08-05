@@ -26,4 +26,9 @@ public class Discardeds_Stack {
             return discarded.pop();
         }
     }
+
+    //metoda sprawdza czy stos kart odrzuconcyh jest pusty
+    public boolean empty(){
+        return discarded.size() == 0;
+    }
 }

@@ -34,6 +34,7 @@ public class Equipment {
         }
     }
 
+
     //zwraca wybraną postać i usuwa ją z ekwipunku
     //jeśli takiej samej karty było w ekwipunku więcej niż 1, to zmniejsza ilość posiadanej karty
     //w przeciwnym wypadku czyści ekwipunek z pola po wybranej karcie
@@ -46,14 +47,18 @@ public class Equipment {
         return creature;
     }
 
+
+    //zwraca koszt stwora na podanej pozycji w ekwipunku
     public int checkCost(int index){
         return fields.get(index).creature.getCost();
     }
+
 
     //wielkosc ekwipunku
     public int size(){
         return fields.size();
     }
+
 
     //funkcja tymczasowa na potrzeby testów
     @Override

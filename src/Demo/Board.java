@@ -29,7 +29,7 @@ public class Board {
 
 
     //ruch stworow pojedynczego gracza
-    public void move(Player p1, Player p2, Discardeds_Stack discarded, Rage_Cards rage_cards){
+    public void move(Player p1, Player p2, Discardeds_Stack discarded, Cards_Stack cards,  Rage_Cards rage_cards, Money money){
         //gdy tura pierwszego
         if(p1.id == 1){
             //stwor na ostatnim polu wchodzi do bazy przeciwnika
@@ -50,7 +50,8 @@ public class Board {
                     p2.score -= 0.5;
                     R_Card rage_card = rage_cards.giveCard();
                     p2.rage.putCard(rage_card);
-                    rage_card.effect(p2, discarded);
+                    System.out.println("GRACZ " + p2.id + " otrzymał kartę *" + rage_card + "*");
+                    rage_card.effect(p2, p1, this, discarded, cards, money);
                 }
             }
             //następnie pozostałe stwory się przemieszczają i atakują stwory przeciwnika
@@ -68,20 +69,21 @@ public class Board {
         else {
             if(!line2.get(0).empty){
                 discarded.putCard(line2.get(0).removeCard());
-                p2.counter--;
+                p1.counter--;
 
-                p1.loseShield();
-                if(p1.showShields() == -1){
-                    p2.score += 2.0;
-                    p1.score -= 0.5;
+                p2.loseShield();
+                if(p2.showShields() == -1){
+                    p1.score += 2.0;
+                    p2.score -= 0.5;
                     endGame(p1, p2);
                 }
                 else{
-                    p2.score += 1.0;
-                    p1.score -= 0.5;
+                    p1.score += 1.0;
+                    p2.score -= 0.5;
                     R_Card rage_card = rage_cards.giveCard();
-                    p1.rage.putCard(rage_card);
-                    rage_card.effect(p1, discarded);
+                    p2.rage.putCard(rage_card);
+                    System.out.println("GRACZ " + p2.id + " otrzymał kartę *" + rage_card + "*");
+                    rage_card.effect(p1, p2, this, discarded, cards, money);
                 }
             }
             for(int i = 1; i <= 4; i++){
@@ -89,7 +91,7 @@ public class Board {
                     line2.get(i - 1).putCard(line2.get(i).removeCard());
                     if(!line1.get(i - 1).empty) {
                         if(fight(line2.get(i - 1), line1.get(i - 1), discarded))
-                            p1.counter--;
+                            p2.counter--;
                     }
                 }
             }
@@ -105,6 +107,11 @@ public class Board {
         return false;
     }
 
+
+    /*
+    !!! UWAGA !!!
+    PRAWDOPODONIE METODA put WYAMAGA PRZEBUDOWY
+     */
 
     //metoda umieszcza wybranego stwora na pierwszym polu linii odpowiedniego gracza
     //jednak najpierw sprawdza czy pole i jeśli potrzeba, kolejne pola, czy są zajęte, bo
@@ -170,6 +177,7 @@ public class Board {
         }
     }
 
+    //funkcja zakańczająca grę
     public void endGame(Player p1, Player p2){
         System.out.println("\n" + "\n" + "\n" + "\n" + "\n"  + "\n" + "\n" + "\n" + "\n" + "\n");
         System.out.println("GRA SKOŃCZONA!");
@@ -216,8 +224,8 @@ public class Board {
 
     //pojedyncze pole
     private static class Field{
-        boolean empty;
-        Creature creature;
+        public boolean empty;
+        public Creature creature;
 
         public Field(){
             empty = true;
