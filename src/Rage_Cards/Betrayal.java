@@ -1,6 +1,5 @@
 package Rage_Cards;
 
-import Creatures.Creature;
 import Demo.*;
 
 import java.util.Scanner;
@@ -31,7 +30,9 @@ public class Betrayal extends R_Card{
                 System.out.print("wybierz: ");
                 number = scan.nextInt();
                 if(number >=0 && number < 5) {
+                    //jeżeli wybrane pole przeciwnika nie jest puste, a aktualnego gracza wolne...
                     if (!board.empty(p1.id, number) && board.empty(p2.id, number)) {
+                        //...wtedy stwór przeciwnika przechodzi na stronę aktualnego gracza
                         board.insertCard(board.removeCard(p1.id, number), number, p2.id);
                     }
                     else{

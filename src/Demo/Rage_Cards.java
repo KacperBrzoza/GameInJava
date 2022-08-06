@@ -21,6 +21,7 @@ public class Rage_Cards {
         cards.add(new FinalWord());
         cards.add(new PowerPack());
         cards.add(new Redeployment());
+        cards.add(new Betrayal());
         /*
         TU BĘDZIE JESZCZE SPORO KART RAGE
          */
