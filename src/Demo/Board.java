@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.System.exit;
+import static java.lang.System.in;
 
 public class Board {
 
@@ -83,7 +84,7 @@ public class Board {
                     R_Card rage_card = rage_cards.giveCard();
                     p2.rage.putCard(rage_card);
                     System.out.println("GRACZ " + p2.id + " otrzymał kartę *" + rage_card + "*");
-                    rage_card.effect(p1, p2, this, discarded, cards, money);
+                    rage_card.effect(p2, p1, this, discarded, cards, money);
                 }
             }
             for(int i = 1; i <= 4; i++){
@@ -107,11 +108,6 @@ public class Board {
         return false;
     }
 
-
-    /*
-    !!! UWAGA !!!
-    PRAWDOPODONIE METODA put WYAMAGA PRZEBUDOWY
-     */
 
     //metoda umieszcza wybranego stwora na pierwszym polu linii odpowiedniego gracza
     //jednak najpierw sprawdza czy pole i jeśli potrzeba, kolejne pola, czy są zajęte, bo
@@ -157,7 +153,7 @@ public class Board {
                                 p1.counter--;
                         }
                     }
-                    line2.get(2).putCard(line1.get(3).removeCard());
+                    line2.get(2).putCard(line2.get(3).removeCard());
                     if(!line1.get(2).empty) {
                         if(fight(line2.get(2), line1.get(2), discardeds))
                             p1.counter--;
@@ -177,7 +173,27 @@ public class Board {
         }
     }
 
-    //funkcja zakańczająca grę
+    //wstawia wybranego stwora na pole o podanym indexie należące do danego gracza
+    public void insertCard(Creature creature, int index, int player_id){
+        if(player_id == 1){
+            line1.get(index).putCard(creature);
+        }
+        else{
+            line2.get(index).putCard(creature);
+        }
+    }
+
+    //zdejmuje wybraną kartę z linii podanego gracza
+    public Creature removeCard(int player_id, int index){
+        if(player_id == 1){
+            return line1.get(index).removeCard();
+        }
+        else {
+            return line2.get(index).removeCard();
+        }
+    }
+
+    //zakończenie gry
     public void endGame(Player p1, Player p2){
         System.out.println("\n" + "\n" + "\n" + "\n" + "\n"  + "\n" + "\n" + "\n" + "\n" + "\n");
         System.out.println("GRA SKOŃCZONA!");
@@ -185,6 +201,16 @@ public class Board {
         exit(0);
     }
 
+
+    //sprawdza czy pole o podanym indexie na linii podanego gracza jest puste
+    public boolean empty(int player_id, int index){
+        if(player_id == 1){
+            return line1.get(index).empty;
+        }
+        else{
+            return line2.get(index).empty;
+        }
+    }
 
     //plansza składa się odpowiednio z linii 2, przerwy i linii 1
     @Override

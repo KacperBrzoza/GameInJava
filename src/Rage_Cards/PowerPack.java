@@ -9,16 +9,16 @@ public class PowerPack extends R_Card{
         this.description = "dobierasz 2 żetony waluty, 2 karty stworów i uzdrawiasz dwie jednostki (jednorazowa)";
     }
 
-    public void effect(Player p1, Player p2, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money){
+    public void effect(Player p2, Player p1, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money){
         for (int i = 0; i < 2; i++){
-            p1.eq.addCreature(cards.giveCard());
+            p2.eq.addCreature(cards.giveCard());
         }
         for (int i = 0; i < 2; i++){
-            p1.money += money.giveMoney();
+            p2.money += money.giveMoney();
         }
         if(!discardeds.empty()) {
             for (int i = 0; i < 2; i++) {
-                p1.eq.addCreature(discardeds.takeCard());
+                p2.eq.addCreature(discardeds.takeCard());
                 if(discardeds.empty())
                     break;
             }

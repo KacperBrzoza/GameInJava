@@ -9,7 +9,7 @@ public abstract class R_Card{
     protected String description;
 
     //na tej metodzie "do przeciążania" opierają się karty Rage
-    public void effect(Player p1, Player p2, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money){}
+    public void effect(Player p2, Player p1, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money){}
 
     @Override
     public String toString(){

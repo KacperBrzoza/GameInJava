@@ -10,9 +10,9 @@ public class Counterpunch extends R_Card{
         this.description = "przeciwnik traci tarczę i nie dobiera karty Rage (jednorazowa)";
     }
 
-    public void effect(Player p1, Player p2, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money){
-        if(p2.showShields() > 0)
-            p2.loseShield();
+    public void effect(Player p2, Player p1, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money){
+        if(p1.showShields() > 0)
+            p1.loseShield();
     }
 
 }

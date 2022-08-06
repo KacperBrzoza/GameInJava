@@ -20,6 +20,7 @@ public class Rage_Cards {
         cards.add(new Counterpunch());
         cards.add(new FinalWord());
         cards.add(new PowerPack());
+        cards.add(new Redeployment());
         /*
         TU BĘDZIE JESZCZE SPORO KART RAGE
          */

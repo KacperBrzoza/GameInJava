@@ -12,19 +12,19 @@ public class FinalWord extends R_Card{
         this.description = "natychmiast wystawiasz jednostkę za darmo (jednorazowa)";
     }
 
-    public void effect(Player p1, Player p2, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money){
-        if(p1.eq.size() > 0 && p1.counter < 4){
+    public void effect(Player p2, Player p1, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money){
+        if(p2.eq.size() > 0 && p2.counter < 4){
             System.out.println("\n" + "\n" + "\n" + "\n" + "\n"  + "\n" + "\n" + "\n" + "\n" + "\n");
-            System.out.println("GRACZ " + p1.id + " WYSTAWIA TERAZ DARMOWEGO STWORA!!!");
+            System.out.println("GRACZ " + p2.id + " WYSTAWIA TERAZ DARMOWEGO STWORA!!!");
             System.out.println(board);
-            System.out.println(p1.eq);
+            System.out.println(p2.eq);
             int number = -1;
             Scanner scan = new Scanner(System.in);
-            while (number < 0 || number >= p1.eq.size()){
+            while (number < 0 || number >= p2.eq.size()){
                 System.out.print("wybierz: ");
                 number = scan.nextInt();
-                if(number >=0 && number < p1.eq.size()){
-                    board.put(p1.eq.pickCreature(number), p1, p2, discardeds);
+                if(number >=0 && number < p2.eq.size()){
+                    board.put(p1.eq.pickCreature(number), p2, p1, discardeds);
                 }
             }
             System.out.println(board);

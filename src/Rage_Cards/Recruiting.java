@@ -9,9 +9,9 @@ public class Recruiting extends R_Card{
         this.description = "dobierasz 5 kart stworów (jednorazowa)";
     }
 
-    public void effect(Player p1, Player p2, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money){
+    public void effect(Player p2, Player p1, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money){
         for (int i = 0; i < 5; i++){
-            p1.eq.addCreature(cards.giveCard());
+            p2.eq.addCreature(cards.giveCard());
         }
     }
 }
