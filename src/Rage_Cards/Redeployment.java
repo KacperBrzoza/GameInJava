@@ -11,13 +11,13 @@ public class Redeployment extends R_Card{
         description = "możesz cofnąć swoją wybraną jednostkę do ekwipunku, jeśli to zrobisz zyskasz 3 żetony waluty (jednorazowe)";
     }
 
-    public void effect(Player p2, Player p1, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money){
-        if(p2.counter > 0){
+    public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage){
+        if(you.counter > 0){
             System.out.println("\n" + "\n" + "\n" + "\n" + "\n"  + "\n" + "\n" + "\n" + "\n" + "\n");
-            System.out.println("GRACZ " + p2.id + " MOŻE WYCOFAĆ SWOJEGO STWORA!!!");
+            System.out.println("GRACZ " + you.id + " MOŻE WYCOFAĆ SWOJEGO STWORA!!!");
             System.out.println(board);
             for(int i = 0; i < 5; i++){
-                if(!board.empty(p2.id, i)){
+                if(!board.empty(you.id, i)){
                     System.out.print("  (" + i + ")  ");
                 }
             }
@@ -28,10 +28,11 @@ public class Redeployment extends R_Card{
                 System.out.print("wybierz: ");
                 number = scan.nextInt();
                 if(number >=0 && number < 5) {
-                    if (!board.empty(p2.id, number)) {
-                        p2.eq.addCreature(board.removeCard(p2.id, number));
+                    if (!board.empty(you.id, number)) {
+                        you.eq.addCreature(board.removeCard(you.id, number));
+                        you.counter--;
                         for(int i = 0; i < 3; i++)
-                            p2.money += money.giveMoney();
+                            you.money += money.giveMoney();
                     }
                     else{
                         number = -1;

@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static java.lang.System.exit;
+
 //stos kart stworów
 public class Cards_Stack {
 
@@ -78,6 +80,9 @@ public class Cards_Stack {
         int n = rand.nextInt(creatures.size());
         Creature card = creatures.get(n);
         creatures.remove(n);
+        System.out.println("Na stosie zostało " + creatures.size() + " kart");
+        if(creatures.size() == 0)
+            endGame();
         return card;
     }
 
@@ -87,4 +92,12 @@ public class Cards_Stack {
     //Preferencja osobista (Zalezy czy bysmy chcieli,zeby gracze grali bardzo dlugo, czy chcemy zrownowazone gry - Tak jak w Hearthstone
     //odbieranie coraz wiecej zycia po wyczerpaniu stosu kart
     // Czy ponowna inicjalizacja całego "stosu" zakrytych kart?
+
+
+
+    //metoda przerywa grę gdy skończą się karty na stosie (do testów)
+    private void endGame(){
+        System.out.println("Stos kart stworów wyczerpał się!");
+        exit(0);
+    }
 }

@@ -9,9 +9,9 @@ public class Profit extends R_Card{
         this.description = "dobierasz 5 żetonów waluty (jednorazowa)";
     }
 
-    public void effect(Player p2, Player p1, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money){
+    public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage){
         for (int i = 0; i < 5; i++){
-            p2.money += money.giveMoney();
+            you.money += money.giveMoney();
         }
     }
 }

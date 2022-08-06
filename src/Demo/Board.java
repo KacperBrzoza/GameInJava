@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.System.exit;
-import static java.lang.System.in;
 
 public class Board {
 
@@ -30,29 +29,29 @@ public class Board {
 
 
     //ruch stworow pojedynczego gracza
-    public void move(Player p1, Player p2, Discardeds_Stack discarded, Cards_Stack cards,  Rage_Cards rage_cards, Money money){
+    public void move(Player you, Player opponent, Discardeds_Stack discarded, Cards_Stack cards,  Rage_Cards rage_cards, Money money){
         //gdy tura pierwszego
-        if(p1.id == 1){
+        if(you.id == 1){
             //stwor na ostatnim polu wchodzi do bazy przeciwnika
             if(!line1.get(4).empty){
                 discarded.putCard(line1.get(4).removeCard());
-                p1.counter--;
+                you.counter--;
 
                 //przeciwnik traci tarcze i jeśli wychodzi na minus, to przegrywa grę
-                p2.loseShield();
-                if(p2.showShields() == -1){
-                    p1.score += 2.0;
-                    p2.score -= 0.5;
-                    endGame(p1, p2);
+                opponent.loseShield();
+                if(opponent.showShields() == -1){
+                    you.score += 2.0;
+                    opponent.score -= 0.5;
+                    endGame(you, opponent);
                 }
                 //w przeciwnym razie zdobywa kartę Rage
                 else{
-                    p1.score += 1.0;
-                    p2.score -= 0.5;
+                    you.score += 1.0;
+                    opponent.score -= 0.5;
                     R_Card rage_card = rage_cards.giveCard();
-                    p2.rage.putCard(rage_card);
-                    System.out.println("GRACZ " + p2.id + " otrzymał kartę *" + rage_card + "*");
-                    rage_card.effect(p2, p1, this, discarded, cards, money);
+                    opponent.rage.putCard(rage_card);
+                    System.out.println("GRACZ " + opponent.id + " otrzymał kartę *" + rage_card + "*");
+                    rage_card.effect(opponent, you, this, discarded, cards, money, rage_cards);
                 }
             }
             //następnie pozostałe stwory się przemieszczają i atakują stwory przeciwnika
@@ -61,7 +60,7 @@ public class Board {
                     line1.get(i +1 ).putCard(line1.get(i).removeCard());
                     if(!line2.get(i + 1).empty) {
                         if(fight(line1.get(i + 1), line2.get(i + 1), discarded))
-                            p2.counter--;
+                            opponent.counter--;
                     }
                 }
             }
@@ -70,21 +69,21 @@ public class Board {
         else {
             if(!line2.get(0).empty){
                 discarded.putCard(line2.get(0).removeCard());
-                p1.counter--;
+                you.counter--;
 
-                p2.loseShield();
-                if(p2.showShields() == -1){
-                    p1.score += 2.0;
-                    p2.score -= 0.5;
-                    endGame(p1, p2);
+                opponent.loseShield();
+                if(opponent.showShields() == -1){
+                    you.score += 2.0;
+                    opponent.score -= 0.5;
+                    endGame(you, opponent);
                 }
                 else{
-                    p1.score += 1.0;
-                    p2.score -= 0.5;
+                    you.score += 1.0;
+                    opponent.score -= 0.5;
                     R_Card rage_card = rage_cards.giveCard();
-                    p2.rage.putCard(rage_card);
-                    System.out.println("GRACZ " + p2.id + " otrzymał kartę *" + rage_card + "*");
-                    rage_card.effect(p2, p1, this, discarded, cards, money);
+                    opponent.rage.putCard(rage_card);
+                    System.out.println("GRACZ " + opponent.id + " otrzymał kartę *" + rage_card + "*");
+                    rage_card.effect(opponent, you, this, discarded, cards, money, rage_cards);
                 }
             }
             for(int i = 1; i <= 4; i++){
@@ -92,7 +91,7 @@ public class Board {
                     line2.get(i - 1).putCard(line2.get(i).removeCard());
                     if(!line1.get(i - 1).empty) {
                         if(fight(line2.get(i - 1), line1.get(i - 1), discarded))
-                            p2.counter--;
+                            opponent.counter--;
                     }
                 }
             }
@@ -113,33 +112,33 @@ public class Board {
     //jednak najpierw sprawdza czy pole i jeśli potrzeba, kolejne pola, czy są zajęte, bo
     //jeżeli są, to przepycha najpierw stwory do przodu, one mają możliwość ataku
     //dopiero wtedy wybrany stwor staje na pierwszym polu i też wykonuje atak, jeśli ma kogo atakować
-    public void put(Creature creature, Player p1, Player p2,  Discardeds_Stack discardeds){
-        if(p1.id == 1){
+    public void put(Creature creature, Player you, Player opponent,  Discardeds_Stack discardeds){
+        if(you.id == 1){
             if(!line1.get(0).empty){
                 if(!line1.get(1).empty){
                     if(!line1.get(2).empty){
                         line1.get(3).putCard(line1.get(2).removeCard());
                         if(!line2.get(3).empty) {
                             if(fight(line1.get(3), line2.get(3), discardeds))
-                                p2.counter--;
+                                opponent.counter--;
                         }
                     }
                     line1.get(2).putCard(line1.get(1).removeCard());
                     if(!line2.get(2).empty) {
                         if(fight(line1.get(2), line2.get(2), discardeds))
-                            p2.counter--;
+                            opponent.counter--;
                     }
                 }
                 line1.get(1).putCard(line1.get(0).removeCard());
                 if(!line2.get(1).empty) {
                     if(fight(line1.get(1), line2.get(1), discardeds))
-                        p2.counter--;
+                        opponent.counter--;
                 }
             }
             line1.get(0).putCard(creature);
             if(!line2.get(0).empty){
                 if(fight(line1.get(0), line2.get(0), discardeds))
-                    p2.counter--;
+                    opponent.counter--;
             }
         }
 
@@ -150,30 +149,30 @@ public class Board {
                         line2.get(1).putCard(line2.get(2).removeCard());
                         if(!line1.get(1).empty) {
                             if(fight(line2.get(1), line1.get(1), discardeds))
-                                p1.counter--;
+                                opponent.counter--;
                         }
                     }
                     line2.get(2).putCard(line2.get(3).removeCard());
                     if(!line1.get(2).empty) {
                         if(fight(line2.get(2), line1.get(2), discardeds))
-                            p1.counter--;
+                            opponent.counter--;
                     }
                 }
                 line2.get(3).putCard(line2.get(4).removeCard());
                 if(!line1.get(3).empty) {
                     if(fight(line2.get(3), line1.get(3), discardeds))
-                        p1.counter--;
+                        opponent.counter--;
                 }
             }
             line2.get(4).putCard(creature);
             if(!line1.get(4).empty){
                 if(fight(line2.get(4), line1.get(4), discardeds))
-                    p1.counter--;
+                    opponent.counter--;
             }
         }
     }
 
-    //wstawia wybranego stwora na pole o podanym indexie należące do danego gracza
+    //wstawia wybranego stwora na pole o podanym indexie należące do danego gracza, bez wykonania ataku
     public void insertCard(Creature creature, int index, int player_id){
         if(player_id == 1){
             line1.get(index).putCard(creature);
@@ -194,10 +193,10 @@ public class Board {
     }
 
     //zakończenie gry
-    public void endGame(Player p1, Player p2){
+    public void endGame(Player you, Player opponent){
         System.out.println("\n" + "\n" + "\n" + "\n" + "\n"  + "\n" + "\n" + "\n" + "\n" + "\n");
         System.out.println("GRA SKOŃCZONA!");
-        System.out.println("Gracz 1 " + p1.score + ":" + p2.score + " Gracz 2");
+        System.out.println("Gracz 1 " + you.score + ":" + opponent.score + " Gracz 2");
         exit(0);
     }
 

@@ -5,8 +5,8 @@ import Creatures.Creature;
 import java.util.Scanner;
 
 public class Game {
-    Player p1;                  //gracz 1
-    Player p2;                  //gracz 2
+    Player you;                  //gracz 1
+    Player opponent;                  //gracz 2
     Cards_Stack cards;          //zakryty "stos" kart stworów
     Discardeds_Stack discarded; //odkryty stos kart odrzuconych stworów
     Money money;                //zakryty "stos" żetonów waluty
@@ -16,8 +16,8 @@ public class Game {
 
 
     public Game(){
-        p1 = new Player(1);
-        p2 = new Player(2);
+        you = new Player(1);
+        opponent = new Player(2);
         cards = new Cards_Stack();
         discarded = new Discardeds_Stack();
         money = new Money();
@@ -26,11 +26,11 @@ public class Game {
         rage_cards = new Rage_Cards();
         rage_cards.initialization();
 
-        startGame(p1);
-        startGame(p2);
+        startGame(you);
+        startGame(opponent);
         while(true){
-            turn(p1, p2);
-            turn(p2, p1);
+            turn(you, opponent);
+            turn(opponent, you);
         }
     }
 
@@ -43,24 +43,24 @@ public class Game {
     }
 
     //tura składa się z:
-    public void turn(Player p1, Player p2){
+    public void turn(Player you, Player opponent){
 
-        System.out.println("\nTURA GRACZA " + p1.id);
+        System.out.println("\nTURA GRACZA " + you.id);
 
         //1. przejścia stworów w stronę bazy przeciwnika
-        board.move(p1, p2, discarded, cards,  rage_cards, money);
+        board.move(you, opponent, discarded, cards,  rage_cards, money);
 
         System.out.println(this);
         System.out.println(board);
-        p1.showMoney();
+        you.showMoney();
 
         //2. dobrania kart stworów lub żetonów waluty. Gracz ma dwa dobrania
-        draw(p1);
+        draw(you);
         clear();
 
         //3. wystawienia tylu stworów na ile stać gracza, o ile jakieś ma, przestrzegając limitu 4 swoich stworów na planszy
-        while (p1.counter < 4 && p1.eq.size() >= 1){
-            System.out.println("Pieniądze: " + p1.money);
+        while (you.counter < 4 && you.eq.size() >= 1){
+            System.out.println("Pieniądze: " + you.money);
             System.out.println("1 - wybierz karte \n 2 - podejrzyj plansze \n 3 - spasuj \n 4 - obejrzyj swoje karty Rage");
 
             Scanner scan = new Scanner(System.in);
@@ -68,19 +68,19 @@ public class Game {
             //wystawienie karty
             if(number == 1){
                 System.out.println("\nTwój ekwpiunek:");
-                System.out.println(p1.eq);
-                System.out.println("(" + p1.eq.size() + ") cofnij");
-                p1.showMoney();
+                System.out.println(you.eq);
+                System.out.println("(" + you.eq.size() + ") cofnij");
+                you.showMoney();
 
                 number = -1;
-                while (number < 0 || number > p1.eq.size()){
+                while (number < 0 || number > you.eq.size()){
                     System.out.print("wybierz: ");
                     number = scan.nextInt();
-                    if(number >= 0 && number < p1.eq.size()){
-                        if(p1.eq.checkCost(number) <= p1.money) {
-                            p1.money -= p1.eq.checkCost(number);
-                            board.put(p1.eq.pickCreature(number), p1, p2, discarded);
-                            p1.counter++;
+                    if(number >= 0 && number < you.eq.size()){
+                        if(you.eq.checkCost(number) <= you.money) {
+                            you.money -= you.eq.checkCost(number);
+                            board.put(you.eq.pickCreature(number), you, opponent, discarded);
+                            you.counter++;
                             System.out.println("\n" + board);
                         }
                         else {
@@ -88,7 +88,7 @@ public class Game {
                             number = -1;
                         }
                     }
-                    else if(number == p1.eq.size())
+                    else if(number == you.eq.size())
                         break;
                 }
             }
@@ -103,7 +103,7 @@ public class Game {
             }
             //podejrzenie swoich kart Rage
             else if(number == 4){
-                System.out.println(p1.rage);
+                System.out.println(you.rage);
             }
         }
 
@@ -137,8 +137,8 @@ public class Game {
 
     @Override
     public String toString(){
-        String stan_gry = "Gracz 1 | tarcze: " + p1.showShields() + " | punkty: " + p1.score + "\n";
-        stan_gry += "Gracz 2 | tarcze: " + p2.showShields() + " | punkty: " + p2.score + "\n";
+        String stan_gry = "Gracz 1 | tarcze: " + you.showShields() + " | punkty: " + you.score + "\n";
+        stan_gry += "Gracz 2 | tarcze: " + opponent.showShields() + " | punkty: " + opponent.score + "\n";
         return stan_gry;
     }
 

@@ -10,10 +10,10 @@ public class Resurrection extends R_Card{
         this.description = "uzdrawiasz 5 kart stworów (jednorazowa)";
     }
 
-    public void effect(Player p2, Player p1, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money){
+    public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage){
         if(!discardeds.empty()) {
             for (int i = 0; i < 5; i++) {
-                p2.eq.addCreature(discardeds.takeCard());
+                you.eq.addCreature(discardeds.takeCard());
                 if(discardeds.empty())
                     break;
             }

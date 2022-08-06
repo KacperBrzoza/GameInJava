@@ -22,6 +22,9 @@ public class Rage_Cards {
         cards.add(new PowerPack());
         cards.add(new Redeployment());
         cards.add(new Betrayal());
+        cards.add(new Extermination());
+        cards.add(new BraveMove());
+        cards.add(new Weakness());
         /*
         TU BĘDZIE JESZCZE SPORO KART RAGE
          */

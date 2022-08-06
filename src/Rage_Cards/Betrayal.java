@@ -11,15 +11,15 @@ public class Betrayal extends R_Card{
         description = "wybrana jednostka rywala przechodzi na twoją stronę (jednorazowe)";
     }
 
-    public void effect(Player p2, Player p1, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money){
-        //jeżeli przeciwnik ma wystawione jakieś stwory
-        if(p1.counter > 0){
+    public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage){
+        //jeżeli przeciwnik ma wystawione jakieś stwory, a aktualny gracz nie przekroczył limitu 4 jednostek na planszy
+        if(opponent.counter > 0 && you.counter < 4){
             System.out.println("\n" + "\n" + "\n" + "\n" + "\n"  + "\n" + "\n" + "\n" + "\n" + "\n");
-            System.out.println("GRACZ " + p2.id + " MOŻE PRZECIĄGNĄĆ STWORA NA SWOJĄ STRONĘ!!!");
+            System.out.println("GRACZ " + you.id + " MOŻE PRZECIĄGNĄĆ STWORA NA SWOJĄ STRONĘ!!!");
             System.out.println(board);
             for(int i = 0; i < 5; i++){
                 //wybierz te pola, które przeciwnik ma zajęte, a ty masz wolne
-                if(!board.empty(p1.id, i) && (board.empty(p2.id, i))){
+                if(!board.empty(opponent.id, i) && (board.empty(you.id, i))){
                     System.out.print("  (" + i + ")  ");
                 }
             }
@@ -31,9 +31,11 @@ public class Betrayal extends R_Card{
                 number = scan.nextInt();
                 if(number >=0 && number < 5) {
                     //jeżeli wybrane pole przeciwnika nie jest puste, a aktualnego gracza wolne...
-                    if (!board.empty(p1.id, number) && board.empty(p2.id, number)) {
+                    if (!board.empty(opponent.id, number) && board.empty(you.id, number)) {
                         //...wtedy stwór przeciwnika przechodzi na stronę aktualnego gracza
-                        board.insertCard(board.removeCard(p1.id, number), number, p2.id);
+                        board.insertCard(board.removeCard(opponent.id, number), number, you.id);
+                        opponent.counter--;
+                        you.counter++;
                     }
                     else{
                         number = -1;
