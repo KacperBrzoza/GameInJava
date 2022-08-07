@@ -10,6 +10,17 @@ public class Player {
     public int select;          //pole wykorzystywane do fazy dobierania
     public int counter;         //licznik wystawionych postaci
 
+    //specjalne cechy, które mogą być aktywowane odpowiednimi kartami Rage
+    public short SecretAssets;
+    public short Selection;
+    public short Thief;
+    public short BlackMarket;
+    public short Swarm;
+    public short SecondChance;
+    public short Crusher;
+    public short Unbroaken;
+    public short Hypnosis;
+
 
     public Player(int id){
         eq = new Equipment();
@@ -20,6 +31,16 @@ public class Player {
         score = 0;
         select = 0;
         counter = 0;
+
+        SecretAssets = 0;
+        Selection = 0;
+        Thief = 0;
+        BlackMarket = 0;
+        Swarm = 0;
+        SecondChance = 0;
+        Crusher = 0;
+        Unbroaken = 0;
+        Hypnosis = 0;
     }
 
     public void loseShield(){

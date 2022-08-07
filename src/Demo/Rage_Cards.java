@@ -25,9 +25,16 @@ public class Rage_Cards {
         cards.add(new Extermination());
         cards.add(new BraveMove());
         cards.add(new Weakness());
-        /*
-        TU BĘDZIE JESZCZE SPORO KART RAGE
-         */
+        cards.add(new SecretAssets());
+        cards.add(new Selection());
+        cards.add(new Thief());
+        cards.add(new BlackMarket());
+        cards.add(new Swarm());
+        cards.add(new SecondChance());
+        cards.add(new Crusher());
+        cards.add(new Unbroaken());
+        cards.add(new Hypnosis());
+
     }
 
     public Rage_Cards(){

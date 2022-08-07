@@ -59,6 +59,62 @@ public class Game {
         clear();
 
         //3. wystawienia tylu stworów na ile stać gracza, o ile jakieś ma, przestrzegając limitu 4 swoich stworów na planszy
+        display(you, opponent);
+
+        //4. Jeśli gracz posiada kartę Rage "Secret Assets"
+        if(you.SecretAssets == 1){
+            you.money += money.giveMoney();
+            System.out.println("Dobrano żeton waluty");
+        }
+
+        //wyczyszczenie ekranu na koniec tury
+        clear();
+    }
+
+    //pozwala graczowi dobrać 2x żeton waluty  lub  2x kartę stwora  lub  1x to i 1x to
+    public void draw(Player p){
+        p.select = 2;
+        while(p.select > 0){
+            Scanner scan =  new Scanner(System.in);
+            System.out.println("1 - dobierz kartę (lub) 2 - dobierz żeton waluty");
+            System.out.print("wybierz: ");
+            int number = scan.nextInt();
+            if(number == 1){
+                Creature one = cards.giveCard();
+                //jeżeli gracz posiada kartę Rage "Selection"
+                if(p.Selection == 1){
+
+                    Creature two = cards.giveCard();
+                    System.out.println("(0) " + one);
+                    System.out.println("(1) " + two);
+                    number = -1;
+                    while (number < 0 || number > 1){
+                        System.out.print("wybierz: ");
+                        number = scan.nextInt();
+                    }
+                    if(number == 0)
+                        p.eq.addCreature(one);
+                    else
+                        p.eq.addCreature(two);
+                }
+                else{
+                    System.out.println(one);
+                    p.eq.addCreature(one);
+                }
+                p.select--;
+            }
+            else if(number == 2){
+                p.select--;
+                int coin = money.giveMoney();
+                System.out.println(coin);
+                p.money += coin;
+            }
+            System.out.println("Pozostałe ruchy: " + p.select);
+        }
+    }
+
+    //metoda odpowiadająca za wystawianie kart i dodatkowe akcje
+    public void display(Player you, Player opponent){
         while (you.counter < 4 && you.eq.size() >= 1){
             System.out.println("Pieniądze: " + you.money);
             System.out.println("1 - wybierz karte \n 2 - podejrzyj plansze \n 3 - spasuj \n 4 - obejrzyj swoje karty Rage");
@@ -106,34 +162,8 @@ public class Game {
                 System.out.println(you.rage);
             }
         }
-
-        //wyczyszczenie ekranu na koniec tury
-        clear();
     }
 
-    //pozwala graczowi dobrać 2x żeton waluty  lub  2x kartę stwora  lub  1x to i 1x to
-    public void draw(Player p){
-        p.select = 2;
-        while(p.select > 0){
-            Scanner scan =  new Scanner(System.in);
-            System.out.println("1 - dobierz kartę (lub) 2 - dobierz żeton waluty");
-            System.out.print("wybierz: ");
-            String number = scan.nextLine();
-            if(number.equals("1")){
-                p.select--;
-                Creature creature = cards.giveCard();
-                System.out.println(creature);
-                p.eq.addCreature(creature);
-            }
-            else if(number.equals("2")){
-                p.select--;
-                int coin = money.giveMoney();
-                System.out.println(coin);
-                p.money += coin;
-            }
-            System.out.println("Pozostałe ruchy: " + p.select);
-        }
-    }
 
     @Override
     public String toString(){
