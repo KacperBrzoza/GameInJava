@@ -1,5 +1,6 @@
 package Rage_Cards;
 
+import Creatures.Creature;
 import Demo.*;
 
 import java.util.Scanner;
@@ -26,7 +27,17 @@ public class FinalWord extends R_Card{
                 number = scan.nextInt();
                 //tu następuje właściwy wybór
                 if(number >=0 && number < you.eq.size()){
-                    board.put(opponent.eq.pickCreature(number), you, opponent, discardeds);
+                    Creature creature = you.eq.pickCreature(number);
+                    //dodatkowe cechy jeśli gracz posiada odpowiednie karty Rage
+                    if(you.Swarm == 1){
+                        creature.setSwarm(1);
+                        creature.increaseAttack();
+                    }
+                    if(you.Unbroaken == 1){
+                        creature.setUnbroaken(1);
+                        creature.increaseHp();
+                    }
+                    board.put(creature, you, opponent, discardeds);
                     you.counter++;
                 }
             }

@@ -32,6 +32,9 @@ public class Player {
         select = 0;
         counter = 0;
 
+        /*
+        UWAGA W RAMACH NAPRAWDĘ CIEKAWEGO TESTU POLECAM GORĄCO ZMIENIĆ PONIŻSZE ZERA NA JEDYNKI I ZAGRAĆ :DDD
+         */
         SecretAssets = 0;
         Selection = 0;
         Thief = 0;

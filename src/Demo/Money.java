@@ -60,10 +60,12 @@ public class Money {
             if(you.Thief == 1){
                 for (int i = 0; i < 3; i++)
                     you.money += this.giveMoney(you, opponent);
+                System.out.println("Gracz " + you.id + " okradł bank!");
             }
             else if(opponent.Thief == 1){
                 for (int i = 0; i < 3; i++)
                     opponent.money += this.giveMoney(you, opponent);
+                System.out.println("Gracz " + opponent.id + " okradł bank!");
             }
         }
         return money;

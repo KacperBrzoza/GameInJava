@@ -4,15 +4,19 @@ package Creatures;
 public class Creature {
 
     private final int cost;
-    private final int attack;
-    private final int hp;
+    private int attack;
+    private int hp;
     private final String power;
+    private int Swarm;
+    private int Unbroaken;
 
     public Creature(int cost, int attack, int hp){
         this.cost = cost;
         this.attack = attack;
         this.hp = hp;
         this.power = "brak";
+        this.Swarm = 0;         //cecha przyznawana przy wystawieniu, o ile gracz posiada kartę Rage "Swarm"
+        this.Unbroaken = 0;     //cecha przyznawana przy wystawieniu, o ile gracz posiada kartę Rage "Unbroaken"
     }
 
     public int getCost(){
@@ -31,6 +35,16 @@ public class Creature {
         return power;
     }
 
+    public void increaseAttack(){attack++;}
+    public void decreaseAttack(){attack--;}
+
+    public void setSwarm(int value){Swarm = value;}
+    public boolean ifSwarm(){return Swarm == 1;}
+
+    public void increaseHp(){hp++;}
+    public void decreaseHp(){hp--;}
+    public void setUnbroaken(int value){Unbroaken = value;}
+    public boolean ifUnbroaken(){return Unbroaken == 1;}
 
     //porównywanie dwóch stworów
     public boolean theSame(Creature c) {

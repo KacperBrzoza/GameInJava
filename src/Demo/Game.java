@@ -59,31 +59,39 @@ public class Game {
         draw(you);
         clear();
 
-        Scanner scan = new Scanner(System.in);
-        int number = 1;
-        //3. Jeśli gracz ma kartę Rage "Black Market" może...
-        if(you.BlackMarket == 1){
-            number = -1;
-            System.out.println("Możesz sprzedać JEDNEGO stwora i zakończyć turę lub wystawiać karty:");
-            System.out.println("(0) sprzedaj");
-            System.out.println("(1) wystaw");
-            while (number < 0 || number > 1){
-                System.out.print("wybierz: ");
-                number = scan.nextInt();
+        //3.Jeżeli gracz ma coś w ekwipunku...
+        if(you.eq.size() >= 1) {
+            Scanner scan = new Scanner(System.in);
+            int number = 1;
+            //3. ... i ma kartę Rage "Black Market" może...
+            if (you.BlackMarket == 1) {
+                number = -1;
+                System.out.println("Możesz sprzedać JEDNEGO stwora i zakończyć turę lub wystawiać karty:");
+                System.out.println("(0) sprzedaj");
+                System.out.println("(1) wystaw");
+                while (number < 0 || number > 1) {
+                    System.out.print("wybierz: ");
+                    number = scan.nextInt();
+                }
+                //... sprzedawać lub...
+                if (number == 0)
+                    sell(you);
             }
-            //... sprzedawać ...
-            if(number == 0)
-                sell(you);
+            //... może wystawiać tyle stworów na ile stać gracza, o ile jakieś ma, przestrzegając limitu 4 swoich stworów na planszy
+            if (number == 1)
+                display(you, opponent);
         }
-        //... lub wystawiać tyle stworów na ile stać gracza, o ile jakieś ma, przestrzegając limitu 4 swoich stworów na planszy
-        if(number == 1)
-            display(you, opponent);
-
 
         //4. Jeśli gracz posiada kartę Rage "Secret Assets"
         if(you.SecretAssets == 1){
             you.money += money.giveMoney(you, opponent);
             System.out.println("Dobrano żeton waluty");
+        }
+
+        //4. Jeśli gracz posiada kartę Rage "Hypnosis"
+        if(you.Hypnosis == 1){
+            you.eq.addCreature(cards.giveCard());
+            System.out.println("Dobrano stwora");
         }
 
         //wyczyszczenie ekranu na koniec tury
@@ -102,7 +110,6 @@ public class Game {
                 Creature one = cards.giveCard();
                 //jeżeli gracz posiada kartę Rage "Selection"
                 if(p.Selection == 1){
-
                     Creature two = cards.giveCard();
                     System.out.println("(0) " + one);
                     System.out.println("(1) " + two);
@@ -124,9 +131,26 @@ public class Game {
             }
             else if(number == 2){
                 p.select--;
-                int coin = money.giveMoney(you, opponent);
-                System.out.println(coin);
-                p.money += coin;
+                int coin_one = money.giveMoney(you, opponent);
+                //jeżeli gracz posiada kartę Rage "Second Chance"
+                if(p.SecondChance == 1){
+                    int coin_two = money.giveMoney(you, opponent);
+                    System.out.println("(0) " + coin_one);
+                    System.out.println("(1) " + coin_two);
+                    number = -1;
+                    while (number < 0 || number > 1){
+                        System.out.print("wybierz: ");
+                        number = scan.nextInt();
+                    }
+                    if(number == 0)
+                        p.money += coin_one;
+                    else
+                        p.money += coin_two;
+                }
+                else {
+                    System.out.println(coin_one);
+                    p.money += coin_one;
+                }
             }
             System.out.println("Pozostałe ruchy: " + p.select);
         }
@@ -134,7 +158,8 @@ public class Game {
 
     //metoda odpowiadająca za wystawianie kart i dodatkowe akcje
     private void display(Player you, Player opponent){
-        while (you.counter < 4 && you.eq.size() >= 1){
+        if(you.counter < 4)
+        while (you.counter < 4 ){
             System.out.println("Pieniądze: " + you.money);
             System.out.println("1 - wybierz karte \n 2 - podejrzyj plansze \n 3 - spasuj \n 4 - obejrzyj swoje karty Rage");
 
@@ -154,7 +179,22 @@ public class Game {
                     if(number >= 0 && number < you.eq.size()){
                         if(you.eq.checkCost(number) <= you.money) {
                             you.money -= you.eq.checkCost(number);
-                            board.put(you.eq.pickCreature(number), you, opponent, discarded);
+                            Creature creature = you.eq.pickCreature(number);
+                            //zwiększenie ataku stwora w przypadku posiadania karty Rage "Swarm"
+                            if(you.Swarm == 1){
+                                if(creature.getAttack() == 2) {
+                                    creature.increaseAttack();
+                                    creature.setSwarm(1);
+                                }
+                            }
+                            //zwiększenie ataku stwora w przypadku posiadania karty Rage "Unbroaken"
+                            if(you.Unbroaken == 1){
+                                if(creature.getHp() == 2) {
+                                    creature.increaseHp();
+                                    creature.setUnbroaken(1);
+                                }
+                            }
+                            board.put(creature, you, opponent, discarded);
                             you.counter++;
                             System.out.println("\n" + board);
                         }
@@ -182,6 +222,8 @@ public class Game {
                 System.out.println(you.rage);
             }
         }
+        else
+            System.out.println("Osiągnięto limit 4 kart na planszy!");
     }
 
     //służy do sprzedawania stworów jeżeli gracz posiada kartę "Black Market"
@@ -210,6 +252,6 @@ public class Game {
     }
 
     public void clear(){
-        System.out.println("\n" + "\n" + "\n" + "\n" + "\n"  + "\n" + "\n" + "\n" + "\n" + "\n");
+        System.out.println("\n" + "\n" + "\n" + "\n" + "\n");
     }
 }

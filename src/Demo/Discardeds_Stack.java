@@ -15,6 +15,15 @@ public class Discardeds_Stack {
 
     //dokłada odrzuconą kartę na stos
     public void putCard(Creature creature){
+        //obsługa zdejmowania cechy Swarm
+        if(creature.ifSwarm()){
+            creature.setSwarm(0);
+            creature.decreaseAttack();
+        }
+        if(creature.ifUnbroaken()){
+            creature.setUnbroaken(0);
+            creature.decreaseHp();
+        }
         discarded.add(creature);
     }
 
