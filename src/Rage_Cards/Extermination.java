@@ -24,7 +24,7 @@ public class Extermination extends R_Card{
         while(dead_counter < 3 && opponent.counter > 0){
             System.out.print("\nwybierz: ");
             number = scan.nextInt();
-            if(!board.empty(opponent.id, number)){
+            if(!board.empty(opponent.id, number) && number >= 0 && number < 5){
                 discardeds.putCard(board.removeCard(opponent.id, number));
                 dead_counter++;
                 opponent.counter--;

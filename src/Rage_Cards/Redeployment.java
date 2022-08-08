@@ -32,7 +32,7 @@ public class Redeployment extends R_Card{
                         you.eq.addCreature(board.removeCard(you.id, number));
                         you.counter--;
                         for(int i = 0; i < 3; i++)
-                            you.money += money.giveMoney();
+                            you.money += money.giveMoney(you, opponent);
                     }
                     else{
                         number = -1;

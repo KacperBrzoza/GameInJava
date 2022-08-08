@@ -14,7 +14,7 @@ public class PowerPack extends R_Card{
             you.eq.addCreature(cards.giveCard());
         }
         for (int i = 0; i < 2; i++){
-            you.money += money.giveMoney();
+            you.money += money.giveMoney(you, opponent);
         }
         if(!discardeds.empty()) {
             for (int i = 0; i < 2; i++) {

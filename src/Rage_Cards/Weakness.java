@@ -29,9 +29,10 @@ public class Weakness extends R_Card{
                     discardeds.putCard(opponent.eq.pickCreature(number));
                     System.out.println("Odrzucono");
                     counter--;
+                    System.out.println(opponent.eq);
                 }
             }
-            System.out.println("wybierz dowolną liczbę, aby kontynuować... ");
+            System.out.println("wybierz dowolną liczbę, aby GRACZ " + opponent.id + " kontynuował turę... ");
             number = scan.nextInt();
         }
     }

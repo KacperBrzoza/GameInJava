@@ -11,7 +11,7 @@ public class Profit extends R_Card{
 
     public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage){
         for (int i = 0; i < 5; i++){
-            you.money += money.giveMoney();
+            you.money += money.giveMoney(you, opponent);
         }
     }
 }

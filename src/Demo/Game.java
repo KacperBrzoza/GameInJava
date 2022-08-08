@@ -26,8 +26,7 @@ public class Game {
         rage_cards = new Rage_Cards();
         rage_cards.initialization();
 
-        startGame(you);
-        startGame(opponent);
+        startGame(you, opponent);
         while(true){
             turn(you, opponent);
             turn(opponent, you);
@@ -35,15 +34,17 @@ public class Game {
     }
 
     //początkowe zasoby dla każdego gracza (3 żetony waluty i 3 karty stworów)
-    public void startGame(Player p){
+    private void startGame(Player you, Player opponent){
         for(int i = 0; i < 3; i++){
-            p.eq.addCreature(cards.giveCard());
-            p.money += money.giveMoney();
+            you.eq.addCreature(cards.giveCard());
+            opponent.eq.addCreature(cards.giveCard());
+            you.money += money.giveMoney(you, opponent);
+            opponent.money += money.giveMoney(you, opponent);
         }
     }
 
     //tura składa się z:
-    public void turn(Player you, Player opponent){
+    private void turn(Player you, Player opponent){
 
         System.out.println("\nTURA GRACZA " + you.id);
 
@@ -58,12 +59,30 @@ public class Game {
         draw(you);
         clear();
 
-        //3. wystawienia tylu stworów na ile stać gracza, o ile jakieś ma, przestrzegając limitu 4 swoich stworów na planszy
-        display(you, opponent);
+        Scanner scan = new Scanner(System.in);
+        int number = 1;
+        //3. Jeśli gracz ma kartę Rage "Black Market" może...
+        if(you.BlackMarket == 1){
+            number = -1;
+            System.out.println("Możesz sprzedać JEDNEGO stwora i zakończyć turę lub wystawiać karty:");
+            System.out.println("(0) sprzedaj");
+            System.out.println("(1) wystaw");
+            while (number < 0 || number > 1){
+                System.out.print("wybierz: ");
+                number = scan.nextInt();
+            }
+            //... sprzedawać ...
+            if(number == 0)
+                sell(you);
+        }
+        //... lub wystawiać tyle stworów na ile stać gracza, o ile jakieś ma, przestrzegając limitu 4 swoich stworów na planszy
+        if(number == 1)
+            display(you, opponent);
+
 
         //4. Jeśli gracz posiada kartę Rage "Secret Assets"
         if(you.SecretAssets == 1){
-            you.money += money.giveMoney();
+            you.money += money.giveMoney(you, opponent);
             System.out.println("Dobrano żeton waluty");
         }
 
@@ -72,7 +91,7 @@ public class Game {
     }
 
     //pozwala graczowi dobrać 2x żeton waluty  lub  2x kartę stwora  lub  1x to i 1x to
-    public void draw(Player p){
+    private void draw(Player p){
         p.select = 2;
         while(p.select > 0){
             Scanner scan =  new Scanner(System.in);
@@ -105,7 +124,7 @@ public class Game {
             }
             else if(number == 2){
                 p.select--;
-                int coin = money.giveMoney();
+                int coin = money.giveMoney(you, opponent);
                 System.out.println(coin);
                 p.money += coin;
             }
@@ -114,7 +133,7 @@ public class Game {
     }
 
     //metoda odpowiadająca za wystawianie kart i dodatkowe akcje
-    public void display(Player you, Player opponent){
+    private void display(Player you, Player opponent){
         while (you.counter < 4 && you.eq.size() >= 1){
             System.out.println("Pieniądze: " + you.money);
             System.out.println("1 - wybierz karte \n 2 - podejrzyj plansze \n 3 - spasuj \n 4 - obejrzyj swoje karty Rage");
@@ -152,6 +171,7 @@ public class Game {
             else if(number == 2){
                 System.out.println(this);
                 System.out.println(board);
+                System.out.println("Aktualny GRACZ: " + you.id);
             }
             //pass
             else if(number == 3){
@@ -164,6 +184,23 @@ public class Game {
         }
     }
 
+    //służy do sprzedawania stworów jeżeli gracz posiada kartę "Black Market"
+    private void sell(Player p){
+        System.out.println("Wybierz jednostkę do sprzedania:");
+        System.out.println(p.eq);
+        Scanner scan = new Scanner(System.in);
+        int number = -1;
+        while (number < 0 || number >= p.eq.size()){
+            System.out.print("Wybierz: ");
+            number = scan.nextInt();
+            if(number >= 0 && number < p.eq.size()){
+                Creature creature = p.eq.pickCreature(number);
+                p.money += creature.getCost();
+                discarded.putCard(creature);
+                break;
+            }
+        }
+    }
 
     @Override
     public String toString(){
