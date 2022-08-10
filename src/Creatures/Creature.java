@@ -16,7 +16,7 @@ public class Creature {
         this.cost = cost;
         this.attack = attack;
         this.hp = hp;
-        this.power = "brak";
+        this.power = "-";
         this.Swarm = 0;         //cecha przyznawana przy wystawieniu, o ile gracz posiada kartę Rage "Swarm"
         this.Unbroaken = 0;     //cecha przyznawana przy wystawieniu, o ile gracz posiada kartę Rage "Unbroaken"
     }
@@ -46,7 +46,7 @@ public class Creature {
     public void setUnbroaken(int value){Unbroaken = value;}
     public boolean ifUnbroaken(){return Unbroaken == 1;}
 
-    public void effect(){}
+    //public void effect(){}
 
     //porównywanie dwóch stworów
     public boolean theSame(Creature c) {
