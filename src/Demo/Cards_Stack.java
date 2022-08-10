@@ -17,7 +17,6 @@ public class Cards_Stack {
     public Cards_Stack(){
         creatures = new ArrayList<>();
         //stwory bez mocy
-        /* na czas testów zmniejszam liczbe kart
         creatures.add(new Creature(0, 4, 2));
         creatures.add(new Creature(0, 2, 3));
         for(int i = 0; i < 3; i++)
@@ -40,7 +39,7 @@ public class Cards_Stack {
             creatures.add(new Creature(5, 4, 3));
         for(int i = 0; i < 3; i++)
             creatures.add(new Creature(5, 3, 4));
-        */
+
         creatures.add(new Creature(6, 5, 3));
         creatures.add(new Creature(6, 3, 5));
         creatures.add(new Creature(6, 4, 4));
@@ -71,7 +70,6 @@ public class Cards_Stack {
         creatures.add(new Creature(11, 6, 7));
         creatures.add(new Creature(12, 7, 7));
 
-        /*
         //z mocą D
         for(int i = 0; i < 4; i++)
             creatures.add(new D_Creature(4, 2, 3));
@@ -126,7 +124,7 @@ public class Cards_Stack {
             creatures.add(new O_Creature(4, 1, 2));
         creatures.add(new O_Creature(8, 3, 4));
         creatures.add(new O_Creature(11, 5, 5));
-        */
+
         //z mocą Z
         for(int i = 0; i < 3; i++)
             creatures.add(new Z_Creature(4, 2, 3));
