@@ -11,7 +11,7 @@ public class LoginController {
 
     @FXML
     protected void onRegisterButtonClick() {
-
+        RegisterButton.setText("Zarejestrowano");
     }
     @FXML
     protected void onLoginButtonClick() {
