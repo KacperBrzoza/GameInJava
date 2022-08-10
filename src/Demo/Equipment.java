@@ -48,17 +48,23 @@ public class Equipment {
         return creature;
     }
 
+    public Creature copy(int index){return fields.get(index).creature;}
 
     //zwraca koszt stwora na podanej pozycji w ekwipunku
     public int checkCost(int index){
         return fields.get(index).creature.getCost();
     }
 
+    //zwraca informację, czy stwór na podanej pozycji w ekwipunku ma moc E
+    public boolean ifE(int index){
+        return fields.get(index).creature.getPower().equals("E");
+    }
 
     //wielkosc ekwipunku
     public int size(){
         return fields.size();
     }
+
 
 
     //funkcja tymczasowa na potrzeby testów

@@ -27,13 +27,9 @@ public class Discardeds_Stack {
         discarded.add(creature);
     }
 
-    //jeśli stos nie jest pusty, to zabiera pierwszą kartę z wierzchu i usuwa ją ze stosu
+    //zwraca pierwszą kartę z wierzchu stosu i ją z niego usuwa
     public Creature takeCard(){
-        if(discarded.size() == 0)
-            return null;
-        else {
-            return discarded.pop();
-        }
+        return discarded.pop();
     }
 
     //metoda sprawdza czy stos kart odrzuconcyh jest pusty

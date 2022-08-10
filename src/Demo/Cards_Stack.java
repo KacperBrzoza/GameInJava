@@ -1,6 +1,6 @@
 package Demo;
 
-import Creatures.Creature;
+import Creatures.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +17,7 @@ public class Cards_Stack {
     public Cards_Stack(){
         creatures = new ArrayList<>();
         //stwory bez mocy
+        /* na czas testów zmniejszam liczbe kart
         creatures.add(new Creature(0, 4, 2));
         creatures.add(new Creature(0, 2, 3));
         for(int i = 0; i < 3; i++)
@@ -39,6 +40,7 @@ public class Cards_Stack {
             creatures.add(new Creature(5, 4, 3));
         for(int i = 0; i < 3; i++)
             creatures.add(new Creature(5, 3, 4));
+        */
         creatures.add(new Creature(6, 5, 3));
         creatures.add(new Creature(6, 3, 5));
         creatures.add(new Creature(6, 4, 4));
@@ -69,6 +71,68 @@ public class Cards_Stack {
         creatures.add(new Creature(11, 6, 7));
         creatures.add(new Creature(12, 7, 7));
 
+        /*
+        //z mocą D
+        for(int i = 0; i < 4; i++)
+            creatures.add(new D_Creature(4, 2, 3));
+        for(int i = 0; i < 3; i++)
+            creatures.add(new D_Creature(6, 3, 4));
+        for(int i = 0; i < 2; i++)
+            creatures.add(new D_Creature(7, 5, 3));
+        creatures.add(new D_Creature(8, 5, 4));
+        creatures.add(new D_Creature(8, 7, 2));
+
+        //z mocą E
+        for(int i = 0; i < 10; i++)
+            creatures.add(new E_Creature(0, 2, 2));
+        for(int i = 0; i < 3; i++)
+            creatures.add(new E_Creature(4, 4, 1));
+        for(int i = 0; i < 5; i++)
+            creatures.add(new E_Creature(4, 3, 2));
+        for(int i = 0; i < 2; i++)
+            creatures.add(new E_Creature(5, 3, 3));
+        for(int i = 0; i < 2; i++)
+            creatures.add(new E_Creature(5, 4, 2));
+        for(int i = 0; i < 5; i++)
+            creatures.add(new E_Creature(6, 4, 3));
+        creatures.add(new E_Creature(0, 5, 4));
+        creatures.add(new E_Creature(11, 10, 2));
+        //z mocą H
+        for(int i = 0; i < 2; i++)
+            creatures.add(new H_Creature(3, 1, 3));
+        for(int i = 0; i < 3; i++)
+            creatures.add(new H_Creature(3, 2, 2));
+        for(int i = 0; i < 2; i++)
+            creatures.add(new H_Creature(5, 2, 4));
+        creatures.add(new H_Creature(6, 2, 5));
+        creatures.add(new H_Creature(7, 2, 6));
+        creatures.add(new H_Creature(7, 4, 4));
+        creatures.add(new H_Creature(9, 2, 8));
+
+        //z mocą M
+        for(int i = 0; i < 4; i++)
+            creatures.add(new M_Creature(4, 2, 3));
+        for(int i = 0; i < 3; i++)
+            creatures.add(new M_Creature(5, 3, 3));
+        for(int i = 0; i < 2; i++)
+            creatures.add(new M_Creature(6, 2, 5));
+        creatures.add(new M_Creature(5, 2, 4));
+        creatures.add(new M_Creature(8, 5, 4));
+
+        //z mocą O
+        for(int i = 0; i < 3; i++)
+            creatures.add(new O_Creature(3, 1, 1));
+        for(int i = 0; i < 2; i++)
+            creatures.add(new O_Creature(4, 1, 2));
+        creatures.add(new O_Creature(8, 3, 4));
+        creatures.add(new O_Creature(11, 5, 5));
+        */
+        //z mocą Z
+        for(int i = 0; i < 3; i++)
+            creatures.add(new Z_Creature(4, 2, 3));
+        creatures.add(new Z_Creature(7, 3, 5));
+        creatures.add(new Z_Creature(9, 4, 6));
+        creatures.add(new Z_Creature(10, 6, 5));
 
         /*
         TU BĘDZIE DUUUUŻO STWORÓW W PRZYSZŁOŚCI

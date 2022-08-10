@@ -1,28 +1,31 @@
-package Rage_Cards;
+package Creatures;
 
-import Creatures.Creature;
 import Demo.*;
 
 import java.util.Scanner;
 
-//pozwala natychmiast wystawić jednostkę
-public class FinalWord extends R_Card{
-
-    public FinalWord(){
-        this.name = "Final Word";
-        this.description = "natychmiast wystawiasz jednostkę za darmo (jednorazowa)";
+//gdy wystawisz tego stwora, możesz odrazu wystawić kolejnego za darmo
+public class O_Creature extends Creature{
+    public O_Creature(int cost, int attack, int hp){
+        this.cost = cost;
+        this.attack = attack;
+        this.hp = hp;
+        this.power = "O";
+        this.Swarm = 0;         //cecha przyznawana przy wystawieniu, o ile gracz posiada kartę Rage "Swarm"
+        this.Unbroaken = 0;     //cecha przyznawana przy wystawieniu, o ile gracz posiada kartę Rage "Unbroaken"
     }
 
-    public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage){
+    @Override
+    public void effect(Player you, Player opponent, Cards_Stack cards, Discardeds_Stack discardeds, Money money, Board board) {
         //jeżeli aktualny gracz ma coś w ekwipunku i nie ma 4 jednostek na planszy
         if(you.eq.size() > 0 && you.counter < 4){
-            System.out.println("\n" + "\n" + "\n" + "\n" + "\n"  + "\n" + "\n" + "\n" + "\n" + "\n");
-            System.out.println("GRACZ " + you.id + " WYSTAWIA TERAZ DARMOWEGO STWORA!!!");
+            System.out.println("Możesz za darmo wystawić dowolną jednostkę");
             System.out.println(board);
             System.out.println(you.eq);
+            System.out.println("(" + you.eq.size() + ") nie używaj mocy O");
             int number = -1;
             Scanner scan = new Scanner(System.in);
-            while (number < 0 || number >= you.eq.size()){
+            while (number < 0 || number > you.eq.size()){
                 System.out.print("wybierz: ");
                 number = scan.nextInt();
                 //tu następuje właściwy wybór
@@ -41,11 +44,9 @@ public class FinalWord extends R_Card{
                     you.counter++;
                     creature.effect(you, opponent, cards, discardeds, money, board);
                 }
+                else if(number == you.eq.size())
+                    break;
             }
-            System.out.println(board);
-            System.out.print("wybierz dowolną liczbę, by kontynuować... ");
-            scan.nextInt();
-            System.out.println("\n");
         }
     }
 }

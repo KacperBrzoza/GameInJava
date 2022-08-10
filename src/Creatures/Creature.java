@@ -1,5 +1,7 @@
 package Creatures;
 
+import Demo.*;
+
 //Klasa do dziedziczenia z niej
 public class Creature {
 
@@ -46,7 +48,8 @@ public class Creature {
     public void setUnbroaken(int value){Unbroaken = value;}
     public boolean ifUnbroaken(){return Unbroaken == 1;}
 
-    //public void effect(){}
+    //metoda do przeciążania przez stwory z mocami
+    public void effect(Player you, Player opponent, Cards_Stack cards, Discardeds_Stack discardeds, Money money, Board board){}
 
     //porównywanie dwóch stworów
     public boolean theSame(Creature c) {

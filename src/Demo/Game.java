@@ -196,6 +196,7 @@ public class Game {
                             }
                             board.put(creature, you, opponent, discarded);
                             you.counter++;
+                            creature.effect(you, opponent, cards, discarded, money, board);
                             System.out.println("\n" + board);
                         }
                         else {
