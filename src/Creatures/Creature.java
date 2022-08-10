@@ -3,12 +3,14 @@ package Creatures;
 //Klasa do dziedziczenia z niej
 public class Creature {
 
-    private final int cost;
-    private int attack;
-    private int hp;
-    private final String power;
-    private int Swarm;
-    private int Unbroaken;
+    protected int cost;
+    protected int attack;
+    protected int hp;
+    protected String power;
+    protected int Swarm;
+    protected int Unbroaken;
+    
+    public Creature(){}
 
     public Creature(int cost, int attack, int hp){
         this.cost = cost;
@@ -22,15 +24,12 @@ public class Creature {
     public int getCost(){
         return cost;
     }
-
     public int getAttack(){
         return attack;
     }
-
     public int getHp(){
         return hp;
     }
-
     public String getPower(){
         return power;
     }
@@ -43,8 +42,11 @@ public class Creature {
 
     public void increaseHp(){hp++;}
     public void decreaseHp(){hp--;}
+    
     public void setUnbroaken(int value){Unbroaken = value;}
     public boolean ifUnbroaken(){return Unbroaken == 1;}
+
+    public void effect(){}
 
     //porównywanie dwóch stworów
     public boolean theSame(Creature c) {
@@ -58,10 +60,7 @@ public class Creature {
         if(this.getHp() != c.getHp())
             return false;
 
-        if(!this.getPower().equals(c.getPower()))
-            return false;
-
-        return true;
+        return this.getPower().equals(c.getPower());
     }
 
 

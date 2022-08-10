@@ -1,5 +1,6 @@
 package Demo;
 
+import Creatures.A_Creature;
 import Creatures.Creature;
 
 import java.util.ArrayList;
@@ -17,6 +18,14 @@ public class Equipment {
     //jeśli tak, to jedynie zwiększa licznik pola, na którym się znajduje
     //w przeciwnym wypadku tworzy nowe pole dla tego stwora
     public void addCreature(Creature creature){
+
+        //jeżeli stwór posiada moc A, wtedy pole "szansa" jest przestawiane na 1
+        if(creature.getPower().equals("A")){
+            A_Creature A = (A_Creature) creature;
+            A.setChance(1);
+            creature = A;
+        }
+
         if(fields.size() == 0){
             fields.add(new Field(creature));
         }

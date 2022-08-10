@@ -1,5 +1,6 @@
 package Demo;
 
+import Creatures.A_Creature;
 import Creatures.Creature;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public class Cards_Stack {
     //inicjalizacja "stosu" kart stworów, to tu będą ręcznie wprowadzone wszystkie karty
     public Cards_Stack(){
         creatures = new ArrayList<>();
+        //stwory bez mocy
         creatures.add(new Creature(0, 4, 2));
         creatures.add(new Creature(0, 2, 3));
         for(int i = 0; i < 3; i++)
@@ -68,6 +70,11 @@ public class Cards_Stack {
         creatures.add(new Creature(11, 6, 7));
         creatures.add(new Creature(12, 7, 7));
 
+        //z mocą A
+        creatures.add(new A_Creature(7, 4, 4));
+        creatures.add(new A_Creature(5, 3, 3));
+        creatures.add(new A_Creature(5, 4, 2));
+        creatures.add(new A_Creature(7, 5, 3));
         /*
         TU BĘDZIE DUUUUŻO STWORÓW W PRZYSZŁOŚCI
          */
