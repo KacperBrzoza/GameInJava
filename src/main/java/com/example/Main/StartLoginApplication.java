@@ -22,7 +22,7 @@ public class StartLoginApplication extends Application {
         stage.setTitle("Kingdoms Towers Collide");
         stage.setX(50);
         stage.setY(0);
-        //GITOWO ZIOMKU
+        //GITOWO ZIOMKU 2 jest
         stage.setResizable(false);
         stage.setFullScreen(true);
         stage.setFullScreenExitHint("Aby zminimalizować okno wciśnij ESC");
