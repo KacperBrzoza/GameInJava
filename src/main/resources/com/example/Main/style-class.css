@@ -20,28 +20,45 @@
 .button:pressed {
     -fx-text-fill: white;
     -fx-background-color: #363636;
-    -fx-border-color: #707070 #707070 #595959 #595959;
+    -fx-border-color: #591515 #591515 #8c2222 #8c2222;
 }
 
 #LoginTextField{
+
     -fx-font-size: 20pt;
+    -fx-text-fill: white;
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
+    -fx-border-radius: 0;
+    -fx-border-width: 7;
+    -fx-background-color: #363636;
+    -fx-border-style: solid inside;
+    -fx-border-color: #5e5e5e #5e5e5e #404040 #404040;
 }
 #PasswordTextField{
+    -fx-font-family: 'Bitmgothic';
     -fx-font-size: 20pt;
+    -fx-text-fill: white;
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
+    -fx-background-color: #363636;
+    -fx-border-radius: 0;
+    -fx-border-width: 7;
+    -fx-border-style: solid inside;
+    -fx-border-color: #5e5e5e #5e5e5e #404040 #404040;
 }
 
-#GameName{
-    -fx-font-size: 72pt;
+#GameName0{
+    -fx-font-size: 82pt;
+}
+#GameName1{
+    -fx-font-size: 62pt;
 }
 #LoginText{
-    -fx-font-size: 50pt;
+    -fx-font-size: 40pt;
 }
 #PasswordText{
-    -fx-font-size: 50pt;
+    -fx-font-size: 40pt;
 }
 #LoginButton{
     -fx-font-size: 24pt;
