@@ -20,8 +20,9 @@ public class StartLoginApplication extends Application {
         Image icon = new Image(String.valueOf(StartLoginApplication.class.getResource("/icon/icon_KTC_og-size.png")));
         stage.getIcons().add(icon);
         stage.setTitle("Kingdoms Towers Collide");
-        stage.setX(0);
+        stage.setX(50);
         stage.setY(0);
+        //GITOWO ZIOMKU
         stage.setResizable(false);
         stage.setFullScreen(true);
         stage.setFullScreenExitHint("Aby zminimalizować okno wciśnij ESC");
