@@ -1,0 +1,21 @@
+@font-face {
+    font-family: 'Bitmgothic';
+    src: url('bitgothicfontPL.ttf');
+}
+.text {
+    -fx-font-family: 'Bitmgothic';
+
+}
+.button{
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+#GameName{
+    -fx-font-size: 64pt;
+}
+#LoginText{
+    -fx-font-size: 50pt;
+}
+#PasswordText{
+    -fx-font-size: 50pt;
+}
