@@ -95,6 +95,26 @@ public class Cards_Stack {
             creatures.add(new E_Creature(6, 4, 3));
         creatures.add(new E_Creature(0, 5, 4));
         creatures.add(new E_Creature(11, 10, 2));
+
+        //z mocą F
+        for(int i = 0; i < 3; i++)
+            creatures.add(new F_Creature(4, 3, 2));
+        for(int i = 0; i < 3; i++)
+            creatures.add(new F_Creature(5, 4, 2));
+        creatures.add(new F_Creature(7, 6, 2));
+        creatures.add(new F_Creature(9, 8, 2));
+        creatures.add(new F_Creature(10, 5, 6));
+
+        //z mocą G
+        for(int i = 0; i < 3; i++)
+            creatures.add(new G_Creature(3, 1, 3));
+        for(int i = 0; i < 2; i++)
+            creatures.add(new G_Creature(5, 3, 3));
+        creatures.add(new G_Creature(6, 3, 4));
+        creatures.add(new G_Creature(6, 5, 2));
+        creatures.add(new G_Creature(7, 3, 5));
+        creatures.add(new G_Creature(8, 2, 7));
+        
         //z mocą H
         for(int i = 0; i < 2; i++)
             creatures.add(new H_Creature(3, 1, 3));
@@ -107,6 +127,16 @@ public class Cards_Stack {
         creatures.add(new H_Creature(7, 4, 4));
         creatures.add(new H_Creature(9, 2, 8));
 
+        //z mocą J
+        for(int i = 0; i < 3; i++)
+            creatures.add(new J_Creature(1, 1, 1));
+        for(int i = 0; i < 2; i++)
+            creatures.add(new J_Creature(3, 2, 2));
+        for(int i = 0; i < 2; i++)
+            creatures.add(new J_Creature(3, 1, 3));
+        creatures.add(new J_Creature(6, 4, 3));
+        creatures.add(new J_Creature(7, 3, 5));
+
         //z mocą M
         for(int i = 0; i < 4; i++)
             creatures.add(new M_Creature(4, 2, 3));
@@ -116,6 +146,16 @@ public class Cards_Stack {
             creatures.add(new M_Creature(6, 2, 5));
         creatures.add(new M_Creature(5, 2, 4));
         creatures.add(new M_Creature(8, 5, 4));
+        
+        //z mocą N
+        for(int i = 0; i < 3; i++)
+            creatures.add(new N_Creature(3, 2, 2));
+        for(int i = 0; i < 3; i++)
+            creatures.add(new M_Creature(4, 3, 2));
+        for(int i = 0; i < 2; i++)
+            creatures.add(new M_Creature(5, 4, 2));
+        creatures.add(new M_Creature(8, 3, 6));
+        creatures.add(new M_Creature(8, 4, 5));
 
         //z mocą O
         for(int i = 0; i < 3; i++)
@@ -125,6 +165,35 @@ public class Cards_Stack {
         creatures.add(new O_Creature(8, 3, 4));
         creatures.add(new O_Creature(11, 5, 5));
 
+        //z mocą R
+        for(int i = 0; i < 3; i++)
+            creatures.add(new R_Creature(1, 1, 1));
+        for(int i = 0; i < 2; i++)
+            creatures.add(new R_Creature(2, 1, 2));
+        creatures.add(new R_Creature(4, 3, 2));
+        creatures.add(new R_Creature(5, 3, 3));
+        creatures.add(new R_Creature(7, 4, 4));
+        
+        //z mocą U
+        for(int i = 0; i < 4; i++)
+            creatures.add(new U_Creature(4, 1, 4));
+        for(int i = 0; i < 3; i++)
+            creatures.add(new U_Creature(6, 3, 4));
+        for(int i = 0; i < 2; i++)
+            creatures.add(new U_Creature(6, 2, 5));
+        creatures.add(new U_Creature(6, 1, 6));
+        creatures.add(new U_Creature(8, 3, 6));
+        creatures.add(new U_Creature(9, 2, 8));
+
+        //z mocą X
+        for(int i = 0; i < 3; i++)
+            creatures.add(new X_Creature(4, 2, 2));
+        creatures.add(new X_Creature(7, 4, 3));
+        creatures.add(new X_Creature(8, 5, 3));
+        creatures.add(new X_Creature(9, 5, 4));
+        creatures.add(new X_Creature(10, 8, 2));
+        creatures.add(new X_Creature(14, 9, 5));
+        
         //z mocą Z
         for(int i = 0; i < 3; i++)
             creatures.add(new Z_Creature(4, 2, 3));

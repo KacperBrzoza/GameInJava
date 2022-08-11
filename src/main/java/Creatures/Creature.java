@@ -2,6 +2,8 @@ package Creatures;
 
 import Demo.*;
 
+import java.lang.reflect.Field;
+
 //Klasa do dziedziczenia z niej
 public class Creature {
 
@@ -9,8 +11,12 @@ public class Creature {
     protected int attack;
     protected int hp;
     protected String power;
+
     protected int Swarm;
     protected int Unbroaken;
+
+    protected int poisoned;
+    protected int copy_hp;
     
     public Creature(){}
 
@@ -21,6 +27,8 @@ public class Creature {
         this.power = "-";
         this.Swarm = 0;         //cecha przyznawana przy wystawieniu, o ile gracz posiada kartę Rage "Swarm"
         this.Unbroaken = 0;     //cecha przyznawana przy wystawieniu, o ile gracz posiada kartę Rage "Unbroaken"
+        this.poisoned = 0;      //pole okreslajace, czy na ta jednostke zadzialala moc J
+        this.copy_hp = hp;
     }
 
     public int getCost(){
@@ -44,7 +52,15 @@ public class Creature {
 
     public void increaseHp(){hp++;}
     public void decreaseHp(){hp--;}
-    
+
+    public boolean ifPoisoned(){return poisoned == 1;}
+    public void setHp(int val){hp = val;}
+    public void setPoisoned(int val){
+        poisoned = val;
+        if(val == 0)
+            hp = copy_hp;
+    }
+
     public void setUnbroaken(int value){Unbroaken = value;}
     public boolean ifUnbroaken(){return Unbroaken == 1;}
 
@@ -64,6 +80,66 @@ public class Creature {
             return false;
 
         return this.getPower().equals(c.getPower());
+    }
+
+    //metoda szukająca stworów z mocą R
+    //gdy takiego znajdzie usuwa go z planszy
+    //jest to implementacja mocy R
+    //wykorzystana przy walkach
+    public boolean getHelp(Player you, Discardeds_Stack discardeds, Board board, int position){
+        if(you.id == 1){
+            for(int i = 0; i < 5; i++){
+                if(!board.empty(you.id, i) && i != position) {
+                    if (board.getCreature(you.id, i).getPower().equals("R")) {
+                        discardeds.putCard(board.removeCard(you.id, i));
+                        you.counter--;
+                        return true;
+                    }
+                }
+            }
+        }
+        else{
+            for(int i = 4; i >= 0; i--){
+                if(!board.empty(you.id, i) && i != position) {
+                    if (board.getCreature(you.id, i).getPower().equals("R")) {
+                        discardeds.putCard(board.removeCard(you.id, i));
+                        you.counter--;
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    //metoda szukająca stworów z mocą U na dwóch kolejnych polach danego gracza
+    //zwraca true gdy znajdzie, false w przeciwnym wypadku
+    //jest to implementacja mocy U
+    //wykorzystana przy walkach
+    public boolean getImmortal(Player you, Discardeds_Stack discardeds, Board board, int position){
+        if(you.id == 1){
+            for(int i = 1; i <= 2; i++){
+                if(position + i > 4)
+                    break;
+                if(!board.empty(you.id, position + i)){
+                    if(board.getCreature(you.id, position + i).getPower().equals("U")){
+                        return true;
+                    }
+                }
+            }
+        }
+        else{
+            for(int i = 1; i <= 2; i++){
+                if(position - i < 0)
+                    break;
+                if(!board.empty(you.id, position - i)){
+                    if(board.getCreature(you.id, position - i).getPower().equals("U")){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
 

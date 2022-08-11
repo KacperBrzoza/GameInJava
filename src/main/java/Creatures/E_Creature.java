@@ -15,6 +15,7 @@ public class E_Creature extends Creature{
         this.power = "E";
         this.Swarm = 0;         //cecha przyznawana przy wystawieniu, o ile gracz posiada kartę Rage "Swarm"
         this.Unbroaken = 0;     //cecha przyznawana przy wystawieniu, o ile gracz posiada kartę Rage "Unbroaken"
+        this.poisoned = 0;      //pole okreslajace, czy na ta jednostke zadzialala moc J
     }
 
     @Override
@@ -29,7 +30,7 @@ public class E_Creature extends Creature{
             }
         }
         //jeżeli aktualny gracz ma jakieś stwory z mocą E i nie ma 4 jednostek na planszy
-        if(e_creatures.size() >= 1 && you.counter < 4){
+        if(e_creatures.size() != 0 && you.counter < 4){
             System.out.println("Mozesz za darmo wystawic jednostke z moca E");
             System.out.println(board);
             for(int i = 0; i < e_creatures.size(); i++)

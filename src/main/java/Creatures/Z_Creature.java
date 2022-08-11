@@ -13,6 +13,7 @@ public class Z_Creature extends Creature{
         this.power = "Z";
         this.Swarm = 0;         //cecha przyznawana przy wystawieniu, o ile gracz posiada kartę Rage "Swarm"
         this.Unbroaken = 0;     //cecha przyznawana przy wystawieniu, o ile gracz posiada kartę Rage "Unbroaken"
+        this.poisoned = 0;      //pole okreslajace, czy na ta jednostke zadzialala moc J
     }
 
     @Override
@@ -48,10 +49,8 @@ public class Z_Creature extends Creature{
                         Creature buf = board.getCreature(you.id, number);
                         board.setCreature(you.id, number, board.getCreature(you.id, startowe));
                         board.setCreature(you.id, startowe, buf);
-                        if(!board.empty(opponent.id, startowe))
-                            board.fight(you, opponent, startowe, discardeds);
-                        if(!board.empty(opponent.id, number))
-                            board.fight(you, opponent, number, discardeds);
+                        board.fight(you, opponent, startowe, discardeds);
+                        board.fight(you, opponent, number, discardeds);
                     }
                     else
                         number = -1;

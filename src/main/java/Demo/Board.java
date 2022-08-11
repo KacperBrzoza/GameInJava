@@ -1,6 +1,6 @@
 package Demo;
 
-import Creatures.Creature;
+import Creatures.*;
 import Rage_Cards.R_Card;
 
 import java.util.ArrayList;
@@ -20,10 +20,10 @@ public class Board {
 
         //każda linia ma po 5 pól
         for (int i = 0; i < 5; i++){
-            line1.add(new Field());
+            line1.add(new Field(i));
         }
         for (int i = 0; i < 5; i++){
-            line2.add(new Field());
+            line2.add(new Field(i));
         }
     }
 
@@ -79,10 +79,21 @@ public class Board {
             //następnie pozostałe stwory się przemieszczają i atakują stwory przeciwnika
             for(int i = 3; i >= 0; i--){
                 if(!line1.get(i).empty){
-                    line1.get(i +1 ).putCard(line1.get(i).removeCard());
-                    if(!line2.get(i + 1).empty) {
-                        if(fight(line1.get(i + 1), line2.get(i + 1), discarded, you.Crusher))
+                    line1.get(i + 1).putCard(line1.get(i).removeCard());
+                    //normalna walka
+                    if (!line2.get(i + 1).empty) {
+                        if (fight(line1.get(i + 1), line2.get(i + 1), discarded, you, opponent))
                             opponent.counter--;
+                    }
+                    else{
+                        if(i + 2 < 5) {
+                            if (line1.get(i + 1).creature.getPower().equals("F")) {
+                                if (!line2.get(i + 2).empty) {
+                                    if (fight(line1.get(i + 1), line2.get(i + 2), discarded, you, opponent))
+                                        opponent.counter--;
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -133,9 +144,20 @@ public class Board {
             for(int i = 1; i <= 4; i++){
                 if(!line2.get(i).empty){
                     line2.get(i - 1).putCard(line2.get(i).removeCard());
-                    if(!line1.get(i - 1).empty) {
-                        if(fight(line2.get(i - 1), line1.get(i - 1), discarded, you.Crusher))
+                    //normalna walka
+                    if (!line1.get(i - 1).empty) {
+                        if (fight(line2.get(i - 1), line1.get(i - 1), discarded, you, opponent))
                             opponent.counter--;
+                    }
+                    else{
+                        if(i - 2 >= 0) {
+                            if (line2.get(i - 1).creature.getPower().equals("F")) {
+                                if (!line1.get(i - 2).empty) {
+                                    if (fight(line2.get(i - 1), line1.get(i - 2), discarded, you, opponent))
+                                        opponent.counter--;
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -143,9 +165,59 @@ public class Board {
     }
 
     //rozpatruje, czy broniąca się jednostka zginie, czy nie
-    public boolean fight(Field attack, Field defense, Discardeds_Stack discardeds, int is_crusher){
+    public boolean fight(Field attack, Field defense, Discardeds_Stack discardeds, Player you, Player opponent){
+        if(attack.creature.getPower().equals("X")){
+            X_Creature x = (X_Creature) attack.creature;
+            if(x.getUse() == 1){
+                x.setUse(0);
+                if(defense.creature.getHelp(opponent, discardeds, this, defense.position))
+                    return false;
+                if(defense.creature.getImmortal(opponent, discardeds, this, defense.position))
+                    return false;
+                if(defense.creature.getPower().equals("N")) {
+                    N_Creature n = (N_Creature) defense.creature;
+                    if (n.getUse() == 1) {
+                        n.setUse(0);
+                        return false;
+                    }
+                }
+                if(defense.creature.getPower().equals("J")){
+                    attack.creature.setHp(1);
+                    attack.creature.setPoisoned(1);
+                    if(attack.creature.ifUnbroaken())
+                        attack.creature.setUnbroaken(0);
+                }
+                discardeds.putCard(defense.removeCard());
+                return true;
+            }
+        }
+        else if(attack.creature.getPower().equals("G")){
+            G_Creature creature = (G_Creature) attack.creature;
+            if(creature.getUse() == 1){
+                creature.setUse(0);
+                opponent.eq.addCreature(defense.removeCard());
+                return true;
+            }
+        }
         //jeśli właściciel atakującej jednostki posiada kartę Rage "Crusher", wtedy jego atak jest bardziej zabójczy
-        if((is_crusher == 1 && attack.creature.getAttack() == defense.creature.getHp()) || attack.creature.getAttack() > defense.creature.getHp()){
+        if((you.Crusher == 1 && attack.creature.getAttack() == defense.creature.getHp()) || attack.creature.getAttack() > defense.creature.getHp()){
+            if(defense.creature.getHelp(opponent, discardeds, this, defense.position))
+                return false;
+            if(defense.creature.getImmortal(opponent, discardeds, this, defense.position))
+                return false;
+            if(defense.creature.getPower().equals("N")) {
+                N_Creature n = (N_Creature) defense.creature;
+                if (n.getUse() == 1) {
+                    n.setUse(0);
+                    return false;
+                }
+            }
+            if(defense.creature.getPower().equals("J")){
+                attack.creature.setHp(1);
+                attack.creature.setPoisoned(1);
+                if(attack.creature.ifUnbroaken())
+                    attack.creature.setUnbroaken(0);
+            }
             discardeds.putCard(defense.removeCard());
             return true;
         }
@@ -155,12 +227,32 @@ public class Board {
     //metoda rozszerzająca funkcję fight o argument wybierający konkretne pola do rozpatrzenia walki
     public void fight(Player you, Player opponent, int target, Discardeds_Stack discardeds){
         if(you.id == 1){
-            if(fight(line1.get(target), line2.get(target), discardeds, you.Crusher))
-                opponent.counter--;
+            if(!line2.get(target).empty) {
+                if (fight(line1.get(target), line2.get(target), discardeds, you, opponent))
+                    opponent.counter--;
+            }
+            else {
+                if(line1.get(target).creature.getPower().equals("F") && target + 1 < 5){
+                    if(!line2.get(target + 1).empty) {
+                        if (fight(line1.get(target), line2.get(target + 1), discardeds, you, opponent))
+                            opponent.counter--;
+                    }
+                }
+            }
         }
         else{
-            if(fight(line2.get(target), line1.get(target), discardeds, you.Crusher))
-                opponent.counter--;
+            if(!line1.get(target).empty) {
+                if (fight(line2.get(target), line1.get(target), discardeds, you, opponent))
+                    opponent.counter--;
+            }
+            else {
+                if(line2.get(target).creature.getPower().equals("F") && target - 1 >= 0){
+                    if(!line1.get(target - 1).empty) {
+                        if (fight(line2.get(target), line1.get(target - 1), discardeds, you, opponent))
+                            opponent.counter--;
+                    }
+                }
+            }
         }
     }
 
@@ -175,27 +267,64 @@ public class Board {
                 if(!line1.get(1).empty){
                     if(!line1.get(2).empty){
                         line1.get(3).putCard(line1.get(2).removeCard());
-                        if(!line2.get(3).empty) {
-                            if(fight(line1.get(3), line2.get(3), discardeds, you.Crusher))
+                        //normalna walka
+                        if (!line2.get(3).empty) {
+                            if (fight(line1.get(3), line2.get(3), discardeds, you, opponent))
                                 opponent.counter--;
+                        }
+                        //jeśli postać ma moc F
+                        else{
+                            if(line1.get(3).creature.getPower().equals("F")){
+                                if (!line2.get(4).empty) {
+                                    if (fight(line1.get(3), line2.get(4), discardeds, you, opponent))
+                                            opponent.counter--;
+                                }
+                            }
                         }
                     }
                     line1.get(2).putCard(line1.get(1).removeCard());
-                    if(!line2.get(2).empty) {
-                        if(fight(line1.get(2), line2.get(2), discardeds, you.Crusher))
+                    //jeżeli postać nie ma mocy F
+                    if (!line2.get(2).empty) {
+                        if (fight(line1.get(2), line2.get(2), discardeds, you, opponent))
                             opponent.counter--;
+                    }
+                    else{
+                        if(line1.get(2).creature.getPower().equals("F")){
+                            if (!line2.get(3).empty) {
+                                if (fight(line1.get(2), line2.get(3), discardeds, you, opponent))
+                                    opponent.counter--;
+                            }
+                        }
                     }
                 }
                 line1.get(1).putCard(line1.get(0).removeCard());
-                if(!line2.get(1).empty) {
-                    if(fight(line1.get(1), line2.get(1), discardeds, you.Crusher))
+                //jeżeli postać nie ma mocy F
+                if (!line2.get(1).empty) {
+                    if (fight(line1.get(1), line2.get(1), discardeds, you, opponent))
                         opponent.counter--;
+                }
+                else{
+                    if(line1.get(1).creature.getPower().equals("F")){
+                        if (!line2.get(2).empty) {
+                            if (fight(line1.get(1), line2.get(2), discardeds, you, opponent))
+                                    opponent.counter--;
+                        }
+                    }
                 }
             }
             line1.get(0).putCard(creature);
-            if(!line2.get(0).empty){
-                if(fight(line1.get(0), line2.get(0), discardeds, you.Crusher))
+            //jeżeli postać nie ma mocy F
+            if (!line2.get(0).empty) {
+                if (fight(line1.get(0), line2.get(0), discardeds, you, opponent))
                     opponent.counter--;
+            }
+            else{
+                if(line1.get(0).creature.getPower().equals("F")){
+                    if (!line2.get(1).empty) {
+                        if (fight(line1.get(0), line2.get(1), discardeds, you, opponent))
+                                opponent.counter--;
+                    }
+                }
             }
         }
 
@@ -204,27 +333,63 @@ public class Board {
                 if(!line2.get(3).empty){
                     if(!line2.get(2).empty){
                         line2.get(1).putCard(line2.get(2).removeCard());
-                        if(!line1.get(1).empty) {
-                            if(fight(line2.get(1), line1.get(1), discardeds, you.Crusher))
+                        //normalna walka
+                        if (!line1.get(1).empty) {
+                            if (fight(line2.get(1), line1.get(1), discardeds, you, opponent))
                                 opponent.counter--;
+                        }
+                        else{
+                            if(line2.get(1).creature.getPower().equals("F")){
+                                if (!line1.get(0).empty) {
+                                    if (fight(line2.get(1), line1.get(0), discardeds, you, opponent))
+                                        opponent.counter--;
+                                }
+                            }
                         }
                     }
                     line2.get(2).putCard(line2.get(3).removeCard());
-                    if(!line1.get(2).empty) {
-                        if(fight(line2.get(2), line1.get(2), discardeds, you.Crusher))
+                    //normalna walka
+                    if (!line1.get(2).empty) {
+                        if (fight(line2.get(2), line1.get(2), discardeds, you, opponent))
                             opponent.counter--;
+                    }
+                    else{
+                        if(line2.get(2).creature.getPower().equals("F")){
+                            if (!line1.get(1).empty) {
+                                if (fight(line2.get(2), line1.get(1), discardeds, you, opponent))
+                                    opponent.counter--;
+                            }
+                        }
                     }
                 }
                 line2.get(3).putCard(line2.get(4).removeCard());
-                if(!line1.get(3).empty) {
-                    if(fight(line2.get(3), line1.get(3), discardeds, you.Crusher))
+                //normalna walka
+                if (!line1.get(3).empty) {
+                    if (fight(line2.get(3), line1.get(3), discardeds, you, opponent))
                         opponent.counter--;
+                }
+                else {
+                    if(line2.get(3).creature.getPower().equals("F")){
+                        if (!line1.get(2).empty) {
+                            if (fight(line2.get(3), line1.get(2), discardeds, you, opponent))
+                                    opponent.counter--;
+                        }
+                    }
                 }
             }
             line2.get(4).putCard(creature);
-            if(!line1.get(4).empty){
-                if(fight(line2.get(4), line1.get(4), discardeds, you.Crusher))
+            //normalna walka
+            if (!line1.get(4).empty) {
+                if (fight(line2.get(4), line1.get(4), discardeds, you, opponent))
                     opponent.counter--;
+            }
+            else{
+                if(line2.get(4).creature.getPower().equals("F")){
+                    if (!line1.get(3).empty) {
+                        if (fight(line2.get(4), line1.get(3), discardeds, you, opponent))
+                            opponent.counter--;
+                    }
+                }
             }
         }
     }
@@ -328,10 +493,12 @@ public class Board {
     private static class Field{
         public boolean empty;
         public Creature creature;
+        public int position;
 
-        public Field(){
+        public Field(int position){
             empty = true;
             creature = null;
+            this.position = position;
         }
 
         //stwór podany w argumencie będzie umieszczony na tym polu

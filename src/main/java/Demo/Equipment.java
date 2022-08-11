@@ -1,6 +1,8 @@
 package Demo;
 
 import Creatures.Creature;
+import Creatures.G_Creature;
+import Creatures.X_Creature;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +19,19 @@ public class Equipment {
     //jeśli tak, to jedynie zwiększa licznik pola, na którym się znajduje
     //w przeciwnym wypadku tworzy nowe pole dla tego stwora
     public void addCreature(Creature creature){
+
+        if(creature.getPower().equals("X")){
+            X_Creature x = (X_Creature) creature;
+            x.setUse(1);
+        }
+
+        if(creature.getPower().equals("G")){
+            G_Creature g = (G_Creature) creature;
+            g.setUse(1);
+        }
+
+        if(creature.ifPoisoned())
+            creature.setPoisoned(0);
 
         if(fields.size() == 0){
             fields.add(new Field(creature));

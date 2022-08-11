@@ -161,7 +161,7 @@ public class Game {
         if(you.counter < 4)
         while (you.counter < 4 ){
             System.out.println("Pieniadze: " + you.money);
-            System.out.println("1 - wybierz karte \n 2 - podejrzyj plansze \n 3 - spasuj \n 4 - obejrzyj swoje karty Rage");
+            System.out.println("1 - wybierz karte \n 2 - podejrzyj plansze \n 3 - spasuj \n 4 - obejrzyj swoje karty Rage \n 5 - legenda mocy stworow");
 
             Scanner scan = new Scanner(System.in);
             int number = scan.nextInt();
@@ -221,6 +221,24 @@ public class Game {
             //podejrzenie swoich kart Rage
             else if(number == 4){
                 System.out.println(you.rage);
+            }
+            //legenda mocy
+            else if(number == 5){
+                System.out.println();
+                System.out.println("D - przy wystawieniu dobierasz karte stwora");
+                System.out.println("E - przy wystawieniu pozwala natychmiast wystawic kolejnego stwora z moca E za darmo");
+                System.out.println("F - jesli na przeciwnym polu nie ma wroga, probuje walczyc z przeciwnikiem o 1 pole dalszym");
+                System.out.println("G - odsyla pierwszego napotkanego przeciwnika spowrotem do ekwipunku oponenta");
+                System.out.println("H - przy wystawieniu uzdrawia jednostke, tzn dobierasz karte stwora ze stosu kart odrzuconych");
+                System.out.println("J - gdy ta jednostka ginie, zmienia hp swojego zabojcy na 1");
+                System.out.println("M - przy wystawieniu dobierasz zeton waluty");
+                System.out.println("N - gdy ta jednostka ma zostac zabita, jednorazowo unika smierci");
+                System.out.println("O - pozwala natychmiast wystawic kolejnego stwora za darmo");
+                System.out.println("R - gdy sojusznik ma zginac, ta jednostka zginie zamiast tamtej");
+                System.out.println("U - sprawia, ze jednostki na dwoch polach za nia sa niezniszczalne, dopoki sama zyje");
+                System.out.println("X - zabija pierwszego napotkanego przeciwnika bez wzgledu na statystyki");
+                System.out.println("Z - przy wystawieniu pozwala zamienic miejscami ta jednostke z inna sojusznicza");
+                System.out.println();
             }
         }
         else

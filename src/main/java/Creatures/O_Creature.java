@@ -13,6 +13,7 @@ public class O_Creature extends Creature{
         this.power = "O";
         this.Swarm = 0;         //cecha przyznawana przy wystawieniu, o ile gracz posiada kartę Rage "Swarm"
         this.Unbroaken = 0;     //cecha przyznawana przy wystawieniu, o ile gracz posiada kartę Rage "Unbroaken"
+        this.poisoned = 0;      //pole okreslajace, czy na ta jednostke zadzialala moc J
     }
 
     @Override
