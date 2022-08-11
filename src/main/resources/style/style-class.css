@@ -1,20 +1,27 @@
 @font-face {
     font-family: 'Bitmgothic';
-    src: url('bitgothicfontPL.ttf');
+    src: url('../font/bitgothicfontPL.ttf');
 }
 .text {
     -fx-font-family: 'Bitmgothic';
 
 }
+#AllScreen{
+    -fx-background-color: black;
+    -fx-background-image: url("../login_img/wall_texture.gif");
+    -fx-background-repeat: repeat;
+    -fx-background-position: -100, 50;
+    -fx-background-size: 1024 1024;
 
+}
 .button{
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
     -fx-border-radius: 0;
     -fx-background-color: #a8a8a8;
-    -fx-border-style: solid inside;
+    -fx-border-style: solid outside;
     -fx-border-color: #5e5e5e #5e5e5e #404040 #404040;
-    -fx-border-width: 7;
+    -fx-border-width:  5 7 18 7;
     -fx-font-size: 28pt;
 }
 .button:pressed {
@@ -50,18 +57,23 @@
 
 #GameName0{
     -fx-font-size: 82pt;
+    -fx-text-fill: white;
 }
 #GameName1{
     -fx-font-size: 62pt;
+    -fx-text-fill: white;
 }
 #LoginText{
     -fx-font-size: 40pt;
+    -fx-text-fill: white;
 }
 #PasswordText{
     -fx-font-size: 40pt;
+    -fx-text-fill: white;
 }
 #LoginButton{
     -fx-font-size: 24pt;
+
 }
 #RegisterButton{
     -fx-font-size: 24pt;

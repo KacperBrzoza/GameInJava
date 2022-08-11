@@ -4,10 +4,11 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
-
-
+import java.io.File;
 import java.io.IOException;
 
 public class StartLoginApplication extends Application {
@@ -22,15 +23,24 @@ public class StartLoginApplication extends Application {
         stage.setTitle("Kingdoms Towers Collide");
         stage.setX(0);
         stage.setY(0);
-        //GITOWO ZIOMKU 2 jest
         stage.setResizable(false);
         stage.setFullScreen(true);
         //stage.setMaximized(true);
         stage.setFullScreenExitHint("Aby zminimalizować okno wciśnij ESC");
-
-        scene.getStylesheets().add(getClass().getResource("style-class.css").toExternalForm());
+        ambient_music();
+        scene.getStylesheets().add(getClass().getResource("/style/style-class.css").toExternalForm());
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void ambient_music()
+    {
+        String path = "src/main/resources/music/ambience_sound.mp3";
+        Media media = new Media(new File(path).toURI().toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer.setAutoPlay(true);
+        mediaPlayer.setVolume(50);
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
     }
 
     public static void main(String[] args) {launch(args);}
