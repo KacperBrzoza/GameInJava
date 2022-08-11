@@ -6,7 +6,7 @@ import Demo.*;
 public class Profit extends R_Card{
     public Profit(){
         this.name = "Profit";
-        this.description = "dobierasz 5 żetonów waluty (jednorazowa)";
+        this.description = "dobierasz 5 zetonow waluty (jednorazowa)";
     }
 
     public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage){

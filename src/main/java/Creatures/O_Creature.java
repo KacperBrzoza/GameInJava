@@ -19,10 +19,10 @@ public class O_Creature extends Creature{
     public void effect(Player you, Player opponent, Cards_Stack cards, Discardeds_Stack discardeds, Money money, Board board) {
         //jeżeli aktualny gracz ma coś w ekwipunku i nie ma 4 jednostek na planszy
         if(you.eq.size() > 0 && you.counter < 4){
-            System.out.println("Możesz za darmo wystawić dowolną jednostkę");
+            System.out.println("Mozesz za darmo wystawic dowolna jednostke");
             System.out.println(board);
             System.out.println(you.eq);
-            System.out.println("(" + you.eq.size() + ") nie używaj mocy O");
+            System.out.println("(" + you.eq.size() + ") nie uzywaj mocy O");
             int number = -1;
             Scanner scan = new Scanner(System.in);
             while (number < 0 || number > you.eq.size()){
@@ -43,6 +43,7 @@ public class O_Creature extends Creature{
                     board.put(creature, you, opponent, discardeds);
                     you.counter++;
                     creature.effect(you, opponent, cards, discardeds, money, board);
+                    break;
                 }
                 else if(number == you.eq.size())
                     break;

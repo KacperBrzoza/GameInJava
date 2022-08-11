@@ -18,6 +18,7 @@ public class Z_Creature extends Creature{
     @Override
     public void effect(Player you, Player opponent, Cards_Stack cards, Discardeds_Stack discardeds, Money money, Board board) {
         if(you.counter > 1){
+            System.out.println("Mozesz zamienic innego swojego stwora z tym miejscami");
             System.out.println(board);
             if(you.id == 1) {
                 for (int i = 1; i < 5; i++) {
@@ -34,16 +35,21 @@ public class Z_Creature extends Creature{
             System.out.println("\n(5) - nie zamieniaj");
             Scanner scan = new Scanner(System.in);
             int number = -1;
-            while (number < 0 || number > 5){
+            while (number < 0){
                 System.out.print("wybierz: ");
                 number = scan.nextInt();
                 if((number >= 1 && number < 4) || (number == 0 && you.id == 2) || (number == 4 && you.id == 1)){
                     if(!board.empty(you.id, number)){
+                        int startowe;
+                        if(you.id == 1)
+                            startowe = 0;
+                        else
+                            startowe = 4;
                         Creature buf = board.getCreature(you.id, number);
-                        board.setCreature(you.id, number, board.getCreature(you.id, 0));
-                        board.setCreature(you.id, 0, buf);
-                        if(!board.empty(opponent.id, 0))
-                            board.fight(you, opponent, 0, discardeds);
+                        board.setCreature(you.id, number, board.getCreature(you.id, startowe));
+                        board.setCreature(you.id, startowe, buf);
+                        if(!board.empty(opponent.id, startowe))
+                            board.fight(you, opponent, startowe, discardeds);
                         if(!board.empty(opponent.id, number))
                             board.fight(you, opponent, number, discardeds);
                     }

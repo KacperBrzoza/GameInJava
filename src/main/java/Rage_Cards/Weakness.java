@@ -8,7 +8,7 @@ public class Weakness extends R_Card{
 
     public Weakness(){
         name = "Weakness";
-        description = "przeciwnik traci 3 karty stworów z ręki (jednorazowe)";
+        description = "przeciwnik traci 3 karty stworow z reki (jednorazowe)";
     }
 
     public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage){
@@ -18,7 +18,7 @@ public class Weakness extends R_Card{
                 counter = 3;
             else
                 counter = opponent.eq.size();
-            System.out.println("Musisz odrzucić " + counter + " karty z ręki");
+            System.out.println("Musisz odrzucic " + counter + " karty z reki");
             System.out.println(opponent.eq);
             Scanner scan = new Scanner(System.in);
             int number;
@@ -32,7 +32,7 @@ public class Weakness extends R_Card{
                     System.out.println(opponent.eq);
                 }
             }
-            System.out.println("wybierz dowolną liczbę, aby GRACZ " + opponent.id + " kontynuował turę... ");
+            System.out.println("wybierz dowolną liczbę, aby kontynuowac ture... ");
             number = scan.nextInt();
         }
     }

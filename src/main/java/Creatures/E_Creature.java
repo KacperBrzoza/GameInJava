@@ -30,11 +30,11 @@ public class E_Creature extends Creature{
         }
         //jeżeli aktualny gracz ma jakieś stwory z mocą E i nie ma 4 jednostek na planszy
         if(e_creatures.size() >= 1 && you.counter < 4){
-            System.out.println("Możesz za darmo wystawić jednostkę z mocą E");
+            System.out.println("Mozesz za darmo wystawic jednostke z moca E");
             System.out.println(board);
             for(int i = 0; i < e_creatures.size(); i++)
                 System.out.println("(" + i + ") " + e_creatures.get(i));
-            System.out.println("(" + e_creatures.size() + ") nie używaj mocy E");
+            System.out.println("(" + e_creatures.size() + ") nie uzywaj mocy E");
             int number = -1;
             Scanner scan = new Scanner(System.in);
             while (number < 0 || number > e_creatures.size()){
@@ -61,6 +61,7 @@ public class E_Creature extends Creature{
                     }
                     you.counter++;
                     creature.effect(you, opponent, cards, discardeds, money, board);
+                    break;
                 }
                 else if(number == you.eq.size())
                     break;

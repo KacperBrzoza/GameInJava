@@ -7,7 +7,7 @@ public class Resurrection extends R_Card{
 
     public Resurrection(){
         this.name = "Resurrection";
-        this.description = "uzdrawiasz 5 kart stworów (jednorazowa)";
+        this.description = "uzdrawiasz 5 kart stworow (jednorazowa)";
     }
 
     public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage){

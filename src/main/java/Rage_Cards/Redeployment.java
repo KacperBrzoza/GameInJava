@@ -8,13 +8,13 @@ public class Redeployment extends R_Card{
 
     public Redeployment(){
         name = "Redeployment";
-        description = "możesz cofnąć swoją wybraną jednostkę do ekwipunku, jeśli to zrobisz zyskasz 3 żetony waluty (jednorazowe)";
+        description = "mozesz cofnac swoja wybrana jednostke do ekwipunku, jesli to zrobisz zyskasz 3 zetony waluty (jednorazowe)";
     }
 
     public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage){
         if(you.counter > 0){
             System.out.println("\n" + "\n" + "\n" + "\n" + "\n"  + "\n" + "\n" + "\n" + "\n" + "\n");
-            System.out.println("GRACZ " + you.id + " MOŻE WYCOFAĆ SWOJEGO STWORA!!!");
+            System.out.println("GRACZ " + you.id + " MOZE WYCOFAC SWOJEGO STWORA!!!");
             System.out.println(board);
             for(int i = 0; i < 5; i++){
                 if(!board.empty(you.id, i)){

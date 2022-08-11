@@ -144,7 +144,7 @@ public class Cards_Stack {
         int n = rand.nextInt(creatures.size());
         Creature card = creatures.get(n);
         creatures.remove(n);
-        System.out.println("Na stosie zostało " + creatures.size() + " kart");
+        System.out.println("Na stosie zostalo " + creatures.size() + " kart");
         if(creatures.size() == 0)
             endGame();
         return card;
@@ -161,7 +161,7 @@ public class Cards_Stack {
 
     //metoda przerywa grę gdy skończą się karty na stosie (do testów)
     private void endGame(){
-        System.out.println("Stos kart stworów wyczerpał się!");
+        System.out.println("Stos kart stworow wyczerpal sie!");
         exit(0);
     }
 }

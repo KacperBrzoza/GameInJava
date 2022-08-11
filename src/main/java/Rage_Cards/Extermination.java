@@ -13,7 +13,7 @@ public class Extermination extends R_Card{
 
     public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage){
         int dead_counter = 0;
-        System.out.println("GRACZ " + you.id + " MOŻE ZABIĆ PRZECIWNIKOWI 3 JEDNOSTKI!!!");
+        System.out.println("GRACZ " + you.id + " MOZE ZABIC PRZECIWNIKOWI 3 JEDNOSTKI!!!");
         System.out.println(board);
         for(int i = 0; i < 5; i++){
             if(!board.empty(opponent.id, i))

@@ -6,7 +6,7 @@ public class Selection extends R_Card{
 
     public Selection(){
         name = "Selection";
-        description = "dobierając stwora, dobierasz dwa. Jednego zatrzymujesz, drugiego odrzucasz (stałe)";
+        description = "dobierajac stwora, dobierasz dwa. Jednego zatrzymujesz, drugiego odrzucasz (stale)";
     }
 
     public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage){

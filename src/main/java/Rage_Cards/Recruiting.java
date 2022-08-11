@@ -6,7 +6,7 @@ import Demo.*;
 public class Recruiting extends R_Card{
     public Recruiting(){
         this.name = "Recruiting";
-        this.description = "dobierasz 5 kart stworów (jednorazowa)";
+        this.description = "dobierasz 5 kart stworow (jednorazowa)";
     }
 
     public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage){

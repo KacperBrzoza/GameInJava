@@ -66,7 +66,7 @@ public class Game {
             //3. ... i ma kartę Rage "Black Market" może...
             if (you.BlackMarket == 1) {
                 number = -1;
-                System.out.println("Możesz sprzedać JEDNEGO stwora i zakończyć turę lub wystawiać karty:");
+                System.out.println("Mozesz sprzedac JEDNEGO stwora i zakonczyc ture lub wystawiac karty:");
                 System.out.println("(0) sprzedaj");
                 System.out.println("(1) wystaw");
                 while (number < 0 || number > 1) {
@@ -85,7 +85,7 @@ public class Game {
         //4. Jeśli gracz posiada kartę Rage "Secret Assets"
         if(you.SecretAssets == 1){
             you.money += money.giveMoney(you, opponent);
-            System.out.println("Dobrano żeton waluty");
+            System.out.println("Dobrano zeton waluty");
         }
 
         //4. Jeśli gracz posiada kartę Rage "Hypnosis"
@@ -103,7 +103,7 @@ public class Game {
         p.select = 2;
         while(p.select > 0){
             Scanner scan =  new Scanner(System.in);
-            System.out.println("1 - dobierz kartę (lub) 2 - dobierz żeton waluty");
+            System.out.println("1 - dobierz karte (lub) 2 - dobierz zeton waluty");
             System.out.print("wybierz: ");
             int number = scan.nextInt();
             if(number == 1){
@@ -152,7 +152,7 @@ public class Game {
                     p.money += coin_one;
                 }
             }
-            System.out.println("Pozostałe ruchy: " + p.select);
+            System.out.println("Pozostale ruchy: " + p.select);
         }
     }
 
@@ -160,14 +160,14 @@ public class Game {
     private void display(Player you, Player opponent){
         if(you.counter < 4)
         while (you.counter < 4 ){
-            System.out.println("Pieniądze: " + you.money);
+            System.out.println("Pieniadze: " + you.money);
             System.out.println("1 - wybierz karte \n 2 - podejrzyj plansze \n 3 - spasuj \n 4 - obejrzyj swoje karty Rage");
 
             Scanner scan = new Scanner(System.in);
             int number = scan.nextInt();
             //wystawienie karty
             if(number == 1){
-                System.out.println("\nTwój ekwpiunek:");
+                System.out.println("\nTwoj ekwpiunek:");
                 System.out.println(you.eq);
                 System.out.println("(" + you.eq.size() + ") cofnij");
                 you.showMoney();
@@ -224,12 +224,12 @@ public class Game {
             }
         }
         else
-            System.out.println("Osiągnięto limit 4 kart na planszy!");
+            System.out.println("Osiagnieto limit 4 kart na planszy!");
     }
 
     //służy do sprzedawania stworów jeżeli gracz posiada kartę "Black Market"
     private void sell(Player p){
-        System.out.println("Wybierz jednostkę do sprzedania:");
+        System.out.println("Wybierz jednostke do sprzedania:");
         System.out.println(p.eq);
         Scanner scan = new Scanner(System.in);
         int number = -1;

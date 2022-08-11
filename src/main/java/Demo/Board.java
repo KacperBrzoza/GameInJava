@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.System.exit;
-import static java.lang.System.in;
 
 public class Board {
 
@@ -51,23 +50,27 @@ public class Board {
                     opponent.score -= 0.5;
                     R_Card rage_card = rage_cards.giveCard();
                     opponent.rage.putCard(rage_card);
-                    System.out.println("GRACZ " + opponent.id + " otrzymał kartę *" + rage_card + "*");
+                    System.out.println("GRACZ " + opponent.id + " otrzymal karte *" + rage_card + "*");
                     rage_card.effect(opponent, you, this, discarded, cards, money, rage_cards);
                     //jeżeli zdobytą kartą była karta Rage "Swarm"
                     if(opponent.Swarm == 1){
                         for (int i = 0; i < 5; i++){
-                            if(line2.get(i).creature.getAttack() == 2){
-                                line2.get(i).creature.setSwarm(1);
-                                line2.get(i).creature.increaseAttack();
+                            if(!line2.get(i).empty) {
+                                if (line2.get(i).creature.getAttack() == 2) {
+                                    line2.get(i).creature.setSwarm(1);
+                                    line2.get(i).creature.increaseAttack();
+                                }
                             }
                         }
                     }
                     //jeżeli zdobytą kartą była karta Rage "Unbroaken"
                     if(opponent.Unbroaken == 1){
                         for (int i = 0; i < 5; i++){
-                            if(line2.get(i).creature.getHp() == 2){
-                                line2.get(i).creature.setUnbroaken(1);
-                                line2.get(i).creature.increaseHp();
+                            if(!line2.get(i).empty) {
+                                if (line2.get(i).creature.getHp() == 2) {
+                                    line2.get(i).creature.setUnbroaken(1);
+                                    line2.get(i).creature.increaseHp();
+                                }
                             }
                         }
                     }
@@ -101,23 +104,27 @@ public class Board {
                     opponent.score -= 0.5;
                     R_Card rage_card = rage_cards.giveCard();
                     opponent.rage.putCard(rage_card);
-                    System.out.println("GRACZ " + opponent.id + " otrzymał kartę *" + rage_card + "*");
+                    System.out.println("GRACZ " + opponent.id + " otrzymal karte *" + rage_card + "*");
                     rage_card.effect(opponent, you, this, discarded, cards, money, rage_cards);
                     //jeżeli zdobytą kartą była karta Rage "Swarm"
                     if(opponent.Swarm == 1){
                         for (int i = 0; i < 5; i++){
-                            if(line1.get(i).creature.getAttack() == 2){
-                                line1.get(i).creature.setSwarm(1);
-                                line1.get(i).creature.increaseAttack();
+                            if(!line1.get(i).empty) {
+                                if (line1.get(i).creature.getAttack() == 2) {
+                                    line1.get(i).creature.setSwarm(1);
+                                    line1.get(i).creature.increaseAttack();
+                                }
                             }
                         }
                     }
                     //jeżeli zdobytą kartą była karta Rage "Unbroaken"
                     if(opponent.Unbroaken == 1){
                         for (int i = 0; i < 5; i++){
-                            if(line1.get(i).creature.getHp() == 2){
-                                line1.get(i).creature.setUnbroaken(1);
-                                line1.get(i).creature.increaseHp();
+                            if(!line2.get(i).empty) {
+                                if (line1.get(i).creature.getHp() == 2) {
+                                    line1.get(i).creature.setUnbroaken(1);
+                                    line1.get(i).creature.increaseHp();
+                                }
                             }
                         }
                     }
@@ -265,7 +272,7 @@ public class Board {
     //zakończenie gry
     public void endGame(Player you, Player opponent){
         System.out.println("\n" + "\n" + "\n" + "\n" + "\n"  + "\n" + "\n" + "\n" + "\n" + "\n");
-        System.out.println("GRA SKOŃCZONA!");
+        System.out.println("GRA SKONCZONA!");
         System.out.println("Gracz 1 " + you.score + ":" + opponent.score + " Gracz 2");
         exit(0);
     }

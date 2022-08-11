@@ -54,5 +54,5 @@ public class Player {
        return shields;
     }
 
-    public void showMoney(){System.out.println("Pieniądze: " + money);}
+    public void showMoney(){System.out.println("Pieniadze: " + money);}
 }
