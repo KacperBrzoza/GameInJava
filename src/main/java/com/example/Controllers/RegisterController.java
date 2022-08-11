@@ -14,7 +14,9 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 
+import static com.example.Controllers.DatabaseConnection.*; //Import z bazy danych
 public class RegisterController
 {
 
@@ -51,8 +53,20 @@ public class RegisterController
             RegisterData registerData = new RegisterData();
             registerData.setLogin(loginField.getText());
             registerData.setPassword(passwordField.getText());
-            System.out.println(registerData.toString());
-            registerData = new RegisterData(registerData.getLogin(), registerData.getPassword());
+
+            try
+            {
+                DatabaseConnection databaseConnection = new DatabaseConnection();
+                databaseConnection.add_user(registerData.getLogin(),registerData.getPassword());
+            }
+            catch (SQLException ex)
+            {
+                ex.printStackTrace();
+            }
+            catch (ClassNotFoundException ex)
+            {
+                ex.printStackTrace();
+            }
 
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setContentText("Zarejestrowano pomyslnie!");

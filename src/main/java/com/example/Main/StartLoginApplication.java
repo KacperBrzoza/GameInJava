@@ -1,5 +1,6 @@
 package com.example.Main;
 
+import com.example.Controllers.DatabaseConnection;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,8 +11,11 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class StartLoginApplication extends Application {
+
+    public static DatabaseConnection databaseConnection; //Do polaczenia z bd
     @Override
     public void start(Stage stage) throws IOException {
 
@@ -43,5 +47,21 @@ public class StartLoginApplication extends Application {
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
     }
 
-    public static void main(String[] args) {launch(args);}
+    public static void main(String[] args)
+    {
+        try
+        {
+            databaseConnection =new DatabaseConnection();
+            //databaseConnection.create_base(); - Ogolnie zakomentowane,tylko jesli pierwszy raz odpalacie to wtedy z tym zeby utworzyc tabele
+        }
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+        catch (ClassNotFoundException ex)
+        {
+            ex.printStackTrace();
+        }
+        launch(args);
+    }
 }

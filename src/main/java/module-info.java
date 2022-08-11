@@ -2,7 +2,8 @@ module com.example.Main {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.media;
-
+    requires java.sql;
+    requires org.postgresql.jdbc;
 
 
     opens com.example.Main to javafx.fxml;
