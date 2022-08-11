@@ -4,7 +4,6 @@
 }
 .text {
     -fx-font-family: 'Bitmgothic';
-
 }
 #AllScreen{
     -fx-background-color: black;
@@ -23,6 +22,7 @@
     -fx-border-color: #5e5e5e #5e5e5e #404040 #404040;
     -fx-border-width:  5 7 18 7;
     -fx-font-size: 28pt;
+
 }
 .button:pressed {
     -fx-text-fill: white;
@@ -56,12 +56,17 @@
 }
 
 #GameName0{
-    -fx-font-size: 82pt;
-    -fx-text-fill: white;
+    -fx-font-size: 87pt;
+    -fx-text-fill: #661201;
+    -fx-stroke: white;
+    -fx-stroke-width: 1px;
+
 }
 #GameName1{
     -fx-font-size: 62pt;
-    -fx-text-fill: white;
+    -fx-text-fill: #661201;
+    -fx-stroke: white;
+    -fx-stroke-width: 1px;
 }
 #LoginText{
     -fx-font-size: 40pt;
