@@ -7,4 +7,6 @@ module com.example.Main {
 
     opens com.example.Main to javafx.fxml;
     exports com.example.Main;
+    exports com.example.Controllers;
+    opens com.example.Controllers to javafx.fxml;
 }
