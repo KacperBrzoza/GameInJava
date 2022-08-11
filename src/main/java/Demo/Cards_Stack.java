@@ -151,11 +151,11 @@ public class Cards_Stack {
         for(int i = 0; i < 3; i++)
             creatures.add(new N_Creature(3, 2, 2));
         for(int i = 0; i < 3; i++)
-            creatures.add(new M_Creature(4, 3, 2));
+            creatures.add(new N_Creature(4, 3, 2));
         for(int i = 0; i < 2; i++)
-            creatures.add(new M_Creature(5, 4, 2));
-        creatures.add(new M_Creature(8, 3, 6));
-        creatures.add(new M_Creature(8, 4, 5));
+            creatures.add(new N_Creature(5, 4, 2));
+        creatures.add(new N_Creature(8, 3, 6));
+        creatures.add(new N_Creature(8, 4, 5));
 
         //z mocą O
         for(int i = 0; i < 3; i++)
@@ -175,7 +175,7 @@ public class Cards_Stack {
         creatures.add(new R_Creature(7, 4, 4));
         
         //z mocą U
-        for(int i = 0; i < 4; i++)
+        for(int i = 0; i < 3; i++)
             creatures.add(new U_Creature(4, 1, 4));
         for(int i = 0; i < 3; i++)
             creatures.add(new U_Creature(6, 3, 4));
@@ -184,6 +184,7 @@ public class Cards_Stack {
         creatures.add(new U_Creature(6, 1, 6));
         creatures.add(new U_Creature(8, 3, 6));
         creatures.add(new U_Creature(9, 2, 8));
+        creatures.add(new U_Creature(9, 1, 9));
 
         //z mocą X
         for(int i = 0; i < 3; i++)

@@ -52,7 +52,7 @@ public class StartLoginApplication extends Application {
         try
         {
             databaseConnection =new DatabaseConnection();
-            //databaseConnection.create_base(); - Ogolnie zakomentowane,tylko jesli pierwszy raz odpalacie to wtedy z tym zeby utworzyc tabele
+            databaseConnection.create_base(); //- Ogolnie zakomentowane,tylko jesli pierwszy raz odpalacie to wtedy z tym zeby utworzyc tabele
         }
         catch (SQLException ex)
         {
