@@ -20,6 +20,7 @@ public class Discardeds_Stack {
             creature.setSwarm(0);
             creature.decreaseAttack();
         }
+        //obsługa zdejmowania cechy Unbroaken
         if(creature.ifUnbroaken()){
             creature.setUnbroaken(0);
             creature.decreaseHp();

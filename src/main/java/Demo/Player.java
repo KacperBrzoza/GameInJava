@@ -19,7 +19,7 @@ public class Player {
     public short SecondChance;
     public short Crusher;
     public short Unbroaken;
-    public short Hypnosis;
+    public short RatCatcher;
 
 
     public Player(int id){
@@ -43,7 +43,7 @@ public class Player {
         SecondChance = 0;
         Crusher = 0;
         Unbroaken = 0;
-        Hypnosis = 0;
+        RatCatcher = 0;
     }
 
     public void loseShield(){

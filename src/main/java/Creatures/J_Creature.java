@@ -1,13 +1,14 @@
 package Creatures;
 
+//gdy stwór z tą mocą zginie, obniża hp swojego zabójcy do 1
 public class J_Creature extends Creature{
     public J_Creature(int cost, int attack, int hp){
         this.cost = cost;
         this.attack = attack;
         this.hp = hp;
         this.power = "J";
-        this.Swarm = 0;         //cecha przyznawana przy wystawieniu, o ile gracz posiada kartę Rage "Swarm"
-        this.Unbroaken = 0;     //cecha przyznawana przy wystawieniu, o ile gracz posiada kartę Rage "Unbroaken"
-        this.poisoned = 0;      //pole okreslajace, czy na ta jednostke zadzialala moc J
+        this.Swarm = 0;
+        this.Unbroaken = 0;
+        this.poisoned = 0;
     }
 }

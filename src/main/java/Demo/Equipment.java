@@ -20,16 +20,19 @@ public class Equipment {
     //w przeciwnym wypadku tworzy nowe pole dla tego stwora
     public void addCreature(Creature creature){
 
+        //jednostka z mocą X trafiając do ekwipunku ma odświeżaną moc
         if(creature.getPower().equals("X")){
             X_Creature x = (X_Creature) creature;
             x.setUse(1);
         }
 
+        //jednostka z mocą G trafiając do ekwipunku ma odświeżaną moc
         if(creature.getPower().equals("G")){
             G_Creature g = (G_Creature) creature;
             g.setUse(1);
         }
 
+        //zdejmowanie zatrucia (działania mocy J)
         if(creature.ifPoisoned())
             creature.setPoisoned(0);
 
@@ -63,6 +66,7 @@ public class Equipment {
         return creature;
     }
 
+    //zwraca stwora z pola w ekwipunku o zadanym indexie
     public Creature copy(int index){return fields.get(index).creature;}
 
     //zwraca koszt stwora na podanej pozycji w ekwipunku

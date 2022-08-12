@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+//przy wystawieniu tego stwora możesz odrazu wystawić kolejnego z mocą E
 public class E_Creature extends Creature{
 
     public E_Creature(int cost, int attack, int hp){
@@ -13,14 +14,15 @@ public class E_Creature extends Creature{
         this.attack = attack;
         this.hp = hp;
         this.power = "E";
-        this.Swarm = 0;         //cecha przyznawana przy wystawieniu, o ile gracz posiada kartę Rage "Swarm"
-        this.Unbroaken = 0;     //cecha przyznawana przy wystawieniu, o ile gracz posiada kartę Rage "Unbroaken"
-        this.poisoned = 0;      //pole okreslajace, czy na ta jednostke zadzialala moc J
+        this.Swarm = 0;
+        this.Unbroaken = 0;
+        this.poisoned = 0;
     }
 
     @Override
     public void effect(Player you, Player opponent, Cards_Stack cards, Discardeds_Stack discardeds, Money money, Board board) {
-        //jeżeli aktualny gracz ma jakieś stwory z mocą E i nie ma 4 jednostek na planszy
+        //jeżeli aktualny gracz ma jakieś stwory z mocą E w ewkipunku i nie ma 4 jednostek na planszy...
+        //...wybierz takie jednostki
         List<Creature> e_creatures = new ArrayList<>();
         if(you.eq.size() > 0){
             for(int i = 0; i < you.eq.size(); i++){
@@ -31,17 +33,20 @@ public class E_Creature extends Creature{
         }
         //jeżeli aktualny gracz ma jakieś stwory z mocą E i nie ma 4 jednostek na planszy
         if(e_creatures.size() != 0 && you.counter < 4){
+
             System.out.println("Mozesz za darmo wystawic jednostke z moca E");
             System.out.println(board);
             for(int i = 0; i < e_creatures.size(); i++)
                 System.out.println("(" + i + ") " + e_creatures.get(i));
             System.out.println("(" + e_creatures.size() + ") nie uzywaj mocy E");
+
             int number = -1;
             Scanner scan = new Scanner(System.in);
             while (number < 0 || number > e_creatures.size()){
                 System.out.print("wybierz: ");
                 number = scan.nextInt();
-                //tu następuje właściwy wybór
+
+                //jeżeli grac zwybrał postać z mocą E
                 if(number >=0 && number < e_creatures.size()){
                     Creature creature = e_creatures.get(number);
                     //dodatkowe cechy jeśli gracz posiada odpowiednie karty Rage
@@ -53,7 +58,10 @@ public class E_Creature extends Creature{
                         creature.setUnbroaken(1);
                         creature.increaseHp();
                     }
+                    //wystawienie na plansze wybraną jednostkę
                     board.put(creature, you, opponent, discardeds);
+                    e_creatures.remove(number);
+                    //usunięcie jej z ekwipunku
                     for(int i = 0; i < you.eq.size(); i++){
                         if(you.eq.copy(i).theSame(creature)){
                             you.eq.pickCreature(i);
@@ -64,6 +72,7 @@ public class E_Creature extends Creature{
                     creature.effect(you, opponent, cards, discardeds, money, board);
                     break;
                 }
+                //rezygnacja z mocy
                 else if(number == you.eq.size())
                     break;
             }

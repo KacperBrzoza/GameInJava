@@ -14,6 +14,7 @@ public class Betrayal extends R_Card{
     public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage){
         //jeżeli przeciwnik ma wystawione jakieś stwory, a aktualny gracz nie przekroczył limitu 4 jednostek na planszy
         if(opponent.counter > 0 && you.counter < 4){
+
             System.out.println("\n" + "\n" + "\n" + "\n" + "\n"  + "\n" + "\n" + "\n" + "\n" + "\n");
             System.out.println("GRACZ " + you.id + " MOZE PRZECIAGNAC STWORA NA SWOJA STRONĘ!!!");
             System.out.println(board);
@@ -24,6 +25,7 @@ public class Betrayal extends R_Card{
                 }
             }
             System.out.println("\n(5) aby zrezygnowac");
+
             Scanner scan = new Scanner(System.in);
             int number = -1;
             while (number < 0 || number > 5){

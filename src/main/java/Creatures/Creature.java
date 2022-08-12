@@ -2,21 +2,19 @@ package Creatures;
 
 import Demo.*;
 
-import java.lang.reflect.Field;
-
-//Klasa do dziedziczenia z niej
+//Klasa do dziedziczenia z niej i tworzenia stworów bez mocy
 public class Creature {
 
-    protected int cost;
-    protected int attack;
-    protected int hp;
-    protected String power;
+    protected int cost;         //cena
+    protected int attack;       //atak
+    protected int hp;           //życie
+    protected String power;     //moc
 
-    protected int Swarm;
-    protected int Unbroaken;
+    protected int Swarm;        //cecha przyznawana przy wystawieniu, o ile gracz posiada kartę Rage "Swarm"
+    protected int Unbroaken;    //cecha przyznawana przy wystawieniu, o ile gracz posiada kartę Rage "Unbroaken"
 
-    protected int poisoned;
-    protected int copy_hp;
+    protected int poisoned;     //pole okreslajace, czy na ta jednostke zadzialala moc J
+    protected int copy_hp;      //pole przechowujące kopię życia. Stwór musi odzyskać swoje początkowe życie gdy spowrotem trafia do czyjegoś ekwipunku.
     
     public Creature(){}
 
@@ -25,9 +23,9 @@ public class Creature {
         this.attack = attack;
         this.hp = hp;
         this.power = "-";
-        this.Swarm = 0;         //cecha przyznawana przy wystawieniu, o ile gracz posiada kartę Rage "Swarm"
-        this.Unbroaken = 0;     //cecha przyznawana przy wystawieniu, o ile gracz posiada kartę Rage "Unbroaken"
-        this.poisoned = 0;      //pole okreslajace, czy na ta jednostke zadzialala moc J
+        this.Swarm = 0;
+        this.Unbroaken = 0;
+        this.poisoned = 0;
         this.copy_hp = hp;
     }
 

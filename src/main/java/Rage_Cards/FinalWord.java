@@ -16,10 +16,12 @@ public class FinalWord extends R_Card{
     public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage){
         //jeżeli aktualny gracz ma coś w ekwipunku i nie ma 4 jednostek na planszy
         if(you.eq.size() > 0 && you.counter < 4){
+
             System.out.println("\n" + "\n" + "\n" + "\n" + "\n"  + "\n" + "\n" + "\n" + "\n" + "\n");
             System.out.println("GRACZ " + you.id + " WYSTAWIA TERAZ DARMOWEGO STWORA!!!");
             System.out.println(board);
             System.out.println(you.eq);
+
             int number = -1;
             Scanner scan = new Scanner(System.in);
             while (number < 0 || number >= you.eq.size()){

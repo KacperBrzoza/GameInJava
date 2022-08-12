@@ -5,15 +5,13 @@ import Creatures.Creature;
 import java.util.Scanner;
 
 public class Game {
-    Player you;                  //gracz 1
-    Player opponent;                  //gracz 2
+    Player you;                 //gracz 1
+    Player opponent;            //gracz 2
     Cards_Stack cards;          //zakryty "stos" kart stworów
     Discardeds_Stack discarded; //odkryty stos kart odrzuconych stworów
     Money money;                //zakryty "stos" żetonów waluty
     Board board;                //plansza
     Rage_Cards rage_cards;      //zakryty "stos" kart Rage
-
-
 
     public Game(){
         you = new Player(1);
@@ -27,7 +25,8 @@ public class Game {
         rage_cards.initialization();
 
         startGame(you, opponent);
-        while(true){
+
+        while (true) {
             turn(you, opponent);
             turn(opponent, you);
         }
@@ -82,14 +81,14 @@ public class Game {
                 display(you, opponent);
         }
 
-        //4. Jeśli gracz posiada kartę Rage "Secret Assets"
+        //4. Jeśli gracz posiada kartę Rage "Secret Assets" dostaje 1 żeton waluty na koniec tury
         if(you.SecretAssets == 1){
             you.money += money.giveMoney(you, opponent);
             System.out.println("Dobrano zeton waluty");
         }
 
-        //4. Jeśli gracz posiada kartę Rage "Hypnosis"
-        if(you.Hypnosis == 1){
+        //4. Jeśli gracz posiada kartę Rage "RatCatcher" dostaje 1 kartę stwora na koniec tury
+        if(you.RatCatcher == 1){
             you.eq.addCreature(cards.giveCard());
             System.out.println("Dobrano stwora");
         }
@@ -100,15 +99,18 @@ public class Game {
 
     //pozwala graczowi dobrać 2x żeton waluty  lub  2x kartę stwora  lub  1x to i 1x to
     private void draw(Player p){
-        p.select = 2;
+        p.select = 2;   //liczba dobrań
+
         while(p.select > 0){
             Scanner scan =  new Scanner(System.in);
             System.out.println("1 - dobierz karte (lub) 2 - dobierz zeton waluty");
             System.out.print("wybierz: ");
             int number = scan.nextInt();
+
+            //dobranie karty
             if(number == 1){
                 Creature one = cards.giveCard();
-                //jeżeli gracz posiada kartę Rage "Selection"
+                //jeżeli gracz posiada kartę Rage "Selection" dobiera dwie karty. Jedną zatrzymuje, drugą odrzuca
                 if(p.Selection == 1){
                     Creature two = cards.giveCard();
                     System.out.println("(0) " + one);
@@ -129,10 +131,12 @@ public class Game {
                 }
                 p.select--;
             }
+
+            //dobranie żetonu waluty
             else if(number == 2){
                 p.select--;
                 int coin_one = money.giveMoney(you, opponent);
-                //jeżeli gracz posiada kartę Rage "Second Chance"
+                //jeżeli gracz posiada kartę Rage "Second Chance" dobiera dwa żetony waluty. Jedną zatrzymuje, drugą odrzuca
                 if(p.SecondChance == 1){
                     int coin_two = money.giveMoney(you, opponent);
                     System.out.println("(0) " + coin_one);
@@ -187,7 +191,7 @@ public class Game {
                                     creature.setSwarm(1);
                                 }
                             }
-                            //zwiększenie ataku stwora w przypadku posiadania karty Rage "Unbroaken"
+                            //zwiększenie hp stwora w przypadku posiadania karty Rage "Unbroaken"
                             if(you.Unbroaken == 1){
                                 if(creature.getHp() == 2) {
                                     creature.increaseHp();

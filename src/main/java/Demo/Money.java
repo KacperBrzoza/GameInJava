@@ -9,29 +9,29 @@ public class Money {
     private final List<Integer> bank;
 
     //inicjalizacja "stosu" żetonów waluty
-    //13 jeddynek
-    //15 dwójek
-    //10 trójek
-    //6 czwórek
-    //4 piątki
-    //2 szóstki
+    //6 jeddynek
+    //8 dwójek
+    //5 trójek
+    //3 czwórki
+    //2 piątki
+    //1 szóstka
     private void initialization(){
-        for(int i = 0; i < 13; i++){
+        for(int i = 0; i < 6; i++){
             bank.add(1);
         }
-        for(int i = 0; i < 15; i++){
+        for(int i = 0; i < 8; i++){
             bank.add(2);
         }
-        for(int i = 0; i < 10; i++){
+        for(int i = 0; i < 5; i++){
             bank.add(3);
         }
-        for(int i = 0; i < 6; i++){
+        for(int i = 0; i < 3; i++){
             bank.add(4);
         }
-        for(int i = 0; i < 4; i++){
+        for(int i = 0; i < 2; i++){
             bank.add(5);
         }
-        for(int i = 0; i < 2; i++){
+        for(int i = 0; i < 1; i++){
             bank.add(6);
         }
     }
@@ -56,6 +56,7 @@ public class Money {
         //jeżeli bank się opróżni, zostanie ponownie wypełniony
         if(bank.size() == 0) {
             initialization();
+
             //działanie karty Rage "Thief"
             if(you.Thief == 1){
                 for (int i = 0; i < 3; i++)

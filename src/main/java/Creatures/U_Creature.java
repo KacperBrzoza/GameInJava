@@ -1,5 +1,6 @@
 package Creatures;
 
+//dopóki ta jednostka żyje stwory na dwóch polach za nią są nieśmiertelne
 public class U_Creature extends Creature{
 
     public U_Creature(int cost, int attack, int hp){
@@ -7,8 +8,8 @@ public class U_Creature extends Creature{
         this.attack = attack;
         this.hp = hp;
         this.power = "U";
-        this.Swarm = 0;         //cecha przyznawana przy wystawieniu, o ile gracz posiada kartę Rage "Swarm"
-        this.Unbroaken = 0;     //cecha przyznawana przy wystawieniu, o ile gracz posiada kartę Rage "Unbroaken"
-        this.poisoned = 0;      //pole okreslajace, czy na ta jednostke zadzialala moc J
+        this.Swarm = 0;
+        this.Unbroaken = 0;
+        this.poisoned = 0;
     }
 }

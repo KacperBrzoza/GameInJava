@@ -12,7 +12,9 @@ public class Redeployment extends R_Card{
     }
 
     public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage){
+        //zadziała gdy masz coś wystawione
         if(you.counter > 0){
+
             System.out.println("\n" + "\n" + "\n" + "\n" + "\n"  + "\n" + "\n" + "\n" + "\n" + "\n");
             System.out.println("GRACZ " + you.id + " MOZE WYCOFAC SWOJEGO STWORA!!!");
             System.out.println(board);
@@ -22,15 +24,19 @@ public class Redeployment extends R_Card{
                 }
             }
             System.out.println("\n(5) aby zrezygnować");
+
             Scanner scan = new Scanner(System.in);
             int number = -1;
             while (number < 0 || number > 5){
                 System.out.print("wybierz: ");
                 number = scan.nextInt();
+
                 if(number >=0 && number < 5) {
+                    //zabranie z planszy dobrze wybranej karty
                     if (!board.empty(you.id, number)) {
                         you.eq.addCreature(board.removeCard(you.id, number));
                         you.counter--;
+                        //dobranie 3 żetonów waluty
                         for(int i = 0; i < 3; i++)
                             you.money += money.giveMoney(you, opponent);
                     }

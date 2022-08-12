@@ -13,6 +13,7 @@ public class BraveMove extends R_Card{
     //UWAGA! Jeśli zdarzy się, że jednostka "nie ma dokąd się cofnąć", wraca wtedy do eq posiadacza
     //jednak właściel dostaje rekompensatę połowy ceny tego stwora
     public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage){
+        //wersja dla gracza 1
         if(you.id == 1){
             //jeżeli przeciwnik ma coś wystawione
             if(opponent.counter > 0){
@@ -51,6 +52,7 @@ public class BraveMove extends R_Card{
                 }
             }
         }
+        //wersja dla gracza drugiego
         else{
             //jeżeli przeciwnik ma coś wystawione
             if(opponent.counter > 0){

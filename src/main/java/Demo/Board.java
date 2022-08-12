@@ -52,7 +52,7 @@ public class Board {
                     opponent.rage.putCard(rage_card);
                     System.out.println("GRACZ " + opponent.id + " otrzymal karte *" + rage_card + "*");
                     rage_card.effect(opponent, you, this, discarded, cards, money, rage_cards);
-                    //jeżeli zdobytą kartą była karta Rage "Swarm"
+                    //jeżeli zdobytą kartą była karta Rage "Swarm" zwieksza atak o 1 wszystkim swoim wystawionym jednostkom z atakiem = 2
                     if(opponent.Swarm == 1){
                         for (int i = 0; i < 5; i++){
                             if(!line2.get(i).empty) {
@@ -63,7 +63,7 @@ public class Board {
                             }
                         }
                     }
-                    //jeżeli zdobytą kartą była karta Rage "Unbroaken"
+                    //jeżeli zdobytą kartą była karta Rage "Unbroaken" zwieksza obronę o 1 wszystkim swoim wystawionym jednostkom z obroną = 2
                     if(opponent.Unbroaken == 1){
                         for (int i = 0; i < 5; i++){
                             if(!line2.get(i).empty) {
@@ -85,6 +85,7 @@ public class Board {
                         if (fight(line1.get(i + 1), line2.get(i + 1), discarded, you, opponent))
                             opponent.counter--;
                     }
+                    //dodatkowa walka dla stworów z mocą F
                     else{
                         if(i + 2 < 5) {
                             if (line1.get(i + 1).creature.getPower().equals("F")) {
@@ -100,16 +101,19 @@ public class Board {
         }
         //gdy tura drugiego; różnica jest taka, że stwory gracza 2 idą w drugą stronę
         else {
+            //stwor na ostatnim polu wchodzi do bazy przeciwnika
             if(!line2.get(0).empty){
                 discarded.putCard(line2.get(0).removeCard());
                 you.counter--;
 
+                //przeciwnik traci tarcze i jeśli wychodzi na minus, to przegrywa grę
                 opponent.loseShield();
                 if(opponent.showShields() == -1){
                     you.score += 2.0;
                     opponent.score -= 0.5;
                     endGame(you, opponent);
                 }
+                //w przeciwnym razie zdobywa kartę Rage
                 else{
                     you.score += 1.0;
                     opponent.score -= 0.5;
@@ -117,7 +121,7 @@ public class Board {
                     opponent.rage.putCard(rage_card);
                     System.out.println("GRACZ " + opponent.id + " otrzymal karte *" + rage_card + "*");
                     rage_card.effect(opponent, you, this, discarded, cards, money, rage_cards);
-                    //jeżeli zdobytą kartą była karta Rage "Swarm"
+                    //jeżeli zdobytą kartą była karta Rage "Swarm" zwieksza atak o 1 wszystkim swoim wystawionym jednostkom z atakiem = 2
                     if(opponent.Swarm == 1){
                         for (int i = 0; i < 5; i++){
                             if(!line1.get(i).empty) {
@@ -128,7 +132,7 @@ public class Board {
                             }
                         }
                     }
-                    //jeżeli zdobytą kartą była karta Rage "Unbroaken"
+                    //jeżeli zdobytą kartą była karta Rage "Unbroaken" zwieksza obronę o 1 wszystkim swoim wystawionym jednostkom z obroną = 2
                     if(opponent.Unbroaken == 1){
                         for (int i = 0; i < 5; i++){
                             if(!line2.get(i).empty) {
@@ -141,6 +145,7 @@ public class Board {
                     }
                 }
             }
+            //następnie pozostałe stwory się przemieszczają i atakują stwory przeciwnika
             for(int i = 1; i <= 4; i++){
                 if(!line2.get(i).empty){
                     line2.get(i - 1).putCard(line2.get(i).removeCard());
@@ -149,6 +154,7 @@ public class Board {
                         if (fight(line2.get(i - 1), line1.get(i - 1), discarded, you, opponent))
                             opponent.counter--;
                     }
+                    //dodatkowa walka dla stworów z mocą F
                     else{
                         if(i - 2 >= 0) {
                             if (line2.get(i - 1).creature.getPower().equals("F")) {
@@ -166,14 +172,24 @@ public class Board {
 
     //rozpatruje, czy broniąca się jednostka zginie, czy nie
     public boolean fight(Field attack, Field defense, Discardeds_Stack discardeds, Player you, Player opponent){
+
+        //gdy postać ma moc X
         if(attack.creature.getPower().equals("X")){
             X_Creature x = (X_Creature) attack.creature;
+
+            //i jeszcze jej nie użyła
             if(x.getUse() == 1){
                 x.setUse(0);
+
+                //próba ratowania się kartą z mocą R przez broniącego się
                 if(defense.creature.getHelp(opponent, discardeds, this, defense.position))
                     return false;
+
+                //próba ratowania się kartą z mocą U przez broniącego się
                 if(defense.creature.getImmortal(opponent, discardeds, this, defense.position))
                     return false;
+
+                //sprawdzenie czy karta broniąca ma moc N i jej jeszcze nie wykorzystała
                 if(defense.creature.getPower().equals("N")) {
                     N_Creature n = (N_Creature) defense.creature;
                     if (n.getUse() == 1) {
@@ -181,16 +197,21 @@ public class Board {
                         return false;
                     }
                 }
+
+                //jeśli broniąca jednostka ma zginąć, ale ma moc J, to "zatruwa" atakującego
                 if(defense.creature.getPower().equals("J")){
                     attack.creature.setHp(1);
                     attack.creature.setPoisoned(1);
                     if(attack.creature.ifUnbroaken())
                         attack.creature.setUnbroaken(0);
                 }
+
+                //broniąca się jednostka ginie
                 discardeds.putCard(defense.removeCard());
                 return true;
             }
         }
+        //jeżeli atakująca nie miała mocy X, ale ma moc G, to zbija broniącego, który wraca do ekwipunku właściciela
         else if(attack.creature.getPower().equals("G")){
             G_Creature creature = (G_Creature) attack.creature;
             if(creature.getUse() == 1){
@@ -199,12 +220,19 @@ public class Board {
                 return true;
             }
         }
+        //normalna walka w przypadku nie posiadania mocy X i G
         //jeśli właściciel atakującej jednostki posiada kartę Rage "Crusher", wtedy jego atak jest bardziej zabójczy
         if((you.Crusher == 1 && attack.creature.getAttack() == defense.creature.getHp()) || attack.creature.getAttack() > defense.creature.getHp()){
+
+            //próba ratowania się kartą z mocą R przez broniącego się
             if(defense.creature.getHelp(opponent, discardeds, this, defense.position))
                 return false;
+
+            //próba ratowania się kartą z mocą U przez broniącego się
             if(defense.creature.getImmortal(opponent, discardeds, this, defense.position))
                 return false;
+
+            //sprawdzenie czy karta broniąca ma moc N i jej jeszcze nie wykorzystała
             if(defense.creature.getPower().equals("N")) {
                 N_Creature n = (N_Creature) defense.creature;
                 if (n.getUse() == 1) {
@@ -212,12 +240,16 @@ public class Board {
                     return false;
                 }
             }
+
+            //jeśli broniąca jednostka ma zginąć, ale ma moc J, to "zatruwa" atakującego
             if(defense.creature.getPower().equals("J")){
                 attack.creature.setHp(1);
                 attack.creature.setPoisoned(1);
                 if(attack.creature.ifUnbroaken())
                     attack.creature.setUnbroaken(0);
             }
+
+            //broniąca się jednostka ginie
             discardeds.putCard(defense.removeCard());
             return true;
         }
@@ -258,10 +290,11 @@ public class Board {
 
 
     //metoda umieszcza wybranego stwora na pierwszym polu linii odpowiedniego gracza
-    //jednak najpierw sprawdza czy pole i jeśli potrzeba, kolejne pola, czy są zajęte, bo
+    //jednak najpierw sprawdza czy pole i jeśli potrzeba, kolejne pola są zajęte, bo
     //jeżeli są, to przepycha najpierw stwory do przodu, one mają możliwość ataku
     //dopiero wtedy wybrany stwor staje na pierwszym polu i też wykonuje atak, jeśli ma kogo atakować
     public void put(Creature creature, Player you, Player opponent,  Discardeds_Stack discardeds){
+        //wersja dla gracza pierwszego
         if(you.id == 1){
             if(!line1.get(0).empty){
                 if(!line1.get(1).empty){
@@ -283,11 +316,12 @@ public class Board {
                         }
                     }
                     line1.get(2).putCard(line1.get(1).removeCard());
-                    //jeżeli postać nie ma mocy F
+                    //normalna walka
                     if (!line2.get(2).empty) {
                         if (fight(line1.get(2), line2.get(2), discardeds, you, opponent))
                             opponent.counter--;
                     }
+                    //jeśli postać ma moc F
                     else{
                         if(line1.get(2).creature.getPower().equals("F")){
                             if (!line2.get(3).empty) {
@@ -298,11 +332,12 @@ public class Board {
                     }
                 }
                 line1.get(1).putCard(line1.get(0).removeCard());
-                //jeżeli postać nie ma mocy F
+                //normalna walka
                 if (!line2.get(1).empty) {
                     if (fight(line1.get(1), line2.get(1), discardeds, you, opponent))
                         opponent.counter--;
                 }
+                //jeśli postać ma moc F
                 else{
                     if(line1.get(1).creature.getPower().equals("F")){
                         if (!line2.get(2).empty) {
@@ -313,11 +348,12 @@ public class Board {
                 }
             }
             line1.get(0).putCard(creature);
-            //jeżeli postać nie ma mocy F
+            //normalna walka
             if (!line2.get(0).empty) {
                 if (fight(line1.get(0), line2.get(0), discardeds, you, opponent))
                     opponent.counter--;
             }
+            //jeśli postać ma moc F
             else{
                 if(line1.get(0).creature.getPower().equals("F")){
                     if (!line2.get(1).empty) {
@@ -327,7 +363,7 @@ public class Board {
                 }
             }
         }
-
+        //wersja dla gracza drugiego
         else{
             if(!line2.get(4).empty){
                 if(!line2.get(3).empty){
@@ -338,6 +374,7 @@ public class Board {
                             if (fight(line2.get(1), line1.get(1), discardeds, you, opponent))
                                 opponent.counter--;
                         }
+                        //jeśli postać ma moc F
                         else{
                             if(line2.get(1).creature.getPower().equals("F")){
                                 if (!line1.get(0).empty) {
@@ -353,6 +390,7 @@ public class Board {
                         if (fight(line2.get(2), line1.get(2), discardeds, you, opponent))
                             opponent.counter--;
                     }
+                    //jeśli postać ma moc F
                     else{
                         if(line2.get(2).creature.getPower().equals("F")){
                             if (!line1.get(1).empty) {
@@ -368,6 +406,7 @@ public class Board {
                     if (fight(line2.get(3), line1.get(3), discardeds, you, opponent))
                         opponent.counter--;
                 }
+                //jeśli postać ma moc F
                 else {
                     if(line2.get(3).creature.getPower().equals("F")){
                         if (!line1.get(2).empty) {
@@ -383,6 +422,7 @@ public class Board {
                 if (fight(line2.get(4), line1.get(4), discardeds, you, opponent))
                     opponent.counter--;
             }
+            //jeśli postać ma moc F
             else{
                 if(line2.get(4).creature.getPower().equals("F")){
                     if (!line1.get(3).empty) {
@@ -515,7 +555,7 @@ public class Board {
             return creature;
         }
 
+        //podmienia stwora na tym polu na podanego w argumencie
         public void setCard(Creature creature){this.creature = creature;}
-        public Creature getCard(){return this.creature;}
     }
 }

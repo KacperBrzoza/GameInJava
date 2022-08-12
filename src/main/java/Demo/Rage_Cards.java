@@ -12,7 +12,7 @@ import java.util.Random;
 public class Rage_Cards {
     private final List<R_Card> cards;
 
-    //tu będzie inicjalizacja stosu kart Rage
+    //inicjalizacja stosu kart Rage
     public void initialization(){
         cards.add(new Resurrection());
         cards.add(new Profit());
@@ -33,7 +33,7 @@ public class Rage_Cards {
         cards.add(new SecondChance());
         cards.add(new Crusher());
         cards.add(new Unbroaken());
-        cards.add(new Hypnosis());
+        cards.add(new RatCatcher());
 
     }
 
@@ -67,5 +67,4 @@ public class Rage_Cards {
         }
         return my_cards;
     }
-
 }

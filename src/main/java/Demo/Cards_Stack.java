@@ -201,10 +201,6 @@ public class Cards_Stack {
         creatures.add(new Z_Creature(7, 3, 5));
         creatures.add(new Z_Creature(9, 4, 6));
         creatures.add(new Z_Creature(10, 6, 5));
-
-        /*
-        TU BĘDZIE DUUUUŻO STWORÓW W PRZYSZŁOŚCI
-         */
     }
 
     //poniższa metoda losuje kartę z tego "stosu" i ją zwraca
@@ -219,15 +215,6 @@ public class Cards_Stack {
             endGame();
         return card;
     }
-
-    //UWAGI:
-    //- można się zastanowić co ma się stać w przypadku wyczerpania się kart
-    // Czy koniec gry?
-    //Preferencja osobista (Zalezy czy bysmy chcieli,zeby gracze grali bardzo dlugo, czy chcemy zrownowazone gry - Tak jak w Hearthstone
-    //odbieranie coraz wiecej zycia po wyczerpaniu stosu kart
-    // Czy ponowna inicjalizacja całego "stosu" zakrytych kart?
-
-
 
     //metoda przerywa grę gdy skończą się karty na stosie (do testów)
     private void endGame(){

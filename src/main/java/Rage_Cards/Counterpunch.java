@@ -2,7 +2,7 @@ package Rage_Cards;
 
 import Demo.*;
 
-//przeciwnik natychmiast traci tarczę i nie dostaje karty Rage
+//przeciwnik natychmiast traci tarczę i nie dostaje karty Rage (ta karta nie wpływa na punkty graczy)
 public class Counterpunch extends R_Card{
 
     public Counterpunch(){
