@@ -8,6 +8,10 @@ module com.example.Main {
 
     opens com.example.Main to javafx.fxml;
     exports com.example.Main;
-    exports com.example.Controllers;
-    opens com.example.Controllers to javafx.fxml;
+    exports com.example.Main.Login;
+    opens com.example.Main.Login to javafx.fxml;
+    exports com.example.Main.Register;
+    opens com.example.Main.Register to javafx.fxml;
+    exports com.example.Main.Menu;
+    opens com.example.Main.Menu to javafx.fxml;
 }

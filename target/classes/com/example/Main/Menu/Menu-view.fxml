@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="CENTER" maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Main.Menu.MenuController">
+    <children>
+      <AnchorPane fx:id="BlackPane" prefHeight="1080.0" prefWidth="1920.0">
+         <children>
+              <AnchorPane fx:id="AllScreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../../../style/style-class.css">
+                  <children>
+                      <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="305.0" prefWidth="1920.0">
+                          <children>
+                              <Pane layoutX="577.0" layoutY="38.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="240.0" prefWidth="738.0">
+                                  <children>
+                                      <VBox fx:id="GameName" alignment="CENTER" layoutX="65.0" layoutY="-5.0" prefHeight="255.0" prefWidth="601.0">
+                                          <children>
+                                              <Label fx:id="GameName0" alignment="CENTER" contentDisplay="CENTER" prefHeight="104.0" prefWidth="555.0" scaleShape="false" text="Kingdoms">
+                                                  <font>
+                                                      <Font size="40.0" />
+                                                  </font>
+                                              </Label>
+                                              <Label fx:id="GameName1" alignment="CENTER" contentDisplay="CENTER" prefHeight="95.0" prefWidth="580.0" scaleShape="false" text="Towers Collide">
+                                                  <font>
+                                                      <Font size="38.0" />
+                                                  </font>
+                                              </Label>
+                                          </children>
+                                      </VBox>
+                                  </children>
+                              </Pane>
+                              <Button fx:id="ExitButton" alignment="CENTER" contentDisplay="RIGHT" layoutX="1800.0" layoutY="30.0" mnemonicParsing="false" onAction="#onExitButton" onMouseClicked="#onMouseClick" onMouseEntered="#onMouseEntered" prefHeight="60.0" prefWidth="60.0" text="X">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Button>
+                              <Button fx:id="OptionButton" alignment="CENTER" contentDisplay="RIGHT" layoutX="1674.0" layoutY="30.0" mnemonicParsing="false" onAction="#onOptionButton" onMouseClicked="#onMouseClick" onMouseEntered="#onMouseEntered" prefHeight="60.0" prefWidth="111.0" text="\@">
+                                  <font>
+                                      <Font size="24.0" />
+                                  </font>
+                              </Button>
+                          </children>
+                          <opaqueInsets>
+                              <Insets />
+                          </opaqueInsets>
+                      </AnchorPane>
+                      <VBox alignment="CENTER" layoutX="680.0" layoutY="280.0" prefHeight="710.0" prefWidth="515.0">
+                     <children>
+                        <Button fx:id="PlayButton" mnemonicParsing="false" onAction="#onPlayButton" onMouseClicked="#onMouseClick" onMouseEntered="#onMouseEntered" prefHeight="75.0" prefWidth="450.0" text="Graj">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="PlayWithButton" mnemonicParsing="false" onAction="#onPlayWithButton" onMouseClicked="#onMouseClick" onMouseEntered="#onMouseEntered" prefHeight="75.0" prefWidth="450.0" text="Graj z...">
+                           <VBox.margin>
+                              <Insets top="50.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="RankButton" mnemonicParsing="false" onAction="#onRankButton" onMouseClicked="#onMouseClick" onMouseEntered="#onMouseEntered" prefHeight="75.0" prefWidth="450.0" text="Ranking">
+                           <VBox.margin>
+                              <Insets top="50.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="CreditsButton" mnemonicParsing="false" onAction="#onCreditsButton" onMouseClicked="#onMouseClick" onMouseEntered="#onMouseEntered" prefHeight="75.0" prefWidth="450.0" text="Twórcy">
+                           <VBox.margin>
+                              <Insets top="50.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="LogoutButton" mnemonicParsing="false" onAction="#onLogoutButton" onMouseClicked="#onMouseClick" onMouseEntered="#onMouseEntered" prefHeight="75.0" prefWidth="450.0" text="Wyloguj się">
+                           <VBox.margin>
+                              <Insets top="50.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
+                  </children>
+              </AnchorPane>
+         </children>
+      </AnchorPane>
+    </children>
+</VBox>

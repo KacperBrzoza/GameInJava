@@ -13,6 +13,9 @@
     -fx-background-size: 1024 1024;
 
 }
+#BlackPane{
+    -fx-background-color: black;
+}
 .button{
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
@@ -24,12 +27,21 @@
     -fx-font-size: 28pt;
 
 }
-.button:pressed {
+.button:hover {
     -fx-text-fill: white;
     -fx-background-color: #363636;
+    -fx-border-color: #a8a0a0 #a8a0a0 #dbd1d0 ##dbd1d0;
+}
+.button:pressed {
+    -fx-text-fill: white;
+    -fx-background-color: #5e5e5e;
     -fx-border-color: #591515 #591515 #8c2222 #8c2222;
 }
-
+#PassMsg{
+    -fx-font-family: 'Bitmgothic';
+    -fx-font-size: 30pt;
+    -fx-text-fill: #9e2626;
+}
 #LoginTextField{
 
     -fx-font-size: 20pt;
@@ -54,7 +66,18 @@
     -fx-border-style: solid inside;
     -fx-border-color: #5e5e5e #5e5e5e #404040 #404040;
 }
-
+#rPasswordTextField{
+    -fx-font-family: 'Bitmgothic';
+    -fx-font-size: 20pt;
+    -fx-text-fill: white;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-background-color: #363636;
+    -fx-border-radius: 0;
+    -fx-border-width: 7;
+    -fx-border-style: solid inside;
+    -fx-border-color: #5e5e5e #5e5e5e #404040 #404040;
+}
 #GameName0{
     -fx-font-size: 87pt;
     -fx-text-fill: #661201;
@@ -73,6 +96,10 @@
     -fx-text-fill: white;
 }
 #PasswordText{
+    -fx-font-size: 40pt;
+    -fx-text-fill: white;
+}
+#PasswordText1{
     -fx-font-size: 40pt;
     -fx-text-fill: white;
 }

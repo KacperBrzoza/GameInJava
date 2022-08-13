@@ -1,4 +1,4 @@
-package com.example.Controllers;
+package com.example.Main.Register;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
