@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class StartLoginApplication extends Application {
 
@@ -43,7 +44,7 @@ public class StartLoginApplication extends Application {
 
     public static void main(String[] args)
     {
-        /*try
+        try
         {
             databaseConnection =new DatabaseConnection();
             databaseConnection.create_base(); //- Ogolnie zakomentowane,tylko jesli pierwszy raz odpalacie to wtedy z tym zeby utworzyc tabele
@@ -55,7 +56,7 @@ public class StartLoginApplication extends Application {
         catch (ClassNotFoundException ex)
         {
             ex.printStackTrace();
-        }*/
+        }
         launch(args);
     }
 }

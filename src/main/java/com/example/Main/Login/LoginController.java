@@ -87,7 +87,7 @@ public class LoginController
     public void onRegisterButtonClick(ActionEvent event) throws IOException
     {
         //Musialem w taki sposob bo inaczej blad - NullPointerException (Location is required)
-        /*URL url = new File("src/main/resources/com/example/Main/Register/register-view.fxml").toURI().toURL();
+        URL url = new File("src/main/resources/com/example/Main/Register/register-view.fxml").toURI().toURL();
         root = FXMLLoader.load(url);
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.setResizable(false);
@@ -95,7 +95,7 @@ public class LoginController
         scene.getStylesheets().add(getClass().getResource("/style/style-class.css").toExternalForm());
         stage.setMaximized(true);
         stage.setScene(scene);
-        stage.show();*/
+        stage.show();
     }
 
      @FXML
