@@ -57,7 +57,7 @@ public class LoginController
 
     public void ambient_music(boolean on_off)
     {
-        mediaPlayer.setVolume(0.5);
+        mediaPlayer.setVolume(0.8);
         if(on_off) {
             mediaPlayer.play();
             //System.out.println("on");
@@ -142,7 +142,8 @@ public class LoginController
             mediaPlayer_login_good.play();
             PassMsg.setText("Zalogowano pomyślnie.");
             //kontrolna zmiana muzy
-            ambient_music(false);
+            //
+            //
             PassMsg.setStyle("-fx-text-fill: #269e32");
             URL url_menu = new File("src/main/resources/com/example/Main/Menu/Menu-view.fxml").toURI().toURL();
             root = FXMLLoader.load(url_menu);

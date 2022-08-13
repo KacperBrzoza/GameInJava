@@ -39,7 +39,7 @@
                                 <Font size="24.0" />
                             </font>
                         </Button>
-                        <Button fx:id="OptionButton" alignment="CENTER" contentDisplay="RIGHT" layoutX="1674.0" layoutY="30.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="111.0" text="\@">
+                        <Button fx:id="OptionButton" alignment="CENTER" contentDisplay="RIGHT" layoutX="1674.0" layoutY="30.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="111.0" text="\@" AnchorPane.rightAnchor="145.0">
                             <font>
                                 <Font size="24.0" />
                             </font>

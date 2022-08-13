@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
@@ -24,6 +25,9 @@ public class MenuController {
     private AnchorPane AllScreen;
     @FXML
     private Button ExitButton;
+    @FXML
+    private HBox NotificationPane;
+
 
     String path_sound_click = "src/main/resources/sound/button_release_sound.mp3";
     Media media_click = new Media(new File(path_sound_click).toURI().toString());
@@ -69,19 +73,43 @@ public class MenuController {
 
     }
     @FXML
-    public void onPlayButton()
+    public void onPlayButton(ActionEvent event) throws IOException
     {
+        //Testowo wrzucone zeby pokazac ze jest powiadomienie
+        NotificationPane.setVisible(true);
 
+        URL url = new File("src/main/resources/com/example/Main/Menu/Waiting-Oponent-view.fxml").toURI().toURL();
+        Parent root = FXMLLoader.load(url);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setResizable(false);
+        stage.setMaximized(true);
+        stage.setScene(scene);
+        stage.show();
     }
     @FXML
-    public void onPlayWithButton()
+    public void onPlayWithButton(ActionEvent event) throws IOException
     {
-
+        URL url = new File("src/main/resources/com/example/Main/Menu/Find-Oponent-view.fxml").toURI().toURL();
+        Parent root = FXMLLoader.load(url);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setResizable(false);
+        stage.setMaximized(true);
+        stage.setScene(scene);
+        stage.show();
     }
     @FXML
-    public void onRankButton()
+    public void onRankButton(ActionEvent event) throws IOException
     {
-
+        URL url = new File("src/main/resources/com/example/Main/Rank/rank-view.fxml").toURI().toURL();
+        Parent root = FXMLLoader.load(url);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setResizable(false);
+        stage.setMaximized(true);
+        stage.setScene(scene);
+        stage.show();
     }
     @FXML
     public void onCreditsButton()
@@ -91,6 +119,7 @@ public class MenuController {
     @FXML
     public void onLogoutButton(ActionEvent event) throws IOException
     {
+        NotificationPane.setVisible(false);
         URL url = new File("src/main/resources/com/example/Main/Login/hello-login-view.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

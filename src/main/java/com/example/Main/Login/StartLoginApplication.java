@@ -30,8 +30,7 @@ public class StartLoginApplication extends Application {
         Image icon = new Image(String.valueOf(StartLoginApplication.class.getResource("/icon/icon_KTC_og-size.png")));
         stage.getIcons().add(icon);
         stage.setTitle("Kingdoms Towers Collide");
-
-        controller.ambient_music(true);
+        controller.ambient_music(false);
         stage.setX(0);
         stage.setY(0);
         scene.getStylesheets().add(getClass().getResource("/style/style-class.css").toExternalForm());
