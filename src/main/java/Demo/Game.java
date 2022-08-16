@@ -5,17 +5,18 @@ import Creatures.Creature;
 import java.util.Scanner;
 
 public class Game {
-    Player you;                 //gracz 1
-    Player opponent;            //gracz 2
-    Cards_Stack cards;          //zakryty "stos" kart stworów
-    Discardeds_Stack discarded; //odkryty stos kart odrzuconych stworów
-    Money money;                //zakryty "stos" żetonów waluty
-    Board board;                //plansza
-    Rage_Cards rage_cards;      //zakryty "stos" kart Rage
+    public Player you;                 //gracz 1
+    public Player opponent;            //gracz 2
+    public Cards_Stack cards;          //zakryty "stos" kart stworów
+    public Discardeds_Stack discarded; //odkryty stos kart odrzuconych stworów
+    public Money money;                //zakryty "stos" żetonów waluty
+    public Board board;                //plansza
+    public Rage_Cards rage_cards;      //zakryty "stos" kart Rage
 
     public Game(){
         you = new Player(1);
         opponent = new Player(2);
+
         cards = new Cards_Stack();
         discarded = new Discardeds_Stack();
         money = new Money();
