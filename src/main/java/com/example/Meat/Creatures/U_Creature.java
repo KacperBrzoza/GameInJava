@@ -1,4 +1,4 @@
-package Creatures;
+package com.example.Meat.Creatures;
 
 //dopóki ta jednostka żyje stwory na dwóch polach za nią są nieśmiertelne
 public class U_Creature extends Creature{

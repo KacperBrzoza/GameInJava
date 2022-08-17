@@ -1,6 +1,6 @@
-package Rage_Cards;
+package com.example.Meat.Rage_Cards;
 
-import Demo.*;
+import com.example.Meat.Demo.*;
 
 //gracz natychmiast dobiera 5 kart stworów
 public class Recruiting extends R_Card{

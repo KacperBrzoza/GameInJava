@@ -1,6 +1,6 @@
-package Creatures;
+package com.example.Meat.Creatures;
 
-import Demo.*;
+import com.example.Meat.Demo.*;
 
 //gdy wystawisz tego stwora, dobierasz kartę stwora
 public class D_Creature extends Creature{

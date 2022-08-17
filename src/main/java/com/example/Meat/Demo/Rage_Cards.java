@@ -1,6 +1,6 @@
-package Demo;
+package com.example.Meat.Demo;
 
-import Rage_Cards.*;
+import com.example.Meat.Rage_Cards.*;
 
 import java.util.ArrayList;
 import java.util.List;

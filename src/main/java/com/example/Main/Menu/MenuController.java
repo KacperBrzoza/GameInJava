@@ -86,6 +86,22 @@ public class MenuController {
         stage.setMaximized(true);
         stage.setScene(scene);
         stage.show();
+
+        /*   !!! ROBOTY PROGRAMISTYCZNE !!!
+        do {
+            //jeżeli w tabeli z ipkami coś jest
+            if (ConnectionMenager.search() != null / 0) {
+                //iteruj po tych wynikach tzn...
+                for(each -> wyniki) {
+                    //... sprawdzaj po kolei z którym ip można się połączyć
+                    //jeśli z tym można, to przerwij pętlę i...
+                }
+            } else {
+                //
+            }
+        }
+        while();
+           !!! ROBOTY PROGRAMISTYCZNE !!!   */
     }
     @FXML
     public void onPlayWithButton(ActionEvent event) throws IOException

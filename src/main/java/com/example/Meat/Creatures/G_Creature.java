@@ -1,4 +1,4 @@
-package Creatures;
+package com.example.Meat.Creatures;
 
 //pierwszy przeciwnik napotkany przez tego stwora wraca do ekwipunku rywala
 public class G_Creature extends Creature{

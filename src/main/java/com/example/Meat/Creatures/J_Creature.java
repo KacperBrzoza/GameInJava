@@ -1,4 +1,4 @@
-package Creatures;
+package com.example.Meat.Creatures;
 
 //gdy stwór z tą mocą zginie, obniża hp swojego zabójcy do 1
 public class J_Creature extends Creature{

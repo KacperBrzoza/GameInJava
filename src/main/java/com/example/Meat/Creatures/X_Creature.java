@@ -1,4 +1,4 @@
-package Creatures;
+package com.example.Meat.Creatures;
 
 //zabija pierwszego napotkanego przeciwnika
 public class X_Creature extends Creature{

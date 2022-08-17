@@ -1,6 +1,6 @@
-package Creatures;
+package com.example.Meat.Creatures;
 
-import Demo.*;
+import com.example.Meat.Demo.*;
 
 import java.util.Scanner;
 

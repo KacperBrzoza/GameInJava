@@ -1,6 +1,6 @@
-package Creatures;
+package com.example.Meat.Creatures;
 
-import Demo.*;
+import com.example.Meat.Demo.*;
 
 //gdy wystawisz tego stwora, dobierasz żeton waluty
 public class M_Creature extends Creature{

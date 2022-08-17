@@ -1,4 +1,4 @@
-package Creatures;
+package com.example.Meat.Creatures;
 
 //gdy inny stwór ma zginąć, ten zginie za niego
 public class R_Creature extends Creature{

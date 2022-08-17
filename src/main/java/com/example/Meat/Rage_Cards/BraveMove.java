@@ -1,7 +1,7 @@
-package Rage_Cards;
+package com.example.Meat.Rage_Cards;
 
-import Creatures.Creature;
-import Demo.*;
+import com.example.Meat.Creatures.Creature;
+import com.example.Meat.Demo.*;
 
 public class BraveMove extends R_Card{
 

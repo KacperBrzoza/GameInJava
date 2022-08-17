@@ -1,6 +1,6 @@
-package Creatures;
+package com.example.Meat.Creatures;
 
-import Demo.*;
+import com.example.Meat.Demo.*;
 
 //Klasa do dziedziczenia z niej i tworzenia stworów bez mocy
 public class Creature {

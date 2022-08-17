@@ -1,6 +1,6 @@
-package Demo;
+package com.example.Meat.Demo;
 
-import Creatures.Creature;
+import com.example.Meat.Creatures.Creature;
 
 import java.util.Stack;
 

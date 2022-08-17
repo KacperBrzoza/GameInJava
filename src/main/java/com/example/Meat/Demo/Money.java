@@ -1,4 +1,4 @@
-package Demo;
+package com.example.Meat.Demo;
 
 import java.util.ArrayList;
 import java.util.List;

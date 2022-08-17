@@ -1,4 +1,4 @@
-package Creatures;
+package com.example.Meat.Creatures;
 
 //stwory z tą mocą unikają swojej pierwszej śmierci
 public class N_Creature extends Creature{

@@ -1,4 +1,4 @@
-package Demo;
+package com.example.Meat.Demo;
 
 public class Player {
     public Equipment eq;        //ekwipunek

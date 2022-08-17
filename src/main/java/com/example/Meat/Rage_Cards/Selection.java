@@ -1,6 +1,6 @@
-package Rage_Cards;
+package com.example.Meat.Rage_Cards;
 
-import Demo.*;
+import com.example.Meat.Demo.*;
 
 public class Selection extends R_Card{
 

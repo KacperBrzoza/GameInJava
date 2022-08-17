@@ -1,4 +1,4 @@
-package Creatures;
+package com.example.Meat.Creatures;
 
 //te stwory, jeżeli nie spotkają przeciwnika do walki, to próbują walczyć z przeciwnikiem na jednym polu dalej
 public class F_Creature extends Creature{

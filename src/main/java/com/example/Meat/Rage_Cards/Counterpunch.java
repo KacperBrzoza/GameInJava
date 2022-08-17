@@ -1,6 +1,6 @@
-package Rage_Cards;
+package com.example.Meat.Rage_Cards;
 
-import Demo.*;
+import com.example.Meat.Demo.*;
 
 //przeciwnik natychmiast traci tarczę i nie dostaje karty Rage (ta karta nie wpływa na punkty graczy)
 public class Counterpunch extends R_Card{

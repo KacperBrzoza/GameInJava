@@ -1,6 +1,6 @@
-package Rage_Cards;
+package com.example.Meat.Rage_Cards;
 
-import Demo.*;
+import com.example.Meat.Demo.*;
 
 //natychmiast uzdrawia 5 stworów
 public class Resurrection extends R_Card{

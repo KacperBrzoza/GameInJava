@@ -1,6 +1,6 @@
-package Demo;
+package com.example.Meat.Demo;
 
-import Creatures.*;
+import com.example.Meat.Creatures.*;
 
 import java.util.ArrayList;
 import java.util.List;

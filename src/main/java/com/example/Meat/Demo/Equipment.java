@@ -1,9 +1,6 @@
-package Demo;
+package com.example.Meat.Demo;
 
-import Creatures.Creature;
-import Creatures.G_Creature;
-import Creatures.X_Creature;
-
+import com.example.Meat.Creatures.*;
 import java.util.ArrayList;
 import java.util.List;
 

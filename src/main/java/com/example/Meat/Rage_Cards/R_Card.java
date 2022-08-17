@@ -1,6 +1,6 @@
-package Rage_Cards;
+package com.example.Meat.Rage_Cards;
 
-import Demo.*;
+import com.example.Meat.Demo.*;
 
 //klasa abstrakcyjna ogólnie kart Rage
 public abstract class R_Card{
