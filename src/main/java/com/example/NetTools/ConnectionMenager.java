@@ -10,6 +10,8 @@ import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
 
 public class ConnectionMenager {
 
@@ -46,14 +48,20 @@ public class ConnectionMenager {
                 BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))
                 ){
 
+
             //od tego miejsca rzeczy dzieją się gdy ktoś się połączy, tzn gdy oponent zostanie znaleziony
             System.out.println("[ SERWER ]: Przeciwnik polaczyl sie...");
 
             //inicjalizacja gry online
             OnlineGame game = new OnlineGame();
 
-            //gracz, który jest serwerem rozgrywa grę jako pierwszy
-            game.server_turn(game.you, game.opponent, out, in);
+            while (true) {
+                //gracz, który jest serwerem rozgrywa turę jako pierwszy
+                game.server_turn(out, in);
+                //gracz, który jest klientem rozgrywa turę jako pierwszy
+                game.client_turn(out, in);
+                break;
+            }
 
             //zamykanie gniazda na koniec działania
             serverSocket.close();
@@ -76,10 +84,17 @@ public class ConnectionMenager {
         ) {
 
             String fromServer;
-
+            String toServer;
+            System.out.println("TURA PRZECIWNIKA");
             while ((fromServer = in.readLine()) != null) {
-                System.out.println(fromServer);
+                toServer = turnService(fromServer);
+                if(toServer.equals(fromServer))
+                    System.out.println(fromServer);
+                else
+                    out.println(toServer);
             }
+
+
         } catch (UnknownHostException e) {
             System.err.println("Don't know about host " + host_ip);
             System.exit(1);
@@ -90,4 +105,45 @@ public class ConnectionMenager {
         }
     }
 
+
+    private static String turnService(String in) throws IOException {
+        String out = "";
+        if(in.equals("ONE_OR_TWO")){
+            System.out.print("wybierz karta czy zeton: ");
+            Scanner scan = new Scanner(System.in);
+            int number = -1;
+            while (number == -1){
+                number = scan.nextInt();
+                if(number != 1 && number != 2)
+                    number = -1;
+            }
+            out += number;
+        }
+        else if(in.equals("CHOICE")){
+            System.out.print("wybierz akcje: ");
+            Scanner scan = new Scanner(System.in);
+            int number = -1;
+            while (number == -1){
+                number = scan.nextInt();
+                if(number < 1 || number > 5)
+                    number = -1;
+            }
+            out += number;
+        }
+        else if(in.length() <= 3 && !in.equals("")){
+            Scanner scan = new Scanner(System.in);
+            int size = Integer.parseInt(in);
+            int number = -1;
+            System.out.print("wybierz karte z eq lub cofnij: ");
+            while (number < 0 || number > size){
+                number = scan.nextInt();
+                if(number < 0 || number > size)
+                    number = -1;
+            }
+            out += number;
+        }
+        else
+            out = in;
+        return out;
+    }
 }

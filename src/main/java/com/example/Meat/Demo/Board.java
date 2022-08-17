@@ -528,46 +528,6 @@ public class Board {
         return plansza;
     }
 
-    public String linia2() {
-        String linia = "";
-        for (int i = 0; i < 5; i++) {
-            if (line2.get(i).empty)
-                linia += " <-- ";
-            else
-                linia += line2.get(i).creature.onBoard();
-
-            if (i < 4)
-                linia += " | ";
-            else
-                linia += "\n";
-        }
-        return linia;
-    }
-
-    public String przerywnik(){
-        String przerywnik = "";
-        for(int i = 0; i < 37; i++){
-            przerywnik += "-";
-        }
-        przerywnik += "\n";
-        return przerywnik;
-    }
-
-    public String linia1() {
-        String linia = "";
-        for (int i = 0; i < 5; i++) {
-            if (line1.get(i).empty)
-                linia += " --> ";
-            else
-                linia += line1.get(i).creature.onBoard();
-
-            if (i < 4)
-                linia += " | ";
-            else
-                linia += "\n";
-        }
-        return linia;
-    }
 
 
 
