@@ -87,20 +87,36 @@ public class MenuController {
         stage.setScene(scene);
         stage.show();
 
+
+        //poniżej znajduje się propozycja połączenia rozgrywki z programem w formie takiego pseudokodu
+
         /*   !!! ROBOTY PROGRAMISTYCZNE !!!
+        ip_adres = null;
+        czy_bede_serwerem = 0;
         do {
             //jeżeli w tabeli z ipkami coś jest
             if (ConnectionMenager.search() != null / 0) {
                 //iteruj po tych wynikach tzn...
                 for(each -> wyniki) {
                     //... sprawdzaj po kolei z którym ip można się połączyć
-                    //jeśli z tym można, to przerwij pętlę i...
+                    //jeśli z tym można, to ...
+                        //ip_adress = ten działający adres
+                        //break;
                 }
-            } else {
-                //
+            }
+            //jeżeli w tabeli jest pusto
+             else {
+                //dodaj moje ip do tabeli
+                czy_bede_serwerem = 1;
             }
         }
-        while();
+        while(ip_adres == null && czy_bede_serwerem == 0);
+        if(czy_bede_serwerem == 0){
+            ConnectionMenager.client();
+        }
+        else{
+            ConnectionMenager.server();
+        }
            !!! ROBOTY PROGRAMISTYCZNE !!!   */
     }
     @FXML

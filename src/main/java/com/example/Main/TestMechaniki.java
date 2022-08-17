@@ -1,7 +1,10 @@
 package com.example.Main;
 
-import com.example.Meat.Demo.Game;
+import com.example.Meat.Demo.OfflineGame;
 
 public class TestMechaniki {
-    public static void main(String[] args) {new Game();}
+    public static void main(String[] args) {
+        OfflineGame g = new OfflineGame();
+        g.play();
+    }
 }

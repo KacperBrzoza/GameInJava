@@ -4,7 +4,7 @@ import com.example.Meat.Creatures.*;
 
 import java.util.Scanner;
 
-public class Game {
+public class OfflineGame {
     public Player you;                 //gracz 1
     public Player opponent;            //gracz 2
     public Cards_Stack cards;          //zakryty "stos" kart stworów
@@ -13,7 +13,7 @@ public class Game {
     public Board board;                //plansza
     public Rage_Cards rage_cards;      //zakryty "stos" kart Rage
 
-    public Game(){
+    public OfflineGame(){
         you = new Player(1);
         opponent = new Player(2);
 
@@ -26,7 +26,9 @@ public class Game {
         rage_cards.initialization();
 
         startGame(you, opponent);
+    }
 
+    public void play(){
         while (true) {
             turn(you, opponent);
             turn(opponent, you);
@@ -44,7 +46,7 @@ public class Game {
     }
 
     //tura składa się z:
-    private void turn(Player you, Player opponent){
+    public void turn(Player you, Player opponent){
 
         System.out.println("\nTURA GRACZA " + you.id);
 
