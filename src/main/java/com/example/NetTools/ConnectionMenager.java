@@ -109,10 +109,10 @@ public class ConnectionMenager {
     private static String turnService(String in) throws IOException {
         String out = "";
         if(in.equals("ONE_OR_TWO")){
-            System.out.print("wybierz karta czy zeton: ");
             Scanner scan = new Scanner(System.in);
             int number = -1;
             while (number == -1){
+                System.out.print("wybierz: ");
                 number = scan.nextInt();
                 if(number != 1 && number != 2)
                     number = -1;
@@ -120,10 +120,10 @@ public class ConnectionMenager {
             out += number;
         }
         else if(in.equals("CHOICE")){
-            System.out.print("wybierz akcje: ");
             Scanner scan = new Scanner(System.in);
             int number = -1;
             while (number == -1){
+                System.out.print("wybierz: ");
                 number = scan.nextInt();
                 if(number < 1 || number > 5)
                     number = -1;
@@ -134,8 +134,8 @@ public class ConnectionMenager {
             Scanner scan = new Scanner(System.in);
             int size = Integer.parseInt(in);
             int number = -1;
-            System.out.print("wybierz karte z eq lub cofnij: ");
             while (number < 0 || number > size){
+                System.out.print("wybierz: ");
                 number = scan.nextInt();
                 if(number < 0 || number > size)
                     number = -1;

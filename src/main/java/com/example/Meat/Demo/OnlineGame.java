@@ -282,7 +282,7 @@ public class OnlineGame {
         //wysłanie gry, panszy i kasy do przeciwnika
         out.println(this);
         out.println(board);
-        out.println(opponent.money);
+        out.println("Pieniadze: " + opponent.money);
 
         //2. dobrania kart stworów lub żetonów waluty. Gracz ma dwa dobrania
         draw2(out, in);
@@ -377,7 +377,7 @@ public class OnlineGame {
                     else
                         opponent.money += coin_two;
                 } else {
-                    out.println(coin_one);
+                    out.println("zdobyto: " + coin_one);
                     opponent.money += coin_one;
                 }
             }
@@ -400,7 +400,7 @@ public class OnlineGame {
                         out.println("\nTwoj ekwpiunek:");
                         out.println(opponent.eq);
                         out.println("(" + opponent.eq.size() + ") cofnij");
-                        out.println(opponent.money);
+                        out.println("Pieniadze: " + opponent.money);
 
                     do {
                         int number;
