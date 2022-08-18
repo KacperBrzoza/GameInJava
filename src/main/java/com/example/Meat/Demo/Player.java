@@ -35,15 +35,15 @@ public class Player {
         /*
         UWAGA W RAMACH NAPRAWDĘ CIEKAWEGO TESTU POLECAM GORĄCO ZMIENIĆ PONIŻSZE ZERA NA JEDYNKI I ZAGRAĆ :DDD
          */
-        SecretAssets = 0;
-        Selection = 0;
-        Thief = 0;
-        BlackMarket = 0;
-        Swarm = 0;
-        SecondChance = 0;
-        Crusher = 0;
-        Unbroaken = 0;
-        RatCatcher = 0;
+        SecretAssets = 1;
+        Selection = 1;
+        Thief = 1;
+        BlackMarket = 1;
+        Swarm = 1;
+        SecondChance = 1;
+        Crusher = 1;
+        Unbroaken = 1;
+        RatCatcher = 1;
     }
 
     public void loseShield(){

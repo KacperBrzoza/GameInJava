@@ -2,6 +2,9 @@ package com.example.Meat.Creatures;
 
 import com.example.Meat.Demo.*;
 
+import java.io.BufferedReader;
+import java.io.PrintWriter;
+
 //gdy wystawisz tego stwora, dobierasz stwora ze stosu kart odrzuconych
 public class H_Creature extends Creature{
     public H_Creature(int cost, int attack, int hp){
@@ -15,10 +18,13 @@ public class H_Creature extends Creature{
     }
 
     @Override
-    public void effect(Player you, Player opponent, Cards_Stack cards, Discardeds_Stack discardeds, Money money, Board board) {
+    public void effect(Player you, Player opponent, Cards_Stack cards, Discardeds_Stack discardeds, Money money, Board board, PrintWriter out, BufferedReader in) {
         if(!discardeds.empty()) {
             you.eq.addCreature(discardeds.takeCard());
-            System.out.println("Moc H dobrala ostatnio odrzucona karte");
+            if(you.id == 1)
+                System.out.println("Moc H dobrala ostatnio odrzucona karte");
+            else
+                out.println("Moc H dobrala ostatnio odrzucona karte");
         }
     }
 }

@@ -2,6 +2,10 @@ package com.example.Meat.Creatures;
 
 import com.example.Meat.Demo.*;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 //Klasa do dziedziczenia z niej i tworzenia stworów bez mocy
 public class Creature {
 
@@ -63,7 +67,7 @@ public class Creature {
     public boolean ifUnbroaken(){return Unbroaken == 1;}
 
     //metoda do przeciążania przez stwory z mocami
-    public void effect(Player you, Player opponent, Cards_Stack cards, Discardeds_Stack discardeds, Money money, Board board){}
+    public void effect(Player you, Player opponent, Cards_Stack cards, Discardeds_Stack discardeds, Money money, Board board, PrintWriter out, BufferedReader in) throws IOException {}
 
     //porównywanie dwóch stworów
     public boolean theSame(Creature c) {

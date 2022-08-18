@@ -3,6 +3,9 @@ package com.example.Meat.Demo;
 import com.example.Meat.Creatures.*;
 import com.example.Meat.Rage_Cards.R_Card;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +32,7 @@ public class Board {
 
 
     //ruch stworow pojedynczego gracza
-    public void move(Player you, Player opponent, Discardeds_Stack discarded, Cards_Stack cards,  Rage_Cards rage_cards, Money money){
+    public void move(Player you, Player opponent, Discardeds_Stack discarded, Cards_Stack cards, Rage_Cards rage_cards, Money money, PrintWriter out, BufferedReader in) throws IOException {
         //gdy tura pierwszego
         if(you.id == 1){
             //stwor na ostatnim polu wchodzi do bazy przeciwnika
@@ -42,7 +45,7 @@ public class Board {
                 if(opponent.showShields() == -1){
                     you.score += 2.0;
                     opponent.score -= 0.5;
-                    endGame(you, opponent);
+                    endGame(you, opponent, out, in);
                 }
                 //w przeciwnym razie zdobywa kartę Rage
                 else{
@@ -51,7 +54,8 @@ public class Board {
                     R_Card rage_card = rage_cards.giveCard();
                     opponent.rage.putCard(rage_card);
                     System.out.println("GRACZ " + opponent.id + " otrzymal karte *" + rage_card + "*");
-                    rage_card.effect(opponent, you, this, discarded, cards, money, rage_cards);
+                    out.println("GRACZ " + opponent.id + " otrzymal karte *" + rage_card + "*");
+                    rage_card.effect(opponent, you, this, discarded, cards, money, rage_cards, out, in);
                     //jeżeli zdobytą kartą była karta Rage "Swarm" zwieksza atak o 1 wszystkim swoim wystawionym jednostkom z atakiem = 2
                     if(opponent.Swarm == 1){
                         for (int i = 0; i < 5; i++){
@@ -111,7 +115,7 @@ public class Board {
                 if(opponent.showShields() == -1){
                     you.score += 2.0;
                     opponent.score -= 0.5;
-                    endGame(you, opponent);
+                    endGame(you, opponent, out, in);
                 }
                 //w przeciwnym razie zdobywa kartę Rage
                 else{
@@ -120,7 +124,8 @@ public class Board {
                     R_Card rage_card = rage_cards.giveCard();
                     opponent.rage.putCard(rage_card);
                     System.out.println("GRACZ " + opponent.id + " otrzymal karte *" + rage_card + "*");
-                    rage_card.effect(opponent, you, this, discarded, cards, money, rage_cards);
+                    out.println("GRACZ " + opponent.id + " otrzymal karte *" + rage_card + "*");
+                    rage_card.effect(opponent, you, this, discarded, cards, money, rage_cards, out, in);
                     //jeżeli zdobytą kartą była karta Rage "Swarm" zwieksza atak o 1 wszystkim swoim wystawionym jednostkom z atakiem = 2
                     if(opponent.Swarm == 1){
                         for (int i = 0; i < 5; i++){
@@ -181,12 +186,12 @@ public class Board {
             if(x.getUse() == 1){
                 x.setUse(0);
 
-                //próba ratowania się kartą z mocą R przez broniącego się
-                if(defense.creature.getHelp(opponent, discardeds, this, defense.position))
-                    return false;
-
                 //próba ratowania się kartą z mocą U przez broniącego się
                 if(defense.creature.getImmortal(opponent, discardeds, this, defense.position))
+                    return false;
+
+                //próba ratowania się kartą z mocą R przez broniącego się
+                if(defense.creature.getHelp(opponent, discardeds, this, defense.position))
                     return false;
 
                 //sprawdzenie czy karta broniąca ma moc N i jej jeszcze nie wykorzystała
@@ -224,12 +229,12 @@ public class Board {
         //jeśli właściciel atakującej jednostki posiada kartę Rage "Crusher", wtedy jego atak jest bardziej zabójczy
         if((you.Crusher == 1 && attack.creature.getAttack() == defense.creature.getHp()) || attack.creature.getAttack() > defense.creature.getHp()){
 
-            //próba ratowania się kartą z mocą R przez broniącego się
-            if(defense.creature.getHelp(opponent, discardeds, this, defense.position))
-                return false;
-
             //próba ratowania się kartą z mocą U przez broniącego się
             if(defense.creature.getImmortal(opponent, discardeds, this, defense.position))
+                return false;
+
+            //próba ratowania się kartą z mocą R przez broniącego się
+            if(defense.creature.getHelp(opponent, discardeds, this, defense.position))
                 return false;
 
             //sprawdzenie czy karta broniąca ma moc N i jej jeszcze nie wykorzystała
@@ -475,10 +480,16 @@ public class Board {
     }
 
     //zakończenie gry
-    public void endGame(Player you, Player opponent){
+    public void endGame(Player you, Player opponent, PrintWriter out, BufferedReader in){
         System.out.println("\n" + "\n" + "\n" + "\n" + "\n"  + "\n" + "\n" + "\n" + "\n" + "\n");
         System.out.println("GRA SKONCZONA!");
         System.out.println("Gracz 1 " + you.score + ":" + opponent.score + " Gracz 2");
+        out.println("Gracz 1 " + you.score + ":" + opponent.score + " Gracz 2");
+        out.println("END_GAME");
+        /*
+        TU NALEŻY WSTAWIĆ FRAGEMNT KODU WYSYŁAJĄCY WYNIKI DO BAZY
+        MOŻE NP ŚCIĄGNĄĆ TYCH GRACZY Z TABELI WYNIKI, DODAĆ IM PUNKTY Z TEJ GRY I ZUPDATOWAĆ REKORDY W BAZIE
+         */
         exit(0);
     }
 

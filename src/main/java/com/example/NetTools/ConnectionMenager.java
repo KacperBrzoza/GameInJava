@@ -15,18 +15,8 @@ import java.util.Scanner;
 
 public class ConnectionMenager {
 
-    private static final int SWITCHER = 0;
     private static final int PORT_NUMBER = 3571;
 
-    public static void main(String [] args) throws UnknownHostException {
-        if(SWITCHER == 0){
-            server();
-        }
-        else{
-            client("192.168.0.25");
-            //client(zdobyte ip z bazy z tabeli polaczenia);
-        }
-    }
 
 /*
     public WYNIK_Z_BAZY search(){
@@ -53,19 +43,14 @@ public class ConnectionMenager {
             System.out.println("[ SERWER ]: Przeciwnik polaczyl sie...");
 
             //inicjalizacja gry online
-            OnlineGame game = new OnlineGame();
+            OnlineGame game = new OnlineGame(serverSocket, clientSocket);
 
             while (true) {
                 //gracz, który jest serwerem rozgrywa turę jako pierwszy
                 game.server_turn(out, in);
                 //gracz, który jest klientem rozgrywa turę jako pierwszy
                 game.client_turn(out, in);
-                break;
             }
-
-            //zamykanie gniazda na koniec działania
-            serverSocket.close();
-            clientSocket.close();
 
         } catch (IOException e) {
         System.out.println("Exception caught when trying to listen on port "
@@ -90,6 +75,8 @@ public class ConnectionMenager {
                 toServer = turnService(fromServer);
                 if(toServer.equals(fromServer))
                     System.out.println(fromServer);
+                else if(toServer.equals("CONNECTION_CLOSE"))
+                    break;
                 else
                     out.println(toServer);
             }
@@ -133,14 +120,20 @@ public class ConnectionMenager {
         else if(in.length() <= 3 && !in.equals("")){
             Scanner scan = new Scanner(System.in);
             int size = Integer.parseInt(in);
-            int number = -1;
+            int number = 100000;
             while (number < 0 || number > size){
                 System.out.print("wybierz: ");
                 number = scan.nextInt();
                 if(number < 0 || number > size)
                     number = -1;
             }
-            out += number;
+            if(number == size)
+                out += "10000";
+            else
+                out += number;
+        }
+        else if(in.equals("END_GAME")){
+            out = "CONNECTION_CLOSE";
         }
         else
             out = in;

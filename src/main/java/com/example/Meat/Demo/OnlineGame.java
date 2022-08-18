@@ -5,6 +5,8 @@ import com.example.Meat.Creatures.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.Scanner;
 
 public class OnlineGame {
@@ -16,7 +18,10 @@ public class OnlineGame {
     public Board board;                //plansza
     public Rage_Cards rage_cards;      //zakryty "stos" kart Rage
 
-    public OnlineGame(){
+    public ServerSocket serverSocket;  //gniazdo serwera
+    public Socket clientSocket;        //gniazdo klienta
+
+    public OnlineGame(ServerSocket serverSocket, Socket clientSocket){
         you = new Player(1);
         opponent = new Player(2);
 
@@ -27,6 +32,9 @@ public class OnlineGame {
 
         rage_cards = new Rage_Cards();
         rage_cards.initialization();
+
+        this.serverSocket = serverSocket;
+        this.clientSocket = clientSocket;
 
         startGame(you, opponent);
     }
@@ -43,12 +51,13 @@ public class OnlineGame {
     }
 
 
+    //METODY DLA GRACZA, KTÓRY JEST SERWEREM
 
     //tura pierwszego gracza
-    public void server_turn(PrintWriter out, BufferedReader in){
-        System.out.println("\nTWOJA TURA ");
+    public void server_turn(PrintWriter out, BufferedReader in) throws IOException {
+        System.out.println("\n\n\nTWOJA TURA ");
         //1. przejścia stworów w stronę bazy przeciwnika
-        board.move(you, opponent, discarded, cards,  rage_cards, money);
+        board.move(you, opponent, discarded, cards,  rage_cards, money, out, in);
         
         //wysłanie planszy do przeciwnika
         out.println(board);
@@ -94,6 +103,8 @@ public class OnlineGame {
             you.eq.addCreature(cards.giveCard());
             System.out.println("Dobrano stwora");
         }
+
+        System.out.println("\n\n\nTURA PRZECIWNIKA");
     }
 
     //pozwala pierwszemu graczowi dobrać 2x żeton waluty  lub  2x kartę stwora  lub  1x to i 1x to
@@ -160,13 +171,14 @@ public class OnlineGame {
     }
 
     //metoda odpowiadająca za wystawianie kart i dodatkowe akcje
-    private void display(PrintWriter out, BufferedReader in){
+    private void display(PrintWriter out, BufferedReader in) throws IOException {
         if(you.counter < 4)
             while (you.counter < 4 ){
                 System.out.println("Pieniadze: " + you.money);
                 System.out.println("1 - wybierz karte \n 2 - podejrzyj plansze \n 3 - spasuj \n 4 - obejrzyj swoje karty Rage \n 5 - legenda mocy stworow");
 
                 Scanner scan = new Scanner(System.in);
+                System.out.println("wybierz: ");
                 int number = scan.nextInt();
                 //wystawienie karty
                 if(number == 1){
@@ -199,7 +211,7 @@ public class OnlineGame {
                                 }
                                 board.put(creature, you, opponent, discarded);
                                 you.counter++;
-                                creature.effect(you, opponent, cards, discarded, money, board);
+                                creature.effect(you, opponent, cards, discarded, money, board, out, in);
                                 System.out.println("\n" + board);
                                 out.println("\n" + board);
                             }
@@ -250,12 +262,13 @@ public class OnlineGame {
     }
 
     //służy do sprzedawania stworów jeżeli gracz pierwszy posiada kartę "Black Market"
-    private void sell(){
+    private void sell() throws IOException{
         System.out.println("Wybierz jednostke do sprzedania:");
         System.out.println(you.eq);
+        System.out.println(" (" + you.eq.size() + ") pomin");
         Scanner scan = new Scanner(System.in);
         int number = -1;
-        while (number < 0 || number >= you.eq.size()){
+        while (number < 0 || number > you.eq.size()){
             System.out.print("Wybierz: ");
             number = scan.nextInt();
             if(number >= 0 && number < you.eq.size()){
@@ -269,12 +282,16 @@ public class OnlineGame {
 
 
 
+
+    //METODY DLA GRACZA, KTÓRY JEST KLIENTEM
+
+    //tura drugiego gracza, który jest klientem
     public void client_turn(PrintWriter out, BufferedReader in) throws IOException {
         String fromClient;
-        out.println("TWOJA TURA ");
+        out.println("\n\n\nTWOJA TURA ");
 
         //1. przejścia stworów w stronę bazy przeciwnika
-        board.move(opponent, you, discarded, cards,  rage_cards, money);
+        board.move(opponent, you, discarded, cards,  rage_cards, money, out, in);
 
         //wypisanie samej planszy
         System.out.println(board);
@@ -319,6 +336,8 @@ public class OnlineGame {
             opponent.eq.addCreature(cards.giveCard());
             out.println("Dobrano stwora");
         }
+
+        out.println("\n\n\nTURA PRZECIWNIKA");
     }
 
     //pozwala drugiemu graczowi dobrać 2x żeton waluty  lub  2x kartę stwora  lub  1x to i 1x to
@@ -329,7 +348,7 @@ public class OnlineGame {
         while(opponent.select > 0) {
             out.println("1 - dobierz karte (lub) 2 - dobierz zeton waluty");
             out.println("ONE_OR_TWO");
-            int number = -1;
+            int number;
             fromClient = in.readLine();
             if (fromClient.equals("1"))
                 number = 1;
@@ -389,105 +408,110 @@ public class OnlineGame {
     private void display2(PrintWriter out, BufferedReader in) throws IOException {
         String fromClient;
         if(opponent.counter < 4)
-            while (opponent.counter < 4 ){
+            label:while (opponent.counter < 4 ){
                 out.println("Pieniadze: " + opponent.money);
                 out.println("1 - wybierz karte \n 2 - podejrzyj plansze \n 3 - spasuj \n 4 - obejrzyj swoje karty Rage \n 5 - legenda mocy stworow");
                 out.println("CHOICE");
                 fromClient = in.readLine();
                 //wystawienie karty
-                if(fromClient.equals("1")) {
-                    
+                switch (fromClient) {
+                    case "1":
+
                         out.println("\nTwoj ekwpiunek:");
                         out.println(opponent.eq);
                         out.println("(" + opponent.eq.size() + ") cofnij");
                         out.println("Pieniadze: " + opponent.money);
 
-                    do {
-                        int number;
-                        out.println(opponent.eq.size());
-                        fromClient = in.readLine();
-                        number = Integer.parseInt(fromClient);
-                        if (number >= 0 && number < opponent.eq.size()) {
-                            if (opponent.eq.checkCost(number) <= opponent.money) {
-                                opponent.money -= opponent.eq.checkCost(number);
-                                Creature creature = opponent.eq.pickCreature(number);
-                                //zwiększenie ataku stwora w przypadku posiadania karty Rage "Swarm"
-                                if (opponent.Swarm == 1) {
-                                    if (creature.getAttack() == 2) {
-                                        creature.increaseAttack();
-                                        creature.setSwarm(1);
-                                    }
-                                }
-                                //zwiększenie hp stwora w przypadku posiadania karty Rage "Unbroaken"
-                                if (opponent.Unbroaken == 1) {
-                                    if (creature.getHp() == 2) {
-                                        creature.increaseHp();
-                                        creature.setUnbroaken(1);
-                                    }
-                                }
-                                board.put(creature, opponent, you, discarded);
-                                opponent.counter++;
-                                creature.effect(opponent, you, cards, discarded, money, board);
-                                out.println("\n" + board);
-                                System.out.println("\n" + board);
+                        do {
+                            int number;
+                            out.println(opponent.eq.size());
+                            fromClient = in.readLine();
+                            number = Integer.parseInt(fromClient);
+                            if (number == 10000) {
                                 break;
-                            } else {
-                                out.println("Ta jednostka jest za droga!");
                             }
-                        }
-                        else
-                            break;
-                    }
-                    while (true);
-                }
-                //podejrzenie planszy
-                else if(fromClient.equals("2")){
-                    out.println(this);
-                    out.println(board);
-                }
-                //pass
-                else if(fromClient.equals("3")){
-                    break;
-                }
-                //podejrzenie swoich kart Rage
-                else if(fromClient.equals("4")){
-                    out.println(opponent.rage);
-                }
-                //legenda mocy
-                else if(fromClient.equals("5")){
-                    out.println();
-                    out.println("D - przy wystawieniu dobierasz karte stwora");
-                    out.println("E - przy wystawieniu pozwala natychmiast wystawic kolejnego stwora z moca E za darmo");
-                    out.println("F - jesli na przeciwnym polu nie ma wroga, probuje walczyc z przeciwnikiem o 1 pole dalszym");
-                    out.println("G - odsyla pierwszego napotkanego przeciwnika spowrotem do ekwipunku oponenta");
-                    out.println("H - przy wystawieniu uzdrawia jednostke, tzn dobierasz karte stwora ze stosu kart odrzuconych");
-                    out.println("J - gdy ta jednostka ginie, zmienia hp swojego zabojcy na 1");
-                    out.println("M - przy wystawieniu dobierasz zeton waluty");
-                    out.println("N - gdy ta jednostka ma zostac zabita, jednorazowo unika smierci");
-                    out.println("O - pozwala natychmiast wystawic kolejnego stwora za darmo");
-                    out.println("R - gdy sojusznik ma zginac, ta jednostka zginie zamiast tamtej");
-                    out.println("U - sprawia, ze jednostki na dwoch polach za nia sa niezniszczalne, dopoki sama zyje");
-                    out.println("X - zabija pierwszego napotkanego przeciwnika bez wzgledu na statystyki");
-                    out.println("Z - przy wystawieniu pozwala zamienic miejscami ta jednostke z inna sojusznicza");
-                    out.println();
+                            else {
+                                if (opponent.eq.checkCost(number) <= opponent.money) {
+                                    opponent.money -= opponent.eq.checkCost(number);
+                                    Creature creature = opponent.eq.pickCreature(number);
+                                    //zwiększenie ataku stwora w przypadku posiadania karty Rage "Swarm"
+                                    if (opponent.Swarm == 1) {
+                                        if (creature.getAttack() == 2) {
+                                            creature.increaseAttack();
+                                            creature.setSwarm(1);
+                                        }
+                                    }
+                                    //zwiększenie hp stwora w przypadku posiadania karty Rage "Unbroaken"
+                                    if (opponent.Unbroaken == 1) {
+                                        if (creature.getHp() == 2) {
+                                            creature.increaseHp();
+                                            creature.setUnbroaken(1);
+                                        }
+                                    }
+                                    board.put(creature, opponent, you, discarded);
+                                    opponent.counter++;
+                                    creature.effect(opponent, you, cards, discarded, money, board, out, in);
+                                    out.println("\n" + board);
+                                    System.out.println("\n" + board);
+                                    break;
+                                } else {
+                                    out.println("Ta jednostka jest za droga!");
+                                }
+                            }
+                        } while (true);
+                        break;
+                    //podejrzenie planszy
+                    case "2":
+                        out.println(this);
+                        out.println(board);
+                        break;
+                    //pass
+                    case "3":
+                        break label;
+
+                    //podejrzenie swoich kart Rage
+                    case "4":
+                        out.println(opponent.rage);
+                        break;
+                    //legenda mocy
+                    case "5":
+                        out.println();
+                        out.println("D - przy wystawieniu dobierasz karte stwora");
+                        out.println("E - przy wystawieniu pozwala natychmiast wystawic kolejnego stwora z moca E za darmo");
+                        out.println("F - jesli na przeciwnym polu nie ma wroga, probuje walczyc z przeciwnikiem o 1 pole dalszym");
+                        out.println("G - odsyla pierwszego napotkanego przeciwnika spowrotem do ekwipunku oponenta");
+                        out.println("H - przy wystawieniu uzdrawia jednostke, tzn dobierasz karte stwora ze stosu kart odrzuconych");
+                        out.println("J - gdy ta jednostka ginie, zmienia hp swojego zabojcy na 1");
+                        out.println("M - przy wystawieniu dobierasz zeton waluty");
+                        out.println("N - gdy ta jednostka ma zostac zabita, jednorazowo unika smierci");
+                        out.println("O - pozwala natychmiast wystawic kolejnego stwora za darmo");
+                        out.println("R - gdy sojusznik ma zginac, ta jednostka zginie zamiast tamtej");
+                        out.println("U - sprawia, ze jednostki na dwoch polach za nia sa niezniszczalne, dopoki sama zyje");
+                        out.println("X - zabija pierwszego napotkanego przeciwnika bez wzgledu na statystyki");
+                        out.println("Z - przy wystawieniu pozwala zamienic miejscami ta jednostke z inna sojusznicza");
+                        out.println();
+                        break;
                 }
             }
         else
             out.println("Osiagnieto limit 4 kart na planszy!");
     }
 
-    //służy do sprzedawania stworów jeżeli gracz pierwszy posiada kartę "Black Market"
+    //służy do sprzedawania stworów jeżeli gracz drugi posiada kartę "Black Market"
     private void sell2(PrintWriter out, BufferedReader in) throws IOException{
         String fromClient;
 
         out.println("Wybierz jednostke do sprzedania:");
         out.println(opponent.eq);
         out.println(opponent.eq.size());
+        out.println(opponent.eq.size() + " pomin");
         fromClient = in.readLine();
         int number = Integer.parseInt(fromClient);
-        Creature creature = opponent.eq.pickCreature(number);
-        opponent.money += creature.getCost();
-        discarded.putCard(creature);
+        if(number < opponent.eq.size()) {
+            Creature creature = opponent.eq.pickCreature(number);
+            opponent.money += creature.getCost();
+            discarded.putCard(creature);
+        }
     }
 
 
