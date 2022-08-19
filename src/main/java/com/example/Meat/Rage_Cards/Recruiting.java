@@ -15,7 +15,7 @@ public class Recruiting extends R_Card{
 
     public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage, PrintWriter out, BufferedReader in) throws IOException {
         for (int i = 0; i < 5; i++){
-            you.eq.addCreature(cards.giveCard());
+            you.eq.addCreature(cards.giveCard(out, you, opponent));
         }
     }
 }

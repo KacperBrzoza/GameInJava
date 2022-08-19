@@ -18,4 +18,9 @@ public class G_Creature extends Creature{
 
     public int getUse(){return use;}
     public void setUse(int val){use = val;}
+
+    /*
+    UWAGA BUG - MOC G POWINNA INGOROWAĆ MOC N I ODSYŁAĆ TAKIE JEDNOSTKI SPOWROTEM DO EKWIPUNKU
+    NALEŻY SPRAWDZIĆ CZY use JEST POPRAWNIE ODŚWIEŻANE
+     */
 }

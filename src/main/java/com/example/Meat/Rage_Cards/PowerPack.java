@@ -15,7 +15,7 @@ public class PowerPack extends R_Card{
 
     public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage, PrintWriter out, BufferedReader in) throws IOException {
         for (int i = 0; i < 2; i++){
-            you.eq.addCreature(cards.giveCard());
+            you.eq.addCreature(cards.giveCard(out, you, opponent));
         }
         for (int i = 0; i < 2; i++){
             you.money += money.giveMoney(you, opponent);

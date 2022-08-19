@@ -60,11 +60,10 @@ public class Rage_Cards {
     //wypisuje wszystkie karty Rage z listy
     @Override
     public String toString(){
-        String my_cards = "";
-        for(int i = 0; i < cards.size(); i++)
-        {
-            my_cards += cards.get(i).getDescription() + "\n";
+        StringBuilder my_cards = new StringBuilder();
+        for (R_Card card : cards) {
+            my_cards.append(card.getDescription()).append("\n");
         }
-        return my_cards;
+        return my_cards.toString();
     }
 }

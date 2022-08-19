@@ -20,7 +20,7 @@ public class D_Creature extends Creature{
 
     @Override
     public void effect(Player you, Player opponent, Cards_Stack cards, Discardeds_Stack discardeds, Money money, Board board, PrintWriter out, BufferedReader in) {
-        you.eq.addCreature(cards.giveCard());
+        you.eq.addCreature(cards.giveCard(out, you, opponent));
         if(you.id == 1)
             System.out.println("Moc D dobrala karte");
         else

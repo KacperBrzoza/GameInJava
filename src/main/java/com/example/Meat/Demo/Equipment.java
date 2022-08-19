@@ -86,16 +86,16 @@ public class Equipment {
     //funkcja tymczasowa na potrzeby testów
     @Override
     public String toString(){
-        String stan_eq = "";
+        StringBuilder stan_eq = new StringBuilder();
         for (int i = 0; i < fields.size(); i++){
-            stan_eq += "(" + i + ") ";
-            stan_eq += fields.get(i).creature;
+            stan_eq.append("(").append(i).append(") ");
+            stan_eq.append(fields.get(i).creature);
             if(fields.get(i).quantity > 1)
-                stan_eq += " | ILOSC: " + fields.get(i).quantity;
+                stan_eq.append(" | ILOSC: ").append(fields.get(i).quantity);
             if(i+1 != fields.size())
-                stan_eq += "\n";
+                stan_eq.append("\n");
         }
-        return stan_eq;
+        return stan_eq.toString();
     }
 
     //pomocnicza klasa pojedynczego pola, które zawiera stwora i jego ilość

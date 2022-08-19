@@ -17,7 +17,11 @@ public class Board {
     private final List<Field> line1;
     private final List<Field> line2;
 
-    public Board(){
+    //awaryjne pola do przechwycenia wyniku w razie rozłącznia, któregoś z graczy
+    public float  PLAYER_ONE_POINTS;
+    public float  PLAYER_TWO_POINTS;
+
+    public Board(float PLAYER_ONE_POINTS, float PLAYER_TWO_POINTS){
         line1 = new ArrayList<>();
         line2 = new ArrayList<>();
 
@@ -28,6 +32,9 @@ public class Board {
         for (int i = 0; i < 5; i++){
             line2.add(new Field(i));
         }
+
+        this.PLAYER_ONE_POINTS = PLAYER_ONE_POINTS;
+        this.PLAYER_TWO_POINTS = PLAYER_TWO_POINTS;
     }
 
 
@@ -44,13 +51,17 @@ public class Board {
                 opponent.loseShield();
                 if(opponent.showShields() == -1){
                     you.score += 2.0;
+                    PLAYER_ONE_POINTS += 2.0;
                     opponent.score -= 0.5;
-                    endGame(you, opponent, out, in);
+                    PLAYER_TWO_POINTS -= 0.5;
+                    endGame(opponent, you, out);
                 }
                 //w przeciwnym razie zdobywa kartę Rage
                 else{
                     you.score += 1.0;
+                    PLAYER_ONE_POINTS += 1.0;
                     opponent.score -= 0.5;
+                    PLAYER_TWO_POINTS -= 0.5;
                     R_Card rage_card = rage_cards.giveCard();
                     opponent.rage.putCard(rage_card);
                     System.out.println("GRACZ " + opponent.id + " otrzymal karte *" + rage_card + "*");
@@ -115,7 +126,7 @@ public class Board {
                 if(opponent.showShields() == -1){
                     you.score += 2.0;
                     opponent.score -= 0.5;
-                    endGame(you, opponent, out, in);
+                    endGame(you, opponent, out);
                 }
                 //w przeciwnym razie zdobywa kartę Rage
                 else{
@@ -480,7 +491,7 @@ public class Board {
     }
 
     //zakończenie gry
-    public void endGame(Player you, Player opponent, PrintWriter out, BufferedReader in){
+    public void endGame(Player you, Player opponent, PrintWriter out){
         System.out.println("\n" + "\n" + "\n" + "\n" + "\n"  + "\n" + "\n" + "\n" + "\n" + "\n");
         System.out.println("GRA SKONCZONA!");
         System.out.println("Gracz 1 " + you.score + ":" + opponent.score + " Gracz 2");
@@ -507,36 +518,34 @@ public class Board {
     //plansza składa się odpowiednio z linii 2, przerwy i linii 1
     @Override
     public String toString(){
-        String plansza = "";
+        StringBuilder plansza = new StringBuilder();
         for(int i = 0; i < 5; i++){
             if(line2.get(i).empty)
-                plansza += " <-- ";
+                plansza.append(" <-- ");
             else
-                plansza += line2.get(i).creature.onBoard();
+                plansza.append(line2.get(i).creature.onBoard());
 
             if(i < 4)
-                plansza += " | ";
+                plansza.append(" | ");
             else
-                plansza += "\n";
+                plansza.append("\n");
         }
 
-        for(int i = 0; i < 37; i++){
-            plansza += "-";
-        }
-        plansza += "\n";
+        plansza.append("-".repeat(37));
+        plansza.append("\n");
 
         for(int i = 0; i < 5; i++){
             if(line1.get(i).empty)
-                plansza += " --> ";
+                plansza.append(" --> ");
             else
-                plansza += line1.get(i).creature.onBoard();
+                plansza.append(line1.get(i).creature.onBoard());
 
             if(i < 4)
-                plansza += " | ";
+                plansza.append(" | ");
             else
-                plansza += "\n";
+                plansza.append("\n");
         }
-        return plansza;
+        return plansza.toString();
     }
 
 
