@@ -2,7 +2,7 @@ package com.example.Main.Database;
 
 import com.example.Main.Login.StartLoginApplication;
 import com.example.Main.Database.Test;
-import com.example.Main.TestMechaniki;
+import com.example.Main.TestHibernate;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -15,7 +15,7 @@ public class TestService
         Test test = new Test();
         test.setImie(imie);
         test.setNazwisko(nazwisko);
-        EntityManager entityManager = TestMechaniki.getFactory().createEntityManager();
+        EntityManager entityManager = TestHibernate.getFactory().createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
         entityTransaction.begin(); //Przed wprowadzaniem zmian w bazie otwieram tranzakcje
         //persist jesli dodajemy kompletnie nowy obiekt
@@ -25,7 +25,7 @@ public class TestService
     }
 
     public Test findOne(long id) {
-        EntityManager entityManager = TestMechaniki.getFactory().createEntityManager();
+        EntityManager entityManager = TestHibernate.getFactory().createEntityManager();
         return entityManager.find(Test.class, id);
     }
 }

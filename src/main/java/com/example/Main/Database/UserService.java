@@ -1,7 +1,6 @@
 package com.example.Main.Database;
 
-import com.example.Main.Login.StartLoginApplication;
-import com.example.Main.TestMechaniki;
+import com.example.Main.TestHibernate;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -11,7 +10,7 @@ public class UserService
 {
     public User findOne(long id)
     {
-        EntityManager entityManager = TestMechaniki.getFactory().createEntityManager();
+        EntityManager entityManager = TestHibernate.getFactory().createEntityManager();
         return entityManager.find(User.class, id); //User.class bo inaczej trzeba tworzyc zmienna a tak nie trzeba, taki smaczek :p
     }
 
@@ -20,7 +19,7 @@ public class UserService
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
-        EntityManager entityManager = TestMechaniki.getFactory().createEntityManager();
+        EntityManager entityManager = TestHibernate.getFactory().createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
         entityTransaction.begin(); //Przed wprowadzaniem zmian w bazie otwieram tranzakcje
         //persist jesli dodajemy kompletnie nowy obiekt
