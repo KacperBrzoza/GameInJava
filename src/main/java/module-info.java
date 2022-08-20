@@ -16,4 +16,6 @@ module com.example.Main {
     opens com.example.Main.Menu to javafx.fxml;
     exports com.example.Main.Rank;
     opens com.example.Main.Rank to javafx.fxml;
+    exports com.example.Main.Game;
+    opens com.example.Main.Game to javafx.fxml;
 }

@@ -46,6 +46,8 @@ public class WaitingEnemyController {
     public void onBackButton(ActionEvent event) throws IOException
     {
         URL url = new File("src/main/resources/com/example/Main/Menu/Menu-view.fxml").toURI().toURL();
+        //Testowe przejscie do ekranu gry aby sprawdzic dzialanie gui
+        //URL url = new File("src/main/resources/com/example/Main/Game/Game.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);

@@ -23,13 +23,13 @@ public class DatabaseConnection
     //Tworzenie bazy
     public void create_base() throws SQLException
     {
-        statement = connection.createStatement();
+        /*statement = connection.createStatement();
         String sql = "CREATE TABLE gameregister " +
                 "(LOGIN TEXT NOT NULL PRIMARY KEY, " +
                 "PASSWORD TEXT NOT NULL)";
         statement.executeUpdate(sql);
         statement.close();
-        connection.close();
+        connection.close();*/
     }
 
     //Dodawanie uzytkownika
