@@ -1,5 +1,6 @@
 package com.example.Main.Register;
 
+import com.example.Main.Database.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -63,29 +64,17 @@ public class RegisterController
         }
         else
         {
-            //Zrobic lepsza walidacje - zrobie dzisiaj wieczorem albo jutro - latwe
             //Porownwyanie hasel czy takie same
             RegisterData registerData = new RegisterData();
             registerData.setLogin(LoginTextField.getText());
             registerData.setPassword(PasswordTextField.getText());
 
-            try
-            {
-                DatabaseConnection databaseConnection = new DatabaseConnection();
-                databaseConnection.add_user(registerData.getLogin(),registerData.getPassword());
-            }
-            catch (SQLException ex)
-            {
-                ex.printStackTrace();
-            }
-            catch (ClassNotFoundException ex)
-            {
-                ex.printStackTrace();
-            }
 
-            //Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            //alert.setContentText("Zarejestrowano pomyslnie!");
-            //alert.show();
+                //DatabaseConnection databaseConnection = new DatabaseConnection();
+                //databaseConnection.add_user(registerData.getLogin(),registerData.getPassword());
+
+            //UserService userService = new UserService();
+            //userService.addUser(LoginTextField.getText(), PasswordTextField.getText());
             //Poprawione wiadomosci alarmowe - Daniel
             PassMsg.setText("Zarejestrowano pomyslnie!");
             PassMsg.setStyle("-fx-text-fill: #269e32");//zielone

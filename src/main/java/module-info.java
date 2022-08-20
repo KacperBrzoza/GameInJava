@@ -4,7 +4,7 @@ module com.example.Main {
     requires javafx.media;
     requires java.sql;
     requires org.postgresql.jdbc;
-
+    requires java.persistence;
 
     opens com.example.Main to javafx.fxml;
     exports com.example.Main;

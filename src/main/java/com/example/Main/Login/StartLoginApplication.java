@@ -1,6 +1,6 @@
 package com.example.Main.Login;
 
-import com.example.Main.Register.DatabaseConnection;
+import com.example.Main.Database.TestService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,12 +9,16 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import java.io.IOException;
-import java.sql.SQLException;
 
-public class StartLoginApplication extends Application {
+public class StartLoginApplication extends Application
+{
 
-    public static DatabaseConnection databaseConnection; //Do polaczenia z bd
+    //public static DatabaseConnection databaseConnection; //Do polaczenia z bd
+    //SessionFactory zawarte jest w EntityManager
+
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/Main/Login/hello-login-view.fxml"));
@@ -43,6 +47,7 @@ public class StartLoginApplication extends Application {
 
     public static void main(String[] args)
     {
+        /*
         try
         {
             databaseConnection =new DatabaseConnection();
@@ -55,7 +60,8 @@ public class StartLoginApplication extends Application {
         catch (ClassNotFoundException ex)
         {
             ex.printStackTrace();
-        }
+
+         */
         launch(args);
     }
 }
