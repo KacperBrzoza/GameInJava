@@ -14,33 +14,40 @@
 
 <AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Main.Game.GameController">
    <children>
-       <VBox alignment="CENTER" maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0">
+       <VBox fx:id="BackgroundScreen" alignment="CENTER" maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../../../style/style-class.css">
            <children>
-               <AnchorPane fx:id="BlackPane" prefHeight="150.0" prefWidth="1920.0">
+               <AnchorPane prefHeight="150.0" prefWidth="1920.0" stylesheets="@../../../../style/style-class.css">
                    <children>
-                       <AnchorPane fx:id="GameScreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="1920.0" stylesheets="@../../../../style/style-class.css">
+                       <AnchorPane fx:id="InfoScreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="1920.0" stylesheets="@../../../../style/style-class.css" AnchorPane.bottomAnchor="20.0">
                            <children>
                                <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="1920.0">
                                    <children>
-                                       <Button fx:id="ExitButton" alignment="CENTER" contentDisplay="CENTER" layoutX="1800.0" layoutY="30.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" text="X">
+                                       <Button fx:id="ExitButton" alignment="CENTER" contentDisplay="CENTER" layoutX="1800.0" layoutY="25.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="60.0" text="X">
                                            <font>
                                                <Font size="24.0" />
                                            </font>
                                        </Button>
-                              <Button fx:id="HelpButton" alignment="CENTER" contentDisplay="CENTER" layoutX="1500.0" layoutY="30.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="80.0" text="?" AnchorPane.rightAnchor="280.0">
+                              <Button fx:id="HelpButton" alignment="CENTER" contentDisplay="CENTER" layoutX="1560.0" layoutY="25.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="80.0" text="?" AnchorPane.rightAnchor="280.0">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
                               </Button>
-                                       <Button fx:id="OptionButton" alignment="CENTER" contentDisplay="CENTER" layoutX="1675.0" layoutY="30.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="111.0" text="\@" AnchorPane.rightAnchor="145.0">
+                                       <Button fx:id="OptionButton" alignment="CENTER" contentDisplay="CENTER" layoutX="1665.0" layoutY="25.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="111.0" text="\@" AnchorPane.rightAnchor="144.0">
                                            <font>
                                                <Font size="24.0" />
                                            </font>
                                        </Button>
-                              <Pane fx:id="MoneyPane" layoutX="150.0" layoutY="10.0" prefHeight="128.0" prefWidth="128.0" />
+                              <Pane fx:id="MoneyPane" layoutX="150.0" layoutY="12.0" prefHeight="128.0" prefWidth="128.0">
+                                 <children>
+                                    <Label fx:id="MoneyPlayerValue" alignment="CENTER" contentDisplay="CENTER" layoutY="-4.0" prefHeight="128.0" prefWidth="128.0" text="0" textFill="#283057">
+                                       <font>
+                                          <Font size="25.0" />
+                                       </font>
+                                    </Label>
+                                 </children></Pane>
                               <Pane fx:id="HelpInfo" layoutX="400.0" prefHeight="125.0" prefWidth="1120.0">
                                  <children>
-                                    <Label alignment="TOP_LEFT" contentDisplay="CENTER" prefHeight="125.0" prefWidth="1120.0" text="...info" textOverrun="WORD_ELLIPSIS" wrapText="true">
+                                    <Label alignment="TOP_LEFT" contentDisplay="CENTER" layoutY="5.0" prefHeight="125.0" prefWidth="1120.0" text="...info" textOverrun="WORD_ELLIPSIS" wrapText="true">
                                        <padding>
                                           <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                        </padding>
@@ -69,22 +76,13 @@
                                  <children>
                                     <Pane prefHeight="655.0" prefWidth="200.0">
                                        <children>
+                                          <Pane fx:id="MyName" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" />
                                           <VBox alignment="CENTER" prefHeight="655.0" prefWidth="200.0">
                                              <children>
-                                                <Pane prefHeight="400.0" prefWidth="200.0">
-                                                   <children>
-                                                      <GridPane prefHeight="400.0" prefWidth="200.0">
-                                                        <columnConstraints>
-                                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="90.0" minWidth="10.0" prefWidth="64.0" />
-                                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="136.0" minWidth="10.0" prefWidth="136.0" />
-                                                        </columnConstraints>
-                                                        <rowConstraints>
-                                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                        </rowConstraints>
-                                                      </GridPane>
-                                                   </children>
+                                                <Pane fx:id="MyCharacter" prefHeight="400.0" prefWidth="200.0">
+                                                   <VBox.margin>
+                                                      <Insets />
+                                                   </VBox.margin>
                                                 </Pane>
                                              </children>
                                           </VBox>
@@ -92,7 +90,7 @@
                                     </Pane>
                                     <Pane prefHeight="655.0" prefWidth="260.0">
                                        <children>
-                                          <HBox alignment="CENTER" prefHeight="655.0" prefWidth="260.0">
+                                          <HBox fx:id="MyTower" alignment="CENTER" prefHeight="655.0" prefWidth="260.0">
                                              <children>
                                                 <VBox alignment="CENTER" prefHeight="655.0" prefWidth="210.0">
                                                    <children>
@@ -129,22 +127,22 @@
                                        <children>
                                           <HBox alignment="CENTER" prefHeight="197.5" prefWidth="1000.0">
                                              <children>
-                                                <Pane prefHeight="190.0" prefWidth="190.0">
+                                                <Pane fx:id="TakeCardDeck" prefHeight="160.0" prefWidth="160.0">
                                                    <HBox.margin>
                                                       <Insets bottom="6.25" right="50.0" top="6.25" />
                                                    </HBox.margin>
                                                 </Pane>
-                                                <Pane prefHeight="190.0" prefWidth="190.0">
+                                                <Pane prefHeight="160.0" prefWidth="160.0">
                                                    <HBox.margin>
                                                       <Insets bottom="6.25" right="25.0" top="6.25" />
                                                    </HBox.margin>
                                                 </Pane>
-                                                <Pane prefHeight="190.0" prefWidth="190.0">
+                                                <Pane fx:id="MoneyStack" prefHeight="160.0" prefWidth="160.0">
                                                    <HBox.margin>
                                                       <Insets bottom="6.25" left="25.0" top="6.25" />
                                                    </HBox.margin>
                                                 </Pane>
-                                                <Pane prefHeight="190.0" prefWidth="190.0">
+                                                <Pane fx:id="LostCardDeck" prefHeight="160.0" prefWidth="160.0">
                                                    <HBox.margin>
                                                       <Insets bottom="6.25" left="50.0" top="6.25" />
                                                    </HBox.margin>
@@ -155,7 +153,7 @@
                                     </Pane>
                                     <Pane fx:id="BattleField" prefHeight="280.0" prefWidth="1000.0">
                                        <children>
-                                          <GridPane fx:id="BattleGrid" alignment="CENTER" prefHeight="280.0" prefWidth="1000.0">
+                                          <GridPane fx:id="BattleGrid" alignment="CENTER" gridLinesVisible="true" prefHeight="280.0" prefWidth="1000.0">
                                             <columnConstraints>
                                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                               <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -188,7 +186,18 @@
                                           </GridPane>
                                        </children>
                                     </Pane>
-                                    <Pane prefHeight="197.5" prefWidth="1000.0" />
+                                    <Pane prefHeight="197.5" prefWidth="1000.0">
+                                       <children>
+                                          <Pane layoutX="265.0" layoutY="135.0" prefHeight="80.0" prefWidth="470.0">
+                                             <children>
+                                                <Label fx:id="EQLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="80.0" prefWidth="470.0" stylesheets="@../../../../style/style-class.css" text="Ekwipunek" textAlignment="CENTER" textFill="#d7d6d6">
+                                                   <font>
+                                                      <Font name="Bitmgothic" size="26.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </Pane>
+                                       </children></Pane>
                                  </children>
                               </VBox>
                            </children>
@@ -199,7 +208,7 @@
                                  <children>
                                     <Pane prefHeight="655.0" prefWidth="260.0">
                                        <children>
-                                          <HBox alignment="CENTER" prefHeight="655.0" prefWidth="260.0">
+                                          <HBox fx:id="EnemyTower" alignment="CENTER" prefHeight="655.0" prefWidth="260.0">
                                              <children>
                                                 <VBox alignment="CENTER" prefHeight="655.0" prefWidth="210.0">
                                                    <children>
@@ -228,23 +237,10 @@
                                        <children>
                                           <VBox alignment="CENTER" prefHeight="625.0" prefWidth="200.0">
                                              <children>
-                                                <Pane prefHeight="400.0" prefWidth="200.0">
-                                                   <children>
-                                                      <GridPane prefHeight="400.0" prefWidth="200.0">
-                                                         <columnConstraints>
-                                                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="156.0" minWidth="10.0" prefWidth="130.0" />
-                                                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="136.0" minWidth="10.0" prefWidth="70.0" />
-                                                         </columnConstraints>
-                                                         <rowConstraints>
-                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                                         </rowConstraints>
-                                                      </GridPane>
-                                                   </children>
-                                                </Pane>
+                                                <Pane fx:id="EnemyCharacter" prefHeight="400.0" prefWidth="200.0" />
                                              </children>
                                           </VBox>
+                                          <Pane fx:id="EnemyName" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" />
                                        </children>
                                     </Pane>
                                  </children>
@@ -257,70 +253,63 @@
             </AnchorPane>
             <AnchorPane prefHeight="275.0" prefWidth="1920.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="275.0" prefWidth="1920.0">
+                  <HBox alignment="CENTER_RIGHT" prefHeight="275.0" prefWidth="1920.0">
                      <children>
-                        <Pane fx:id="Inventory" prefHeight="275.0" prefWidth="1300.0">
+                        <Pane fx:id="PlayerPicture0" prefHeight="240.0" prefWidth="240.0">
+                           <HBox.margin>
+                              <Insets right="50.0" top="20.0" />
+                           </HBox.margin>
                            <children>
-                              <VBox alignment="CENTER" prefHeight="275.0" prefWidth="1300.0">
+                              <Pane fx:id="PlayerPicture1" layoutX="20.0" layoutY="20.0" prefHeight="200.0" prefWidth="200.0" />
+                           </children>
+                        </Pane>
+                        <Pane fx:id="Inventory" prefHeight="255.0" prefWidth="1200.0">
+                           <children>
+                              <VBox alignment="CENTER" prefHeight="275.0" prefWidth="1200.0">
                                  <children>
-                                    <Pane fx:id="InventoryLabel" prefHeight="75.0" prefWidth="1300.0">
+                                    <Pane fx:id="InventoryPane" prefHeight="275.0" prefWidth="1200.0">
                                        <children>
-                                          <HBox alignment="CENTER" prefHeight="75.0" prefWidth="1300.0">
+                                          <HBox alignment="CENTER" prefHeight="275.0" prefWidth="1200.0">
                                              <children>
-                                                <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="59.0" prefWidth="800.0" text="Equipment">
-                                                   <font>
-                                                      <Font name="Bitmgothic" size="28.0" />
-                                                   </font>
-                                                </Button>
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </Pane>
-                                    <Pane fx:id="InventoryPane" prefHeight="200.0" prefWidth="1300.0">
-                                       <children>
-                                          <HBox alignment="CENTER" prefHeight="200.0" prefWidth="1300.0">
-                                             <children>
-                                                <Button mnemonicParsing="false" prefHeight="180.0" prefWidth="80.0">
+                                                <Button fx:id="LeftShowBut" mnemonicParsing="false" prefHeight="200.0" prefWidth="80.0">
                                                    <HBox.margin>
-                                                      <Insets left="15.0" />
+                                                      <Insets left="20.0" />
                                                    </HBox.margin>
                                                 </Button>
-                                                <Pane prefHeight="200.0" prefWidth="1200.0">
+                                                <Pane prefHeight="275.0" prefWidth="950.0">
                                                    <children>
-                                                      <HBox alignment="CENTER" prefHeight="200.0" prefWidth="1200.0">
+                                                      <HBox fx:id="SelectInvField" alignment="CENTER" prefHeight="275.0" prefWidth="950.0">
                                                          <children>
-                                                            <Pane prefHeight="190.0" prefWidth="190.0">
+                                                            <Pane fx:id="SelectField1" prefHeight="200.0" prefWidth="200.0">
                                                                <HBox.margin>
-                                                                  <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
+                                                                  <Insets bottom="30.0" left="10.0" right="10.0" top="30.0" />
                                                                </HBox.margin>
                                                             </Pane>
-                                                            <Pane prefHeight="190.0" prefWidth="190.0">
+                                                            <Pane fx:id="SelectField2" prefHeight="200.0" prefWidth="200.0">
                                                                <HBox.margin>
-                                                                  <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
+                                                                  <Insets bottom="30.0" left="10.0" right="10.0" top="30.0" />
                                                                </HBox.margin>
                                                             </Pane>
-                                                            <Pane prefHeight="190.0" prefWidth="190.0">
+                                                            <Pane fx:id="SelectField3" prefHeight="200.0" prefWidth="200.0">
                                                                <HBox.margin>
-                                                                  <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
+                                                                  <Insets bottom="30.0" left="10.0" right="10.0" top="30.0" />
                                                                </HBox.margin>
                                                             </Pane>
-                                                            <Pane prefHeight="190.0" prefWidth="190.0">
+                                                            <Pane fx:id="SelectField4" prefHeight="200.0" prefWidth="200.0">
                                                                <HBox.margin>
-                                                                  <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
-                                                               </HBox.margin>
-                                                            </Pane>
-                                                            <Pane prefHeight="190.0" prefWidth="190.0">
-                                                               <HBox.margin>
-                                                                  <Insets bottom="5.0" left="15.0" right="15.0" top="5.0" />
+                                                                  <Insets bottom="30.0" left="10.0" right="10.0" top="30.0" />
                                                                </HBox.margin>
                                                             </Pane>
                                                          </children>
                                                       </HBox>
                                                    </children>
-                                                </Pane>
-                                                <Button mnemonicParsing="false" prefHeight="180.0" prefWidth="80.0">
                                                    <HBox.margin>
-                                                      <Insets right="15.0" />
+                                                      <Insets left="30.0" right="30.0" />
+                                                   </HBox.margin>
+                                                </Pane>
+                                                <Button fx:id="RightShowBut" mnemonicParsing="false" prefHeight="200.0" prefWidth="80.0">
+                                                   <HBox.margin>
+                                                      <Insets right="20.0" />
                                                    </HBox.margin>
                                                 </Button>
                                              </children>
@@ -330,6 +319,17 @@
                                  </children>
                               </VBox>
                            </children>
+                           <HBox.margin>
+                              <Insets top="20.0" />
+                           </HBox.margin>
+                        </Pane>
+                        <Pane prefHeight="275.0" prefWidth="300.0">
+                           <children>
+                              <Button alignment="CENTER" layoutX="10.0" layoutY="100.0" mnemonicParsing="false" prefHeight="77.0" prefWidth="279.0" text="Zakończ turę" />
+                           </children>
+                           <HBox.margin>
+                              <Insets left="35.0" right="30.0" />
+                           </HBox.margin>
                         </Pane>
                      </children>
                   </HBox>
