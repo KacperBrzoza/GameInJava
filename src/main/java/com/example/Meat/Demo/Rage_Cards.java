@@ -29,10 +29,10 @@ public class Rage_Cards {
         cards.add(new Selection());
         cards.add(new Thief());
         cards.add(new BlackMarket());
-        cards.add(new Swarm());
+        //cards.add(new Swarm());           chwilowo wyłączona z użytku
         cards.add(new SecondChance());
         cards.add(new Crusher());
-        cards.add(new Unbroaken());
+        //cards.add(new Unbroaken());       chwilowo wyłączona z użytku
         cards.add(new RatCatcher());
 
     }

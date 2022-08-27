@@ -128,7 +128,8 @@ public class Cards_Stack {
         creatures.add(new H_Creature(7, 4, 4));
         creatures.add(new H_Creature(9, 2, 8));
 
-        //z mocą J
+        //z mocą J - chwilowo wyłączona z użytku
+        /*
         for(int i = 0; i < 3; i++)
             creatures.add(new J_Creature(1, 1, 1));
         for(int i = 0; i < 2; i++)
@@ -137,6 +138,8 @@ public class Cards_Stack {
             creatures.add(new J_Creature(3, 1, 3));
         creatures.add(new J_Creature(6, 4, 3));
         creatures.add(new J_Creature(7, 3, 5));
+         */
+
 
         //z mocą M
         for(int i = 0; i < 4; i++)

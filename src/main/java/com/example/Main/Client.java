@@ -11,10 +11,10 @@ public class Client {
     public static void main(String [] args) throws UnknownHostException {
 
         //DO TESTOWANIA NA LOOPBACKU
-        //InetAddress inetAddress = InetAddress.getLocalHost();
-        //String ip = inetAddress.getHostAddress();
-        //System.out.println(ip);
-        //ConnectionMenager.client(ip);
+        InetAddress inetAddress = InetAddress.getLocalHost();
+        String ip = inetAddress.getHostAddress();
+        System.out.println(ip);
+        ConnectionMenager.client(ip);
 
 
         //wpisz na razie na sztywno adres ip serwera
