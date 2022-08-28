@@ -244,17 +244,22 @@
     -fx-border-color: #5e5e5e #5e5e5e #404040 #404040;
     -fx-border-width:  0 7 18 7;
 }
+
 #HelpInfo{
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
     -fx-border-radius: 0;
-    -fx-background-color: #bfbfbf;
+    -fx-background-color: #302418;
     -fx-border-style: solid outside;
-    -fx-border-color: #5e5e5e #5e5e5e #404040 #404040;
+    -fx-border-color: #5e5e5e #5e5e5e #5e5e5e #5e5e5e ;
     -fx-border-width:  0 7 8 7;
-    -fx-font-size: 18pt;
-}
 
+
+}
+#InfoLabel{
+-fx-font-size: 14pt;
+-fx-text-fill: #ffcf4d;
+}
 #EQLabel{
     -fx-border-radius: 0;
     -fx-background-color: #402f21;
@@ -280,37 +285,102 @@
     -fx-border-radius: 0;
     -fx-background-color: #402f20;
     -fx-border-style: solid inside;
-    -fx-border-color: #5e5e5e #5e5e5e #404040 #404040;
     -fx-border-width:  8 7 8 7;
+    -fx-background-size: 75 200;
+    -fx-background-image: url("../img/Game_imgs/buttons/page_button.png");
 }
-#BattleGrid{
-    -fx-background-color: #a1a1a1;
+#LeftShowBut{
+    -fx-border-color: #5e5e5e #5e5e5e #404040 #404040;
+}
+#RightShowBut{
+    -fx-rotate: 180;
+    -fx-border-color: #404040 #404040 #5e5e5e #5e5e5e ;
 }
 
-#MyTower,#EnemyTower{
+#LeftShowBut:hover,#RightShowBut:hover{
+    -fx-background-image: url("../img/Game_imgs/buttons/page_button_clicked.png");
+    -fx-background-size: 75 200;
+    -fx-background-position: 3 0;
+}
+#LeftShowBut:pressed,#RightShowBut:pressed{
+    -fx-background-image: url("../img/Game_imgs/buttons/page_button_hover.png");
+    -fx-background-size: 75 200;
+    -fx-background-position: 1 0;
+    -fx-border-width:  0 0 0 0;
+}
+#BattleGrid{
+
     -fx-border-radius: 0;
-    -fx-background-color: #bfbfbf;
-    -fx-border-style: solid outside;
-    -fx-border-color: #5e5e5e #5e5e5e #404040 #404040;
-    -fx-border-width:  4 7 8 7;
+    -fx-background-image: url("../img/Game_imgs/battle_grid/plate_battle_grid_blue.png");
+    -fx-background-size: 1000 280;
+}
+
+
+#MyTower{
+    -fx-border-radius: 0;
+    -fx-background-image: url("../img/Game_imgs/player_towers/plate_player_left_blue.png");
+    -fx-background-size: 260 655;
+    -fx-font-size: 18pt;
+}
+#rage0,#rage1,#rage2,#rage0_enemy,#rage1_enemy,#rage2_enemy{
+
+    -fx-background-image: url("../img/Game_imgs/selects/select_field_rage.png");
+    -fx-background-size: 160 160;
+    -fx-background-repeat: no-repeat;
+}
+#rage0:hover,#rage1:hover,#rage2:hover,#rage0_enemy:hover,#rage1_enemy:hover,#rage2_enemy:hover{
+
+    -fx-background-position: 2 0;
+}
+
+#mygrid0,#mygrid1,#mygrid2,#mygrid3,#mygrid4,#mygrid5,#mygrid6{
+    -fx-background-size: 116 116;
+    -fx-background-position: 45 16;
+    -fx-background-repeat: no-repeat;
+    -fx-border-radius: 0;
+}
+#enemygrid0,#enemygrid1,#enemygrid2,#enemygrid3,#enemygrid4,#enemygrid5,#enemygrid6{
+    -fx-background-size: 116 116;
+    -fx-background-position: 45 10;
+    -fx-background-repeat: no-repeat;
+    -fx-border-radius: 0;
+}
+#mygrid0,#enemygrid0{
+    -fx-background-image: url("../img/Game_imgs/first_template.jpg");
+}
+#mygrid0:pressed,#mygrid1:pressed,#mygrid2:pressed,#mygrid3:pressed,#mygrid4:pressed,#mygrid5:pressed,#mygrid6:pressed{
+    -fx-background-position: 45 18;
+}
+#enemygrid0:pressed,#enemygrid1:pressed,#enemygrid2:pressed,#enemygrid3:pressed,#enemygrid4:pressed,#enemygrid5:pressed,#enemygrid6:pressed{
+    -fx-background-position: 45 12;
+}
+#EnemyTower{
+    -fx-border-radius: 0;
+    -fx-background-image: url("../img/Game_imgs/player_towers/plate_player_right_red.png");
+    -fx-background-size: 260 655;
     -fx-font-size: 18pt;
 
 }
 #SelectField1,#SelectField2,#SelectField3,#SelectField4{
 
-    -fx-background-image: url("../img/Game_imgs/select_field.png");
+    -fx-background-image: url("../img/Game_imgs/selects/select_field.png");
     -fx-background-repeat: no-repeat;
-    -fx-background-position: 0, 0;
+    -fx-background-position: 0 0;
     -fx-background-size: 200 200;
 
 }
 #SelectField1:hover,#SelectField2:hover,#SelectField3:hover,#SelectField4:hover{
 
-    -fx-background-image: url("../img/Game_imgs/select_field.gif");
+    -fx-background-image: url("../img/Game_imgs/selects/select_field.gif");
     -fx-background-repeat: no-repeat;
-    -fx-background-position: 0, 0;
+    -fx-background-position: 0 2;
     -fx-background-size: 200 200;
-
+}
+#SelectField3{
+    -fx-background-image: url("../img/Game_imgs/first_template.jpg");
+}
+#SelectField3:hover{
+    -fx-background-image: url("../img/Game_imgs/first_template.jpg");
 }
 #SelectInvField{
     -fx-background-color: #302418;
@@ -329,61 +399,61 @@
     -fx-font-size: 45pt;
 }
 #TakeCardDeck{
-    -fx-background-image: url("../img/Game_imgs/take_card_1.png");
+    -fx-background-image: url("../img/Game_imgs/card_n_money_decks/take_card_1.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: 0, 0;
     -fx-background-size: 160 160;
 }
 #TakeCardDeck:hover{
-    -fx-background-image: url("../img/Game_imgs/take_card.gif");
+    -fx-background-image: url("../img/Game_imgs/card_n_money_decks/take_card.gif");
     -fx-background-repeat: no-repeat;
     -fx-background-position: 0, 0;
     -fx-background-size: 160 160;
 }
 #TakeCardDeck:pressed{
-    -fx-background-image: url("../img/Game_imgs/take_card_click_frame.png");
+    -fx-background-image: url("../img/Game_imgs/card_n_money_decks/take_card_click_frame.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: 0, 0;
     -fx-background-size: 160 160;
 }
 #LostCardDeck{
-    -fx-background-image: url("../img/Game_imgs/losed_card.png");
+    -fx-background-image: url("../img/Game_imgs/card_n_money_decks/losed_card.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: 0, 0;
     -fx-background-size: 160 160;
 }
 #LostCardDeck:hover{
-    -fx-background-image: url("../img/Game_imgs/lost_card.gif");
+    -fx-background-image: url("../img/Game_imgs/card_n_money_decks/lost_card.gif");
     -fx-background-repeat: no-repeat;
     -fx-background-position: 0, 0;
     -fx-background-size: 160 160;
 }
 #LostCardDeck:pressed{
-    -fx-background-image: url("../img/Game_imgs/losed_card_click_frame.png");
+    -fx-background-image: url("../img/Game_imgs/card_n_money_decks/losed_card_click_frame.png");
     -fx-background-repeat: no-repeat;
     -fx-background-position: 0, 0;
     -fx-background-size: 160 160;
 }
 #MoneyStack{
-               -fx-background-image: url("../img/Game_imgs/money_stack.png");
+               -fx-background-image: url("../img/Game_imgs/card_n_money_decks/money_stack.png");
                -fx-background-repeat: no-repeat;
                -fx-background-position: 0, 0;
                -fx-background-size: 160 160;
 }
 #MoneyStack:hover{
-               -fx-background-image: url("../img/Game_imgs/money_stack.gif");
+               -fx-background-image: url("../img/Game_imgs/card_n_money_decks/money_stack.gif");
                -fx-background-repeat: no-repeat;
                -fx-background-position: 0, 0;
                -fx-background-size: 160 160;
 }
 #MoneyStack:pressed{
-               -fx-background-image: url("../img/Game_imgs/money_stack_click.png");
+               -fx-background-image: url("../img/Game_imgs/card_n_money_decks/money_stack_click.png");
                -fx-background-repeat: no-repeat;
                -fx-background-position: 0, 0;
                -fx-background-size: 160 160;
 }
 #MyCharacter{
-                -fx-background-image: url("../img/Game_imgs/players/full_hp_blue.gif");
+               -fx-background-image: url("../img/Game_imgs/players/full_hp_blue.gif");
                -fx-background-repeat: no-repeat;
                -fx-background-position: 0, 0;
                -fx-background-size: 200 400;
