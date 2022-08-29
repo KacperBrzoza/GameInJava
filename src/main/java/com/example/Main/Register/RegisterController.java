@@ -1,6 +1,5 @@
 package com.example.Main.Register;
 
-import com.example.Main.Database.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,7 +15,7 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
+
 public class RegisterController
 {
 
