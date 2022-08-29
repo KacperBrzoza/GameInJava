@@ -1,5 +1,6 @@
 package com.example.Meat.Demo;
 
+import com.example.Main.Game.GameController;
 import com.example.Meat.Creatures.*;
 
 import java.io.BufferedReader;

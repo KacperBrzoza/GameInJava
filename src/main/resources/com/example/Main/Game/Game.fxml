@@ -47,7 +47,7 @@
                                  </children></Pane>
                               <Pane fx:id="HelpInfo" layoutX="400.0" prefHeight="125.0" prefWidth="1120.0">
                                  <children>
-                                    <Label fx:id="InfoLabel" alignment="TOP_LEFT" contentDisplay="CENTER" layoutY="5.0" prefHeight="125.0" prefWidth="1120.0" text="Tablica informacyjna   qdhjgwiuydgyw uegwiuyegiqua qdhjgwd gywuegwiuyd gywuegwiuyeg id gywuegwiuyeg id gywuegwiuyeg ieg id gywuegwiuyeg id gywuegwiuyeg id gywuegwiuyeg iiuydgy wuegwiuyegiq uaqdhjgwiuyd gywuegwiuyd gywud gywuegwiuyeg id gywuegwiuyeg id gywuegwiuyeg id gywuegwiuyeg id gywuegwiuyeg iegwiuyeg id gywuegwiuyeg id gywuegwiuyeg ieg iquaqd hjgwi uydgywuegwiuyegiquaqdhjgwiuydgy" textOverrun="CLIP" wrapText="true">
+                                    <Label fx:id="InfoLabel" alignment="TOP_LEFT" contentDisplay="CENTER" layoutY="5.0" prefHeight="125.0" prefWidth="1120.0" textOverrun="CLIP" wrapText="true">
                                        <padding>
                                           <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                        </padding>
