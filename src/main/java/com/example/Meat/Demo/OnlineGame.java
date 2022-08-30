@@ -16,7 +16,7 @@ public class OnlineGame {
     public Cards_Stack cards;          //zakryty "stos" kart stworów
     public Discardeds_Stack discarded; //odkryty stos kart odrzuconych stworów
     public Money money;                //zakryty "stos" żetonów waluty
-    public Board board;                //plansza
+    public static Board board;                //plansza
     public Rage_Cards rage_cards;      //zakryty "stos" kart Rage
 
     public ServerSocket serverSocket;  //gniazdo serwera

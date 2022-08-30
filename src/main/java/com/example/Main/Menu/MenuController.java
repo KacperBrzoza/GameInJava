@@ -88,7 +88,6 @@ public class MenuController {
         stage.setMaximized(true);
         stage.setScene(scene);
         stage.show();
-        System.out.println(Thread.currentThread());
 
         //poniżej znajduje się propozycja połączenia rozgrywki z programem w formie takiego pseudokodu
 

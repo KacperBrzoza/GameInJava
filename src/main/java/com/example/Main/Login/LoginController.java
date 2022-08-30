@@ -1,5 +1,6 @@
 package com.example.Main.Login;
 
+import com.example.NetTools.ConnectionMenager;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,6 +20,7 @@ import javafx.util.Duration;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+
 
 public class LoginController
 {
@@ -84,8 +86,7 @@ public class LoginController
         mediaPlayer_click.play();
     }
     @FXML
-    public void onRegisterButtonClick(ActionEvent event) throws IOException
-    {
+    public void onRegisterButtonClick(ActionEvent event) throws IOException, InterruptedException {
         //Musialem w taki sposob bo inaczej blad - NullPointerException (Location is required)
         URL url = new File("src/main/resources/com/example/Main/Register/register-view.fxml").toURI().toURL();
         root = FXMLLoader.load(url);
@@ -96,6 +97,13 @@ public class LoginController
         stage.setMaximized(true);
         stage.setScene(scene);
         stage.show();
+        osobna_funkcja();
+    }
+
+    public void osobna_funkcja() throws InterruptedException {
+        int i = 0;
+        while (true){
+        }
     }
 
      @FXML
