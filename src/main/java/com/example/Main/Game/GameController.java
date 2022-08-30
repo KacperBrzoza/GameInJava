@@ -16,6 +16,8 @@ import java.net.URL;
 
 public class GameController {
 
+    private static boolean player_turn;
+
     @FXML
     Label MoneyPlayerValue;
 
@@ -36,6 +38,20 @@ public class GameController {
 
     @FXML
     protected void onExitButtonClicked(ActionEvent event) throws IOException
+    {
+        URL url = new File("src/main/resources/com/example/Main/Menu/Menu-view.fxml").toURI().toURL();
+        Parent root = FXMLLoader.load(url);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public static void cos(){
+        System.err.println("oho, dzialam");
+    }
+
+    public static void openGame(ActionEvent event) throws IOException
     {
         URL url = new File("src/main/resources/com/example/Main/Menu/Menu-view.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);

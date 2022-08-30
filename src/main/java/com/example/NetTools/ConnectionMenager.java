@@ -1,14 +1,20 @@
 package com.example.NetTools;
 
+import com.example.Main.Game.GameController;
 import com.example.Meat.Demo.OnlineGame;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.URL;
 import java.net.UnknownHostException;
+import java.util.EventObject;
 import java.util.Scanner;
 
 public class ConnectionMenager {
@@ -42,7 +48,10 @@ public class ConnectionMenager {
 
 
             //od tego miejsca rzeczy dzieją się gdy ktoś się połączy, tzn gdy oponent zostanie znaleziony
-            System.out.println("[ SERWER ]: Przeciwnik polaczyl sie...");
+            //System.out.println("[ SERWER ]: Przeciwnik polaczyl sie...");
+            //ActionEvent event = new ActionEvent();
+            //GameController.openGame(event);
+            System.out.println(Thread.currentThread());
 
             //inicjalizacja gry online
             OnlineGame game = new OnlineGame(serverSocket, clientSocket, out, PLAYER_ONE_POINTS, PLAYER_TWO_POINTS);

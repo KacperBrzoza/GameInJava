@@ -1,5 +1,7 @@
 package com.example.Main.Menu;
 
+import com.example.NetTools.ClientThread;
+import com.example.NetTools.ServerThread;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -86,7 +88,7 @@ public class MenuController {
         stage.setMaximized(true);
         stage.setScene(scene);
         stage.show();
-
+        System.out.println(Thread.currentThread());
 
         //poniżej znajduje się propozycja połączenia rozgrywki z programem w formie takiego pseudokodu
 
@@ -111,13 +113,20 @@ public class MenuController {
             }
         }
         while(ip_adres == null && czy_bede_serwerem == 0);
+*/
+
+        int czy_bede_serwerem = 1;
         if(czy_bede_serwerem == 0){
-            ConnectionMenager.client();
+            ClientThread ct = new ClientThread("188.146.12.132");
+            ct.start();
         }
         else{
-            ConnectionMenager.server();
+            ServerThread st = new ServerThread();
+            st.start();
         }
-           !!! ROBOTY PROGRAMISTYCZNE !!!   */
+
+         
+
     }
     @FXML
     public void onPlayWithButton(ActionEvent event) throws IOException
