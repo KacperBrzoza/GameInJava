@@ -25,13 +25,7 @@ public class GameController {
     Label InfoLabel;
 
     @FXML
-    Button ExitButton;
-
-
-
-
-
-
+    private Button ExitButton;
 
 
 
@@ -59,5 +53,18 @@ public class GameController {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+
+    }
+
+    @FXML
+    public void onMouseEnteredButton()
+    {
+        InfoLabel.setText("Coscoscos");
+    }
+
+    @FXML
+    public void onMouseExitButton()
+    {
+        InfoLabel.setText("");
     }
 }
