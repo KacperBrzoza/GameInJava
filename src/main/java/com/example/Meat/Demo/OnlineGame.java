@@ -2,6 +2,7 @@ package com.example.Meat.Demo;
 
 import com.example.Main.Game.GameController;
 import com.example.Meat.Creatures.*;
+import com.example.NetTools.Posrednik;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -46,6 +47,7 @@ public class OnlineGame {
         this.PLAYER_TWO_POINTS = PLAYER_TWO_POINTS;
 
         board = new Board(this.PLAYER_ONE_POINTS, this.PLAYER_TWO_POINTS);
+        Posrednik posrednik = new Posrednik(board);
 
         startGame(you, opponent);
     }

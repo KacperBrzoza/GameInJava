@@ -168,10 +168,10 @@
                                                 <Pane fx:id="enemygrid1" prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="3" />
                                                 <Pane fx:id="enemygrid0" prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="4" />
                                                 <Pane fx:id="mygrid0" onMouseEntered="#onMouseEnteredButton" onMouseExited="#onMouseExitButton" prefHeight="128.0" prefWidth="128.0" GridPane.rowIndex="1" />
-                                                <Pane fx:id="mygrid1" prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                                <Pane fx:id="mygrid3" prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                                                <Pane fx:id="mygrid5" prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                                                <Pane fx:id="mygrid6" prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                                                <Pane fx:id="mygrid1" onMouseEntered="#onMouseEnteredButton1" onMouseExited="#onMouseExitButton" prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                <Pane fx:id="mygrid3" onMouseEntered="#onMouseEnteredButton2" onMouseExited="#onMouseExitButton" prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                                <Pane fx:id="mygrid5" onMouseEntered="#onMouseEnteredButton3" onMouseExited="#onMouseExitButton" prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                                <Pane fx:id="mygrid6" onMouseEntered="#onMouseEnteredButton4" onMouseExited="#onMouseExitButton" prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
                                              </children>
                                           </GridPane>
                                        </children>

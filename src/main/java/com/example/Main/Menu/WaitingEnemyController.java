@@ -27,6 +27,10 @@ public class WaitingEnemyController {
     String path_sound_move = "src/main/resources/sound/button_click_sound.mp3";
     Media media_move = new Media(new File(path_sound_move).toURI().toString());
     MediaPlayer mediaPlayer_move = new MediaPlayer(media_move);
+
+    String path = "src/main/resources/music/the_witcher.mp3";
+    Media media = new Media(new File(path).toURI().toString());
+    MediaPlayer mediaPlayer = new MediaPlayer(media);
     @FXML
     public void onMouseEntered()
     {
@@ -55,6 +59,16 @@ public class WaitingEnemyController {
         stage.setMaximized(true);
         stage.setScene(scene);
         stage.show();
+
+        mediaPlayer.setOnEndOfMedia(new Runnable()
+        {
+            public void run()
+            {
+                mediaPlayer.seek(Duration.ZERO);
+            }
+        });
+        mediaPlayer.setVolume(0.3);
+        mediaPlayer.play();
     }
     @FXML
     public void onExitButton(ActionEvent event) throws IOException
