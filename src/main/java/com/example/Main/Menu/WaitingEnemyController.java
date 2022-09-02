@@ -30,7 +30,7 @@ public class WaitingEnemyController {
 
     String path = "src/main/resources/music/the_witcher.mp3";
     Media media = new Media(new File(path).toURI().toString());
-    MediaPlayer mediaPlayer = new MediaPlayer(media);
+    MediaPlayer mediaPlayer_music = new MediaPlayer(media);
     @FXML
     public void onMouseEntered()
     {
@@ -51,28 +51,24 @@ public class WaitingEnemyController {
     {
         //URL url = new File("src/main/resources/com/example/Main/Menu/Menu-view.fxml").toURI().toURL();
         //Testowe przejscie do ekranu gry aby sprawdzic dzialanie gui
+        mediaPlayer_music.setVolume(0.1);
+        mediaPlayer_music.setCycleCount(MediaPlayer.INDEFINITE);
+        mediaPlayer_music.play();
         URL url = new File("src/main/resources/com/example/Main/Game/Game.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
+
         stage.setResizable(false);
         stage.setMaximized(true);
         stage.setScene(scene);
         stage.show();
 
-        mediaPlayer.setOnEndOfMedia(new Runnable()
-        {
-            public void run()
-            {
-                mediaPlayer.seek(Duration.ZERO);
-            }
-        });
-        mediaPlayer.setVolume(0.3);
-        mediaPlayer.play();
     }
     @FXML
     public void onExitButton(ActionEvent event) throws IOException
     {
+
         Stage stage = (Stage) ExitButton.getScene().getWindow();
         stage.close();
     }
