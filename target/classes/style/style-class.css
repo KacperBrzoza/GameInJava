@@ -373,8 +373,15 @@
 
     -fx-background-image: url("../img/Game_imgs/selects/select_field.gif");
     -fx-background-repeat: no-repeat;
-    -fx-background-position: 0 2;
+    -fx-background-position: 0, 2;
     -fx-background-size: 200 200;
+}
+#SelectField1:pressed,#SelectField2:pressed,#SelectField3:pressed,#SelectField4:pressed{
+
+    -fx-background-image: url("../img/Game_imgs/selects/select_field.gif");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 10, 0;
+    -fx-background-size: 180 180;
 }
 #SelectField3{
     -fx-background-image: url("../img/Game_imgs/first_template.jpg");

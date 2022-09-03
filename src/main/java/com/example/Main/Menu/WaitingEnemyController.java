@@ -53,7 +53,7 @@ public class WaitingEnemyController {
         //Testowe przejscie do ekranu gry aby sprawdzic dzialanie gui
         mediaPlayer_music.setVolume(0.1);
         mediaPlayer_music.setCycleCount(MediaPlayer.INDEFINITE);
-        mediaPlayer_music.play();
+        //mediaPlayer_music.play();
         URL url = new File("src/main/resources/com/example/Main/Game/Game.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

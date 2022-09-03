@@ -130,12 +130,12 @@
                                        <children>
                                           <HBox alignment="CENTER" prefHeight="197.5" prefWidth="1000.0">
                                              <children>
-                                                <Pane onMouseClicked="#onTakeCardClicked" onMouseEntered="#onTakeCardEntered" onMouseExited="#hiderInformation" prefHeight="160.0" prefWidth="170.0">
+                                                <Pane prefHeight="160.0" prefWidth="170.0">
                                                    <HBox.margin>
                                                       <Insets bottom="6.25" right="60.0" />
                                                    </HBox.margin>
                                                    <children>
-                                                      <Button fx:id="TakeCardDeck" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="6.25" mnemonicParsing="false" prefHeight="160.0" prefWidth="160.0" />
+                                                      <Button fx:id="TakeCardDeck" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="6.25" mnemonicParsing="false" onMouseClicked="#onTakeCardClicked" onMouseEntered="#onTakeCardEntered" onMouseExited="#hiderInformation" prefHeight="160.0" prefWidth="160.0" />
                                                       <AnchorPane prefHeight="64.0" prefWidth="118.0">
                                                          <children>
                                                             <Label fx:id="CardCounter" alignment="CENTER" prefHeight="40.0" prefWidth="70.0" text="200" textFill="#d7d6d6">
@@ -147,28 +147,28 @@
                                                       </AnchorPane>
                                                    </children>
                                                 </Pane>
-                                                <Pane onMouseClicked="#onRageCardClicked" onMouseEntered="#onRageCardEntered" onMouseExited="#hiderInformation" prefHeight="160.0" prefWidth="160.0">
+                                                <Pane prefHeight="160.0" prefWidth="160.0">
                                                    <HBox.margin>
                                                       <Insets bottom="6.25" right="25.0" top="6.25" />
                                                    </HBox.margin>
                                                    <children>
-                                                      <Button fx:id="RageCardDeck" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="160.0" prefWidth="160.0" />
+                                                      <Button fx:id="RageCardDeck" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onRageCardClicked" onMouseEntered="#onRageCardEntered" onMouseExited="#hiderInformation" prefHeight="160.0" prefWidth="160.0" />
                                                    </children>
                                                 </Pane>
-                                                <Pane onMouseClicked="#onMoneyStackClicked" onMouseEntered="#onMoneyStackEntered" onMouseExited="#hiderInformation" prefHeight="160.0" prefWidth="160.0">
+                                                <Pane prefHeight="160.0" prefWidth="160.0">
                                                    <HBox.margin>
                                                       <Insets bottom="6.25" left="25.0" top="6.25" />
                                                    </HBox.margin>
                                                    <children>
-                                                      <Button fx:id="MoneyStack" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="160.0" prefWidth="160.0" />
+                                                      <Button fx:id="MoneyStack" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onMoneyStackClicked" onMouseEntered="#onMoneyStackEntered" onMouseExited="#hiderInformation" prefHeight="160.0" prefWidth="160.0" />
                                                    </children>
                                                 </Pane>
-                                                <Pane onMouseClicked="#onLostCardClicked" onMouseEntered="#onLostCardEntered" onMouseExited="#hiderInformation" prefHeight="160.0" prefWidth="160.0">
+                                                <Pane prefHeight="160.0" prefWidth="160.0">
                                                    <HBox.margin>
                                                       <Insets bottom="6.25" left="50.0" top="6.25" />
                                                    </HBox.margin>
                                                    <children>
-                                                      <Button fx:id="LostCardDeck" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="160.0" prefWidth="160.0" />
+                                                      <Button fx:id="LostCardDeck" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onLostCardClicked" onMouseEntered="#onLostCardEntered" onMouseExited="#hiderInformation" prefHeight="160.0" prefWidth="160.0" />
                                                    </children>
                                                 </Pane>
                                              </children>
