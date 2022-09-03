@@ -1,6 +1,6 @@
 package com.example.Main.Login;
 
-import com.example.NetTools.ConnectionMenager;
+import Service.TestService;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -62,11 +62,11 @@ public class LoginController
         mediaPlayer.setVolume(0.8);
         if(on_off) {
             mediaPlayer.play();
-            //System.out.println("on");
+            System.out.println("on");
         }
         else {
             mediaPlayer.stop();
-            //System.out.println("off");
+            System.out.println("off");
         }
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
     }
@@ -82,7 +82,7 @@ public class LoginController
     {
         mediaPlayer_click.setVolume(0.5);
         mediaPlayer_click.stop();
-        mediaPlayer_move.seek(Duration.seconds(0));
+        mediaPlayer_click.seek(Duration.seconds(0));
         mediaPlayer_click.play();
     }
     @FXML
@@ -123,7 +123,7 @@ public class LoginController
         if(false)//brak wypelnionych pol   //Potrzeba zrobic obsługe walidacji pól tekstowych w kontrolerze
         {
             mediaPlayer_input_bad.stop();
-            mediaPlayer_move.seek(Duration.seconds(0));
+            mediaPlayer_input_bad.seek(Duration.seconds(0));
             mediaPlayer_input_bad.play();
             PassMsg.setText("Wypełnij wszystkie pola!");
             PassMsg.setStyle("-fx-text-fill: #9e7c26");
@@ -131,22 +131,22 @@ public class LoginController
         else if(false)//gdy nie ma uzytkownika w bazie
         {
             mediaPlayer_input_bad.stop();
-            mediaPlayer_move.seek(Duration.seconds(0));
+            mediaPlayer_input_bad.seek(Duration.seconds(0));
             mediaPlayer_input_bad.play();
             PassMsg.setText("Taki użytkownik nie istnieje.");
         }
         else if(false)//gdy uzytkownik istnieje ale zostalo podane zle haslo
         {
             mediaPlayer_input_bad.stop();
-            mediaPlayer_move.seek(Duration.seconds(0));
+            mediaPlayer_input_bad.seek(Duration.seconds(0));
             mediaPlayer_input_bad.play();
             PassMsg.setText("Podano złe hasło!");
         }
         else if(true)
         {
-            FadeIn(event); //Przyciemnienie na przejście (nie dziala bo trzeba zrobic thready ktore beda zajmowac sie innymi procesami)
+            //FadeIn(event); //Przyciemnienie na przejście (nie dziala bo trzeba zrobic thready ktore beda zajmowac sie innymi procesami)
             mediaPlayer_login_good.stop();
-            mediaPlayer_move.seek(Duration.seconds(0));
+            mediaPlayer_login_good.seek(Duration.seconds(0));
             mediaPlayer_login_good.play();
             PassMsg.setText("Zalogowano pomyślnie.");
             //kontrolna zmiana muzy
@@ -163,6 +163,9 @@ public class LoginController
             stage.setScene(scene);
             stage.show();
         }
+
+        TestService testService = new TestService();
+        System.out.println(testService.findAll());
 
     }
     @FXML

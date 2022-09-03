@@ -17,7 +17,9 @@ public class StartLoginApplication extends Application
     //SessionFactory zawarte jest w EntityManager
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) throws IOException
+    {
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/Main/Login/hello-login-view.fxml"));
         Parent root = loader.load();
         //URL url = new File("src/main/resources/com/example/Main/Login/hello-login-view.fxml").toURI().toURL();
