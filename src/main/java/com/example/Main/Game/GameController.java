@@ -1,5 +1,6 @@
 package com.example.Main.Game;
 
+import com.example.Main.Menu.WaitingEnemyController;
 import com.example.NetTools.Posrednik;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -49,9 +50,9 @@ public class GameController
     Posrednik posrednik;
     //public Board board = posrednik.giveBoard();
 
-    //String path = "src/main/resources/music/the_witcher.mp3";
-    //Media media = new Media(new File(path).toURI().toString());
-    //MediaPlayer mediaPlayer = new MediaPlayer(media);
+    String path = "src/main/resources/music/the_witcher.mp3";
+    Media media = new Media(new File(path).toURI().toString());
+    MediaPlayer mediaPlayer = new MediaPlayer(media);
 
     String path_sound_click = "src/main/resources/sound/button_release_sound.mp3";
     Media media_click = new Media(new File(path_sound_click).toURI().toString());
@@ -85,17 +86,27 @@ public class GameController
         mediaPlayer_click.seek(Duration.seconds(0));
         mediaPlayer_click.play();
     }
+
+    public void stopMusic()
+    {
+        //WaitingEnemyController waitingEnemyController = new WaitingEnemyController();
+        //waitingEnemyController.
+        String path = "src/main/resources/music/the_witcher.mp3";
+        Media media = new Media(new File(path).toURI().toString());
+        MediaPlayer mediaPlayer_music = new MediaPlayer(media);
+        mediaPlayer_music.stop();
+    }
     @FXML
     protected void onExitButtonClicked(ActionEvent event) throws IOException
     {
         click_sound();
+        stopMusic();
         URL url = new File("src/main/resources/com/example/Main/Menu/Menu-view.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-
     }
     @FXML
     protected void hiderInformation()
@@ -293,6 +304,8 @@ public class GameController
         stage.setScene(scene);
         stage.show();
 
+        //URL resource = getClass().getResource("src/main/resources/music/the_witcher.mp3");
+
         /*
         MediaPlayer a = new MediaPlayer(new Media(resource.toString()));
         a.setOnEndOfMedia(new Runnable()
@@ -304,7 +317,6 @@ public class GameController
         });
         a.play();
          */
-
     }
 
 //Komentuje na razie bo podlaczam przyciski i chce czyste miec terminale mozna potem usunac komentarz

@@ -114,6 +114,8 @@ public class MenuController {
         while(ip_adres == null && czy_bede_serwerem == 0);
 */
 
+        //Komentuje bo odpala sie i potem trzeba wylaczac xd
+        /*
         int czy_bede_serwerem = 1;
         if(czy_bede_serwerem == 0){
             ClientThread ct = new ClientThread("188.146.12.132");
@@ -123,6 +125,8 @@ public class MenuController {
             ServerThread st = new ServerThread();
             st.start();
         }
+
+         */
 
          
 

@@ -46,21 +46,6 @@ public class StartLoginApplication extends Application
 
     public static void main(String[] args)
     {
-        /*
-        try
-        {
-            databaseConnection =new DatabaseConnection();
-            databaseConnection.create_base(); //- Ogolnie zakomentowane,tylko jesli pierwszy raz odpalacie to wtedy z tym zeby utworzyc tabele
-        }
-        catch (SQLException ex)
-        {
-            ex.printStackTrace();
-        }
-        catch (ClassNotFoundException ex)
-        {
-            ex.printStackTrace();
-
-         */
         launch(args);
     }
 }

@@ -46,15 +46,20 @@ public class WaitingEnemyController {
         mediaPlayer_move.seek(Duration.seconds(0));
         mediaPlayer_click.play();
     }
+
+    public void onMediaStart()
+    {
+        mediaPlayer_music.setVolume(0.1);
+        mediaPlayer_music.setCycleCount(MediaPlayer.INDEFINITE);
+        mediaPlayer_music.play();
+    }
     @FXML
     public void onBackButton(ActionEvent event) throws IOException
     {
         //URL url = new File("src/main/resources/com/example/Main/Menu/Menu-view.fxml").toURI().toURL();
         //Testowe przejscie do ekranu gry aby sprawdzic dzialanie gui
-        mediaPlayer_music.setVolume(0.1);
-        mediaPlayer_music.setCycleCount(MediaPlayer.INDEFINITE);
-        //mediaPlayer_music.play();
         URL url = new File("src/main/resources/com/example/Main/Game/Game.fxml").toURI().toURL();
+        onMediaStart();
         Parent root = FXMLLoader.load(url);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
@@ -68,7 +73,6 @@ public class WaitingEnemyController {
     @FXML
     public void onExitButton(ActionEvent event) throws IOException
     {
-
         Stage stage = (Stage) ExitButton.getScene().getWindow();
         stage.close();
     }

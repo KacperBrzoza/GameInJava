@@ -1,6 +1,7 @@
 package com.example.Main.Login;
 
-import Service.TestService;
+import com.example.Main.Register.RegisterData;
+import com.example.Main.Service.UserService;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -97,7 +98,7 @@ public class LoginController
         stage.setMaximized(true);
         stage.setScene(scene);
         stage.show();
-        osobna_funkcja();
+        //osobna_funkcja();
     }
 
     public void osobna_funkcja() throws InterruptedException {
@@ -117,10 +118,11 @@ public class LoginController
     @FXML
     protected void onLoginButtonClick(ActionEvent event) throws IOException {
 
-
+        UserService userService = new UserService();
+        RegisterData registerData = new RegisterData();
         mediaPlayer_input_bad.setVolume(0.5);
         mediaPlayer_login_good.setVolume(0.5);
-        if(false)//brak wypelnionych pol   //Potrzeba zrobic obsługe walidacji pól tekstowych w kontrolerze
+        if(LoginTextField.getText().trim().isEmpty() || PasswordTextField.getText().trim().isEmpty())//brak wypelnionych pol
         {
             mediaPlayer_input_bad.stop();
             mediaPlayer_input_bad.seek(Duration.seconds(0));
@@ -128,20 +130,50 @@ public class LoginController
             PassMsg.setText("Wypełnij wszystkie pola!");
             PassMsg.setStyle("-fx-text-fill: #9e7c26");
         }
-        else if(false)//gdy nie ma uzytkownika w bazie
+        else
         {
-            mediaPlayer_input_bad.stop();
-            mediaPlayer_input_bad.seek(Duration.seconds(0));
-            mediaPlayer_input_bad.play();
-            PassMsg.setText("Taki użytkownik nie istnieje.");
+            registerData.setUsername(LoginTextField.getText());
+            registerData.setPassword(PasswordTextField.getText());
+            if(!userService.isUsernameInUse(registerData.getUsername())) //gdy nie ma uzytkownika w bazie
+            {
+                mediaPlayer_input_bad.stop();
+                mediaPlayer_input_bad.seek(Duration.seconds(0));
+                mediaPlayer_input_bad.play();
+                PassMsg.setText("Taki użytkownik nie istnieje.");
+                PassMsg.setStyle("-fx-text-fill: #d0312d;-fx-font-size: 18pt;");//czerwone
+            }
+            else if(userService.isUsernameInUse(registerData.getUsername()) && !(userService.isCorrect(registerData.getUsername(), registerData.getPassword()))) //jest uzytkownik ale jest zle haslo
+            {
+                mediaPlayer_input_bad.stop();
+                mediaPlayer_input_bad.seek(Duration.seconds(0));
+                mediaPlayer_input_bad.play();
+                PassMsg.setText("Podano złe hasło!");
+                PassMsg.setStyle("-fx-text-fill: #d0312d;-fx-font-size: 18pt;");//czerwone
+            }
+            else //Dobre haslo i dobry uzytkownik
+            {
+                //FadeIn(event); //Przyciemnienie na przejście (nie dziala bo trzeba zrobic thready ktore beda zajmowac sie innymi procesami)
+                mediaPlayer_login_good.stop();
+                mediaPlayer_login_good.seek(Duration.seconds(0));
+                mediaPlayer_login_good.play();
+                PassMsg.setText("Zalogowano pomyślnie.");
+                //kontrolna zmiana muzy
+                //
+                //
+                PassMsg.setStyle("-fx-text-fill: #269e32");
+                URL url_menu = new File("src/main/resources/com/example/Main/Menu/Menu-view.fxml").toURI().toURL();
+                root = FXMLLoader.load(url_menu);
+                stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+                scene = new Scene(root);
+                stage.setResizable(false);
+                scene.getStylesheets().add(getClass().getResource("/style/style-class.css").toExternalForm());
+                stage.setMaximized(true);
+                stage.setScene(scene);
+                stage.show();
+            }
         }
-        else if(false)//gdy uzytkownik istnieje ale zostalo podane zle haslo
-        {
-            mediaPlayer_input_bad.stop();
-            mediaPlayer_input_bad.seek(Duration.seconds(0));
-            mediaPlayer_input_bad.play();
-            PassMsg.setText("Podano złe hasło!");
-        }
+        /*
+
         else if(true)
         {
             //FadeIn(event); //Przyciemnienie na przejście (nie dziala bo trzeba zrobic thready ktore beda zajmowac sie innymi procesami)
@@ -163,9 +195,8 @@ public class LoginController
             stage.setScene(scene);
             stage.show();
         }
+         */
 
-        TestService testService = new TestService();
-        System.out.println(testService.findAll());
 
     }
     @FXML

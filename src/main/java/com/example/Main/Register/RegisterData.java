@@ -2,28 +2,27 @@ package com.example.Main.Register;
 
 public class RegisterData
 {
-    private String login;
+    private String username;
     private String password;
 
-    public RegisterData(String login, String password)
+    public RegisterData(String username, String password)
     {
-        this.login = login;
+        this.username = username;
         this.password = password;
     }
-
 
     public RegisterData()
     {
     }
 
-    public String getLogin()
+    public String getUsername()
     {
-        return login;
+        return username;
     }
 
-    public void setLogin(String login)
+    public void setUsername(String username)
     {
-        this.login = login;
+        this.username = username;
     }
 
     public String getPassword()
@@ -40,7 +39,7 @@ public class RegisterData
     public String toString()
     {
         return "RegisterData{" +
-                "login='" + login + '\'' +
+                "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';
     }

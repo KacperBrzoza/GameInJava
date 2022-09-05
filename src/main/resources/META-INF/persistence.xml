@@ -4,12 +4,12 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
              version="2.2">
     <persistence-unit name="MyUnit">
-        <class>Model.Test</class>
+        <class>com.example.Main.Model.UserData</class>
         <properties>
-            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/testPR"/>
+            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/Projekt"/>
             <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
             <property name="hibernate.connection.username" value="postgres"/>
-            <property name="hibernate.connection.password" value="postgres"/>
+            <property name="hibernate.connection.password" value="Bakalie37"/>
         </properties>
     </persistence-unit>
 </persistence>

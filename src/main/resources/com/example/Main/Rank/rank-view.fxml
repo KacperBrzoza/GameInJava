@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Main.Rank.RankController">
+<VBox alignment="CENTER" maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Main.Rank.RankController">
     <children>
         <AnchorPane fx:id="AllScreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../../../style/style-class.css">
             <children>
@@ -53,13 +48,11 @@
                <children>
                   <VBox prefHeight="600.0" prefWidth="1191.0">
                      <children>
-                        <TableView prefHeight="600.0" prefWidth="1191.0">
+                        <TableView fx:id="tableView" prefHeight="600.0" prefWidth="1191.0">
                           <columns>
-                              <TableColumn fx:id="RankColumn" editable="false" prefWidth="162.0" text="RANK" />
-                            <TableColumn fx:id="NickColumn" editable="false" prefWidth="234.0" text="NICK" />
-                            <TableColumn fx:id="PointsColumn" editable="false" prefWidth="241.0" text="POINTS" />
-                              <TableColumn fx:id="WinColumn" editable="false" prefWidth="268.0" text="WIN GAMES" />
-                              <TableColumn fx:id="LostColumn" prefWidth="285.0" text="LOST GAMES" />
+                              <TableColumn fx:id="uidColumn" editable="false" prefWidth="234.0" text="UID" />
+                            <TableColumn fx:id="nickColumn" editable="false" prefWidth="234.0" text="NICK" />
+                              <TableColumn fx:id="passwordColumn" editable="false" prefWidth="234.0" text="PASSWORD" />
                           </columns>
                         </TableView>
                      </children>
