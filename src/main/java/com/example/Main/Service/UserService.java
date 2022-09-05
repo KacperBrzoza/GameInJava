@@ -10,6 +10,7 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.util.Iterator;
+import java.util.List;
 
 public class UserService
 {
@@ -105,6 +106,13 @@ public class UserService
             correct = true;
         }
         return correct;
+    }
+
+    public List<UserData> findAll()
+    {
+        EntityManager entityManager = PersistenceManager.getFactory().createEntityManager();
+        Query query = entityManager.createQuery("select c from UserData c");
+        return query.getResultList();
     }
 
 }

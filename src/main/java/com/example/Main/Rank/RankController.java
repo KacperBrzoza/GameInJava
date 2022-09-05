@@ -78,7 +78,7 @@ public class RankController implements Initializable
         //tableView.getItems().addAll(userService.show_user());
         userService.show_user();
         tableView.setItems(userService.observableList);
-        System.out.println(nickColumn.getColumns().toString());
+        userService.findAll().forEach(System.out::println);
     }
 
     @FXML
