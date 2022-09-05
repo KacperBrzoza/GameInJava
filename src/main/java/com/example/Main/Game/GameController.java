@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
@@ -41,7 +42,7 @@ public class GameController
     @FXML
     private Button ExitButton;
     @FXML
-    Pane SelectField1,SelectField2,SelectField3,SelectField4;
+    ImageView EQ1,EQ2,EQ3,EQ4;
 
     @FXML
     Button TakeCardDeck, RageCardDeck, MoneyStack, LostCardDeck;
@@ -257,24 +258,73 @@ public class GameController
         InfoLabel.setText("Pole 4");
     }
     @FXML
-    protected void onSelectField1Clicked()
+    protected void onSelectField1Pressed()
     {
+        EQ1.setFitHeight(160);
+        EQ1.setFitWidth(160);
+        EQ1.setX(10);
+        EQ1.setY(15);
+    }
+    @FXML
+    protected void onSelectField2Pressed()
+    {
+        EQ2.setFitHeight(160);
+        EQ2.setFitWidth(160);
+        EQ2.setX(20);
+        EQ2.setY(25);
+    }
+    @FXML
+    protected void onSelectField3Pressed()
+    {
+        EQ3.setFitHeight(160);
+        EQ3.setFitWidth(160);
+        EQ3.setX(20);
+        EQ3.setY(25);
+    }
+    @FXML
+    protected void onSelectField4Pressed()
+    {
+        EQ4.setFitHeight(160);
+        EQ4.setFitWidth(160);
+        EQ4.setX(20);
+        EQ4.setY(25);
+    }
+
+    @FXML
+    protected void onSelectField1Released()
+    {
+        //Image postac = new Image(Objects.requireNonNull(getClass().getResourceAsStream("/img/Creatures/Brewek_arts/023.png")));
+        //EQ1.setImage(postac);
+        EQ1.setFitHeight(180);
+        EQ1.setFitWidth(180);
+        EQ1.setX(0);
+        EQ1.setY(0);
 
     }
     @FXML
-    protected void onSelectField2Clicked()
+    protected void onSelectField2Released()
     {
-
+        EQ2.setFitHeight(180);
+        EQ2.setFitWidth(180);
+        EQ2.setX(10);
+        EQ2.setY(15);
     }
     @FXML
-    protected void onSelectField3Clicked()
+    protected void onSelectField3Released()
     {
-
+        //EQ3.setImage(null);
+        EQ3.setFitHeight(180);
+        EQ3.setFitWidth(180);
+        EQ3.setX(10);
+        EQ3.setY(15);
     }
     @FXML
-    protected void onSelectField4Clicked()
+    protected void onSelectField4Released()
     {
-
+        EQ4.setFitHeight(180);
+        EQ4.setFitWidth(180);
+        EQ4.setX(10);
+        EQ4.setY(15);
     }
     @FXML
     protected void onLeftPageButtonClicked()

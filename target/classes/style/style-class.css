@@ -365,7 +365,7 @@
 
     -fx-background-image: url("../img/Game_imgs/selects/select_field.png");
     -fx-background-repeat: no-repeat;
-    -fx-background-position: 0 0;
+    -fx-background-position: 0, 0;
     -fx-background-size: 200 200;
 
 }
@@ -383,11 +383,9 @@
     -fx-background-position: 10, 0;
     -fx-background-size: 180 180;
 }
-#SelectField3{
-    -fx-background-image: url("../img/Game_imgs/first_template.jpg");
-}
-#SelectField3:hover{
-    -fx-background-image: url("../img/Game_imgs/first_template.jpg");
+#EQ3{
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 0, 0;
 }
 #SelectInvField{
     -fx-background-color: #302418;
