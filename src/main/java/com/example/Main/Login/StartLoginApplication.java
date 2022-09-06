@@ -27,7 +27,7 @@ public class StartLoginApplication extends Application
         LoginController controller = loader.getController();
         controller.ambient_music(true);
         Scene scene = new Scene(root);
-        stage.setHeight(1080);
+        stage.setHeight(1920);
         stage.setWidth(1920);
         stage.initStyle(StageStyle.UNDECORATED);
         Image icon = new Image(String.valueOf(StartLoginApplication.class.getResource("/icon/icon_KTC_og-size.png")));

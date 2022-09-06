@@ -11,8 +11,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,6 +34,19 @@ public class RegisterController
     private PasswordField PasswordTextField, rPasswordTextField;
 
     RegisterData registerData;
+
+    String path_sound_bad_input = "src/main/resources/sound/bad_input_sound.mp3";
+    Media media_input_bad = new Media(new File(path_sound_bad_input).toURI().toString());
+    MediaPlayer mediaPlayer_input_bad = new MediaPlayer(media_input_bad);
+
+
+    String path_sound_click = "src/main/resources/sound/button_release_sound.mp3";
+    Media media_click = new Media(new File(path_sound_click).toURI().toString());
+    MediaPlayer mediaPlayer_click = new MediaPlayer(media_click);
+
+    String path_sound_move = "src/main/resources/sound/button_click_sound.mp3";
+    Media media_move = new Media(new File(path_sound_move).toURI().toString());
+    MediaPlayer mediaPlayer_move = new MediaPlayer(media_move);
     @FXML
     public void onExitButtonClicked(ActionEvent event) throws IOException
     {
@@ -51,10 +67,32 @@ public class RegisterController
     }
 
     @FXML
+    public void onMouseClicked()
+    {
+        mediaPlayer_click.setVolume(0.5);
+        mediaPlayer_click.stop();
+        mediaPlayer_click.seek(Duration.seconds(0));
+        mediaPlayer_click.play();
+    }
+
+    @FXML
+    public void onMouseEntered()
+    {
+        mediaPlayer_move.setVolume(0.5);
+        mediaPlayer_move.stop();
+        mediaPlayer_move.seek(Duration.seconds(0));
+        mediaPlayer_move.play();
+    }
+
+    @FXML
     public void register(ActionEvent event) throws IOException
     {
+        mediaPlayer_input_bad.setVolume(0.5);
         if(LoginTextField.getText().trim().isEmpty() || PasswordTextField.getText().trim().isEmpty() || rPasswordTextField.getText().trim().isEmpty())
         {
+            mediaPlayer_input_bad.stop();
+            mediaPlayer_input_bad.seek(Duration.seconds(0));
+            mediaPlayer_input_bad.play();
             //Poprawione wiadomosci alarmowe (alarmy zakomentowalem, mozna usunac jesli nie potrzebne) - Daniel
             PassMsg.setText("Proszę wypelnic wszystkie pola");
             PassMsg.setStyle("-fx-text-fill: #9e7c26;-fx-font-size: 25pt;");//zolte
