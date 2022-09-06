@@ -346,7 +346,7 @@
     -fx-border-radius: 0;
 }
 #mygrid0,#enemygrid0{
-    -fx-background-image: url("../img/Game_imgs/first_template.jpg");
+    -fx-background-image: url("../img/Creatures/Brewek_arts/341.png");
 }
 #mygrid0:pressed,#mygrid1:pressed,#mygrid2:pressed,#mygrid3:pressed,#mygrid4:pressed,#mygrid5:pressed,#mygrid6:pressed{
     -fx-background-position: 45 18;

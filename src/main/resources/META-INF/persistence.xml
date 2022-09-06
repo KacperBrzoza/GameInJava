@@ -6,10 +6,10 @@
     <persistence-unit name="MyUnit">
         <class>com.example.Main.Model.UserData</class>
         <properties>
-            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/Projekt"/>
+            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/postgres"/>
             <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
             <property name="hibernate.connection.username" value="postgres"/>
-            <property name="hibernate.connection.password" value="Bakalie37"/>
+            <property name="hibernate.connection.password" value="brak123"/>
         </properties>
     </persistence-unit>
 </persistence>

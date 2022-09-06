@@ -17,7 +17,7 @@ public class Rage_Cards {
         cards.add(new Resurrection());
         cards.add(new Profit());
         cards.add(new Recruiting());
-        cards.add(new Counterpunch());
+        cards.add(new Countershot());
         cards.add(new FinalWord());
         cards.add(new PowerPack());
         cards.add(new Redeployment());

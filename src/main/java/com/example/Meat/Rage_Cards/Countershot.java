@@ -7,9 +7,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 //przeciwnik natychmiast traci tarczę i nie dostaje karty Rage (ta karta nie wpływa na punkty graczy)
-public class Counterpunch extends R_Card{
+public class Countershot extends R_Card{
 
-    public Counterpunch(){
+    public Countershot(){
         this.name = "Counterpunch";
         this.description = "przeciwnik traci tarcze i nie dobiera karty Rage (jednorazowa)";
     }

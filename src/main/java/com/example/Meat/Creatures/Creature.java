@@ -19,7 +19,9 @@ public class Creature {
 
     protected int poisoned;     //pole okreslajace, czy na ta jednostke zadzialala moc J
     protected int copy_hp;      //pole przechowujące kopię życia. Stwór musi odzyskać swoje początkowe życie gdy spowrotem trafia do czyjegoś ekwipunku.
-    
+
+    public String path;
+
     public Creature(){}
 
     public Creature(int cost, int attack, int hp){
