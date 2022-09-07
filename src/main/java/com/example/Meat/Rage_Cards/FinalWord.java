@@ -4,6 +4,7 @@ import com.example.Meat.Creatures.Creature;
 import com.example.Meat.Demo.*;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
@@ -16,7 +17,7 @@ public class FinalWord extends R_Card{
         this.description = "natychmiast wystawiasz jednostke za darmo (jednorazowa)";
     }
 
-    public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage, PrintWriter out, BufferedReader in) throws IOException {
+    public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage, BufferedWriter out, BufferedReader in) throws IOException {
         if(you.id == 1){
             //jeżeli aktualny gracz ma coś w ekwipunku i nie ma 4 jednostek na planszy
             if(you.eq.size() > 0 && you.counter < 4) {
@@ -56,14 +57,14 @@ public class FinalWord extends R_Card{
             //jeżeli aktualny gracz ma coś w ekwipunku i nie ma 4 jednostek na planszy
             if(you.eq.size() > 0 && you.counter < 4) {
 
-                out.println("\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n");
-                out.println("WYSTAWIASZ TERAZ DARMOWEGO STWORA!!!");
-                out.println(board);
-                out.println(you.eq);
+                //out.println("\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n");
+                //out.println("WYSTAWIASZ TERAZ DARMOWEGO STWORA!!!");
+                //out.println(board);
+                //out.println(you.eq);
 
                 int number = -1;
                 while (number < 0 || number >= you.eq.size()) {
-                    out.println(you.eq.size());
+                    //out.println(you.eq.size());
                     fromClient = in.readLine();
                     number = Integer.parseInt(fromClient);
                     //tu następuje właściwy wybór
@@ -84,7 +85,7 @@ public class FinalWord extends R_Card{
                     }
                 }
                 System.out.println(board);
-                out.println(board);
+                //out.println(board);
             }
         }
     }

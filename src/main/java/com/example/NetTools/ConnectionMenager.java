@@ -33,7 +33,7 @@ public class ConnectionMenager {
                 Socket clientSocket = serverSocket.accept();
 
                 //...strumieni do czytania i wysyłania danych przez sieć
-                PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+                BufferedWriter out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()));
                 BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()))
                 ){
 

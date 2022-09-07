@@ -1,7 +1,6 @@
 package com.example.Main.Menu;
 
-import com.example.NetTools.ClientThread;
-import com.example.NetTools.ServerThread;
+import com.example.NetTools.Server;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,6 +18,7 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.ServerSocket;
 import java.net.URL;
 
 public class MenuController {
@@ -77,9 +77,6 @@ public class MenuController {
     @FXML
     public void onPlayButton(ActionEvent event) throws IOException
     {
-        //Testowo wrzucone zeby pokazac ze jest powiadomienie
-        NotificationPane.setVisible(true);
-
         URL url = new File("src/main/resources/com/example/Main/Menu/Waiting-Oponent-view.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

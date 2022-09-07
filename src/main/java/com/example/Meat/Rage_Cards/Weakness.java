@@ -3,6 +3,7 @@ package com.example.Meat.Rage_Cards;
 import com.example.Meat.Demo.*;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
@@ -14,7 +15,7 @@ public class Weakness extends R_Card{
         description = "przeciwnik traci 3 karty stworow z reki (jednorazowe)";
     }
 
-    public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage, PrintWriter out, BufferedReader in) throws IOException {
+    public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage, BufferedWriter out, BufferedReader in) throws IOException {
         if(opponent.id == 1){
             //zadziała gdy przeciwnik ma coś w ekwipunku
             if(opponent.eq.size() > 0) {
@@ -53,19 +54,19 @@ public class Weakness extends R_Card{
                 else
                     counter = opponent.eq.size();
 
-                out.println("Musisz odrzucic " + counter + " karty z reki");
+                //out.println("Musisz odrzucic " + counter + " karty z reki");
                 int number;
 
                 //odrzucanie
                 while (counter > 0) {
-                    out.println(opponent.eq);
-                    out.println("wybierz: ");
-                    out.println(opponent.eq.size());
+                    //out.println(opponent.eq);
+                    //out.println("wybierz: ");
+                    //out.println(opponent.eq.size());
                     fromClient = in.readLine();
                     number = Integer.parseInt(fromClient);
                     if (number >= 0 && number < opponent.eq.size()) {
                         discardeds.putCard(opponent.eq.pickCreature(number));
-                        out.println("Odrzucono");
+                        //out.println("Odrzucono");
                         counter--;
                     }
                 }

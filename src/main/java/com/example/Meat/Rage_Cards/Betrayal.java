@@ -3,6 +3,7 @@ package com.example.Meat.Rage_Cards;
 import com.example.Meat.Demo.*;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
@@ -14,7 +15,7 @@ public class Betrayal extends R_Card{
         description = "wybrana jednostka rywala przechodzi na twoja strone (jednorazowe)";
     }
 
-    public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage, PrintWriter out, BufferedReader in) throws IOException {
+    public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage, BufferedWriter out, BufferedReader in) throws IOException {
 
         if(you.id == 1){
             //jeżeli przeciwnik ma wystawione jakieś stwory, a aktualny gracz nie przekroczył limitu 4 jednostek na planszy
@@ -57,19 +58,19 @@ public class Betrayal extends R_Card{
             //jeżeli przeciwnik ma wystawione jakieś stwory, a aktualny gracz nie przekroczył limitu 4 jednostek na planszy
             if(opponent.counter > 0 && you.counter < 4) {
 
-                out.println("\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n");
-                out.println("MOZESZ PRZECIAGNAC STWORA NA SWOJA STRONĘ!!!");
-                out.println(board);
+                //out.println("\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n");
+                //out.println("MOZESZ PRZECIAGNAC STWORA NA SWOJA STRONĘ!!!");
+                //out.println(board);
                 for (int i = 0; i < 5; i++) {
                     //wybierz te pola, które przeciwnik ma zajęte, a ty masz wolne
                     if (!board.empty(opponent.id, i) && (board.empty(you.id, i))) {
-                        out.print("  (" + i + ")  ");
+                        //out.print("  (" + i + ")  ");
                     }
                 }
-                out.println("\n(5) aby zrezygnowac");
+                //out.println("\n(5) aby zrezygnowac");
                 int number = -1;
                 while (number < 0 || number > 5) {
-                    out.println("5");
+                    //out.println("5");
                     fromClient = in.readLine();
                     number = Integer.parseInt(fromClient);
                     if (number >= 0 && number < 5) {
@@ -83,7 +84,7 @@ public class Betrayal extends R_Card{
                             number = -1;
                         }
                     } else if (number == 5) {
-                        out.print("zrezygnowano ");
+                        //out.print("zrezygnowano ");
                     }
                 }
             }

@@ -2,6 +2,7 @@ package com.example.Meat.Demo;
 
 import com.example.Meat.Creatures.*;
 
+import java.io.BufferedWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -209,7 +210,7 @@ public class Cards_Stack {
 
     //poniższa metoda losuje kartę z tego "stosu" i ją zwraca
     //ma służyć do dobierania kart przez graczy
-    public Creature giveCard(PrintWriter out, Player you, Player opponent){
+    public Creature giveCard(BufferedWriter out, Player you, Player opponent){
         Random rand = new Random();
         int n = rand.nextInt(creatures.size());
         Creature card = creatures.get(n);
@@ -221,14 +222,14 @@ public class Cards_Stack {
     }
 
     //metoda przerywa grę gdy skończą się karty na stosie (do testów)
-    private void endGame(PrintWriter out, Player you, Player opponent){
+    private void endGame(BufferedWriter out, Player you, Player opponent){
         System.out.println("\n" + "\n" + "\n" + "\n" + "\n"  + "\n" + "\n" + "\n" + "\n" + "\n");
         System.out.println("GRA SKONCZONA!");
         System.out.println("Gracz 1 " + you.score + ":" + opponent.score + " Gracz 2");
-        out.println("\n" + "\n" + "\n" + "\n" + "\n"  + "\n" + "\n" + "\n" + "\n" + "\n");
-        out.println("GRA SKONCZONA!");
-        out.println("Gracz 1 " + you.score + ":" + opponent.score + " Gracz 2");
-        out.println("END_GAME");
+        //out.println("\n" + "\n" + "\n" + "\n" + "\n"  + "\n" + "\n" + "\n" + "\n" + "\n");
+        //out.println("GRA SKONCZONA!");
+        //out.println("Gracz 1 " + you.score + ":" + opponent.score + " Gracz 2");
+        //out.println("END_GAME");
         /*
         TU NALEŻY WSTAWIĆ FRAGEMNT KODU WYSYŁAJĄCY WYNIKI DO BAZY
         MOŻE NP ŚCIĄGNĄĆ TYCH GRACZY Z TABELI WYNIKI, DODAĆ IM PUNKTY Z TEJ GRY I ZUPDATOWAĆ REKORDY W BAZIE

@@ -3,6 +3,7 @@ package com.example.Meat.Rage_Cards;
 import com.example.Meat.Demo.*;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
@@ -14,7 +15,7 @@ public class Redeployment extends R_Card{
         description = "mozesz cofnac swoja wybrana jednostke do ekwipunku, jesli to zrobisz zyskasz 3 zetony waluty (jednorazowe)";
     }
 
-    public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage, PrintWriter out, BufferedReader in) throws IOException {
+    public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage, BufferedWriter out, BufferedReader in) throws IOException {
 
         //zadziała gdy masz coś wystawione
         if(you.counter > 0){
@@ -56,19 +57,19 @@ public class Redeployment extends R_Card{
             }
             else{
                 String fromCLient;
-                out.println("\n" + "\n" + "\n" + "\n" + "\n"  + "\n" + "\n" + "\n" + "\n" + "\n");
-                out.println("MOZESZ WYCOFAC SWOJEGO STWORA!!!");
-                out.println(board);
+                //out.println("\n" + "\n" + "\n" + "\n" + "\n"  + "\n" + "\n" + "\n" + "\n" + "\n");
+                //out.println("MOZESZ WYCOFAC SWOJEGO STWORA!!!");
+                //out.println(board);
                 for(int i = 0; i < 5; i++){
                     if(!board.empty(you.id, i)){
-                        out.print("  (" + i + ")  ");
+                        //out.print("  (" + i + ")  ");
                     }
                 }
-                out.println("\n(5) aby zrezygnować");
+                //out.println("\n(5) aby zrezygnować");
 
                 int number = -1;
                 while (number < 0 || number > 5){
-                    out.println("5");
+                    //out.println("5");
                     fromCLient = in.readLine();
                     number = Integer.parseInt(fromCLient);
 
@@ -86,7 +87,7 @@ public class Redeployment extends R_Card{
                         }
                     }
                     else if(number == 5){
-                        out.println("zrezygnowano ");
+                        //out.println("zrezygnowano ");
                     }
                 }
             }

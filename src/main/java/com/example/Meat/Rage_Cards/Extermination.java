@@ -3,6 +3,7 @@ package com.example.Meat.Rage_Cards;
 import com.example.Meat.Demo.*;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
@@ -14,7 +15,7 @@ public class Extermination extends R_Card{
         description = "natychmiast zabijasz rywalowi 3 jednostki (jednorazowe)";
     }
 
-    public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage, PrintWriter out, BufferedReader in) throws IOException {
+    public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage, BufferedWriter out, BufferedReader in) throws IOException {
         int dead_counter = 0;
 
         if(you.id == 1) {
@@ -41,18 +42,18 @@ public class Extermination extends R_Card{
         }
         else {
             String fromClient;
-            out.println("MOZESZ ZABIC PRZECIWNIKOWI 3 JEDNOSTKI!!!");
-            out.println(board);
+            //out.println("MOZESZ ZABIC PRZECIWNIKOWI 3 JEDNOSTKI!!!");
+            //out.println(board);
             for (int i = 0; i < 5; i++) {
-                if (!board.empty(opponent.id, i))
-                    out.print("  (" + i + ")  ");
+                //if (!board.empty(opponent.id, i))
+                    //out.print("  (" + i + ")  ");
             }
-            out.println();
+            //out.println();
 
             int number;
             //zabijanie 3 jednostek lub jeśli przeciwnik ma mniej niż 3 - wszystkich
             while (dead_counter < 3 && opponent.counter > 0) {
-                out.println("5");
+                //out.println("5");
                 fromClient = in.readLine();
                 number = Integer.parseInt(fromClient);
                 if (!board.empty(opponent.id, number) && number < 5) {

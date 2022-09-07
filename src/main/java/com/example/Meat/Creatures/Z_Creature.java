@@ -3,6 +3,7 @@ package com.example.Meat.Creatures;
 import com.example.Meat.Demo.*;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
@@ -20,7 +21,7 @@ public class Z_Creature extends Creature{
     }
 
     @Override
-    public void effect(Player you, Player opponent, Cards_Stack cards, Discardeds_Stack discardeds, Money money, Board board, PrintWriter out, BufferedReader in) throws IOException {
+    public void effect(Player you, Player opponent, Cards_Stack cards, Discardeds_Stack discardeds, Money money, Board board, BufferedWriter out, BufferedReader in) throws IOException {
         if(you.id == 1) {
             //jeżeli masz już coś wystawione
             if(you.counter > 1){
@@ -66,19 +67,19 @@ public class Z_Creature extends Creature{
             String fromClient;
             //jeżeli masz już coś wystawione
             if(you.counter > 1){
-                out.println("Mozesz zamienic innego swojego stwora z tym miejscami");
-                out.println(board);
+                //out.println("Mozesz zamienic innego swojego stwora z tym miejscami");
+                //out.println(board);
 
                 //wypisuje pola do wyboru w zależności od gracza
                 for (int i = 0; i < 4; i++) {
-                    if (!board.empty(you.id, i))
-                        out.print(" (" + i + ")  ");
+                    //if (!board.empty(you.id, i))
+                        //out.print(" (" + i + ")  ");
                 }
-                out.println("\n(5) - nie zamieniaj");
+                //out.println("\n(5) - nie zamieniaj");
 
                 int number = -1;
                 while (number < 0) {
-                    out.println("5");
+                    //out.println("5");
                     fromClient = in.readLine();
                     number = Integer.parseInt(fromClient);
 

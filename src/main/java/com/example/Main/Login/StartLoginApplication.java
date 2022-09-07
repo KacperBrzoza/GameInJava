@@ -1,5 +1,6 @@
 package com.example.Main.Login;
 
+import com.example.NetTools.Server;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,10 +17,10 @@ public class StartLoginApplication extends Application
     //public static DatabaseConnection databaseConnection; //Do polaczenia z bd
     //SessionFactory zawarte jest w EntityManager
 
+
     @Override
     public void start(Stage stage) throws IOException
     {
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/Main/Login/hello-login-view.fxml"));
         Parent root = loader.load();
         //URL url = new File("src/main/resources/com/example/Main/Login/hello-login-view.fxml").toURI().toURL();
@@ -42,6 +43,7 @@ public class StartLoginApplication extends Application
         stage.setScene(scene);
         //ambient_music();
         stage.show();
+
     }
 
     public static void main(String[] args)

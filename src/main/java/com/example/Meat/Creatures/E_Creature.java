@@ -3,6 +3,7 @@ package com.example.Meat.Creatures;
 import com.example.Meat.Demo.*;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class E_Creature extends Creature{
     }
 
     @Override
-    public void effect(Player you, Player opponent, Cards_Stack cards, Discardeds_Stack discardeds, Money money, Board board, PrintWriter out, BufferedReader in) throws IOException {
+    public void effect(Player you, Player opponent, Cards_Stack cards, Discardeds_Stack discardeds, Money money, Board board, BufferedWriter out, BufferedReader in) throws IOException {
         //moc zadziała gdy gracz ma coś w ekwipunku
         if(you.eq.size() > 0){
             //wariant dla gracza 1
@@ -102,13 +103,14 @@ public class E_Creature extends Creature{
                 //jeżeli aktualny gracz ma jakieś stwory z mocą E i nie ma 4 jednostek na planszy
                 if (e_creatures.size() != 0 && you.counter < 4) {
 
+                    /*
                     out.println("Mozesz za darmo wystawic jednostke z moca E");
                     out.println(board);
                     for (int i = 0; i < e_creatures.size(); i++)
                         out.println("(" + i + ") " + e_creatures.get(i));
                     out.println("(" + e_creatures.size() + ") nie uzywaj mocy E");
                     out.println(e_creatures.size());
-
+                    */
                     fromClient = in.readLine();
                     int number = Integer.parseInt(fromClient);
                     //jeśli otrzymaną liczbą był stwór z mocą E, to wystaw go

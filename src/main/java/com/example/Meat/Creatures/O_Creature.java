@@ -3,6 +3,7 @@ package com.example.Meat.Creatures;
 import com.example.Meat.Demo.*;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
@@ -20,7 +21,7 @@ public class O_Creature extends Creature{
     }
 
     @Override
-    public void effect(Player you, Player opponent, Cards_Stack cards, Discardeds_Stack discardeds, Money money, Board board, PrintWriter out, BufferedReader in) throws IOException {
+    public void effect(Player you, Player opponent, Cards_Stack cards, Discardeds_Stack discardeds, Money money, Board board, BufferedWriter out, BufferedReader in) throws IOException {
         if(you.id == 1){
             //jeżeli pierwszy gracz ma coś w ekwipunku i nie ma 4 jednostek na planszy
             if(you.eq.size() > 0 && you.counter < 4){
@@ -60,12 +61,14 @@ public class O_Creature extends Creature{
             String fromCLient;
             //jeżeli drugi gracz ma coś w ekwipunku i nie ma 4 jednostek na planszy
             if(you.eq.size() > 0 && you.counter < 4){
+                /*
                 out.println("Mozesz za darmo wystawic dowolna jednostke");
                 out.println(board);
                 out.println(you.eq);
                 out.println("(" + you.eq.size() + ") nie uzywaj mocy O");
 
                 out.println(you.eq.size());
+                 */
                 fromCLient = in.readLine();
                 int number = Integer.parseInt(fromCLient);
                 //jeżeli gracz wybrał jednostkę ze swojego ekwipunku

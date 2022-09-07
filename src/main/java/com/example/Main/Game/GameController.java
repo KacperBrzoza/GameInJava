@@ -1,10 +1,13 @@
 package com.example.Main.Game;
 
-import com.example.Main.Menu.WaitingEnemyController;
-import com.example.NetTools.Posrednik;
+import com.example.Meat.Demo.OnlineGame;
+import com.example.NetTools.Client;
+import com.example.NetTools.Server;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -20,36 +23,37 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.ServerSocket;
 import java.net.URL;
+import java.util.ResourceBundle;
 
-public class GameController
+import static com.example.Main.Menu.WaitingEnemyController.SWITCHER;
+
+public class GameController implements Initializable
 {
 
-    private static boolean player_turn;
     @FXML
     Button EndTurnButton;
     @FXML
     Label MoneyPlayerValue;
 
     @FXML
-    Label InfoLabel, CardCounter;
+    private Label InfoLabel, CardCounter, EQLabel;
 
     @FXML
     GridPane BattleGrid;
 
     @FXML
     Pane mygrid0, mygrid1, mygrid3, mygrid5, mygrid6;
+
     @FXML
     private Button ExitButton;
+
     @FXML
     ImageView EQ1,EQ2,EQ3,EQ4;
 
     @FXML
     Button TakeCardDeck, RageCardDeck, MoneyStack, LostCardDeck;
-
-    GameData gameData;
-    Posrednik posrednik;
-    //public Board board = posrednik.giveBoard();
 
     String path = "src/main/resources/music/the_witcher.mp3";
     Media media = new Media(new File(path).toURI().toString());
@@ -66,6 +70,43 @@ public class GameController
     String path_sound_hover = "src/main/resources/sound/hover_entered_sound.mp3";
     Media media_hover = new Media(new File(path_sound_hover).toURI().toString());
     MediaPlayer mediaPlayer_hover = new MediaPlayer(media_hover);
+
+    public static Server server;
+    public static Client client;
+
+
+    //awaryjne pola do przechwycenia wyniku w razie rozłączenia się, któregoś z graczy
+    public static float PLAYER_ONE_POINTS = 0;
+    public static float PLAYER_TWO_POINTS = 0;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(SWITCHER == 1){
+            server.startGame();
+            //server.sendMessageToClient("wysylam mesedz");
+            //server.receiveMessageFromClient();
+            server.turns();
+            //System.out.println("Hehe");
+        }
+        else {
+            client.turns(EQLabel);
+            //client.receiveMessageFromServer();
+            //client.sendMessageToServer("Wysylam do serwa :)");
+        }
+    }
+
+
+    public static void showMessage(String message, Label EQLabel){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("teraz powinienem podmienic");
+                EQLabel.setText(message);
+                EQLabel.setStyle("-fx-text-fill: green;");
+            }
+        });
+    }
+
     public void page_sound()
     {
         mediaPlayer_page.setVolume(0.2);
@@ -339,10 +380,6 @@ public class GameController
     {
         page_sound();
     }
-    public static void cos()
-    {
-        System.err.println("oho, dzialam");
-    }
 
     @FXML
     public void openGame(ActionEvent event) throws IOException //static
@@ -369,30 +406,6 @@ public class GameController
          */
     }
 
-//Komentuje na razie bo podlaczam przyciski i chce czyste miec terminale mozna potem usunac komentarz
-    /*protected String getCreatureName()
-    {
-
-        int player = 1;
-        int id = 0;
-
-        Creature creature;
-        Board board = null;
-
-        if (gameData.getPane().equals(mygrid0))
-        {
-            player = 1;
-            id = 0;
-        }
-        else if(gameData.getPane().equals(mygrid1))
-        {
-            player = 1;
-            id = 1;
-        }
-        creature = board.getCreature(player, id);
-        String creatur = creature.toString();
-        return creatur;
-    }*/
     @FXML
     public void onMyGrid0Entered()
     {
@@ -445,36 +458,5 @@ public class GameController
     }
 
 
-    @FXML
-    public void onMouseEnteredButton()
-    {
-        //getCreatureName(mygrid0);
-        gameData = new GameData();
-        //gameData.setPane(mygrid0);
-        //InfoLabel.setText(getCreatureName());
-    }
 
-    @FXML
-    public void onMouseEnteredButton1()
-    {
-        InfoLabel.setText("Blabla");
-    }
-
-    @FXML
-    public void onMouseEnteredButton2()
-    {
-        InfoLabel.setText("ROFL");
-    }
-
-    @FXML
-    public void onMouseEnteredButton3()
-    {
-        InfoLabel.setText("Lmao");
-    }
-
-    @FXML
-    public void onMouseEnteredButton4()
-    {
-        InfoLabel.setText("Konopie");
-    }
 }

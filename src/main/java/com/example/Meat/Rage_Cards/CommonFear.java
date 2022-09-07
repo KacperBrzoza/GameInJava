@@ -4,6 +4,7 @@ import com.example.Meat.Creatures.Creature;
 import com.example.Meat.Demo.*;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -14,7 +15,7 @@ public class CommonFear extends R_Card{
         description = "wszystkie wrogie jednostki wracaja do wlasciciela";
     }
 
-    public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage, PrintWriter out, BufferedReader in) throws IOException {
+    public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage, BufferedWriter out, BufferedReader in) throws IOException {
 
         //jeżeli przeciwnik ma coś wystawione
         if(opponent.counter > 0){
@@ -27,7 +28,7 @@ public class CommonFear extends R_Card{
                 }
             }
             System.out.println(board);
-            out.println(board);
+            //out.println(board);
         }
     }
 }

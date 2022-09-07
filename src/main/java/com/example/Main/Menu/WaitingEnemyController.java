@@ -1,8 +1,14 @@
 package com.example.Main.Menu;
 
+import com.example.Main.Game.GameController;
+import com.example.NetTools.Client;
+import com.example.NetTools.Server;
+import com.example.NetTools.Test;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,13 +18,24 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.net.URL;
+import java.util.ResourceBundle;
 
-public class WaitingEnemyController {
+public class WaitingEnemyController implements Initializable {
+
+    @FXML
+    private Button GameButton;
     @FXML
     private Button ExitButton;
+
+    public static int SWITCHER = 2;
+    private static final int PORT_NUMBER = 3571;
 
     String path_sound_click = "src/main/resources/sound/button_release_sound.mp3";
     Media media_click = new Media(new File(path_sound_click).toURI().toString());
@@ -53,6 +70,61 @@ public class WaitingEnemyController {
         mediaPlayer_music.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer_music.play();
     }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        if(SWITCHER == 1){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        GameController.server = new Server(new ServerSocket(PORT_NUMBER));
+                        changeStage();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+
+        }else{
+            try {
+                GameController.client = new Client(new Socket("localhost", PORT_NUMBER));
+                changeStage();
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    public void changeStage(){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                URL url = null;
+                try {
+                    url = new File("src/main/resources/com/example/Main/Game/Game.fxml").toURI().toURL();
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                //onMediaStart();
+                Parent root = null;
+                try {
+                    root = FXMLLoader.load(url);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Stage stage = (Stage) ExitButton.getScene().getWindow();
+                Scene scene = new Scene(root);
+
+                stage.setResizable(false);
+                stage.setMaximized(true);
+                stage.setScene(scene);
+                stage.show();
+            }
+        });
+    }
+
     @FXML
     public void onBackButton(ActionEvent event) throws IOException
     {

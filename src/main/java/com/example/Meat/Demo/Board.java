@@ -4,6 +4,7 @@ import com.example.Meat.Creatures.*;
 import com.example.Meat.Rage_Cards.R_Card;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -39,7 +40,7 @@ public class Board {
 
 
     //ruch stworow pojedynczego gracza
-    public void move(Player you, Player opponent, Discardeds_Stack discarded, Cards_Stack cards, Rage_Cards rage_cards, Money money, PrintWriter out, BufferedReader in) throws IOException {
+    public void move(Player you, Player opponent, Discardeds_Stack discarded, Cards_Stack cards, Rage_Cards rage_cards, Money money, BufferedWriter out, BufferedReader in) throws IOException {
         //gdy tura pierwszego
         if(you.id == 1){
             //stwor na ostatnim polu wchodzi do bazy przeciwnika
@@ -65,7 +66,7 @@ public class Board {
                     R_Card rage_card = rage_cards.giveCard();
                     opponent.rage.putCard(rage_card);
                     System.out.println("GRACZ " + opponent.id + " otrzymal karte *" + rage_card + "*");
-                    out.println("GRACZ " + opponent.id + " otrzymal karte *" + rage_card + "*");
+                    //out.println("GRACZ " + opponent.id + " otrzymal karte *" + rage_card + "*");
                     rage_card.effect(opponent, you, this, discarded, cards, money, rage_cards, out, in);
                     //jeżeli zdobytą kartą była karta Rage "Swarm" zwieksza atak o 1 wszystkim swoim wystawionym jednostkom z atakiem = 2
                     if(opponent.Swarm == 1){
@@ -135,7 +136,7 @@ public class Board {
                     R_Card rage_card = rage_cards.giveCard();
                     opponent.rage.putCard(rage_card);
                     System.out.println("GRACZ " + opponent.id + " otrzymal karte *" + rage_card + "*");
-                    out.println("GRACZ " + opponent.id + " otrzymal karte *" + rage_card + "*");
+                    //out.println("GRACZ " + opponent.id + " otrzymal karte *" + rage_card + "*");
                     rage_card.effect(opponent, you, this, discarded, cards, money, rage_cards, out, in);
                     //jeżeli zdobytą kartą była karta Rage "Swarm" zwieksza atak o 1 wszystkim swoim wystawionym jednostkom z atakiem = 2
                     if(opponent.Swarm == 1){
@@ -491,12 +492,13 @@ public class Board {
     }
 
     //zakończenie gry
-    public void endGame(Player you, Player opponent, PrintWriter out){
+    public void endGame(Player you, Player opponent, BufferedWriter out){
         System.out.println("\n" + "\n" + "\n" + "\n" + "\n"  + "\n" + "\n" + "\n" + "\n" + "\n");
         System.out.println("GRA SKONCZONA!");
         System.out.println("Gracz 1 " + you.score + ":" + opponent.score + " Gracz 2");
-        out.println("Gracz 1 " + you.score + ":" + opponent.score + " Gracz 2");
-        out.println("END_GAME");
+        //out.println("Gracz 1 " + you.score + ":" + opponent.score + " Gracz 2");
+        //out.println("END_GAME");
+        System.out.println("ENDGAME");
         /*
         TU NALEŻY WSTAWIĆ FRAGEMNT KODU WYSYŁAJĄCY WYNIKI DO BAZY
         MOŻE NP ŚCIĄGNĄĆ TYCH GRACZY Z TABELI WYNIKI, DODAĆ IM PUNKTY Z TEJ GRY I ZUPDATOWAĆ REKORDY W BAZIE

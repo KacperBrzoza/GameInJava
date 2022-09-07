@@ -2,9 +2,9 @@ package com.example.Meat.Demo;
 
 import com.example.Main.Game.GameController;
 import com.example.Meat.Creatures.*;
-import com.example.NetTools.Posrednik;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
@@ -22,13 +22,13 @@ public class OnlineGame {
 
     public ServerSocket serverSocket;  //gniazdo serwera
     public Socket clientSocket;        //gniazdo klienta
-    public PrintWriter out;            //strumień do wysyłania rzeczy do klienta
+    public BufferedWriter out;            //strumień do wysyłania rzeczy do klienta
 
     //awaryjne pola do przechwycenia wyniku w razie rozłącznia, któregoś z graczy
     public float  PLAYER_ONE_POINTS;
     public float  PLAYER_TWO_POINTS;
 
-    public OnlineGame(ServerSocket serverSocket, Socket clientSocket, PrintWriter out, float PLAYER_ONE_POINTS, float PLAYER_TWO_POINTS){
+    public OnlineGame(ServerSocket serverSocket, Socket clientSocket, BufferedWriter out, float PLAYER_ONE_POINTS, float PLAYER_TWO_POINTS){
         you = new Player(1);
         opponent = new Player(2);
 
@@ -47,9 +47,9 @@ public class OnlineGame {
         this.PLAYER_TWO_POINTS = PLAYER_TWO_POINTS;
 
         board = new Board(this.PLAYER_ONE_POINTS, this.PLAYER_TWO_POINTS);
-        Posrednik posrednik = new Posrednik(board);
 
         startGame(you, opponent);
+        System.out.println("OK");
     }
 
 
@@ -68,12 +68,14 @@ public class OnlineGame {
 
     //tura pierwszego gracza
     public void server_turn(BufferedReader in) throws IOException {
-        System.out.println("\n\n\nTWOJA TURA ");
+        //out.println("\n\n\nTura Przeciwnika ");
+        GameController.server.sendMessageToClient("COMMAND_01");
         //1. przejścia stworów w stronę bazy przeciwnika
         board.move(you, opponent, discarded, cards,  rage_cards, money, out, in);
         
         //wysłanie planszy do przeciwnika
-        out.println(board);
+        //out.println(board);
+        GameController.server.sendMessageToClient(board.toString());
 
         System.out.println(this);
         System.out.println(board);
@@ -226,7 +228,7 @@ public class OnlineGame {
                                 you.counter++;
                                 creature.effect(you, opponent, cards, discarded, money, board, out, in);
                                 System.out.println("\n" + board);
-                                out.println("\n" + board);
+                                //out.println("\n" + board);
                             }
                             else {
                                 System.out.println("Ta jednostka jest za droga!");
@@ -300,7 +302,7 @@ public class OnlineGame {
     //tura drugiego gracza, który jest klientem
     public void client_turn(BufferedReader in) throws IOException {
         String fromClient;
-        out.println("\n\n\nTWOJA TURA ");
+        //out.println("\n\n\nTWOJA TURA ");
 
         //1. przejścia stworów w stronę bazy przeciwnika
         board.move(opponent, you, discarded, cards,  rage_cards, money, out, in);
@@ -309,9 +311,9 @@ public class OnlineGame {
         System.out.println(board);
 
         //wysłanie gry, panszy i kasy do przeciwnika
-        out.println(this);
-        out.println(board);
-        out.println("Pieniadze: " + opponent.money);
+        //out.println(this);
+        //out.println(board);
+        //out.println("Pieniadze: " + opponent.money);
 
         //2. dobrania kart stworów lub żetonów waluty. Gracz ma dwa dobrania
         draw2(in);
@@ -321,10 +323,10 @@ public class OnlineGame {
             int number = 2;
             //3. ... i ma kartę Rage "Black Market" może...
             if (opponent.BlackMarket == 1) {
-                out.println("Mozesz sprzedac JEDNEGO stwora i zakonczyc ture lub wystawiac karty:");
-                out.println("(1) sprzedaj");
-                out.println("(2) wystaw");
-                out.println("ONE_OR_TWO");
+                //out.println("Mozesz sprzedac JEDNEGO stwora i zakonczyc ture lub wystawiac karty:");
+                //out.println("(1) sprzedaj");
+                //out.println("(2) wystaw");
+                //out.println("ONE_OR_TWO");
                 fromClient = in.readLine();
                 if (fromClient.equals("1"))
                     number = 1;
@@ -340,16 +342,16 @@ public class OnlineGame {
         //4. Jeśli gracz posiada kartę Rage "Secret Assets" dostaje 1 żeton waluty na koniec tury
         if(opponent.SecretAssets == 1){
             opponent.money += money.giveMoney(you, opponent);
-            out.println("Dobrano zeton waluty");
+            //out.println("Dobrano zeton waluty");
         }
 
         //4. Jeśli gracz posiada kartę Rage "RatCatcher" dostaje 1 kartę stwora na koniec tury
         if(opponent.RatCatcher == 1){
             opponent.eq.addCreature(cards.giveCard(out, you, opponent));
-            out.println("Dobrano stwora");
+            //out.println("Dobrano stwora");
         }
 
-        out.println("\n\n\nTURA PRZECIWNIKA");
+        //out.println("\n\n\nTURA PRZECIWNIKA");
     }
 
     //pozwala drugiemu graczowi dobrać 2x żeton waluty  lub  2x kartę stwora  lub  1x to i 1x to
@@ -358,8 +360,8 @@ public class OnlineGame {
         String fromClient;
 
         while(opponent.select > 0) {
-            out.println("1 - dobierz karte (lub) 2 - dobierz zeton waluty");
-            out.println("ONE_OR_TWO");
+            //out.println("1 - dobierz karte (lub) 2 - dobierz zeton waluty");
+            //out.println("ONE_OR_TWO");
             int number;
             fromClient = in.readLine();
             if (fromClient.equals("1"))
@@ -373,9 +375,9 @@ public class OnlineGame {
                 //jeżeli gracz posiada kartę Rage "Selection" dobiera dwie karty. Jedną zatrzymuje, drugą odrzuca
                 if (opponent.Selection == 1) {
                     Creature two = cards.giveCard(out, you, opponent);
-                    out.println("(1) " + one);
-                    out.println("(2) " + two);
-                    out.println("ONE_OR_TWO");
+                    //out.println("(1) " + one);
+                    //out.println("(2) " + two);
+                    //out.println("ONE_OR_TWO");
                     fromClient = in.readLine();
                     if (fromClient.equals("2"))
                         number = 2;
@@ -384,7 +386,7 @@ public class OnlineGame {
                     else
                         opponent.eq.addCreature(two);
                 } else {
-                    out.println(one);
+                    //out.println(one);
                     opponent.eq.addCreature(one);
                 }
                 opponent.select--;
@@ -398,9 +400,9 @@ public class OnlineGame {
                 //jeżeli gracz posiada kartę Rage "Second Chance" dobiera dwa żetony waluty. Jedną zatrzymuje, drugą odrzuca
                 if (opponent.SecondChance == 1) {
                     int coin_two = money.giveMoney(you, opponent);
-                    out.println("(1) " + coin_one);
-                    out.println("(2) " + coin_two);
-                    out.println("ONE_OR_TWO");
+                    //out.println("(1) " + coin_one);
+                    //out.println("(2) " + coin_two);
+                    //out.println("ONE_OR_TWO");
                     fromClient = in.readLine();
                     if (fromClient.equals("1"))
                         number = 1;
@@ -409,11 +411,11 @@ public class OnlineGame {
                     else
                         opponent.money += coin_two;
                 } else {
-                    out.println("zdobyto: " + coin_one);
+                    //out.println("zdobyto: " + coin_one);
                     opponent.money += coin_one;
                 }
             }
-            out.println("Pozostale ruchy: " + opponent.select);
+            //out.println("Pozostale ruchy: " + opponent.select);
         }
     }
 
@@ -423,22 +425,22 @@ public class OnlineGame {
         if(opponent.counter < 4) {
             label:
             while (opponent.counter < 4) {
-                out.println("Pieniadze: " + opponent.money);
-                out.println("1 - wybierz karte \n 2 - podejrzyj plansze \n 3 - spasuj \n 4 - obejrzyj swoje karty Rage \n 5 - legenda mocy stworow");
-                out.println("CHOICE");
+                //out.println("Pieniadze: " + opponent.money);
+                //out.println("1 - wybierz karte \n 2 - podejrzyj plansze \n 3 - spasuj \n 4 - obejrzyj swoje karty Rage \n 5 - legenda mocy stworow");
+                //out.println("CHOICE");
                 fromClient = in.readLine();
                 //wystawienie karty
                 switch (fromClient) {
                     case "1":
 
-                        out.println("\nTwoj ekwpiunek:");
-                        out.println(opponent.eq);
-                        out.println("(" + opponent.eq.size() + ") cofnij");
-                        out.println("Pieniadze: " + opponent.money);
+                        //out.println("\nTwoj ekwpiunek:");
+                        //out.println(opponent.eq);
+                        //out.println("(" + opponent.eq.size() + ") cofnij");
+                        //out.println("Pieniadze: " + opponent.money);
 
                         do {
                             int number;
-                            out.println(opponent.eq.size());
+                            //println(opponent.eq.size());
                             fromClient = in.readLine();
                             number = Integer.parseInt(fromClient);
                             if (number == 10000) {
@@ -464,19 +466,19 @@ public class OnlineGame {
                                     board.put(creature, opponent, you, discarded);
                                     opponent.counter++;
                                     creature.effect(opponent, you, cards, discarded, money, board, out, in);
-                                    out.println("\n" + board);
+                                    //out.println("\n" + board);
                                     System.out.println("\n" + board);
                                     break;
                                 } else {
-                                    out.println("Ta jednostka jest za droga!");
+                                    //out.println("Ta jednostka jest za droga!");
                                 }
                             }
                         } while (true);
                         break;
                     //podejrzenie planszy
                     case "2":
-                        out.println(this);
-                        out.println(board);
+                        //out.println(this);
+                        //out.println(board);
                         break;
                     //pass
                     case "3":
@@ -484,10 +486,11 @@ public class OnlineGame {
 
                     //podejrzenie swoich kart Rage
                     case "4":
-                        out.println(opponent.rage);
+                        //out.println(opponent.rage);
                         break;
                     //legenda mocy
                     case "5":
+                        /*
                         out.println();
                         out.println("D - przy wystawieniu dobierasz karte stwora");
                         out.println("E - przy wystawieniu pozwala natychmiast wystawic kolejnego stwora z moca E za darmo");
@@ -503,23 +506,27 @@ public class OnlineGame {
                         out.println("X - zabija pierwszego napotkanego przeciwnika bez wzgledu na statystyki");
                         out.println("Z - przy wystawieniu pozwala zamienic miejscami ta jednostke z inna sojusznicza");
                         out.println();
+                         */
                         break;
                 }
             }
         }
         else
-            out.println("Osiagnieto limit 4 kart na planszy!");
+        {
+            System.out.println("Dotarlem do konca");
+        }
+            //out.println("Osiagnieto limit 4 kart na planszy!");
     }
 
     //służy do sprzedawania stworów jeżeli gracz drugi posiada kartę "Black Market"
     private void sell2(BufferedReader in) throws IOException{
         String fromClient;
 
-        out.println("Wybierz jednostke do sprzedania:");
-        out.println(opponent.eq);
+        //out.println("Wybierz jednostke do sprzedania:");
+        //out.println(opponent.eq);
         int number = -1;
         while (number < 0 || number >= opponent.eq.size()) {
-            out.println(opponent.eq.size());
+            //out.println(opponent.eq.size());
             fromClient = in.readLine();
             number = Integer.parseInt(fromClient);
             if (number < opponent.eq.size()) {
@@ -529,7 +536,7 @@ public class OnlineGame {
                 break;
             }
         }
-        out.println("Sprzedano stwora");
+        //out.println("Sprzedano stwora");
     }
 
 
