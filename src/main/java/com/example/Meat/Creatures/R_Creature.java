@@ -3,7 +3,7 @@ package com.example.Meat.Creatures;
 //gdy inny stwór ma zginąć, ten zginie za niego
 public class R_Creature extends Creature{
 
-    public R_Creature(int cost, int attack, int hp){
+    public R_Creature(int cost, int attack, int hp, String path){
         this.cost = cost;
         this.attack = attack;
         this.hp = hp;
@@ -11,5 +11,6 @@ public class R_Creature extends Creature{
         this.Swarm = 0;
         this.Unbroaken = 0;
         this.poisoned = 0;
+        this.path = path;
     }
 }

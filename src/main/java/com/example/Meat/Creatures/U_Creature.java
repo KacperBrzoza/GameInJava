@@ -3,7 +3,7 @@ package com.example.Meat.Creatures;
 //dopóki ta jednostka żyje stwory na dwóch polach za nią są nieśmiertelne
 public class U_Creature extends Creature{
 
-    public U_Creature(int cost, int attack, int hp){
+    public U_Creature(int cost, int attack, int hp, String path){
         this.cost = cost;
         this.attack = attack;
         this.hp = hp;
@@ -11,5 +11,6 @@ public class U_Creature extends Creature{
         this.Swarm = 0;
         this.Unbroaken = 0;
         this.poisoned = 0;
+        this.path = path;
     }
 }
