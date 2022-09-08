@@ -1,8 +1,12 @@
 package com.example.NetTools;
 
+import com.example.Main.Game.GameController;
+import com.example.Main.Login.LoginController;
 import com.example.Main.Login.Memory;
+import com.example.Main.Menu.WaitingEnemyController;
 import com.example.Meat.Demo.OnlineGame;
 import javafx.scene.layout.VBox;
+import org.hibernate.annotations.common.util.impl.Log;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -20,6 +24,7 @@ public class Server {
     private BufferedWriter bufferedWriter;
     private OnlineGame newGame;
     private String opponentNick;
+
 
     public Server(ServerSocket serverSocket) {
         try{
@@ -39,14 +44,23 @@ public class Server {
         newGame = new OnlineGame(serverSocket, socket, bufferedWriter, PLAYER_ONE_POINTS, PLAYER_TWO_POINTS);
     }
 
-    public void waitForOpponentNick(){
+    public void sendAndListen(){
         new Thread(new Runnable() {
             @Override
             public void run() {
+                try{
+                    bufferedWriter.write(Memory.memory.getUsername());
+                    bufferedWriter.newLine();
+                    bufferedWriter.flush();
+                } catch (IOException e){
+                    e.printStackTrace();
+                    System.out.println("Error sending message to the client");
+                    closeEverything();
+                }
                 while (socket.isConnected()){
                     try {
                         String messageFromClient = bufferedReader.readLine();
-                        System.out.println(messageFromClient);
+                        GameController.opponentNick = messageFromClient;
                         break;
                     } catch (IOException e){
                         e.printStackTrace();
@@ -55,7 +69,26 @@ public class Server {
                         break;
                     }
                 }
-                System.out.println("samo sie zbreakowalo");
+            }
+        }).start();
+    }
+
+    public void waitForOpponentNick(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (socket.isConnected()){
+                    try {
+                        String messageFromClient = bufferedReader.readLine();
+                        GameController.opponentNick = messageFromClient;
+                        break;
+                    } catch (IOException e){
+                        e.printStackTrace();
+                        System.out.println("Error receiving message from the client");
+                        closeEverything();
+                        break;
+                    }
+                }
             }
         }).start();
     }
@@ -82,22 +115,7 @@ public class Server {
         }).start();
     }
 
-    public void sendMessageToClient(String messageFromServer){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try{
-                    bufferedWriter.write(messageFromServer);
-                    bufferedWriter.newLine();
-                    bufferedWriter.flush();
-                } catch (IOException e){
-                    e.printStackTrace();
-                    System.out.println("Error sending message to the client");
-                    closeEverything();
-                }
-            }
-        }).start();
-    }
+
 
     public void receiveMessageFromClient(){
         new Thread(new Runnable() {

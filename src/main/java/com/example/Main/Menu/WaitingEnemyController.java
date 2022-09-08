@@ -29,6 +29,10 @@ import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static com.example.Main.Game.GameController.server;
+import static com.example.Main.Game.GameController.client;
+
+
 public class WaitingEnemyController implements Initializable {
 
     @FXML
@@ -92,7 +96,8 @@ public class WaitingEnemyController implements Initializable {
                 @Override
                 public void run() {
                     try {
-                        GameController.server = new Server(new ServerSocket(PORT_NUMBER));
+                        server = new Server(new ServerSocket(PORT_NUMBER));
+                        server.sendAndListen();
                         FadeIn();
                         //changeStage();
 
@@ -106,7 +111,7 @@ public class WaitingEnemyController implements Initializable {
             BackButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
-                    GameController.server.closeEverything();
+                    server.closeEverything();
                 }
             });
 
@@ -115,6 +120,8 @@ public class WaitingEnemyController implements Initializable {
         }else{
             try {
                 GameController.client = new Client(new Socket("localhost", PORT_NUMBER));
+                client.sendMessageToServer(Memory.memory.getUsername());
+                client.listenAndSend();
                 FadeIn();
                 //changeStage();
             } catch (IOException e){

@@ -124,7 +124,6 @@ public static boolean MenuMusicAllow;
         stage.setMaximized(true);
         stage.setScene(scene);
         stage.show();
-        Memory.memory = null;
 
 
 

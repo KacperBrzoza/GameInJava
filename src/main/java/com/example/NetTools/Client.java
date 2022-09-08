@@ -1,6 +1,7 @@
 package com.example.NetTools;
 
 import com.example.Main.Game.GameController;
+import com.example.Main.Login.Memory;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
@@ -12,6 +13,7 @@ public class Client {
     private Socket socket;
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;
+
 
     public Client(Socket socket){
         try {
@@ -26,14 +28,14 @@ public class Client {
         }
     }
 
-    public void waitForOpponentNick(){
+    public void listenAndSend(){
         new Thread(new Runnable() {
             @Override
             public void run() {
                 while (socket.isConnected()){
                     try {
-                        String messageFromClient = bufferedReader.readLine();
-                        System.out.println(messageFromClient);
+                        String messageFromServer = bufferedReader.readLine();
+                        GameController.opponentNick = messageFromServer;
                         break;
                     } catch (IOException e){
                         e.printStackTrace();
@@ -42,7 +44,15 @@ public class Client {
                         break;
                     }
                 }
-                System.out.println("samo sie zbreakowalo");
+                try{
+                    bufferedWriter.write(Memory.memory.getUsername());
+                    bufferedWriter.newLine();
+                    bufferedWriter.flush();
+                } catch (IOException e){
+                    e.printStackTrace();
+                    System.out.println("Error sending message to the client");
+                    closeEverything();
+                }
             }
         }).start();
     }
