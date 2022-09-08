@@ -14,364 +14,489 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Main.Game.GameController">
+<AnchorPane fx:id="BlackPane" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../../../style/style-class.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Main.Game.GameController">
    <children>
-       <VBox fx:id="BackgroundScreen" alignment="CENTER" maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../../../style/style-class.css">
-           <children>
-               <AnchorPane prefHeight="150.0" prefWidth="1920.0" stylesheets="@../../../../style/style-class.css">
-                   <children>
-                       <AnchorPane fx:id="InfoScreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="1920.0" stylesheets="@../../../../style/style-class.css" AnchorPane.bottomAnchor="20.0">
-                           <children>
-                               <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="1920.0">
-                                   <children>
-                                       <Button fx:id="ExitButton" alignment="CENTER" contentDisplay="CENTER" layoutX="1800.0" layoutY="25.0" mnemonicParsing="false" onAction="#onExitButtonClicked" prefHeight="60.0" prefWidth="60.0" text="X">
-                                           <font>
-                                               <Font size="24.0" />
-                                           </font>
-                                       </Button>
-                              <Button fx:id="HelpButton" alignment="CENTER" contentDisplay="CENTER" layoutX="1560.0" layoutY="25.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="80.0" text="?" AnchorPane.rightAnchor="280.0">
-                                 <font>
-                                    <Font size="24.0" />
-                                 </font>
-                              </Button>
-                                       <Button fx:id="OptionButton" alignment="CENTER" contentDisplay="CENTER" layoutX="1665.0" layoutY="25.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="111.0" text="\@" AnchorPane.rightAnchor="144.0">
-                                           <font>
-                                               <Font size="24.0" />
-                                           </font>
-                                       </Button>
-                              <Pane fx:id="MoneyPane" layoutX="150.0" layoutY="12.0" prefHeight="128.0" prefWidth="128.0">
+      <AnchorPane fx:id="AllScreen" layoutY="10.0" prefHeight="1080.0" prefWidth="1920.0">
+         <children>
+             <VBox fx:id="BackgroundScreen" alignment="CENTER" maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../../../style/style-class.css">
+                 <children>
+                     <AnchorPane prefHeight="150.0" prefWidth="1920.0" stylesheets="@../../../../style/style-class.css">
+                         <children>
+                             <AnchorPane fx:id="InfoScreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="1920.0" stylesheets="@../../../../style/style-class.css" AnchorPane.bottomAnchor="20.0">
                                  <children>
-                                    <Label fx:id="MoneyPlayerValue" alignment="CENTER" contentDisplay="CENTER" layoutY="-4.0" onMouseEntered="#onMoneyScreenEntered" onMouseExited="#hiderInformation" prefHeight="128.0" prefWidth="128.0" text="0" textFill="#283057">
+                                     <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="1920.0">
+                                         <children>
+                                             <Button fx:id="ExitButton" alignment="CENTER" contentDisplay="CENTER" layoutX="1800.0" layoutY="25.0" mnemonicParsing="false" onAction="#onExitButtonClicked" prefHeight="60.0" prefWidth="60.0" text="X">
+                                                 <font>
+                                                     <Font size="24.0" />
+                                                 </font>
+                                             </Button>
+                                    <Button fx:id="HelpButton" alignment="CENTER" contentDisplay="CENTER" disable="true" layoutX="1560.0" layoutY="25.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="80.0" text="?" visible="false" AnchorPane.rightAnchor="280.0">
                                        <font>
-                                          <Font size="25.0" />
+                                          <Font size="24.0" />
                                        </font>
-                                    </Label>
-                                 </children></Pane>
-                              <Pane fx:id="HelpInfo" layoutX="400.0" prefHeight="125.0" prefWidth="1120.0">
-                                 <children>
-                                    <Label fx:id="InfoLabel" alignment="TOP_LEFT" contentDisplay="CENTER" layoutY="5.0" prefHeight="125.0" prefWidth="1120.0" textOverrun="CLIP" wrapText="true">
-                                       <padding>
-                                          <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                                       </padding>
-                                       <font>
-                                          <Font name="Bitmgothic" size="20.0" />
-                                       </font>
-                                    </Label>
+                                    </Button>
+                                             <Button fx:id="OptionButton" alignment="CENTER" contentDisplay="CENTER" layoutX="1665.0" layoutY="25.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="111.0" text="\@" AnchorPane.rightAnchor="144.0">
+                                                 <font>
+                                                     <Font size="24.0" />
+                                                 </font>
+                                             </Button>
+                                    <Pane fx:id="MoneyPane" layoutX="150.0" layoutY="12.0" prefHeight="128.0" prefWidth="128.0">
+                                       <children>
+                                          <Label fx:id="MoneyPlayerValue" alignment="CENTER" contentDisplay="CENTER" layoutY="-4.0" onMouseEntered="#onMoneyScreenEntered" onMouseExited="#hiderInformation" prefHeight="128.0" prefWidth="128.0" text="0" textFill="#283057">
+                                             <font>
+                                                <Font size="25.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Pane>
+                                    <Pane fx:id="HelpInfo" layoutX="400.0" prefHeight="125.0" prefWidth="1120.0">
+                                       <children>
+                                          <Label fx:id="InfoLabel" alignment="TOP_LEFT" contentDisplay="CENTER" layoutY="5.0" prefHeight="125.0" prefWidth="1120.0" textOverrun="CLIP" wrapText="true">
+                                             <padding>
+                                                <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                                             </padding>
+                                             <font>
+                                                <Font name="Bitmgothic" size="20.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Pane>
+                                         </children>
+                                         <opaqueInsets>
+                                             <Insets />
+                                         </opaqueInsets>
+                                     </AnchorPane>
                                  </children>
-                              </Pane>
-                                   </children>
-                                   <opaqueInsets>
-                                       <Insets />
-                                   </opaqueInsets>
-                               </AnchorPane>
-                           </children>
-                       </AnchorPane>
-                   </children>
-               </AnchorPane>
-            <AnchorPane prefHeight="655.0" prefWidth="1920.0">
-               <children>
-                  <HBox alignment="CENTER" prefHeight="655.0" prefWidth="1920.0">
+                             </AnchorPane>
+                         </children>
+                     </AnchorPane>
+                  <AnchorPane prefHeight="655.0" prefWidth="1920.0">
                      <children>
-                        <Pane prefHeight="655.0" prefWidth="460.0">
+                        <HBox alignment="CENTER" prefHeight="655.0" prefWidth="1920.0">
                            <children>
-                              <HBox prefHeight="655.0" prefWidth="460.0">
+                              <Pane prefHeight="655.0" prefWidth="460.0">
                                  <children>
-                                    <Pane prefHeight="655.0" prefWidth="200.0">
+                                    <HBox prefHeight="655.0" prefWidth="460.0">
                                        <children>
-                                          <Pane fx:id="MyName" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" />
-                                          <VBox alignment="CENTER" prefHeight="655.0" prefWidth="200.0">
+                                          <Pane prefHeight="655.0" prefWidth="200.0">
                                              <children>
-                                                <Pane fx:id="MyCharacter" onMouseEntered="#onMyCharacterEntered" onMouseExited="#hiderInformation" prefHeight="400.0" prefWidth="200.0">
-                                                   <VBox.margin>
-                                                      <Insets />
-                                                   </VBox.margin>
-                                                </Pane>
-                                             </children>
-                                          </VBox>
-                                       </children>
-                                    </Pane>
-                                    <Pane prefHeight="655.0" prefWidth="260.0">
-                                       <children>
-                                          <HBox fx:id="MyTower" alignment="CENTER" layoutY="13.0" prefHeight="655.0" prefWidth="260.0">
-                                             <children>
-                                                <VBox alignment="CENTER" prefHeight="655.0" prefWidth="165.0">
+                                                <Pane fx:id="MyName" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" />
+                                                <VBox alignment="CENTER" prefHeight="655.0" prefWidth="200.0">
                                                    <children>
-                                                      <Pane fx:id="rage0" onMouseEntered="#onMyRage0Entered" onMouseExited="#hiderInformation" prefHeight="160.0" prefWidth="160.0">
+                                                      <Pane prefHeight="400.0" prefWidth="200.0">
                                                          <VBox.margin>
-                                                            <Insets left="3.0" />
+                                                            <Insets />
                                                          </VBox.margin>
-                                                      </Pane>
-                                                      <Pane fx:id="rage1" onMouseEntered="#onMyRage1Entered" onMouseExited="#hiderInformation" prefHeight="160.0" prefWidth="160.0">
-                                                         <VBox.margin>
-                                                            <Insets bottom="30.0" left="3.0" top="30.0" />
-                                                         </VBox.margin>
-                                                      </Pane>
-                                                      <Pane fx:id="rage2" onMouseEntered="#onMyRage2Entered" onMouseExited="#hiderInformation" prefHeight="160.0" prefWidth="160.0">
-                                                         <VBox.margin>
-                                                            <Insets bottom="30.0" left="3.0" />
-                                                         </VBox.margin>
-                                                      </Pane>
-                                                   </children>
-                                                   <HBox.margin>
-                                                      <Insets right="14.0" />
-                                                   </HBox.margin>
-                                                </VBox>
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </Pane>
-                                 </children>
-                              </HBox>
-                           </children>
-                        </Pane>
-                        <Pane fx:id="MidPane" prefHeight="655.0" prefWidth="1000.0">
-                           <children>
-                              <VBox alignment="CENTER" prefHeight="655.0" prefWidth="1000.0">
-                                 <children>
-                                    <Pane prefHeight="197.5" prefWidth="1000.0">
-                                       <children>
-                                          <HBox alignment="CENTER" prefHeight="197.5" prefWidth="1000.0">
-                                             <children>
-                                                <Pane prefHeight="160.0" prefWidth="170.0">
-                                                   <HBox.margin>
-                                                      <Insets bottom="6.25" right="60.0" />
-                                                   </HBox.margin>
-                                                   <children>
-                                                      <Button fx:id="TakeCardDeck" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="6.25" mnemonicParsing="false" onMouseClicked="#onTakeCardClicked" onMouseEntered="#onTakeCardEntered" onMouseExited="#hiderInformation" prefHeight="160.0" prefWidth="160.0" />
-                                                      <AnchorPane prefHeight="64.0" prefWidth="118.0">
                                                          <children>
-                                                            <Label fx:id="CardCounter" alignment="CENTER" prefHeight="40.0" prefWidth="70.0" text="200" textFill="#d7d6d6">
-                                                               <font>
-                                                                  <Font size="21.0" />
-                                                               </font>
-                                                            </Label>
+                                                            <ImageView fx:id="MyCharacter" fitHeight="400.0" fitWidth="200.0" onMouseEntered="#onMyCharacterEntered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true">
+                                                               <image>
+                                                                  <Image url="@../../../../img/Game_imgs/players/full_hp_blue.gif" />
+                                                               </image>
+                                                            </ImageView>
                                                          </children>
-                                                      </AnchorPane>
+                                                      </Pane>
                                                    </children>
-                                                </Pane>
-                                                <Pane prefHeight="160.0" prefWidth="160.0">
-                                                   <HBox.margin>
-                                                      <Insets bottom="6.25" right="25.0" top="6.25" />
-                                                   </HBox.margin>
-                                                   <children>
-                                                      <Button fx:id="RageCardDeck" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onRageCardClicked" onMouseEntered="#onRageCardEntered" onMouseExited="#hiderInformation" prefHeight="160.0" prefWidth="160.0" />
-                                                   </children>
-                                                </Pane>
-                                                <Pane prefHeight="160.0" prefWidth="160.0">
-                                                   <HBox.margin>
-                                                      <Insets bottom="6.25" left="25.0" top="6.25" />
-                                                   </HBox.margin>
-                                                   <children>
-                                                      <Button fx:id="MoneyStack" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onMoneyStackClicked" onMouseEntered="#onMoneyStackEntered" onMouseExited="#hiderInformation" prefHeight="160.0" prefWidth="160.0" />
-                                                   </children>
-                                                </Pane>
-                                                <Pane prefHeight="160.0" prefWidth="160.0">
-                                                   <HBox.margin>
-                                                      <Insets bottom="6.25" left="50.0" top="6.25" />
-                                                   </HBox.margin>
-                                                   <children>
-                                                      <Button fx:id="LostCardDeck" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onLostCardClicked" onMouseEntered="#onLostCardEntered" onMouseExited="#hiderInformation" prefHeight="160.0" prefWidth="160.0" />
-                                                   </children>
-                                                </Pane>
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </Pane>
-                                    <Pane fx:id="BattleField" prefHeight="280.0" prefWidth="1000.0">
-                                       <children>
-                                          <GridPane fx:id="BattleGrid" alignment="CENTER" gridLinesVisible="true" prefHeight="280.0" prefWidth="1000.0">
-                                            <columnConstraints>
-                                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                            </rowConstraints>
-                                             <children>
-                                                <Pane fx:id="enemygrid6" onMouseEntered="#onEnemyGrid0Entered" onMouseExited="#hiderInformation" prefHeight="128.0" prefWidth="128.0" />
-                                                <Pane fx:id="enemygrid5" onMouseEntered="#onEnemyGrid1Entered" onMouseExited="#hiderInformation" prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="1" />
-                                                <Pane fx:id="enemygrid3" onMouseEntered="#onEnemyGrid2Entered" onMouseExited="#hiderInformation" prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="2" />
-                                                <Pane fx:id="enemygrid1" onMouseEntered="#onEnemyGrid3Entered" onMouseExited="#hiderInformation" prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="3" />
-                                                <Pane fx:id="enemygrid0" onMouseEntered="#onEnemyGrid4Entered" onMouseExited="#hiderInformation" prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="4" />
-                                                <Pane fx:id="mygrid0" onMouseEntered="#onMyGrid0Entered" onMouseExited="#hiderInformation" prefHeight="128.0" prefWidth="128.0" GridPane.rowIndex="1" />
-                                                <Pane fx:id="mygrid1" onMouseEntered="#onMyGrid1Entered" onMouseExited="#hiderInformation" prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                                <Pane fx:id="mygrid3" onMouseEntered="#onMyGrid2Entered" onMouseExited="#hiderInformation" prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                                                <Pane fx:id="mygrid5" onMouseEntered="#onMyGrid3Entered" onMouseExited="#hiderInformation" prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                                                <Pane fx:id="mygrid6" onMouseEntered="#onMyGrid4Entered" onMouseExited="#hiderInformation" prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                                             </children>
-                                          </GridPane>
-                                       </children>
-                                    </Pane>
-                                    <Pane prefHeight="197.5" prefWidth="1000.0">
-                                       <children>
-                                          <Pane layoutX="265.0" layoutY="135.0" prefHeight="80.0" prefWidth="470.0">
-                                             <children>
-                                                <Label fx:id="EQLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="80.0" prefWidth="470.0" stylesheets="@../../../../style/style-class.css" text="Ekwipunek" textAlignment="CENTER" textFill="#d7d6d6">
-                                                   <font>
-                                                      <Font name="Bitmgothic" size="26.0" />
-                                                   </font>
-                                                </Label>
+                                                </VBox>
                                              </children>
                                           </Pane>
-                                       </children></Pane>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </Pane>
-                        <Pane prefHeight="655.0" prefWidth="460.0">
-                           <children>
-                              <HBox prefHeight="655.0" prefWidth="460.0">
-                                 <children>
-                                    <Pane prefHeight="655.0" prefWidth="260.0">
-                                       <children>
-                                          <HBox fx:id="EnemyTower" alignment="CENTER" prefHeight="655.0" prefWidth="260.0">
+                                          <Pane prefHeight="655.0" prefWidth="260.0">
                                              <children>
-                                                <VBox alignment="CENTER" prefHeight="655.0" prefWidth="210.0">
+                                                <ImageView fx:id="MyTower" fitHeight="655.0" fitWidth="260.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../img/Game_imgs/player_towers/plate_player_left_blue.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <HBox alignment="CENTER" layoutY="13.0" prefHeight="655.0" prefWidth="260.0">
                                                    <children>
-                                                      <Pane fx:id="rage0_enemy" onMouseEntered="#onEnemyRage0Entered" onMouseExited="#hiderInformation" prefHeight="160.0" prefWidth="160.0">
-                                                         <VBox.margin>
-                                                            <Insets left="18.0" />
-                                                         </VBox.margin>
-                                                      </Pane>
-                                                      <Pane fx:id="rage1_enemy" onMouseEntered="#onEnemyRage1Entered" onMouseExited="#hiderInformation" prefHeight="160.0" prefWidth="160.0">
-                                                         <VBox.margin>
-                                                            <Insets bottom="30.0" left="18.0" top="30.0" />
-                                                         </VBox.margin>
-                                                      </Pane>
-                                                      <Pane fx:id="rage2_enemy" onMouseEntered="#onEnemyRage2Entered" onMouseExited="#hiderInformation" prefHeight="160.0" prefWidth="160.0">
-                                                         <VBox.margin>
-                                                            <Insets bottom="30.0" left="18.0" />
-                                                         </VBox.margin>
-                                                      </Pane>
-                                                   </children>
-                                                </VBox>
-                                             </children>
-                                          </HBox>
-                                       </children>
-                                    </Pane>
-                                    <Pane prefHeight="655.0" prefWidth="200.0">
-                                       <children>
-                                          <VBox alignment="CENTER" prefHeight="625.0" prefWidth="200.0">
-                                             <children>
-                                                <Pane fx:id="EnemyCharacter" onMouseEntered="#onEnemyCharacterEntered" onMouseExited="#hiderInformation" prefHeight="400.0" prefWidth="200.0" />
-                                             </children>
-                                          </VBox>
-                                          <Pane fx:id="EnemyName" layoutY="10.0" prefHeight="100.0" prefWidth="200.0" />
-                                       </children>
-                                    </Pane>
-                                 </children>
-                              </HBox>
-                           </children>
-                        </Pane>
-                     </children>
-                  </HBox>
-               </children>
-            </AnchorPane>
-            <AnchorPane prefHeight="275.0" prefWidth="1920.0">
-               <children>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="275.0" prefWidth="1920.0">
-                     <children>
-                        <Pane fx:id="PlayerPicture0" prefHeight="240.0" prefWidth="240.0">
-                           <HBox.margin>
-                              <Insets right="50.0" top="20.0" />
-                           </HBox.margin>
-                           <children>
-                              <Pane fx:id="PlayerPicture1" layoutX="20.0" layoutY="20.0" prefHeight="200.0" prefWidth="200.0" />
-                           </children>
-                        </Pane>
-                        <Pane fx:id="Inventory" prefHeight="255.0" prefWidth="1200.0">
-                           <children>
-                              <VBox alignment="CENTER" prefHeight="275.0" prefWidth="1200.0">
-                                 <children>
-                                    <Pane fx:id="InventoryPane" prefHeight="275.0" prefWidth="1200.0">
-                                       <children>
-                                          <HBox alignment="CENTER" prefHeight="275.0" prefWidth="1200.0">
-                                             <children>
-                                                <Button fx:id="LeftShowBut" mnemonicParsing="false" onMouseClicked="#onLeftPageButtonClicked" prefHeight="200.0" prefWidth="80.0">
-                                                   <HBox.margin>
-                                                      <Insets left="20.0" />
-                                                   </HBox.margin>
-                                                </Button>
-                                                <Pane prefHeight="275.0" prefWidth="950.0">
-                                                   <children>
-                                                      <HBox fx:id="SelectInvField" alignment="CENTER" prefHeight="275.0" prefWidth="950.0">
+                                                      <VBox alignment="CENTER" prefHeight="655.0" prefWidth="165.0">
                                                          <children>
-                                                            <Pane fx:id="SelectField1" prefHeight="200.0" prefWidth="200.0">
-                                                               <HBox.margin>
-                                                                  <Insets bottom="30.0" left="10.0" right="10.0" top="30.0" />
-                                                               </HBox.margin>
+                                                            <Pane prefHeight="160.0" prefWidth="160.0">
+                                                               <VBox.margin>
+                                                                  <Insets left="3.0" />
+                                                               </VBox.margin>
                                                                <children>
-                                                                  <ImageView fx:id="EQ1" fitHeight="180.0" fitWidth="180.0" layoutX="10.0" layoutY="15.0" onMouseEntered="#onSelectField1Entered" onMouseExited="#hiderInformation" onMousePressed="#onSelectField1Pressed" onMouseReleased="#onSelectField1Released" pickOnBounds="true" preserveRatio="true" />
-                                                               </children>
-                                                            </Pane>
-                                                            <Pane fx:id="SelectField2" prefHeight="200.0" prefWidth="200.0">
-                                                               <HBox.margin>
-                                                                  <Insets bottom="30.0" left="10.0" right="10.0" top="30.0" />
-                                                               </HBox.margin>
-                                                               <children>
-                                                                  <ImageView fx:id="EQ2" fitHeight="180.0" fitWidth="180.0" onMouseEntered="#onSelectField2Entered" onMouseExited="#hiderInformation" onMousePressed="#onSelectField2Pressed" onMouseReleased="#onSelectField2Released" pickOnBounds="true" preserveRatio="true" x="10.0" y="15.0" />
-                                                               </children>
-                                                            </Pane>
-                                                            <Pane fx:id="SelectField3" prefHeight="200.0" prefWidth="200.0">
-                                                               <HBox.margin>
-                                                                  <Insets bottom="30.0" left="10.0" right="10.0" top="30.0" />
-                                                               </HBox.margin>
-                                                               <children>
-                                                                  <ImageView fx:id="EQ3" fitHeight="180.0" fitWidth="180.0" onMouseEntered="#onSelectField3Entered" onMouseExited="#hiderInformation" onMousePressed="#onSelectField3Pressed" onMouseReleased="#onSelectField3Released" pickOnBounds="true" preserveRatio="true" x="10.0" y="15.0">
+                                                                  <ImageView fx:id="rage1" fitHeight="160.0" fitWidth="160.0" onMouseEntered="#onMyRage1Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true">
                                                                      <image>
-                                                                        <Image url="@../../../../img/Creatures/Hedilele_arts/ZDJ4/03.png" />
+                                                                        <Image url="@../../../../img/Game_imgs/selects/select_field_rage.png" />
                                                                      </image>
                                                                   </ImageView>
                                                                </children>
                                                             </Pane>
-                                                            <Pane fx:id="SelectField4" prefHeight="200.0" prefWidth="200.0">
-                                                               <HBox.margin>
-                                                                  <Insets bottom="30.0" left="10.0" right="10.0" top="30.0" />
-                                                               </HBox.margin>
+                                                            <Pane prefHeight="160.0" prefWidth="160.0">
+                                                               <VBox.margin>
+                                                                  <Insets bottom="30.0" left="3.0" top="30.0" />
+                                                               </VBox.margin>
                                                                <children>
-                                                                  <ImageView fx:id="EQ4" fitHeight="180.0" fitWidth="180.0" onMouseEntered="#onSelectField4Entered" onMouseExited="#hiderInformation" onMousePressed="#onSelectField4Pressed" onMouseReleased="#onSelectField4Released" pickOnBounds="true" preserveRatio="true" x="10.0" y="15.0" />
+                                                                  <ImageView fx:id="rage2" fitHeight="160.0" fitWidth="160.0" onMouseEntered="#onMyRage2Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true">
+                                                                     <image>
+                                                                        <Image url="@../../../../img/Game_imgs/selects/select_field_rage.png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                               </children>
+                                                            </Pane>
+                                                            <Pane prefHeight="160.0" prefWidth="160.0">
+                                                               <VBox.margin>
+                                                                  <Insets bottom="30.0" left="3.0" />
+                                                               </VBox.margin>
+                                                               <children>
+                                                                  <ImageView fx:id="rage3" fitHeight="160.0" fitWidth="160.0" onMouseEntered="#onMyRage3Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true">
+                                                                     <image>
+                                                                        <Image url="@../../../../img/Game_imgs/selects/select_field_rage.png" />
+                                                                     </image>
+                                                                  </ImageView>
                                                                </children>
                                                             </Pane>
                                                          </children>
-                                                      </HBox>
+                                                         <HBox.margin>
+                                                            <Insets right="14.0" />
+                                                         </HBox.margin>
+                                                      </VBox>
                                                    </children>
-                                                   <HBox.margin>
-                                                      <Insets left="30.0" right="30.0" />
-                                                   </HBox.margin>
-                                                </Pane>
-                                                <Button fx:id="RightShowBut" mnemonicParsing="false" onMouseClicked="#onRightPageButtonClicked" prefHeight="200.0" prefWidth="80.0">
-                                                   <HBox.margin>
-                                                      <Insets right="20.0" />
-                                                   </HBox.margin>
-                                                </Button>
+                                                </HBox>
                                              </children>
-                                          </HBox>
+                                          </Pane>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </Pane>
+                              <Pane fx:id="MidPane" prefHeight="655.0" prefWidth="1000.0">
+                                 <children>
+                                    <VBox alignment="CENTER" prefHeight="655.0" prefWidth="1000.0">
+                                       <children>
+                                          <Pane prefHeight="197.5" prefWidth="1000.0">
+                                             <children>
+                                                <HBox alignment="CENTER" prefHeight="197.5" prefWidth="1000.0">
+                                                   <children>
+                                                      <Pane prefHeight="160.0" prefWidth="170.0">
+                                                         <HBox.margin>
+                                                            <Insets bottom="6.25" right="60.0" />
+                                                         </HBox.margin>
+                                                         <children>
+                                                            <Button fx:id="TakeCardDeck" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="6.25" mnemonicParsing="false" onMouseClicked="#onTakeCardClicked" onMouseEntered="#onTakeCardEntered" onMouseExited="#hiderInformation" prefHeight="160.0" prefWidth="160.0" />
+                                                            <AnchorPane prefHeight="64.0" prefWidth="118.0">
+                                                               <children>
+                                                                  <Label fx:id="CardCounter" alignment="CENTER" prefHeight="40.0" prefWidth="70.0" text="200" textFill="#d7d6d6">
+                                                                     <font>
+                                                                        <Font size="21.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </AnchorPane>
+                                                         </children>
+                                                      </Pane>
+                                                      <Pane prefHeight="160.0" prefWidth="160.0">
+                                                         <HBox.margin>
+                                                            <Insets bottom="6.25" right="25.0" top="6.25" />
+                                                         </HBox.margin>
+                                                         <children>
+                                                            <Button fx:id="RageCardDeck" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onRageCardClicked" onMouseEntered="#onRageCardEntered" onMouseExited="#hiderInformation" prefHeight="160.0" prefWidth="160.0" />
+                                                         </children>
+                                                      </Pane>
+                                                      <Pane prefHeight="160.0" prefWidth="160.0">
+                                                         <HBox.margin>
+                                                            <Insets bottom="6.25" left="25.0" top="6.25" />
+                                                         </HBox.margin>
+                                                         <children>
+                                                            <Button fx:id="MoneyStack" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onMoneyStackClicked" onMouseEntered="#onMoneyStackEntered" onMouseExited="#hiderInformation" prefHeight="160.0" prefWidth="160.0" />
+                                                         </children>
+                                                      </Pane>
+                                                      <Pane prefHeight="160.0" prefWidth="160.0">
+                                                         <HBox.margin>
+                                                            <Insets bottom="6.25" left="50.0" top="6.25" />
+                                                         </HBox.margin>
+                                                         <children>
+                                                            <Button fx:id="LostCardDeck" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#onLostCardClicked" onMouseEntered="#onLostCardEntered" onMouseExited="#hiderInformation" prefHeight="160.0" prefWidth="160.0" />
+                                                         </children>
+                                                      </Pane>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </Pane>
+                                          <Pane fx:id="BattleField" prefHeight="280.0" prefWidth="1000.0">
+                                             <children>
+                                                <ImageView fx:id="BattleGrid" fitHeight="280.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../img/Game_imgs/battle_grid/plate_battle_grid_blue.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <GridPane alignment="CENTER" prefHeight="280.0" prefWidth="1000.0">
+                                                  <columnConstraints>
+                                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                  </columnConstraints>
+                                                  <rowConstraints>
+                                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                  </rowConstraints>
+                                                   <children>
+                                                      <Pane prefHeight="128.0" prefWidth="128.0">
+                                                         <children>
+                                                            <ImageView fx:id="enemygrid1" fitHeight="116.0" fitWidth="116.0" onMouseEntered="#onEnemyGrid1Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true" x="41.0" y="10.0" />
+                                                         </children>
+                                                      </Pane>
+                                                      <Pane prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="1">
+                                                         <children>
+                                                            <ImageView fx:id="enemygrid2" fitHeight="116.0" fitWidth="116.0" onMouseEntered="#onEnemyGrid2Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true" x="41.0" y="10.0" />
+                                                         </children>
+                                                      </Pane>
+                                                      <Pane prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="2">
+                                                         <children>
+                                                            <ImageView fx:id="enemygrid3" fitHeight="116.0" fitWidth="116.0" onMouseEntered="#onEnemyGrid3Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true" x="41.0" y="10.0" />
+                                                         </children>
+                                                      </Pane>
+                                                      <Pane prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="3">
+                                                         <children>
+                                                            <ImageView fx:id="enemygrid4" fitHeight="116.0" fitWidth="116.0" onMouseEntered="#onEnemyGrid4Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true" x="41.0" y="10.0" />
+                                                         </children>
+                                                      </Pane>
+                                                      <Pane prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="4">
+                                                         <children>
+                                                            <ImageView fx:id="enemygrid5" fitHeight="116.0" fitWidth="116.0" onMouseEntered="#onEnemyGrid5Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true" x="41.0" y="10.0" />
+                                                         </children>
+                                                      </Pane>
+                                                      <Pane prefHeight="128.0" prefWidth="128.0" GridPane.rowIndex="1">
+                                                         <children>
+                                                            <ImageView fx:id="mygrid1" fitHeight="116.0" fitWidth="116.0" onMouseEntered="#onMyGrid1Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true" x="41.0" y="16.0">
+                                                               <image>
+                                                                  <Image url="@../../../../img/Creatures/first_template_official.jpg" />
+                                                               </image>
+                                                            </ImageView>
+                                                         </children>
+                                                      </Pane>
+                                                      <Pane prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                                         <children>
+                                                            <ImageView fx:id="mygrid2" fitHeight="116.0" fitWidth="116.0" onMouseEntered="#onMyGrid2Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true" x="41.0" y="16.0" />
+                                                         </children>
+                                                      </Pane>
+                                                      <Pane prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                                         <children>
+                                                            <ImageView fx:id="mygrid3" fitHeight="116.0" fitWidth="116.0" onMouseEntered="#onMyGrid3Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true" x="41.0" y="16.0" />
+                                                         </children>
+                                                      </Pane>
+                                                      <Pane prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                                         <children>
+                                                            <ImageView fx:id="mygrid4" fitHeight="116.0" fitWidth="116.0" onMouseEntered="#onMyGrid4Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true" x="41.0" y="16.0" />
+                                                         </children>
+                                                      </Pane>
+                                                      <Pane prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                                                         <children>
+                                                            <ImageView fx:id="mygrid5" fitHeight="116.0" fitWidth="116.0" onMouseEntered="#onMyGrid5Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true" x="41.0" y="16.0" />
+                                                         </children>
+                                                      </Pane>
+                                                   </children>
+                                                </GridPane>
+                                             </children>
+                                          </Pane>
+                                          <Pane prefHeight="197.5" prefWidth="1000.0">
+                                             <children>
+                                                <Pane layoutX="265.0" layoutY="135.0" prefHeight="80.0" prefWidth="470.0">
+                                                   <children>
+                                                      <Label fx:id="EQLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="80.0" prefWidth="470.0" stylesheets="@../../../../style/style-class.css" text="Ekwipunek" textAlignment="CENTER" textFill="#d7d6d6">
+                                                         <font>
+                                                            <Font name="Bitmgothic" size="26.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </Pane>
+                                             </children>
+                                          </Pane>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </Pane>
+                              <Pane prefHeight="655.0" prefWidth="460.0">
+                                 <children>
+                                    <HBox prefHeight="655.0" prefWidth="460.0">
+                                       <children>
+                                          <Pane prefHeight="655.0" prefWidth="260.0">
+                                             <children>
+                                                <ImageView fx:id="EnemyTower" fitHeight="655.0" fitWidth="260.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+                                                   <image>
+                                                      <Image url="@../../../../img/Game_imgs/player_towers/plate_player_right_red.png" />
+                                                   </image>
+                                                </ImageView>
+                                                <HBox alignment="CENTER" prefHeight="655.0" prefWidth="260.0">
+                                                   <children>
+                                                      <VBox alignment="CENTER" prefHeight="655.0" prefWidth="210.0">
+                                                         <children>
+                                                            <Pane prefHeight="160.0" prefWidth="160.0">
+                                                               <VBox.margin>
+                                                                  <Insets left="18.0" />
+                                                               </VBox.margin>
+                                                               <children>
+                                                                  <ImageView fx:id="rage1_enemy" fitHeight="160.0" fitWidth="160.0" onMouseEntered="#onEnemyRage1Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true">
+                                                                     <image>
+                                                                        <Image url="@../../../../img/Game_imgs/selects/select_field_rage.png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                               </children>
+                                                            </Pane>
+                                                            <Pane prefHeight="160.0" prefWidth="160.0">
+                                                               <VBox.margin>
+                                                                  <Insets bottom="30.0" left="18.0" top="30.0" />
+                                                               </VBox.margin>
+                                                               <children>
+                                                                  <ImageView fx:id="rage2_enemy" fitHeight="160.0" fitWidth="160.0" onMouseEntered="#onEnemyRage2Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true">
+                                                                     <image>
+                                                                        <Image url="@../../../../img/Game_imgs/selects/select_field_rage.png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                               </children>
+                                                            </Pane>
+                                                            <Pane prefHeight="160.0" prefWidth="160.0">
+                                                               <VBox.margin>
+                                                                  <Insets bottom="30.0" left="18.0" />
+                                                               </VBox.margin>
+                                                               <children>
+                                                                  <ImageView fx:id="rage3_enemy" fitHeight="160.0" fitWidth="160.0" onMouseEntered="#onEnemyRage3Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true">
+                                                                     <image>
+                                                                        <Image url="@../../../../img/Game_imgs/selects/select_field_rage.png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                               </children>
+                                                            </Pane>
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </Pane>
+                                          <Pane prefHeight="655.0" prefWidth="200.0">
+                                             <children>
+                                                <VBox alignment="CENTER" prefHeight="625.0" prefWidth="200.0">
+                                                   <children>
+                                                      <Pane prefHeight="400.0" prefWidth="200.0">
+                                                         <children>
+                                                            <ImageView fx:id="EnemyCharacter" fitHeight="400.0" fitWidth="200.0" onMouseEntered="#onEnemyCharacterEntered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true">
+                                                               <image>
+                                                                  <Image url="@../../../../img/Game_imgs/players/full_hp_red.gif" />
+                                                               </image>
+                                                            </ImageView>
+                                                         </children>
+                                                      </Pane>
+                                                   </children>
+                                                </VBox>
+                                             </children>
+                                          </Pane>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </Pane>
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="275.0" prefWidth="1920.0">
+                     <children>
+                        <HBox alignment="CENTER_RIGHT" prefHeight="275.0" prefWidth="1920.0">
+                           <children>
+                              <Pane fx:id="PlayerPicture0" prefHeight="240.0" prefWidth="240.0">
+                                 <HBox.margin>
+                                    <Insets right="50.0" top="20.0" />
+                                 </HBox.margin>
+                                 <children>
+                                    <Pane fx:id="PlayerPicture1" layoutX="20.0" layoutY="20.0" prefHeight="200.0" prefWidth="200.0">
+                                       <children>
+                                          <ImageView fx:id="PlayerPicture" fitHeight="200.0" fitWidth="200.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../../../img/Game_imgs/players/my_profile_king.gif" />
+                                             </image>
+                                          </ImageView>
                                        </children>
                                     </Pane>
                                  </children>
-                              </VBox>
+                              </Pane>
+                              <Pane fx:id="Inventory" prefHeight="255.0" prefWidth="1200.0">
+                                 <children>
+                                    <VBox alignment="CENTER" prefHeight="275.0" prefWidth="1200.0">
+                                       <children>
+                                          <Pane fx:id="InventoryPane" prefHeight="275.0" prefWidth="1200.0">
+                                             <children>
+                                                <HBox alignment="CENTER" prefHeight="275.0" prefWidth="1200.0">
+                                                   <children>
+                                                      <Button fx:id="LeftShowBut" mnemonicParsing="false" onMouseClicked="#onLeftPageButtonClicked" prefHeight="200.0" prefWidth="80.0">
+                                                         <HBox.margin>
+                                                            <Insets left="20.0" />
+                                                         </HBox.margin>
+                                                      </Button>
+                                                      <Pane prefHeight="275.0" prefWidth="950.0">
+                                                         <children>
+                                                            <HBox fx:id="SelectInvField" alignment="CENTER" prefHeight="275.0" prefWidth="950.0">
+                                                               <children>
+                                                                  <Pane fx:id="SelectField1" prefHeight="200.0" prefWidth="200.0">
+                                                                     <HBox.margin>
+                                                                        <Insets bottom="30.0" left="10.0" right="10.0" top="30.0" />
+                                                                     </HBox.margin>
+                                                                     <children>
+                                                                        <ImageView fx:id="EQ1" fitHeight="180.0" fitWidth="180.0" layoutX="10.0" layoutY="15.0" onMouseEntered="#onSelectField1Entered" onMouseExited="#hiderInformation" onMousePressed="#onSelectField1Pressed" onMouseReleased="#onSelectField1Released" pickOnBounds="true" preserveRatio="true" />
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane fx:id="SelectField2" prefHeight="200.0" prefWidth="200.0">
+                                                                     <HBox.margin>
+                                                                        <Insets bottom="30.0" left="10.0" right="10.0" top="30.0" />
+                                                                     </HBox.margin>
+                                                                     <children>
+                                                                        <ImageView fx:id="EQ2" fitHeight="180.0" fitWidth="180.0" onMouseEntered="#onSelectField2Entered" onMouseExited="#hiderInformation" onMousePressed="#onSelectField2Pressed" onMouseReleased="#onSelectField2Released" pickOnBounds="true" preserveRatio="true" x="10.0" y="15.0" />
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane fx:id="SelectField3" prefHeight="200.0" prefWidth="200.0">
+                                                                     <HBox.margin>
+                                                                        <Insets bottom="30.0" left="10.0" right="10.0" top="30.0" />
+                                                                     </HBox.margin>
+                                                                     <children>
+                                                                        <ImageView fx:id="EQ3" fitHeight="180.0" fitWidth="180.0" onMouseEntered="#onSelectField3Entered" onMouseExited="#hiderInformation" onMousePressed="#onSelectField3Pressed" onMouseReleased="#onSelectField3Released" pickOnBounds="true" preserveRatio="true" x="10.0" y="15.0" />
+                                                                     </children>
+                                                                  </Pane>
+                                                                  <Pane fx:id="SelectField4" prefHeight="200.0" prefWidth="200.0">
+                                                                     <HBox.margin>
+                                                                        <Insets bottom="30.0" left="10.0" right="10.0" top="30.0" />
+                                                                     </HBox.margin>
+                                                                     <children>
+                                                                        <ImageView fx:id="EQ4" fitHeight="180.0" fitWidth="180.0" onMouseEntered="#onSelectField4Entered" onMouseExited="#hiderInformation" onMousePressed="#onSelectField4Pressed" onMouseReleased="#onSelectField4Released" pickOnBounds="true" preserveRatio="true" x="10.0" y="15.0" />
+                                                                     </children>
+                                                                  </Pane>
+                                                               </children>
+                                                            </HBox>
+                                                         </children>
+                                                         <HBox.margin>
+                                                            <Insets left="30.0" right="30.0" />
+                                                         </HBox.margin>
+                                                      </Pane>
+                                                      <Button fx:id="RightShowBut" mnemonicParsing="false" onMouseClicked="#onRightPageButtonClicked" prefHeight="200.0" prefWidth="80.0">
+                                                         <HBox.margin>
+                                                            <Insets right="20.0" />
+                                                         </HBox.margin>
+                                                      </Button>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </Pane>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets top="20.0" />
+                                 </HBox.margin>
+                              </Pane>
+                              <Pane prefHeight="275.0" prefWidth="300.0">
+                                 <children>
+                                    <Button fx:id="EndTurnButton" alignment="CENTER" layoutX="10.0" layoutY="100.0" mnemonicParsing="false" onMouseClicked="#onEndTurnButtonClicked" onMouseEntered="#onEndTurnButtonEntered" onMouseExited="#hiderInformation" prefHeight="77.0" prefWidth="279.0" text="Zakończ turę" />
+                                 </children>
+                                 <HBox.margin>
+                                    <Insets left="35.0" right="30.0" />
+                                 </HBox.margin>
+                              </Pane>
                            </children>
-                           <HBox.margin>
-                              <Insets top="20.0" />
-                           </HBox.margin>
-                        </Pane>
-                        <Pane prefHeight="275.0" prefWidth="300.0">
-                           <children>
-                              <Button fx:id="EndTurnButton" alignment="CENTER" layoutX="10.0" layoutY="100.0" mnemonicParsing="false" onMouseClicked="#onEndTurnButtonClicked" onMouseEntered="#onEndTurnButtonEntered" onMouseExited="#hiderInformation" prefHeight="77.0" prefWidth="279.0" text="Zakończ turę" />
-                           </children>
-                           <HBox.margin>
-                              <Insets left="35.0" right="30.0" />
-                           </HBox.margin>
-                        </Pane>
+                        </HBox>
                      </children>
-                  </HBox>
-               </children>
-            </AnchorPane>
-           </children>
-       </VBox>
+                  </AnchorPane>
+                 </children>
+             </VBox>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

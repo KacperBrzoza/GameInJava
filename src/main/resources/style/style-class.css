@@ -309,54 +309,37 @@
     -fx-border-width:  0 0 0 0;
 }
 #BattleGrid{
-
     -fx-border-radius: 0;
-    -fx-background-image: url("../img/Game_imgs/battle_grid/plate_battle_grid_blue.png");
     -fx-background-size: 1000 280;
 }
 
 
 #MyTower{
     -fx-border-radius: 0;
-    -fx-background-image: url("../img/Game_imgs/player_towers/plate_player_left_blue.png");
     -fx-background-size: 260 655;
     -fx-font-size: 18pt;
 }
-#rage0,#rage1,#rage2,#rage0_enemy,#rage1_enemy,#rage2_enemy{
+#rage1,#rage2,#rage3,#rage1_enemy,#rage2_enemy,#rage3_enemy{
 
-    -fx-background-image: url("../img/Game_imgs/selects/select_field_rage.png");
     -fx-background-size: 160 160;
     -fx-background-repeat: no-repeat;
 }
-#rage0:hover,#rage1:hover,#rage2:hover,#rage0_enemy:hover,#rage1_enemy:hover,#rage2_enemy:hover{
 
-    -fx-background-position: 2 0;
-}
-
-#mygrid0,#mygrid1,#mygrid2,#mygrid3,#mygrid4,#mygrid5,#mygrid6{
+#mygrid1,#mygrid2,#mygrid3,#mygrid4,#mygrid5{
     -fx-background-size: 116 116;
     -fx-background-position: 45 16;
     -fx-background-repeat: no-repeat;
     -fx-border-radius: 0;
 }
-#enemygrid0,#enemygrid1,#enemygrid2,#enemygrid3,#enemygrid4,#enemygrid5,#enemygrid6{
+#enemygrid1,#enemygrid2,#enemygrid3,#enemygrid4,#enemygrid5{
     -fx-background-size: 116 116;
     -fx-background-position: 45 10;
     -fx-background-repeat: no-repeat;
     -fx-border-radius: 0;
 }
-#mygrid0,#enemygrid0{
-    -fx-background-image: url("../img/Creatures/Brewek_arts/341.png");
-}
-#mygrid0:pressed,#mygrid1:pressed,#mygrid2:pressed,#mygrid3:pressed,#mygrid4:pressed,#mygrid5:pressed,#mygrid6:pressed{
-    -fx-background-position: 45 18;
-}
-#enemygrid0:pressed,#enemygrid1:pressed,#enemygrid2:pressed,#enemygrid3:pressed,#enemygrid4:pressed,#enemygrid5:pressed,#enemygrid6:pressed{
-    -fx-background-position: 45 12;
-}
+
 #EnemyTower{
     -fx-border-radius: 0;
-    -fx-background-image: url("../img/Game_imgs/player_towers/plate_player_right_red.png");
     -fx-background-size: 260 655;
     -fx-font-size: 18pt;
 
@@ -509,13 +492,11 @@
                -fx-background-color: rgba(0,0,0,0);
 }
 #MyCharacter{
-               -fx-background-image: url("../img/Game_imgs/players/full_hp_blue.gif");
                -fx-background-repeat: no-repeat;
                -fx-background-position: 0, 0;
                -fx-background-size: 200 400;
 }
 #EnemyCharacter{
-               -fx-background-image: url("../img/Game_imgs/players/full_hp_red.gif");
                -fx-background-repeat: no-repeat;
                -fx-background-position: 0, 0;
                -fx-background-size: 200 400;
@@ -529,10 +510,11 @@
 }
 #PlayerPicture1{
     -fx-background-color: #332e29;
-    -fx-background-image: url("../img/Game_imgs/players/my_profile_king.gif");
-    -fx-background-size: 200 200;
     -fx-border-radius: 0;
     -fx-border-style: solid outside;
     -fx-border-color: #5e5e5e #382a1c #404040 #382a1c;
     -fx-border-width:  5 4 5 4;
+}
+#PlayerPicture{
+    -fx-background-size: 200 200;
 }

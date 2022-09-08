@@ -1,8 +1,9 @@
 package com.example.Main.Game;
 
-import com.example.Meat.Demo.OnlineGame;
+import com.example.Main.Menu.MenuController;
 import com.example.NetTools.Client;
 import com.example.NetTools.Server;
+import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,8 +14,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -23,7 +24,6 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.ServerSocket;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -31,21 +31,29 @@ import static com.example.Main.Menu.WaitingEnemyController.SWITCHER;
 
 public class GameController implements Initializable
 {
-
+    @FXML
+    Pane AllScreen;
     @FXML
     Button EndTurnButton;
     @FXML
     Label MoneyPlayerValue;
 
     @FXML
+    ImageView MyTower,EnemyTower;
+    @FXML
     private Label InfoLabel, CardCounter, EQLabel;
 
     @FXML
-    GridPane BattleGrid;
+    ImageView BattleGrid,PlayerPicture,MyCharacter,EnemyCharacter;
 
     @FXML
-    Pane mygrid0, mygrid1, mygrid3, mygrid5, mygrid6;
-
+    ImageView mygrid1,mygrid2,mygrid3,mygrid4,mygrid5;
+    @FXML
+    ImageView enemygrid1,enemygrid2,enemygrid3,enemygrid4,enemygrid5;
+    @FXML
+    ImageView rage1,rage2,rage3;
+    @FXML
+    ImageView rage1_enemy,rage2_enemy,rage3_enemy;
     @FXML
     private Button ExitButton;
 
@@ -57,7 +65,7 @@ public class GameController implements Initializable
 
     String path = "src/main/resources/music/the_witcher.mp3";
     Media media = new Media(new File(path).toURI().toString());
-    MediaPlayer mediaPlayer = new MediaPlayer(media);
+    MediaPlayer mediaPlayer_battle_music = new MediaPlayer(media);
 
     String path_sound_click = "src/main/resources/sound/button_release_sound.mp3";
     Media media_click = new Media(new File(path_sound_click).toURI().toString());
@@ -78,9 +86,30 @@ public class GameController implements Initializable
     //awaryjne pola do przechwycenia wyniku w razie rozłączenia się, któregoś z graczy
     public static float PLAYER_ONE_POINTS = 0;
     public static float PLAYER_TWO_POINTS = 0;
-
+    @FXML
+    void FadeOut() throws IOException {
+        FXMLLoader loader_menu = new FXMLLoader(getClass().getResource("/com/example/Main/Menu/Menu-view.fxml"));
+        Parent root = loader_menu.load();
+        MenuController controller_menu = loader_menu.getController();
+        controller_menu.Music_menu_on_off(false);
+        MenuController.MenuMusicAllow=true;
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(10),AllScreen);
+        fadeTransition.setFromValue(0);
+        fadeTransition.setToValue(1.0);
+        fadeTransition.play();
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        AllScreen.setOpacity(0);
+        try {
+            FadeOut();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        mediaPlayer_battle_music.setCycleCount(MediaPlayer.INDEFINITE);
+        mediaPlayer_battle_music.setVolume(0.1);
+        //mediaPlayer_battle_music.play();
         if(SWITCHER == 1){
             server.startGame();
             //server.sendMessageToClient("wysylam mesedz");
@@ -89,12 +118,38 @@ public class GameController implements Initializable
             //System.out.println("Hehe");
         }
         else {
+            ChangeTextureForClient();
             client.turns(EQLabel);
             //client.receiveMessageFromServer();
             //client.sendMessageToServer("Wysylam do serwa :)");
         }
     }
+    @FXML
+    protected void ChangeTextureForClient()
+    {
+        onEndTurnButtonClicked();
+        File file = new File("src/main/resources/img/Game_imgs/players/full_hp_red.gif");
+        Image myheroimg = new Image(file.toURI().toString());
+        MyCharacter.setImage(myheroimg);
+        MyCharacter.setRotate(180);
+        File file2 = new File("src/main/resources/img/Game_imgs/players/full_hp_blue.gif");
+        Image enemyheroimg = new Image(file2.toURI().toString());
+        EnemyCharacter.setImage(enemyheroimg);
+        EnemyCharacter.setRotate(180);
+        File file3 = new File("src/main/resources/img/Game_imgs/battle_grid/plate_battle_grid_red.png");
+        Image gridplateimg = new Image(file3.toURI().toString());
+        BattleGrid.setImage(gridplateimg);
+        File file4 = new File("src/main/resources/img/Game_imgs/player_towers/plate_player_left_red.png");
+        Image mytowerimg = new Image(file4.toURI().toString());
+        MyTower.setImage(mytowerimg);
+        File file5 = new File("src/main/resources/img/Game_imgs/player_towers/plate_player_right_blue.png");
+        Image enemytowerimg = new Image(file5.toURI().toString());
+        EnemyTower.setImage(enemytowerimg);
+        File file6 = new File("src/main/resources/img/Game_imgs/players/my_profile_king2.gif");
+        Image statuscharacterimg = new Image(file6.toURI().toString());
+        PlayerPicture.setImage(statuscharacterimg);
 
+    }
 
     public static void showMessage(String message, Label EQLabel){
         Platform.runLater(new Runnable() {
@@ -131,12 +186,7 @@ public class GameController implements Initializable
 
     public void stopMusic()
     {
-        //WaitingEnemyController waitingEnemyController = new WaitingEnemyController();
-        //waitingEnemyController.
-        String path = "src/main/resources/music/the_witcher.mp3";
-        Media media = new Media(new File(path).toURI().toString());
-        MediaPlayer mediaPlayer_music = new MediaPlayer(media);
-        mediaPlayer_music.stop();
+        mediaPlayer_battle_music.stop();
     }
     @FXML
     protected void onExitButtonClicked(ActionEvent event) throws IOException
@@ -153,6 +203,12 @@ public class GameController implements Initializable
     @FXML
     protected void hiderInformation()
     {
+        rage1.setX(0);
+        rage2.setX(0);
+        rage3.setX(0);
+        rage1_enemy.setX(0);
+        rage2_enemy.setX(0);
+        rage3_enemy.setX(0);
         InfoLabel.setText("");
         InfoLabel.setStyle("-fx-font-size: 14pt;");
     }
@@ -210,33 +266,39 @@ public class GameController implements Initializable
     }
 
     @FXML
-    protected void onMyRage0Entered()
-    {
-        InfoLabel.setText("Obecnie nie masz żadnej karty RAGE");
-    }
-    @FXML
     protected void onMyRage1Entered()
     {
+        rage1.setX(2);
         InfoLabel.setText("Obecnie nie masz żadnej karty RAGE");
     }
     @FXML
     protected void onMyRage2Entered()
     {
+        rage2.setX(2);
         InfoLabel.setText("Obecnie nie masz żadnej karty RAGE");
     }
     @FXML
-    protected void onEnemyRage0Entered()
+    protected void onMyRage3Entered()
     {
-        InfoLabel.setText("Przeciwnik obecnie nie ma żadnej karty RAGE");
+        rage3.setX(2);
+        InfoLabel.setText("Obecnie nie masz żadnej karty RAGE");
     }
     @FXML
     protected void onEnemyRage1Entered()
     {
+        rage1_enemy.setX(2);
         InfoLabel.setText("Przeciwnik obecnie nie ma żadnej karty RAGE");
     }
     @FXML
     protected void onEnemyRage2Entered()
     {
+        rage2_enemy.setX(2);
+        InfoLabel.setText("Przeciwnik obecnie nie ma żadnej karty RAGE");
+    }
+    @FXML
+    protected void onEnemyRage3Entered()
+    {
+        rage3_enemy.setX(2);
         InfoLabel.setText("Przeciwnik obecnie nie ma żadnej karty RAGE");
     }
     @FXML
@@ -407,52 +469,52 @@ public class GameController implements Initializable
     }
 
     @FXML
-    public void onMyGrid0Entered()
+    public void onMyGrid1Entered()
     {
         InfoLabel.setText("Moje pole 1");
     }
     @FXML
-    public void onMyGrid1Entered()
+    public void onMyGrid2Entered()
     {
         InfoLabel.setText("Moje pole 2");
     }
     @FXML
-    public void onMyGrid2Entered()
+    public void onMyGrid3Entered()
     {
         InfoLabel.setText("Moje pole 3");
     }
     @FXML
-    public void onMyGrid3Entered()
+    public void onMyGrid4Entered()
     {
         InfoLabel.setText("Moje pole 4");
     }
     @FXML
-    public void onMyGrid4Entered()
+    public void onMyGrid5Entered()
     {
         InfoLabel.setText("Moje pole 5");
     }
     @FXML
-    public void onEnemyGrid0Entered()
+    public void onEnemyGrid1Entered()
     {
         InfoLabel.setText("Pole przeciwnika 1");
     }
     @FXML
-    public void onEnemyGrid1Entered()
+    public void onEnemyGrid2Entered()
     {
         InfoLabel.setText("Pole przeciwnika 2");
     }
     @FXML
-    public void onEnemyGrid2Entered()
+    public void onEnemyGrid3Entered()
     {
         InfoLabel.setText("Pole przeciwnika 3");
     }
     @FXML
-    public void onEnemyGrid3Entered()
+    public void onEnemyGrid4Entered()
     {
         InfoLabel.setText("Pole przeciwnika 4");
     }
     @FXML
-    public void onEnemyGrid4Entered()
+    public void onEnemyGrid5Entered()
     {
         InfoLabel.setText("Pole przeciwnika 5");
     }

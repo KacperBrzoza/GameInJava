@@ -1,17 +1,22 @@
 package com.example.Main.Login;
 
+import com.example.Main.Menu.MenuController;
 import com.example.Main.Register.RegisterData;
 import com.example.Main.Service.UserService;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -21,14 +26,17 @@ import javafx.util.Duration;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ResourceBundle;
 
 
-public class LoginController
+public class LoginController implements Initializable
 {
+    public static boolean FadeTransitionAllow=false;
     private Stage stage;
     private Scene scene;
     private Parent root;
     boolean Music_status_option=true;
+
     @FXML
     private Button RegisterButton, ExitButton, LoginButton, OptionButton;
     @FXML
@@ -63,11 +71,11 @@ public class LoginController
         mediaPlayer.setVolume(0.8);
         if(on_off) {
             mediaPlayer.play();
-            System.out.println("on");
+            //System.out.println("on");
         }
         else {
             mediaPlayer.stop();
-            System.out.println("off");
+            //System.out.println("off");
         }
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
     }
@@ -101,22 +109,42 @@ public class LoginController
         //osobna_funkcja();
     }
 
-    public void osobna_funkcja() throws InterruptedException {
-        int i = 0;
-        while (true){
-        }
-    }
 
      @FXML
-     void FadeIn(ActionEvent event)
+     private void FadeIn()
      {
-         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(2),AllScreen);
+         FadeTransitionAllow=true;
+         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(3),AllScreen);
          fadeTransition.setFromValue(1.0);
          fadeTransition.setToValue(0);
+         fadeTransition.setOnFinished(new EventHandler<ActionEvent>() {
+             @Override
+             public void handle(ActionEvent event) {
+                 try {
+                     ChangeScene();
+                 } catch (IOException e) {
+                     e.printStackTrace();
+                 }
+             }
+         });
          fadeTransition.play();
      }
+     @FXML
+     private void ChangeScene() throws IOException {
+         MenuController.MenuMusicAllow=true;
+         URL url_menu = new File("src/main/resources/com/example/Main/Menu/Menu-view.fxml").toURI().toURL();
+         root = FXMLLoader.load(url_menu);
+         stage = (Stage) PassMsg.getScene().getWindow();
+         scene = new Scene(root);
+         stage.setResizable(false);
+         scene.getStylesheets().add(getClass().getResource("/style/style-class.css").toExternalForm());
+         stage.setMaximized(true);
+         stage.setScene(scene);
+         stage.show();
+     }
+
     @FXML
-    protected void onLoginButtonClick(ActionEvent event) throws IOException {
+    protected void onLoginButtonClick() {
 
         UserService userService = new UserService();
         RegisterData registerData = new RegisterData();
@@ -152,24 +180,18 @@ public class LoginController
             }
             else //Dobre haslo i dobry uzytkownik
             {
-                //FadeIn(event); //Przyciemnienie na przejście (nie dziala bo trzeba zrobic thready ktore beda zajmowac sie innymi procesami)
+                PassMsg.setStyle("-fx-text-fill: #269e32");
+                PassMsg.setText("Zalogowano pomyślnie.");
                 mediaPlayer_login_good.stop();
                 mediaPlayer_login_good.seek(Duration.seconds(0));
                 mediaPlayer_login_good.play();
-                PassMsg.setText("Zalogowano pomyślnie.");
+                mediaPlayer.stop();
+                FadeIn();
                 //kontrolna zmiana muzy
                 //
                 //
-                PassMsg.setStyle("-fx-text-fill: #269e32");
-                URL url_menu = new File("src/main/resources/com/example/Main/Menu/Menu-view.fxml").toURI().toURL();
-                root = FXMLLoader.load(url_menu);
-                stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-                scene = new Scene(root);
-                stage.setResizable(false);
-                scene.getStylesheets().add(getClass().getResource("/style/style-class.css").toExternalForm());
-                stage.setMaximized(true);
-                stage.setScene(scene);
-                stage.show();
+                //FadeIn(event); //Przyciemnienie na przejście (nie dziala bo trzeba zrobic thready ktore beda zajmowac sie innymi procesami)
+
             }
         }
         /*
@@ -225,5 +247,26 @@ public class LoginController
              */
         Stage stage = (Stage) ExitButton.getScene().getWindow();
         stage.close();
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        ambient_music(true);
+        LoginTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        @Override
+        public void handle(KeyEvent ke) {
+            if (ke.getCode().equals(KeyCode.ENTER)) {
+                    onLoginButtonClick();
+            }
+        }
+    });
+        PasswordTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        @Override
+        public void handle(KeyEvent ke) {
+        if (ke.getCode().equals(KeyCode.ENTER)) {
+            onLoginButtonClick();
+        }
+    }
+    });
     }
 }

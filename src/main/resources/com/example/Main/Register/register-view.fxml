@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Main.Register.RegisterController">
+<VBox alignment="CENTER" maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Main.Register.RegisterController">
     <children>
         <AnchorPane fx:id="AllScreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../../../style/style-class.css">
             <children>
@@ -54,7 +59,7 @@
                                 <Insets />
                             </VBox.margin>
                         </Label>
-                        <TextField fx:id="LoginTextField" prefHeight="65.0" prefWidth="417.0" promptText="Login" style="-fx-font-family: Bitmgothic;">
+                        <TextField fx:id="LoginTextField" onKeyTyped="#onMouseEntered" prefHeight="65.0" prefWidth="417.0" promptText="Login" style="-fx-font-family: Bitmgothic;">
                             <font>
                                 <Font size="24.0" />
                             </font>
@@ -67,7 +72,7 @@
                                 <Font size="50.0" />
                             </font>
                         </Label>
-                        <PasswordField fx:id="PasswordTextField" prefHeight="65.0" prefWidth="417.0" promptText="Hasło">
+                        <PasswordField fx:id="PasswordTextField" onKeyTyped="#onMouseEntered" prefHeight="65.0" prefWidth="417.0" promptText="Hasło">
                             <font>
                                 <Font size="24.0" />
                             </font>
@@ -77,7 +82,7 @@
                         <Font size="35.0" />
                      </font>
                   </Label>
-                  <PasswordField fx:id="rPasswordTextField" prefHeight="65.0" prefWidth="417.0" promptText="Powtórz hasło">
+                  <PasswordField fx:id="rPasswordTextField" onKeyTyped="#onMouseEntered" prefHeight="65.0" prefWidth="417.0" promptText="Powtórz hasło">
                      <font>
                         <Font size="24.0" />
                      </font>

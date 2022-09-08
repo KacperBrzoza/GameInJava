@@ -1,6 +1,5 @@
 package com.example.Main.Login;
 
-import com.example.NetTools.Server;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,8 +24,8 @@ public class StartLoginApplication extends Application
         Parent root = loader.load();
         //URL url = new File("src/main/resources/com/example/Main/Login/hello-login-view.fxml").toURI().toURL();
         //Parent root = FXMLLoader.load(url);
-        LoginController controller = loader.getController();
-        controller.ambient_music(true);
+        //LoginController controller = loader.getController();
+        //controller.ambient_music(true);
         Scene scene = new Scene(root);
         stage.setHeight(1920);
         stage.setWidth(1920);

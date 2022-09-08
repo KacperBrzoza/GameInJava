@@ -1,10 +1,11 @@
 package com.example.Main.Menu;
 
-import com.example.NetTools.Server;
+import com.example.Main.Login.LoginController;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -18,10 +19,10 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.ServerSocket;
 import java.net.URL;
+import java.util.ResourceBundle;
 
-public class MenuController {
+public class MenuController implements Initializable {
 
     @FXML
     private AnchorPane AllScreen;
@@ -29,6 +30,7 @@ public class MenuController {
     private Button ExitButton;
     @FXML
     private HBox NotificationPane;
+public static boolean MenuMusicAllow;
 
 
     String path_sound_click = "src/main/resources/sound/button_release_sound.mp3";
@@ -38,14 +40,19 @@ public class MenuController {
     String path_sound_move = "src/main/resources/sound/button_click_sound.mp3";
     Media media_move = new Media(new File(path_sound_move).toURI().toString());
     MediaPlayer mediaPlayer_move = new MediaPlayer(media_move);
+    String path_music_menu = "src/main/resources/music/PORTMONETKA_MUSIC_MENU.mp3";
+    Media music_menu = new Media(new File(path_music_menu).toURI().toString());
+    MediaPlayer mediaPlayer_menu_music = new MediaPlayer(music_menu);
+
 
     @FXML
-    void FadeOut(ActionEvent event)
+    void FadeOut()
     {
-        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(2),AllScreen);
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(5),AllScreen);
         fadeTransition.setFromValue(0);
         fadeTransition.setToValue(1.0);
         fadeTransition.play();
+        LoginController.FadeTransitionAllow=false;
     }
     @FXML
     public void onMouseEntered()
@@ -62,6 +69,18 @@ public class MenuController {
         mediaPlayer_move.seek(Duration.seconds(0));
         mediaPlayer_click.play();
     }
+    public void Music_menu_on_off(boolean on_off)
+    {
+        if(on_off) {
+            mediaPlayer_menu_music.play(); /*Z TYM JEST DZIWNY PROBLEM BO NIE DA SIE TEGO WYłACZYC W OGOLE NIGDZIE NIBY CZASEM DZIALA ALE NIE ZAWSZE*/
+            System.out.println("play");
+        }
+        else {
+            System.out.println("stop");
+            mediaPlayer_menu_music.stop();
+        }
+
+    }
 
     @FXML
     public void onExitButton(ActionEvent event) throws IOException
@@ -74,6 +93,25 @@ public class MenuController {
     {
 
     }
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle)
+    {
+        mediaPlayer_menu_music.setVolume(0.25);
+        mediaPlayer_menu_music.setCycleCount(MediaPlayer.INDEFINITE);
+        if(MenuMusicAllow)
+        {
+
+            Music_menu_on_off(true);
+            MenuMusicAllow=false;
+        }
+        if(LoginController.FadeTransitionAllow)
+        {
+            AllScreen.setOpacity(0);
+            FadeOut();
+        }
+
+    }
+
     @FXML
     public void onPlayButton(ActionEvent event) throws IOException
     {
@@ -85,6 +123,8 @@ public class MenuController {
         stage.setMaximized(true);
         stage.setScene(scene);
         stage.show();
+
+
 
         //poniżej znajduje się propozycja połączenia rozgrywki z programem w formie takiego pseudokodu
 
@@ -160,6 +200,10 @@ public class MenuController {
     @FXML
     public void onLogoutButton(ActionEvent event) throws IOException
     {
+        LoginController.FadeTransitionAllow=true;
+        System.out.println("test wylogowania");
+        Music_menu_on_off(false);
+        MenuMusicAllow=false;
         NotificationPane.setVisible(false);
         URL url = new File("src/main/resources/com/example/Main/Login/hello-login-view.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);

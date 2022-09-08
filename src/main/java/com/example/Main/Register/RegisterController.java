@@ -1,9 +1,12 @@
 package com.example.Main.Register;
 
+import com.example.Main.Login.LoginController;
 import com.example.Main.Service.UserService;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,17 +14,19 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ResourceBundle;
 
-public class RegisterController
+public class RegisterController implements Initializable
 {
 
     @FXML
@@ -56,8 +61,12 @@ public class RegisterController
     @FXML
     public void cancel(ActionEvent event) throws IOException
     {
-        URL url = new File("src/main/resources/com/example/Main/Login/hello-login-view.fxml").toURI().toURL();
-        Parent root = FXMLLoader.load(url);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/Main/Login/hello-login-view.fxml"));
+        Parent root = loader.load();
+        LoginController controller = loader.getController();
+        controller.ambient_music(false);
+        /*URL url = new File("src/main/resources/com/example/Main/Login/hello-login-view.fxml").toURI().toURL();
+        Parent root = FXMLLoader.load(url);*/
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setResizable(false);
@@ -85,7 +94,7 @@ public class RegisterController
     }
 
     @FXML
-    public void register(ActionEvent event) throws IOException
+    public void register()
     {
         mediaPlayer_input_bad.setVolume(0.5);
         if(LoginTextField.getText().trim().isEmpty() || PasswordTextField.getText().trim().isEmpty() || rPasswordTextField.getText().trim().isEmpty())
@@ -145,4 +154,31 @@ public class RegisterController
         }
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        LoginTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent ke) {
+                if (ke.getCode().equals(KeyCode.ENTER)) {
+                    register();
+                }
+            }
+        });
+        PasswordTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent ke) {
+                if (ke.getCode().equals(KeyCode.ENTER)) {
+                    register();
+                }
+            }
+        });
+        rPasswordTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent ke) {
+                if (ke.getCode().equals(KeyCode.ENTER)) {
+                    register();
+                }
+            }
+        });
+    }
 }
