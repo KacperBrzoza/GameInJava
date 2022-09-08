@@ -235,7 +235,10 @@
                                                    <children>
                                                       <Pane prefHeight="128.0" prefWidth="128.0">
                                                          <children>
-                                                            <ImageView fx:id="enemygrid4" fitHeight="116.0" fitWidth="116.0" onMouseEntered="#onEnemyGrid4Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true" x="41.0" y="10.0" />
+                                                            <ImageView fx:id="enemygrid4" fitHeight="116.0" fitWidth="116.0" onMouseEntered="#onEnemyGrid4Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true" x="41.0" y="10.0">
+                                                               <image>
+                                                                  <Image url="@../../../../img/Creatures/625H.png" />
+                                                               </image></ImageView>
                                                          </children>
                                                       </Pane>
                                                       <Pane prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="1">
@@ -245,7 +248,10 @@
                                                       </Pane>
                                                       <Pane prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="2">
                                                          <children>
-                                                            <ImageView fx:id="enemygrid2" fitHeight="116.0" fitWidth="116.0" onMouseEntered="#onEnemyGrid2Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true" x="41.0" y="10.0" />
+                                                            <ImageView fx:id="enemygrid2" fitHeight="116.0" fitWidth="116.0" onMouseEntered="#onEnemyGrid2Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true" x="41.0" y="10.0">
+                                                               <image>
+                                                                  <Image url="@../../../../img/Creatures/1048.png" />
+                                                               </image></ImageView>
                                                          </children>
                                                       </Pane>
                                                       <Pane prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="3">
@@ -260,15 +266,15 @@
                                                       </Pane>
                                                       <Pane prefHeight="128.0" prefWidth="128.0" GridPane.rowIndex="1">
                                                          <children>
-                                                            <ImageView fx:id="mygrid0" fitHeight="116.0" fitWidth="116.0" onMouseEntered="#onMyGrid0Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true" x="41.0" y="16.0">
-                                                               <image>
-                                                                  <Image url="@../../../../img/Creatures/625H.png" />
-                                                               </image></ImageView>
+                                                            <ImageView fx:id="mygrid0" fitHeight="116.0" fitWidth="116.0" onMouseEntered="#onMyGrid0Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true" x="41.0" y="16.0" />
                                                          </children>
                                                       </Pane>
                                                       <Pane prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                                          <children>
-                                                            <ImageView fx:id="mygrid1" fitHeight="116.0" fitWidth="116.0" onMouseEntered="#onMyGrid1Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true" x="41.0" y="16.0" />
+                                                            <ImageView fx:id="mygrid1" fitHeight="116.0" fitWidth="116.0" onMouseEntered="#onMyGrid1Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true" x="41.0" y="16.0">
+                                                               <image>
+                                                                  <Image url="@../../../../img/Creatures/122.png" />
+                                                               </image></ImageView>
                                                          </children>
                                                       </Pane>
                                                       <Pane prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
@@ -278,12 +284,18 @@
                                                       </Pane>
                                                       <Pane prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                                          <children>
-                                                            <ImageView fx:id="mygrid3" fitHeight="116.0" fitWidth="116.0" onMouseEntered="#onMyGrid3Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true" x="41.0" y="16.0" />
+                                                            <ImageView fx:id="mygrid3" fitHeight="116.0" fitWidth="116.0" onMouseEntered="#onMyGrid3Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true" x="41.0" y="16.0">
+                                                               <image>
+                                                                  <Image url="@../../../../img/Creatures/1155O.png" />
+                                                               </image></ImageView>
                                                          </children>
                                                       </Pane>
                                                       <Pane prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
                                                          <children>
-                                                            <ImageView fx:id="mygrid4" fitHeight="116.0" fitWidth="116.0" onMouseEntered="#onMyGrid4Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true" x="41.0" y="16.0" />
+                                                            <ImageView fx:id="mygrid4" fitHeight="116.0" fitWidth="116.0" onMouseEntered="#onMyGrid4Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true" x="41.0" y="16.0">
+                                                               <image>
+                                                                  <Image url="@../../../../img/Creatures/1176Z.png" />
+                                                               </image></ImageView>
                                                          </children>
                                                       </Pane>
                                                    </children>
@@ -431,7 +443,10 @@
                                                                         <Insets bottom="30.0" left="10.0" right="10.0" top="30.0" />
                                                                      </HBox.margin>
                                                                      <children>
-                                                                        <ImageView fx:id="EQ1" fitHeight="180.0" fitWidth="180.0" layoutX="10.0" layoutY="15.0" onMouseEntered="#onSelectField1Entered" onMouseExited="#hiderInformation" onMousePressed="#onSelectField1Pressed" onMouseReleased="#onSelectField1Released" pickOnBounds="true" preserveRatio="true" />
+                                                                        <ImageView fx:id="EQ1" fitHeight="180.0" fitWidth="180.0" layoutX="10.0" layoutY="15.0" onMouseEntered="#onSelectField1Entered" onMouseExited="#hiderInformation" onMousePressed="#onSelectField1Pressed" onMouseReleased="#onSelectField1Released" pickOnBounds="true" preserveRatio="true">
+                                                                           <image>
+                                                                              <Image url="@../../../../img/Creatures/311O.png" />
+                                                                           </image></ImageView>
                                                                      </children>
                                                                   </Pane>
                                                                   <Pane fx:id="SelectField2" prefHeight="200.0" prefWidth="200.0">
@@ -439,7 +454,10 @@
                                                                         <Insets bottom="30.0" left="10.0" right="10.0" top="30.0" />
                                                                      </HBox.margin>
                                                                      <children>
-                                                                        <ImageView fx:id="EQ2" fitHeight="180.0" fitWidth="180.0" onMouseEntered="#onSelectField2Entered" onMouseExited="#hiderInformation" onMousePressed="#onSelectField2Pressed" onMouseReleased="#onSelectField2Released" pickOnBounds="true" preserveRatio="true" x="10.0" y="15.0" />
+                                                                        <ImageView fx:id="EQ2" fitHeight="180.0" fitWidth="180.0" onMouseEntered="#onSelectField2Entered" onMouseExited="#hiderInformation" onMousePressed="#onSelectField2Pressed" onMouseReleased="#onSelectField2Released" pickOnBounds="true" preserveRatio="true" x="10.0" y="15.0">
+                                                                           <image>
+                                                                              <Image url="@../../../../img/Creatures/854M.png" />
+                                                                           </image></ImageView>
                                                                      </children>
                                                                   </Pane>
                                                                   <Pane fx:id="SelectField3" prefHeight="200.0" prefWidth="200.0">
@@ -447,7 +465,10 @@
                                                                         <Insets bottom="30.0" left="10.0" right="10.0" top="30.0" />
                                                                      </HBox.margin>
                                                                      <children>
-                                                                        <ImageView fx:id="EQ3" fitHeight="180.0" fitWidth="180.0" onMouseEntered="#onSelectField3Entered" onMouseExited="#hiderInformation" onMousePressed="#onSelectField3Pressed" onMouseReleased="#onSelectField3Released" pickOnBounds="true" preserveRatio="true" x="10.0" y="15.0" />
+                                                                        <ImageView fx:id="EQ3" fitHeight="180.0" fitWidth="180.0" onMouseEntered="#onSelectField3Entered" onMouseExited="#hiderInformation" onMousePressed="#onSelectField3Pressed" onMouseReleased="#onSelectField3Released" pickOnBounds="true" preserveRatio="true" x="10.0" y="15.0">
+                                                                           <image>
+                                                                              <Image url="@../../../../img/Creatures/965.png" />
+                                                                           </image></ImageView>
                                                                      </children>
                                                                   </Pane>
                                                                   <Pane fx:id="SelectField4" prefHeight="200.0" prefWidth="200.0">

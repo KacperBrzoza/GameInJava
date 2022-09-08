@@ -8,6 +8,7 @@ import com.sun.xml.fastinfoset.util.CharArray;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -111,8 +113,6 @@ public class GameController implements Initializable
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //Thread
-        //System.out.println(Memory.memory.getUsername());
 
         AllScreen.setOpacity(0);
         try {
@@ -371,30 +371,7 @@ public class GameController implements Initializable
         InfoLabel.setText("Chcesz zakończyć turę?");
         InfoLabel.setStyle("-fx-font-size: 25pt;");
     }
-    @FXML
-    protected void onSelectField1Entered()
-    {
-        hover_sound();
-        InfoLabel.setText("Pole 1");
-    }
-    @FXML
-    protected void onSelectField2Entered()
-    {
-        hover_sound();
-        InfoLabel.setText("Pole 2");
-    }
-    @FXML
-    protected void onSelectField3Entered()
-    {
-        hover_sound();
-        InfoLabel.setText("Pole 3");
-    }
-    @FXML
-    protected void onSelectField4Entered()
-    {
-        hover_sound();
-        InfoLabel.setText("Pole 4");
-    }
+
     @FXML
     protected void onSelectField1Pressed()
     {
@@ -504,17 +481,76 @@ public class GameController implements Initializable
     }
 
     private void onGridEntered(ImageView grid){
-        char[] code = grid.getImage().getUrl().toCharArray();
-        String power;
-        int hp;
-        int atack;
-        int cost;
-        //2099M.png
-        //2099.png
-        //209M.png
-        //999.png
-        for(int i = code.length; i > code.length - 9; i--){
-            System.out.println(code[i]);
+        if(grid.getImage() != null){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    char[] code = grid.getImage().getUrl().toCharArray();
+                    String power = "";
+                    char hp;
+                    char atack;
+                    char c1, c2;
+                    String cost = "";
+
+                    //[48-57]   -   cyfry w ASCI
+
+                    //  Ex.1  20 99M
+                    //  Ex.2  /20 99
+                    //  Ex.3  /2 09M
+                    //  Ex.4  */9 99
+                    char current_char;  //pomocnicza zmienna do aktualnie przetwarzanego znaku
+                    int i = 5;          //pomocnicza zmienna do ustalania znaku z kodu, ktory bedzie do przetworzenia
+
+                    current_char = code[code.length-i];
+                    if((int) current_char >= 48 && (int) current_char <= 57) {  //jesli ostatni znak w kodzie to cyfra - postac jest bez mocy Ex.2 lub Ex.4
+                        power = "-";
+                        hp = current_char;
+                        i++;
+                        current_char = code[code.length-i];     //nastepnym znakiem musi byc atak
+                        atack = current_char;
+                        i++;
+                    }
+                    else{                                                       //jesli ostatni znak w kodzie to NIE cyfra - postac ma moc Ex.1 lub Ex.3
+                        power += current_char;
+                        i++;
+                        current_char = code[code.length-i];     //nastepnym znakiem musi byc hp
+                        hp = current_char;
+                        i++;
+                        current_char = code[code.length-i];     //nastepnym znakiem musi byc atak
+                        atack = current_char;
+                        i++;
+                    }
+
+                    current_char = code[code.length-i];
+                    c2 = current_char;       //legalnie pobieram czesc kosztu (liczba jednostek)
+                    i++;
+
+                    current_char = code[code.length-i];
+                    if(!((int) current_char == 47)) {     //jezeli ostatni sprawdzany znak NIE jest slashem, to pobieram go jako kolejna czesc kosztu (liczba dziesiatek)
+                        c1 = current_char;
+                        cost += c1;     //doklejam dziesiatki do kosztu
+                    }
+                    cost += c2; //doklejam jednostki do kosztu
+
+                    //przypisanie wyluskanych wartosci do zmiennych ostatecznych XD, ktorych dopiero mozna uzyc w runLater()
+                    final String trueCost = cost;
+                    final char trueAtack = atack;
+                    final char trueHp = hp;
+                    final String truePower = power;
+                    final String trueDescription = powersDescription(power);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            InfoLabel.setText("Koszt: " + trueCost +
+                                    "       Atak: " + trueAtack +
+                                    "       Hp: " + trueHp +
+                                    "\nMoc: " + truePower + trueDescription);
+                            InfoLabel.setStyle("-fx-font-size: 18pt;");
+                        }
+                    });
+
+                }
+            }).start();
         }
     }
 
@@ -522,54 +558,89 @@ public class GameController implements Initializable
     @FXML
     public void onMyGrid0Entered() {
         onGridEntered(mygrid0);
-        InfoLabel.setText("Moje pole 0");
     }
     @FXML
     public void onMyGrid1Entered() {
-        InfoLabel.setText("Moje pole 1");
+        onGridEntered(mygrid1);
     }
     @FXML
-    public void onMyGrid2Entered()
-    {
-        InfoLabel.setText("Moje pole 2");
+    public void onMyGrid2Entered() {
+        onGridEntered(mygrid2);
     }
     @FXML
-    public void onMyGrid3Entered()
-    {
-        InfoLabel.setText("Moje pole 3");
+    public void onMyGrid3Entered() {
+        onGridEntered(mygrid3);
     }
     @FXML
-    public void onMyGrid4Entered()
-    {
-        InfoLabel.setText("Moje pole 4");
+    public void onMyGrid4Entered() {
+        onGridEntered(mygrid4);
     }
     @FXML
-    public void onEnemyGrid0Entered()
-    {
-        InfoLabel.setText("Pole przeciwnika 0");
+    public void onEnemyGrid0Entered() {
+        onGridEntered(enemygrid0);
     }
     @FXML
-    public void onEnemyGrid1Entered()
-    {
-        InfoLabel.setText("Pole przeciwnika 1");
+    public void onEnemyGrid1Entered() {
+        onGridEntered(enemygrid1);
     }
     @FXML
-    public void onEnemyGrid2Entered()
-    {
-        InfoLabel.setText("Pole przeciwnika 2");
+    public void onEnemyGrid2Entered() {
+        onGridEntered(enemygrid2);
     }
     @FXML
-    public void onEnemyGrid3Entered()
-    {
-        InfoLabel.setText("Pole przeciwnika 3");
+    public void onEnemyGrid3Entered() {
+        onGridEntered(enemygrid3);
     }
     @FXML
-    public void onEnemyGrid4Entered()
+    public void onEnemyGrid4Entered() {
+        onGridEntered(enemygrid4);
+    }
+
+    @FXML
+    protected void onSelectField1Entered()
     {
-        InfoLabel.setText("Pole przeciwnika 4");
+        hover_sound();
+        onGridEntered(EQ1);
+    }
+    @FXML
+    protected void onSelectField2Entered()
+    {
+        hover_sound();
+        onGridEntered(EQ2);
+    }
+    @FXML
+    protected void onSelectField3Entered()
+    {
+        hover_sound();
+        onGridEntered(EQ3);
+    }
+    @FXML
+    protected void onSelectField4Entered()
+    {
+        hover_sound();
+        onGridEntered(EQ4);
     }
 
 
-
+    private String powersDescription(String power){
+        String description = "";
+        if(power.equals("-"))
+            return description;
+        switch (power) {
+            case "D" -> description = "gdy wystawisz tego stwora - dobierasz karte stwora";
+            case "E" -> description = "gdy wystawisz tego stwora mozesz natychmiast wystawic za darmo kolejnego z moca E";
+            case "F" -> description = "jesli ten stwor nie ma przeciwnika, to atakuje wroga na polu dalej";
+            case "G" -> description = "cofa pierwszego napotkanego przeciwnika do ekwipunku oponenta";
+            case "H" -> description = "gdy wystawisz tego stwora - dobierasz ostatnio odrzucona karte stwora";
+            case "M" -> description = "gdy wystawisz tego stwora - dobierasz zeton waluty";
+            case "N" -> description = "jednorazowo unika swojej smierci";
+            case "O" -> description = "gdy wystawisz tego stwora mozesz natychmiast wystawic za darmo kolejnego stwora";
+            case "R" -> description = "gdy sojusznicza jednostka ma zginac, ta poswieci sie zamiast tamtej";
+            case "U" -> description = "dopoki ta jednostka zyje, stwory na dwoch polach za nia sa niesmiertelne";
+            case "X" -> description = "zabija pierwsza napotkana jednostke bez wzgledu na statystyki";
+            case "Z" -> description = "gdy wystawisz tego stwora mozesz natychmiast zamienic go miejscami z innym swoim stworem";
+        }
+        return " - " + description;
+    }
 
 }
