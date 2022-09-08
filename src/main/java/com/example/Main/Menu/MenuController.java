@@ -48,7 +48,7 @@ public static boolean MenuMusicAllow;
     @FXML
     void FadeOut()
     {
-        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(5),AllScreen);
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(3),AllScreen);
         fadeTransition.setFromValue(0);
         fadeTransition.setToValue(1.0);
         fadeTransition.play();

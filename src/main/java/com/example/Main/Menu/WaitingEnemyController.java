@@ -45,7 +45,7 @@ public class WaitingEnemyController implements Initializable {
     Label WaitLabel;
     @FXML
     private Button BackButton;
-    public static int SWITCHER = 1;
+    public static int SWITCHER = 2;
     private static final int PORT_NUMBER = 3571;
 
     String path_sound_click = "src/main/resources/sound/button_release_sound.mp3";
@@ -75,7 +75,7 @@ public class WaitingEnemyController implements Initializable {
     @FXML
     private void FadeIn()
     {
-        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(2),AllScreen);
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1),AllScreen);
         WaitLabel.setStyle("-fx-text-fill: #269e32;");
         WaitLabel.setText("Znaleziono Gracza!");
         fadeTransition.setFromValue(1.0);
@@ -119,7 +119,7 @@ public class WaitingEnemyController implements Initializable {
 
         }else{
             try {
-                GameController.client = new Client(new Socket("localhost", PORT_NUMBER));
+                GameController.client = new Client(new Socket("172.18.17.254", PORT_NUMBER));
                 client.sendMessageToServer(Memory.memory.getUsername());
                 client.listenAndSend();
                 FadeIn();
@@ -165,7 +165,7 @@ public class WaitingEnemyController implements Initializable {
                     e.printStackTrace();
                 }
                 MenuController controller_menu = loader_temp.getController();
-                System.out.println("test wyciszania ktory nie moze wyciszyc ://");
+                //System.out.println("test wyciszania ktory nie moze wyciszyc ://");
                 controller_menu.Music_menu_on_off(false);
 
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/Main/Game/Game.fxml"));

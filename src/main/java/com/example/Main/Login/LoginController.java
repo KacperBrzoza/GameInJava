@@ -228,7 +228,7 @@ public class LoginController implements Initializable
      private void FadeIn()
      {
          FadeTransitionAllow=true;
-         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(3),AllScreen);
+         FadeTransition fadeTransition = new FadeTransition(Duration.seconds(2),AllScreen);
          fadeTransition.setFromValue(1.0);
          fadeTransition.setToValue(0);
          fadeTransition.setOnFinished(new EventHandler<ActionEvent>() {

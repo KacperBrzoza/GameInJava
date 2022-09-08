@@ -99,7 +99,7 @@ public class GameController implements Initializable
         MenuController controller_menu = loader_menu.getController();
         controller_menu.Music_menu_on_off(false);
         MenuController.MenuMusicAllow=true;
-        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(10),AllScreen);
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(2),AllScreen);
         fadeTransition.setFromValue(0);
         fadeTransition.setToValue(1.0);
         fadeTransition.play();
@@ -108,7 +108,7 @@ public class GameController implements Initializable
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //Thread
         //System.out.println(Memory.memory.getUsername());
-        /*
+
         AllScreen.setOpacity(0);
         try {
             FadeOut();
@@ -117,7 +117,7 @@ public class GameController implements Initializable
         }
         mediaPlayer_battle_music.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer_battle_music.setVolume(0.1);
-         */
+
         //mediaPlayer_battle_music.play();
         if(SWITCHER == 1){
             new Thread(new Runnable()
@@ -129,6 +129,7 @@ public class GameController implements Initializable
                 }
             });
             server.startGame();
+
             //server.turns();
             //server.sendMessageToClient("wysylam mesedz");
             //server.receiveMessageFromClient();
