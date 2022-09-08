@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 //gdy wystawiasz tego stwora możesz zamienić go miejscem z sojuszniczym stworem
 public class Z_Creature extends Creature{
-    public Z_Creature(int cost, int attack, int hp){
+    public Z_Creature(int cost, int attack, int hp, String path){
         this.cost = cost;
         this.attack = attack;
         this.hp = hp;
@@ -18,6 +18,7 @@ public class Z_Creature extends Creature{
         this.Swarm = 0;
         this.Unbroaken = 0;
         this.poisoned = 0;
+        this.path = path;
     }
 
     @Override

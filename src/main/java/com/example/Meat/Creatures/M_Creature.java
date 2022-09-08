@@ -8,7 +8,7 @@ import java.io.PrintWriter;
 
 //gdy wystawisz tego stwora, dobierasz żeton waluty
 public class M_Creature extends Creature{
-    public M_Creature(int cost, int attack, int hp){
+    public M_Creature(int cost, int attack, int hp, String path){
         this.cost = cost;
         this.attack = attack;
         this.hp = hp;
@@ -16,6 +16,7 @@ public class M_Creature extends Creature{
         this.Swarm = 0;
         this.Unbroaken = 0;
         this.poisoned = 0;
+        this.path = path;
     }
 
     @Override

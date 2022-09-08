@@ -9,7 +9,7 @@ import java.io.PrintWriter;
 //gdy wystawisz tego stwora, dobierasz kartę stwora
 public class D_Creature extends Creature{
 
-    public D_Creature(int cost, int attack, int hp){
+    public D_Creature(int cost, int attack, int hp, String path){
         this.cost = cost;
         this.attack = attack;
         this.hp = hp;
@@ -17,6 +17,7 @@ public class D_Creature extends Creature{
         this.Swarm = 0;
         this.Unbroaken = 0;
         this.poisoned = 0;
+        this.path = path;
     }
 
     @Override

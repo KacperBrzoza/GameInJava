@@ -2,7 +2,7 @@ package com.example.Meat.Creatures;
 
 //gdy stwór z tą mocą zginie, obniża hp swojego zabójcy do 1
 public class J_Creature extends Creature{
-    public J_Creature(int cost, int attack, int hp){
+    public J_Creature(int cost, int attack, int hp, String path){
         this.cost = cost;
         this.attack = attack;
         this.hp = hp;
@@ -10,5 +10,6 @@ public class J_Creature extends Creature{
         this.Swarm = 0;
         this.Unbroaken = 0;
         this.poisoned = 0;
+        this.path = path;
     }
 }

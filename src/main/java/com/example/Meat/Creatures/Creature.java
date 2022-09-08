@@ -25,7 +25,7 @@ public class Creature {
 
     public Creature(){}
 
-    public Creature(int cost, int attack, int hp){
+    public Creature(int cost, int attack, int hp, String path){
         this.cost = cost;
         this.attack = attack;
         this.hp = hp;
@@ -34,6 +34,7 @@ public class Creature {
         this.Unbroaken = 0;
         this.poisoned = 0;
         this.copy_hp = hp;
+        this.path = path;
     }
 
     public int getCost(){
