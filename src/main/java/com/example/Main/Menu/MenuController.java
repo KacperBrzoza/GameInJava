@@ -1,7 +1,6 @@
 package com.example.Main.Menu;
 
 import com.example.Main.Login.LoginController;
-import com.example.Main.Login.Memory;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -101,7 +100,6 @@ public static boolean MenuMusicAllow;
         mediaPlayer_menu_music.setCycleCount(MediaPlayer.INDEFINITE);
         if(MenuMusicAllow)
         {
-
             Music_menu_on_off(true);
             MenuMusicAllow=false;
         }

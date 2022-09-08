@@ -96,12 +96,6 @@ public class RegisterController implements Initializable
         mediaPlayer_move.play();
     }
 
-    @FXML
-    public void register()
-    {
-        mediaPlayer_input_bad.setVolume(0.5);
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         RegisterConfrimButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -109,6 +103,7 @@ public class RegisterController implements Initializable
             public void handle(ActionEvent actionEvent) {
                 PassMsg.setText("rejestrowanie...");
                 PassMsg.setStyle("-fx-text-fill: #07d9dc");
+                mediaPlayer_input_bad.setVolume(0.5);
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -134,6 +129,9 @@ public class RegisterController implements Initializable
                                 Platform.runLater(new Runnable() {
                                     @Override
                                     public void run() {
+                                        mediaPlayer_input_bad.stop();
+                                        mediaPlayer_input_bad.seek(Duration.seconds(0));
+                                        mediaPlayer_input_bad.play();
                                         PassMsg.setText("Podane hasła są różne");
                                         PassMsg.setStyle("-fx-text-fill: #d0312d;-fx-font-size: 25pt;");//czerwone
                                     }
@@ -156,6 +154,9 @@ public class RegisterController implements Initializable
                                             Platform.runLater(new Runnable() {
                                                 @Override
                                                 public void run() {
+                                                    mediaPlayer_input_bad.stop();
+                                                    mediaPlayer_input_bad.seek(Duration.seconds(0));
+                                                    mediaPlayer_input_bad.play();
                                                     PassMsg.setText("Uzytkownik o podanej nazwie juz istnieje!");
                                                     PassMsg.setStyle("-fx-text-fill: #dc3531");//czerwone
                                                     PassMsg.setStyle("-fx-font-size: 18pt");
@@ -180,6 +181,9 @@ public class RegisterController implements Initializable
                                         Platform.runLater(new Runnable() {
                                             @Override
                                             public void run() {
+                                                mediaPlayer_input_bad.stop();
+                                                mediaPlayer_input_bad.seek(Duration.seconds(0));
+                                                mediaPlayer_input_bad.play();
                                                 PassMsg.setText("Haslo niepoprawne! Znakow 8 - 20, znak specjalny, cyfra, duza litera");
                                                 PassMsg.setStyle("-fx-text-fill: #d0312d;-fx-font-size: 12pt;");//czerwone
                                             }
@@ -191,6 +195,9 @@ public class RegisterController implements Initializable
                                     Platform.runLater(new Runnable() {
                                         @Override
                                         public void run() {
+                                            mediaPlayer_input_bad.stop();
+                                            mediaPlayer_input_bad.seek(Duration.seconds(0));
+                                            mediaPlayer_input_bad.play();
                                             PassMsg.setText("Niepoprawna nazwa uzytkownika, 8-30 znakow");
                                             PassMsg.setStyle("-fx-text-fill: #d0312d;-fx-font-size: 16pt;");//czerwone
                                         }
@@ -206,7 +213,7 @@ public class RegisterController implements Initializable
             @Override
             public void handle(KeyEvent ke) {
                 if (ke.getCode().equals(KeyCode.ENTER)) {
-                    register();
+                    RegisterConfrimButton.fire();
                 }
             }
         });
@@ -214,7 +221,7 @@ public class RegisterController implements Initializable
             @Override
             public void handle(KeyEvent ke) {
                 if (ke.getCode().equals(KeyCode.ENTER)) {
-                    register();
+                    RegisterConfrimButton.fire();
                 }
             }
         });
@@ -222,7 +229,7 @@ public class RegisterController implements Initializable
             @Override
             public void handle(KeyEvent ke) {
                 if (ke.getCode().equals(KeyCode.ENTER)) {
-                    register();
+                    RegisterConfrimButton.fire();
                 }
             }
         });

@@ -7,7 +7,6 @@ import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -27,7 +26,6 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -136,7 +134,8 @@ public class LoginController implements Initializable
                                 //
                                 //
                                         PassMsg.setStyle("-fx-text-fill: #269e32");
-                                        URL url_menu = null;
+                                        FadeIn();
+                                        /*URL url_menu = null;
                                         try {
                                             url_menu = new File("src/main/resources/com/example/Main/Menu/Menu-view.fxml").toURI().toURL();
                                         } catch (MalformedURLException e) {
@@ -147,13 +146,14 @@ public class LoginController implements Initializable
                                         } catch (IOException e) {
                                             e.printStackTrace();
                                         }
+
                                         stage = (Stage) LoginButton.getScene().getWindow();
                                         scene = new Scene(root);
                                         stage.setResizable(false);
                                         scene.getStylesheets().add(getClass().getResource("/style/style-class.css").toExternalForm());
                                         stage.setMaximized(true);
                                         stage.setScene(scene);
-                                        stage.show();
+                                        stage.show();*/
                                     }
                                 });
                             }
@@ -166,7 +166,7 @@ public class LoginController implements Initializable
             @Override
             public void handle(KeyEvent ke) {
                 if (ke.getCode().equals(KeyCode.ENTER)) {
-                    //onLoginButtonClick();
+                    LoginButton.fire();
                 }
             }
         });
@@ -174,7 +174,7 @@ public class LoginController implements Initializable
             @Override
             public void handle(KeyEvent ke) {
                 if (ke.getCode().equals(KeyCode.ENTER)) {
-                    //onLoginButtonClick();
+                    LoginButton.fire();
                 }
             }
         });
@@ -306,12 +306,6 @@ public class LoginController implements Initializable
     @FXML
     protected void onExitButtonClicked()
     {
-        //Zamiast system.exit(0) uzylem zamykanie stage w ten sposob
-        //Mozna jeszcze tak, idk, ktore lepsze
-            /*
-                ExitButton.setOnAction(e -> Platform.exit());
-                Tutaj double click potrzebny wtedy, wiec mozliwe,ze ten sposob najlepszy jest
-             */
         Stage stage = (Stage) ExitButton.getScene().getWindow();
         stage.close();
     }
