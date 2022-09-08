@@ -104,7 +104,8 @@ public class GameController implements Initializable
     }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        //Thread
+        //System.out.println(Memory.memory.getUsername());
         AllScreen.setOpacity(0);
         try {
             FadeOut();
@@ -115,14 +116,27 @@ public class GameController implements Initializable
         mediaPlayer_battle_music.setVolume(0.1);
         //mediaPlayer_battle_music.play();
         if(SWITCHER == 1){
+            new Thread(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    System.out.println(Memory.memory.getUsername());
+                }
+            });
             server.startGame();
+            //server.sendMessageToClient(Memory.memory.getUsername());
+            //server.waitForOpponentNick();
+            server.turns();
             //server.sendMessageToClient("wysylam mesedz");
             //server.receiveMessageFromClient();
-            server.turns();
+
             //System.out.println("Hehe");
         }
         else {
             ChangeTextureForClient();
+            //client.sendMessageToServer(Memory.memory.getUsername());
+            //client.waitForOpponentNick();
             client.turns(EQLabel);
             //opponent = Memory.memory.getUsername();
             //client.receiveMessageFromServer();
@@ -310,15 +324,15 @@ public class GameController implements Initializable
     protected void onMyCharacterEntered()
     {
         //InfoLabel.setText("Gracz: d4krzyk \n Życia: 3");//Trzeba dodać nicki na wyswietlanie
-        InfoLabel.setText(my_user);
+        InfoLabel.setText(Memory.memory.getUsername());
         InfoLabel.setStyle("-fx-font-size: 24pt;");
     }
     @FXML
     protected void onEnemyCharacterEntered()
     {
         //InfoLabel.setText("Przeciwnik: Brewek \n Życia: 3");//Trzeba dodać nicki na wyswietlanie
-        //InfoLabel.setText("Gracz: " + Memory.memory.getUsername() + "\n Życia: 3");
-        InfoLabel.setText(opponent);
+        InfoLabel.setText("Gracz: " + Memory.memory.getUsername() + "\n Życia: 3");
+        System.out.println(Memory.memory.getUsername());
         InfoLabel.setStyle("-fx-font-size: 24pt;");
     }
 

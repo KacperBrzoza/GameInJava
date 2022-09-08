@@ -123,6 +123,7 @@ public class LoginController implements Initializable
                                 });
                             } else //Dobre haslo i dobry uzytkownik
                             {
+                                Memory.memory = registerData;
                                 Platform.runLater(new Runnable() {
                                     @Override
                                     public void run() {

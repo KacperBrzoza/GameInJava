@@ -26,6 +26,27 @@ public class Client {
         }
     }
 
+    public void waitForOpponentNick(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (socket.isConnected()){
+                    try {
+                        String messageFromClient = bufferedReader.readLine();
+                        System.out.println(messageFromClient);
+                        break;
+                    } catch (IOException e){
+                        e.printStackTrace();
+                        System.out.println("Error receiving message from the client");
+                        closeEverything();
+                        break;
+                    }
+                }
+                System.out.println("samo sie zbreakowalo");
+            }
+        }).start();
+    }
+
 
     public void turns(Label EQLabel){
         new Thread(new Runnable() {
@@ -123,15 +144,23 @@ public class Client {
     }
 
     public void sendMessageToServer(String messageToServer){
-        try{
-            bufferedWriter.write(messageToServer);
-            bufferedWriter.newLine();
-            bufferedWriter.flush();
-        } catch (IOException e){
-            e.printStackTrace();
-            System.out.println("Error sending message to the client");
-            closeEverything();
-        }
+        new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                try{
+                    bufferedWriter.write(messageToServer);
+                    bufferedWriter.newLine();
+                    bufferedWriter.flush();
+                } catch (IOException e){
+                    e.printStackTrace();
+                    System.out.println("Error sending message to the client");
+                    closeEverything();
+                }
+            }
+        });
+
     }
 
     /*

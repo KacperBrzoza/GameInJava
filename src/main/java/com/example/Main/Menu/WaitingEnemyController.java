@@ -1,6 +1,7 @@
 package com.example.Main.Menu;
 
 import com.example.Main.Game.GameController;
+import com.example.Main.Login.Memory;
 import com.example.NetTools.Client;
 import com.example.NetTools.Server;
 import javafx.animation.FadeTransition;
@@ -40,7 +41,7 @@ public class WaitingEnemyController implements Initializable {
     Label WaitLabel;
     @FXML
     private Button BackButton;
-    public static int SWITCHER = 1;
+    public static int SWITCHER = 2;
     private static final int PORT_NUMBER = 3571;
 
     String path_sound_click = "src/main/resources/sound/button_release_sound.mp3";

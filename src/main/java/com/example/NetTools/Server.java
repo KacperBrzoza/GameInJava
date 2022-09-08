@@ -1,5 +1,6 @@
 package com.example.NetTools;
 
+import com.example.Main.Login.Memory;
 import com.example.Meat.Demo.OnlineGame;
 import javafx.scene.layout.VBox;
 
@@ -18,6 +19,7 @@ public class Server {
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;
     private OnlineGame newGame;
+    private String opponentNick;
 
     public Server(ServerSocket serverSocket) {
         try{
@@ -35,6 +37,27 @@ public class Server {
     public void startGame(){
         //inicjalizacja gry online
         newGame = new OnlineGame(serverSocket, socket, bufferedWriter, PLAYER_ONE_POINTS, PLAYER_TWO_POINTS);
+    }
+
+    public void waitForOpponentNick(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (socket.isConnected()){
+                    try {
+                        String messageFromClient = bufferedReader.readLine();
+                        System.out.println(messageFromClient);
+                        break;
+                    } catch (IOException e){
+                        e.printStackTrace();
+                        System.out.println("Error receiving message from the client");
+                        closeEverything();
+                        break;
+                    }
+                }
+                System.out.println("samo sie zbreakowalo");
+            }
+        }).start();
     }
 
     public void turns(){
@@ -59,16 +82,21 @@ public class Server {
         }).start();
     }
 
-    public void sendMessageToClient(String messageToServer){
-        try{
-            bufferedWriter.write(messageToServer);
-            bufferedWriter.newLine();
-            bufferedWriter.flush();
-        } catch (IOException e){
-            e.printStackTrace();
-            System.out.println("Error sending message to the client");
-            closeEverything();
-        }
+    public void sendMessageToClient(String messageFromServer){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    bufferedWriter.write(messageFromServer);
+                    bufferedWriter.newLine();
+                    bufferedWriter.flush();
+                } catch (IOException e){
+                    e.printStackTrace();
+                    System.out.println("Error sending message to the client");
+                    closeEverything();
+                }
+            }
+        }).start();
     }
 
     public void receiveMessageFromClient(){
