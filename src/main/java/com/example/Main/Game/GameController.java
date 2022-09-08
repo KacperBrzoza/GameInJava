@@ -50,7 +50,7 @@ public class GameController implements Initializable
     @FXML
     ImageView mygrid1,mygrid2,mygrid3,mygrid4,mygrid5;
     @FXML
-    ImageView enemygrid1,enemygrid2,enemygrid3,enemygrid4,enemygrid5;
+    ImageView enemygrid5,enemygrid4,enemygrid3,enemygrid2,enemygrid1;
     @FXML
     ImageView rage1,rage2,rage3;
     @FXML

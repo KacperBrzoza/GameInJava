@@ -22,7 +22,7 @@ public class Client {
         } catch (IOException e){
             System.out.println("Error creating client.");
             e.printStackTrace();
-            closeEverything(socket, bufferedReader, bufferedWriter);
+            closeEverything();
         }
     }
 
@@ -50,7 +50,7 @@ public class Client {
                     } catch (IOException e){
                         e.printStackTrace();
                         System.out.println("Error receiving message from the server");
-                        closeEverything(socket, bufferedReader, bufferedWriter);
+                        closeEverything();
                         break;
                     }
                 }
@@ -130,7 +130,7 @@ public class Client {
         } catch (IOException e){
             e.printStackTrace();
             System.out.println("Error sending message to the client");
-            closeEverything(socket, bufferedReader, bufferedWriter);
+            closeEverything();
         }
     }
 
@@ -158,7 +158,7 @@ public class Client {
         }).start();
     }*/
 
-    public void closeEverything(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter){
+    public void closeEverything(){
         try{
             if(bufferedReader != null){
                 bufferedReader.close();
@@ -172,5 +172,6 @@ public class Client {
         } catch (IOException e){
             e.printStackTrace();
         }
+        System.out.println("Polaczenie zamkniete");
     }
 }

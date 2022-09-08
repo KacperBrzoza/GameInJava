@@ -38,6 +38,8 @@ public class WaitingEnemyController implements Initializable {
     Pane AllScreen;
     @FXML
     Label WaitLabel;
+    @FXML
+    private Button BackButton;
     public static int SWITCHER = 1;
     private static final int PORT_NUMBER = 3571;
 
@@ -99,6 +101,16 @@ public class WaitingEnemyController implements Initializable {
                 }
             }).start();
 
+
+            BackButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    GameController.server.closeEverything();
+                }
+            });
+
+
+
         }else{
             try {
                 GameController.client = new Client(new Socket("localhost", PORT_NUMBER));
@@ -107,6 +119,16 @@ public class WaitingEnemyController implements Initializable {
             } catch (IOException e){
                 e.printStackTrace();
             }
+
+
+            BackButton.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    GameController.client.closeEverything();
+                }
+            });
+
+             
         }
     }
 

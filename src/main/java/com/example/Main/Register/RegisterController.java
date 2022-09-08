@@ -2,6 +2,7 @@ package com.example.Main.Register;
 
 import com.example.Main.Login.LoginController;
 import com.example.Main.Service.UserService;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -37,6 +38,8 @@ public class RegisterController implements Initializable
     private Label PassMsg;
     @FXML
     private PasswordField PasswordTextField, rPasswordTextField;
+    @FXML
+    private Button RegisterConfrimButton;
 
     RegisterData registerData;
 
@@ -97,65 +100,108 @@ public class RegisterController implements Initializable
     public void register()
     {
         mediaPlayer_input_bad.setVolume(0.5);
-        if(LoginTextField.getText().trim().isEmpty() || PasswordTextField.getText().trim().isEmpty() || rPasswordTextField.getText().trim().isEmpty())
-        {
-            mediaPlayer_input_bad.stop();
-            mediaPlayer_input_bad.seek(Duration.seconds(0));
-            mediaPlayer_input_bad.play();
-            //Poprawione wiadomosci alarmowe (alarmy zakomentowalem, mozna usunac jesli nie potrzebne) - Daniel
-            PassMsg.setText("Proszę wypelnic wszystkie pola");
-            PassMsg.setStyle("-fx-text-fill: #9e7c26;-fx-font-size: 25pt;");//zolte
-        }
-        else
-        {
-            if(!(PasswordTextField.getText().equals(rPasswordTextField.getText())))
-            {
-                PassMsg.setText("Podane hasła są różne");
-                PassMsg.setStyle("-fx-text-fill: #d0312d;-fx-font-size: 25pt;");//czerwone
-            }
-            else
-            {
-
-                if(UserPassVal.isValidUsrnm(LoginTextField.getText()))
-                {
-                    if(UserPassVal.isValidPass(PasswordTextField.getText()))
-                    {
-                        registerData = new RegisterData();
-
-                        registerData.setPassword(PasswordTextField.getText());
-                        registerData.setUsername(LoginTextField.getText());
-
-                        UserService userService = new UserService();
-                        if(userService.isUsernameInUse(registerData.getUsername()))
-                        {
-                            PassMsg.setText("Uzytkownik o podanej nazwie jest juz w bazie!");
-                            PassMsg.setStyle("-fx-text-fill: #d0312d");//czerwone
-                        }
-                        else
-                        {
-                            userService.add_user(registerData.getUsername(), registerData.getPassword());
-                            //Poprawione wiadomosci alarmowe - Daniel
-                            PassMsg.setText("Zarejestrowano pomyslnie!");
-                            PassMsg.setStyle("-fx-text-fill: #269e32");//zielone
-                        }
-                    }
-                    else
-                    {
-                        PassMsg.setText("Haslo niepoprawne! Znakow 8 - 20, znak specjalny, cyfra, duza litera");
-                        PassMsg.setStyle("-fx-text-fill: #d0312d;-fx-font-size: 12pt;");//czerwone
-                    }
-                }
-                else
-                {
-                    PassMsg.setText("Niepoprawna nazwa uzytkownika, 8-30 znakow");
-                    PassMsg.setStyle("-fx-text-fill: #d0312d;-fx-font-size: 16pt;");//czerwone
-                }
-            }
-        }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        RegisterConfrimButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                PassMsg.setText("rejestrowanie...");
+                PassMsg.setStyle("-fx-text-fill: #07d9dc");
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(LoginTextField.getText().trim().isEmpty() || PasswordTextField.getText().trim().isEmpty() || rPasswordTextField.getText().trim().isEmpty())
+                        {
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mediaPlayer_input_bad.stop();
+                                    mediaPlayer_input_bad.seek(Duration.seconds(0));
+                                    mediaPlayer_input_bad.play();
+                                    //Poprawione wiadomosci alarmowe (alarmy zakomentowalem, mozna usunac jesli nie potrzebne) - Daniel
+                                    PassMsg.setText("Proszę wypelnic wszystkie pola");
+                                    PassMsg.setStyle("-fx-text-fill: #9e7c26;-fx-font-size: 25pt;");//zolte
+
+                                }
+                            });
+                        }
+                        else
+                        {
+                            if(!(PasswordTextField.getText().equals(rPasswordTextField.getText())))
+                            {
+                                Platform.runLater(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        PassMsg.setText("Podane hasła są różne");
+                                        PassMsg.setStyle("-fx-text-fill: #d0312d;-fx-font-size: 25pt;");//czerwone
+                                    }
+                                });
+                            }
+                            else
+                            {
+                                if(UserPassVal.isValidUsrnm(LoginTextField.getText()))
+                                {
+                                    if(UserPassVal.isValidPass(PasswordTextField.getText()))
+                                    {
+                                        registerData = new RegisterData();
+
+                                        registerData.setPassword(PasswordTextField.getText());
+                                        registerData.setUsername(LoginTextField.getText());
+
+                                        UserService userService = new UserService();
+                                        if(userService.isUsernameInUse(registerData.getUsername()))
+                                        {
+                                            Platform.runLater(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    PassMsg.setText("Uzytkownik o podanej nazwie juz istnieje!");
+                                                    PassMsg.setStyle("-fx-text-fill: #dc3531");//czerwone
+                                                    PassMsg.setStyle("-fx-font-size: 18pt");
+                                                }
+                                            });
+                                        }
+                                        else
+                                        {
+                                            userService.add_user(registerData.getUsername(), registerData.getPassword());
+                                            Platform.runLater(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    //Poprawione wiadomosci alarmowe - Daniel
+                                                    PassMsg.setText("Zarejestrowano pomyslnie!");
+                                                    PassMsg.setStyle("-fx-text-fill: #269e32");//zielone
+                                                }
+                                            });
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Platform.runLater(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                PassMsg.setText("Haslo niepoprawne! Znakow 8 - 20, znak specjalny, cyfra, duza litera");
+                                                PassMsg.setStyle("-fx-text-fill: #d0312d;-fx-font-size: 12pt;");//czerwone
+                                            }
+                                        });
+                                    }
+                                }
+                                else
+                                {
+                                    Platform.runLater(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            PassMsg.setText("Niepoprawna nazwa uzytkownika, 8-30 znakow");
+                                            PassMsg.setStyle("-fx-text-fill: #d0312d;-fx-font-size: 16pt;");//czerwone
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }).start();
+            }
+        });
         LoginTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent ke) {

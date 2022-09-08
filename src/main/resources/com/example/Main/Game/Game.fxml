@@ -235,12 +235,12 @@
                                                    <children>
                                                       <Pane prefHeight="128.0" prefWidth="128.0">
                                                          <children>
-                                                            <ImageView fx:id="enemygrid1" fitHeight="116.0" fitWidth="116.0" onMouseEntered="#onEnemyGrid1Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true" x="41.0" y="10.0" />
+                                                            <ImageView fx:id="enemygrid5" fitHeight="116.0" fitWidth="116.0" onMouseEntered="#onEnemyGrid5Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true" x="41.0" y="10.0" />
                                                          </children>
                                                       </Pane>
                                                       <Pane prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="1">
                                                          <children>
-                                                            <ImageView fx:id="enemygrid2" fitHeight="116.0" fitWidth="116.0" onMouseEntered="#onEnemyGrid2Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true" x="41.0" y="10.0" />
+                                                            <ImageView fx:id="enemygrid4" fitHeight="116.0" fitWidth="116.0" onMouseEntered="#onEnemyGrid4Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true" x="41.0" y="10.0" />
                                                          </children>
                                                       </Pane>
                                                       <Pane prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="2">
@@ -250,12 +250,12 @@
                                                       </Pane>
                                                       <Pane prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="3">
                                                          <children>
-                                                            <ImageView fx:id="enemygrid4" fitHeight="116.0" fitWidth="116.0" onMouseEntered="#onEnemyGrid4Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true" x="41.0" y="10.0" />
+                                                            <ImageView fx:id="enemygrid2" fitHeight="116.0" fitWidth="116.0" onMouseEntered="#onEnemyGrid2Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true" x="41.0" y="10.0" />
                                                          </children>
                                                       </Pane>
                                                       <Pane prefHeight="128.0" prefWidth="128.0" GridPane.columnIndex="4">
                                                          <children>
-                                                            <ImageView fx:id="enemygrid5" fitHeight="116.0" fitWidth="116.0" onMouseEntered="#onEnemyGrid5Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true" x="41.0" y="10.0" />
+                                                            <ImageView fx:id="enemygrid1" fitHeight="116.0" fitWidth="116.0" onMouseEntered="#onEnemyGrid1Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true" x="41.0" y="10.0" />
                                                          </children>
                                                       </Pane>
                                                       <Pane prefHeight="128.0" prefWidth="128.0" GridPane.rowIndex="1">

@@ -22,6 +22,7 @@ public class Server {
     public Server(ServerSocket serverSocket) {
         try{
             this.serverSocket = serverSocket;
+            System.out.println("gniazdko");
             this.socket = serverSocket.accept();
             this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
@@ -66,7 +67,7 @@ public class Server {
         } catch (IOException e){
             e.printStackTrace();
             System.out.println("Error sending message to the client");
-            closeEverything(socket, bufferedReader, bufferedWriter);
+            closeEverything();
         }
     }
 
@@ -82,7 +83,7 @@ public class Server {
                     } catch (IOException e){
                         e.printStackTrace();
                         System.out.println("Error receiving message from the client");
-                        closeEverything(socket, bufferedReader, bufferedWriter);
+                        closeEverything();
                         break;
                     }
                 }
@@ -90,7 +91,7 @@ public class Server {
         }).start();
     }
 
-    public void closeEverything(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter){
+    public void closeEverything(){
         try{
             if(bufferedReader != null){
                 bufferedReader.close();
@@ -98,11 +99,15 @@ public class Server {
             if(bufferedWriter != null){
                 bufferedWriter.close();
             }
+            if (serverSocket != null){
+                serverSocket.close();
+            }
             if(socket != null){
                 socket.close();
             }
         } catch (IOException e){
             e.printStackTrace();
         }
+        System.out.println("Polaczenie zamkniete");
     }
 }
