@@ -1,6 +1,7 @@
 package com.example.Main.Menu;
 
 import com.example.Main.Login.LoginController;
+import com.example.Main.Login.Memory;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -123,6 +124,7 @@ public static boolean MenuMusicAllow;
         stage.setMaximized(true);
         stage.setScene(scene);
         stage.show();
+        Memory.memory = null;
 
 
 

@@ -38,7 +38,7 @@ public class WaitingEnemyController implements Initializable {
     Pane AllScreen;
     @FXML
     Label WaitLabel;
-    public static int SWITCHER =2;
+    public static int SWITCHER = 1;
     private static final int PORT_NUMBER = 3571;
 
     String path_sound_click = "src/main/resources/sound/button_release_sound.mp3";

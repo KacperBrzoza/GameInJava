@@ -1,5 +1,6 @@
 package com.example.Main.Game;
 
+import com.example.Main.Login.Memory;
 import com.example.Main.Menu.MenuController;
 import com.example.NetTools.Client;
 import com.example.NetTools.Server;
@@ -63,6 +64,9 @@ public class GameController implements Initializable
     @FXML
     Button TakeCardDeck, RageCardDeck, MoneyStack, LostCardDeck;
 
+
+    private String my_user;
+    private String opponent;
     String path = "src/main/resources/music/the_witcher.mp3";
     Media media = new Media(new File(path).toURI().toString());
     MediaPlayer mediaPlayer_battle_music = new MediaPlayer(media);
@@ -120,6 +124,7 @@ public class GameController implements Initializable
         else {
             ChangeTextureForClient();
             client.turns(EQLabel);
+            //opponent = Memory.memory.getUsername();
             //client.receiveMessageFromServer();
             //client.sendMessageToServer("Wysylam do serwa :)");
         }
@@ -304,13 +309,16 @@ public class GameController implements Initializable
     @FXML
     protected void onMyCharacterEntered()
     {
-        InfoLabel.setText("Gracz: d4krzyk \n Życia: 3");//Trzeba dodać nicki na wyswietlanie
+        //InfoLabel.setText("Gracz: d4krzyk \n Życia: 3");//Trzeba dodać nicki na wyswietlanie
+        InfoLabel.setText(my_user);
         InfoLabel.setStyle("-fx-font-size: 24pt;");
     }
     @FXML
     protected void onEnemyCharacterEntered()
     {
-        InfoLabel.setText("Przeciwnik: Brewek \n Życia: 3");//Trzeba dodać nicki na wyswietlanie
+        //InfoLabel.setText("Przeciwnik: Brewek \n Życia: 3");//Trzeba dodać nicki na wyswietlanie
+        //InfoLabel.setText("Gracz: " + Memory.memory.getUsername() + "\n Życia: 3");
+        InfoLabel.setText(opponent);
         InfoLabel.setStyle("-fx-font-size: 24pt;");
     }
 

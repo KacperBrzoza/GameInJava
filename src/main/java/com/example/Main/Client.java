@@ -18,6 +18,6 @@ public class Client {
 
 
         //wpisz na razie na sztywno adres ip serwera
-        ConnectionMenager.client("188.146.12.132");
+        //ConnectionMenager.client("188.146.12.132");
     }
 }

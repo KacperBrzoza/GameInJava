@@ -180,6 +180,8 @@ public class LoginController implements Initializable
             }
             else //Dobre haslo i dobry uzytkownik
             {
+                Memory.memory = registerData;
+                //System.out.println(Memory.memory.getUsername());
                 PassMsg.setStyle("-fx-text-fill: #269e32");
                 PassMsg.setText("Zalogowano pomyślnie.");
                 mediaPlayer_login_good.stop();
