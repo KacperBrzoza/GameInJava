@@ -36,12 +36,12 @@
                               </VBox>
                            </children>
                         </Pane>
-                        <Button fx:id="ExitButton" alignment="CENTER" contentDisplay="RIGHT" layoutX="1800.0" layoutY="30.0" mnemonicParsing="false" onAction="#onExitButtonClicked" onMouseClicked="#onMouseClick" onMouseEntered="#onMouseEntered" prefHeight="60.0" prefWidth="60.0" text="X">
+                        <Button fx:id="ExitButton" alignment="CENTER" contentDisplay="RIGHT" layoutX="1800.0" layoutY="30.0" mnemonicParsing="false" onAction="#onExitButtonClicked" onMousePressed="#onMouseClick" onMouseEntered="#onMouseEntered" prefHeight="60.0" prefWidth="60.0" text="X">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Button>
-                        <Button fx:id="OptionButton" alignment="CENTER" contentDisplay="RIGHT" layoutX="1674.0" layoutY="30.0" mnemonicParsing="false" onAction="#onOptionButtonClicked" onMouseClicked="#onMouseClick" onMouseEntered="#onMouseEntered" prefHeight="60.0" prefWidth="111.0" text="\@" AnchorPane.rightAnchor="145.0">
+                        <Button fx:id="OptionButton" alignment="CENTER" contentDisplay="RIGHT" layoutX="1674.0" layoutY="30.0" mnemonicParsing="false" onAction="#onOptionButtonClicked" onMousePressed="#onMouseClick" onMouseEntered="#onMouseEntered" prefHeight="60.0" prefWidth="111.0" text="\@" AnchorPane.rightAnchor="145.0">
                            <font>
                               <Font size="24.0" />
                            </font>
@@ -89,7 +89,7 @@
                         </Label>
                         <VBox alignment="CENTER" prefHeight="258.0" prefWidth="417.0">
                            <children>
-                              <Button fx:id="LoginButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onLoginButtonClick" onMouseClicked="#onMouseClick" onMouseEntered="#onMouseEntered" prefHeight="80.0" prefWidth="300.0" scaleShape="false" text="Zaloguj się" textOverrun="WORD_ELLIPSIS">
+                              <Button fx:id="LoginButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onLoginButtonClick" onMouseEntered="#onMouseEntered" onMousePressed="#onMouseClick" prefHeight="80.0" prefWidth="300.0" scaleShape="false" text="Zaloguj się" textOverrun="WORD_ELLIPSIS">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
@@ -97,7 +97,7 @@
                                     <Insets bottom="50.0" top="20.0" />
                                  </VBox.margin>
                               </Button>
-                              <Button fx:id="RegisterButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onRegisterButtonClick" onMouseClicked="#onMouseClick" onMouseEntered="#onMouseEntered" prefHeight="80.0" prefWidth="300.0" scaleShape="false" text="Zarejestruj się" textOverrun="WORD_ELLIPSIS">
+                              <Button fx:id="RegisterButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#onRegisterButtonClick" onMouseEntered="#onMouseEntered" onMousePressed="#onMouseClick" prefHeight="80.0" prefWidth="300.0" scaleShape="false" text="Zarejestruj się" textOverrun="WORD_ELLIPSIS">
                                  <font>
                                     <Font size="24.0" />
                                  </font>

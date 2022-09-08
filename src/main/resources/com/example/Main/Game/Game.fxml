@@ -26,7 +26,7 @@
                                  <children>
                                      <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="1920.0">
                                          <children>
-                                             <Button fx:id="ExitButton" alignment="CENTER" contentDisplay="CENTER" layoutX="1800.0" layoutY="25.0" mnemonicParsing="false" onAction="#onExitButtonClicked" prefHeight="60.0" prefWidth="60.0" text="X">
+                                             <Button fx:id="ExitButton" alignment="CENTER" contentDisplay="CENTER" layoutX="1800.0" layoutY="25.0" mnemonicParsing="false" onAction="#onExitButtonClicked" onMouseEntered="#onEnteredButton" prefHeight="60.0" prefWidth="60.0" text="X">
                                                  <font>
                                                      <Font size="24.0" />
                                                  </font>
@@ -36,7 +36,7 @@
                                           <Font size="24.0" />
                                        </font>
                                     </Button>
-                                             <Button fx:id="OptionButton" alignment="CENTER" contentDisplay="CENTER" layoutX="1665.0" layoutY="25.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="111.0" text="\@" AnchorPane.rightAnchor="144.0">
+                                             <Button fx:id="OptionButton" alignment="CENTER" contentDisplay="CENTER" layoutX="1665.0" layoutY="25.0" mnemonicParsing="false" onMouseEntered="#onEnteredButton" prefHeight="60.0" prefWidth="111.0" text="\@" AnchorPane.rightAnchor="144.0">
                                                  <font>
                                                      <Font size="24.0" />
                                                  </font>

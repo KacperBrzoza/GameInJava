@@ -72,8 +72,8 @@ public class LoginController implements Initializable
         LoginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                PassMsg.setText("ładowanie...");
-                PassMsg.setStyle("-fx-text-fill: #07d9dc");
+                PassMsg.setText("Ładowanie...");
+                PassMsg.setStyle("-fx-text-fill: white");
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -200,13 +200,14 @@ public class LoginController implements Initializable
         mediaPlayer_move.stop();
         mediaPlayer_move.seek(Duration.seconds(0));
         mediaPlayer_move.play();
+
     }
-    public void onMouseClick()
-    {
+    public void onMouseClick() throws InterruptedException {
         mediaPlayer_click.setVolume(0.5);
         mediaPlayer_click.stop();
         mediaPlayer_click.seek(Duration.seconds(0));
         mediaPlayer_click.play();
+        //TimeUnit.MILLISECONDS.sleep(1500);
     }
     @FXML
     public void onRegisterButtonClick(ActionEvent event) throws IOException, InterruptedException {
@@ -246,6 +247,7 @@ public class LoginController implements Initializable
      @FXML
      private void ChangeScene() throws IOException {
          MenuController.MenuMusicAllow=true;
+         mediaPlayer.stop();
          URL url_menu = new File("src/main/resources/com/example/Main/Menu/Menu-view.fxml").toURI().toURL();
          root = FXMLLoader.load(url_menu);
          stage = (Stage) PassMsg.getScene().getWindow();

@@ -113,7 +113,7 @@
                                         <Font size="23.0" />
                                     </font>
                                 </Label>
-                                <Button fx:id="BackButton" mnemonicParsing="false" onAction="#onBackButton" onMouseClicked="#onMouseClick" onMouseEntered="#onMouseEntered" prefHeight="75.0" prefWidth="450.0" text="Anuluj">
+                                <Button fx:id="BackButton" mnemonicParsing="false" onAction="#onBackButton" onMouseEntered="#onMouseEntered" onMousePressed="#onMouseClick" prefHeight="75.0" prefWidth="450.0" text="Anuluj">
                                     <VBox.margin>
                                         <Insets />
                                     </VBox.margin>

@@ -1,8 +1,7 @@
 package com.example.Main.Rank;
 
+import com.example.Main.Menu.MenuController;
 import com.example.Main.Model.UserData;
-import com.example.Main.PersistenceManager.PersistenceManager;
-import com.example.Main.Register.RegisterData;
 import com.example.Main.Service.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,7 +19,6 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import javax.persistence.Column;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -111,6 +109,7 @@ public class RankController implements Initializable
     @FXML
     public void onBackButton(ActionEvent event) throws IOException
     {
+        MenuController.MenuMusicAllow =true;
         URL url = new File("src/main/resources/com/example/Main/Menu/Menu-view.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

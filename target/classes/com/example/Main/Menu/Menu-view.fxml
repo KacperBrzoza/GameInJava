@@ -35,12 +35,12 @@
                                       </VBox>
                                   </children>
                               </Pane>
-                              <Button fx:id="ExitButton" alignment="CENTER" contentDisplay="RIGHT" layoutX="1800.0" layoutY="30.0" mnemonicParsing="false" onAction="#onExitButton" onMouseClicked="#onMouseClick" onMouseEntered="#onMouseEntered" prefHeight="60.0" prefWidth="60.0" text="X">
+                              <Button fx:id="ExitButton" alignment="CENTER" contentDisplay="RIGHT" layoutX="1800.0" layoutY="30.0" mnemonicParsing="false" onAction="#onExitButton" onMouseEntered="#onMouseEntered" onMousePressed="#onMouseClick" prefHeight="60.0" prefWidth="60.0" text="X">
                                   <font>
                                       <Font size="24.0" />
                                   </font>
                               </Button>
-                              <Button fx:id="OptionButton" alignment="CENTER" contentDisplay="RIGHT" layoutX="1674.0" layoutY="30.0" mnemonicParsing="false" onAction="#onOptionButton" onMouseClicked="#onMouseClick" onMouseEntered="#onMouseEntered" prefHeight="60.0" prefWidth="111.0" text="\@" AnchorPane.rightAnchor="145.0">
+                              <Button fx:id="OptionButton" alignment="CENTER" contentDisplay="RIGHT" layoutX="1674.0" layoutY="30.0" mnemonicParsing="false" onAction="#onOptionButton" onMouseEntered="#onMouseEntered" onMousePressed="#onMouseClick" prefHeight="60.0" prefWidth="111.0" text="\@" AnchorPane.rightAnchor="145.0">
                                   <font>
                                       <Font size="24.0" />
                                   </font>
@@ -102,7 +102,7 @@
                       </AnchorPane>
                       <VBox alignment="CENTER" layoutX="680.0" layoutY="280.0" prefHeight="710.0" prefWidth="515.0">
                      <children>
-                        <Button fx:id="PlayButton" mnemonicParsing="false" onAction="#onPlayButton" onMouseClicked="#onMouseClick" onMouseEntered="#onMouseEntered" prefHeight="75.0" prefWidth="450.0" text="Graj">
+                        <Button fx:id="PlayButton" mnemonicParsing="false" onAction="#onPlayButton" onMouseEntered="#onMouseEntered" onMousePressed="#onMouseClick" prefHeight="75.0" prefWidth="450.0" text="Graj">
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
@@ -112,7 +112,7 @@
                               <Insets top="50.0" />
                            </VBox.margin>
                         </Button>
-                        <Button fx:id="RankButton" mnemonicParsing="false" onAction="#onRankButton" onMouseClicked="#onMouseClick" onMouseEntered="#onMouseEntered" prefHeight="75.0" prefWidth="450.0" text="Ranking">
+                        <Button fx:id="RankButton" mnemonicParsing="false" onAction="#onRankButton" onMouseEntered="#onMouseEntered" onMousePressed="#onMouseClick" prefHeight="75.0" prefWidth="450.0" text="Ranking">
                            <VBox.margin>
                               <Insets top="50.0" />
                            </VBox.margin>
@@ -122,7 +122,7 @@
                               <Insets top="50.0" />
                            </VBox.margin>
                         </Button>
-                        <Button fx:id="LogoutButton" mnemonicParsing="false" onAction="#onLogoutButton" onMouseClicked="#onMouseClick" onMouseEntered="#onMouseEntered" prefHeight="75.0" prefWidth="450.0" text="Wyloguj się">
+                        <Button fx:id="LogoutButton" mnemonicParsing="false" onAction="#onLogoutButton" onMouseEntered="#onMouseEntered" onMousePressed="#onMouseClick" prefHeight="75.0" prefWidth="450.0" text="Wyloguj się">
                            <VBox.margin>
                               <Insets top="50.0" />
                            </VBox.margin>

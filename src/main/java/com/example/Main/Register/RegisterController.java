@@ -101,8 +101,8 @@ public class RegisterController implements Initializable
         RegisterConfrimButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                PassMsg.setText("rejestrowanie...");
-                PassMsg.setStyle("-fx-text-fill: #07d9dc");
+                PassMsg.setText("Rejestrowanie...");
+                PassMsg.setStyle("-fx-text-fill: white");
                 mediaPlayer_input_bad.setVolume(0.5);
                 new Thread(new Runnable() {
                     @Override

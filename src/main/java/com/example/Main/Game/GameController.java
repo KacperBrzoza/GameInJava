@@ -83,6 +83,10 @@ public class GameController implements Initializable
     Media media_hover = new Media(new File(path_sound_hover).toURI().toString());
     MediaPlayer mediaPlayer_hover = new MediaPlayer(media_hover);
 
+    String path_sound_move = "src/main/resources/sound/button_click_sound.mp3";
+    Media media_move = new Media(new File(path_sound_move).toURI().toString());
+    MediaPlayer mediaPlayer_move = new MediaPlayer(media_move);
+
     public static Server server;
     public static Client client;
 
@@ -117,8 +121,7 @@ public class GameController implements Initializable
         }
         mediaPlayer_battle_music.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer_battle_music.setVolume(0.1);
-
-        //mediaPlayer_battle_music.play();
+        mediaPlayer_battle_music.play();
         if(SWITCHER == 1){
             new Thread(new Runnable()
             {
@@ -202,6 +205,14 @@ public class GameController implements Initializable
         mediaPlayer_click.stop();
         mediaPlayer_click.seek(Duration.seconds(0));
         mediaPlayer_click.play();
+    }
+    @FXML
+    protected void onEnteredButton()
+    {
+        mediaPlayer_move.setVolume(0.5);
+        mediaPlayer_move.stop();
+        mediaPlayer_move.seek(Duration.seconds(0));
+        mediaPlayer_move.play();
     }
 
     public void stopMusic()

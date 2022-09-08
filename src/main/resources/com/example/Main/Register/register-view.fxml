@@ -97,7 +97,7 @@
                         </Label>
                         <VBox alignment="CENTER" prefHeight="258.0" prefWidth="417.0">
                             <children>
-                                <Button fx:id="BackButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cancel" onMouseClicked="#onMouseClicked" onMouseEntered="#onMouseEntered" prefHeight="80.0" prefWidth="300.0" scaleShape="false" text="Wróć" textOverrun="WORD_ELLIPSIS">
+                                <Button fx:id="BackButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cancel" onMouseEntered="#onMouseEntered" onMousePressed="#onMouseClicked" prefHeight="80.0" prefWidth="300.0" scaleShape="false" text="Wróć" textOverrun="WORD_ELLIPSIS">
                                     <font>
                                         <Font size="24.0" />
                                     </font>
@@ -105,7 +105,7 @@
                                         <Insets bottom="50.0" top="20.0" />
                                     </VBox.margin>
                                 </Button>
-                                <Button fx:id="RegisterConfrimButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#register" onMouseClicked="#onMouseClicked" onMouseEntered="#onMouseEntered" prefHeight="80.0" prefWidth="300.0" scaleShape="false" text="Zarejestruj się" textOverrun="WORD_ELLIPSIS">
+                                <Button fx:id="RegisterConfrimButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseEntered="#onMouseEntered" onMousePressed="#onMouseClicked" prefHeight="80.0" prefWidth="300.0" scaleShape="false" text="Zarejestruj się" textOverrun="WORD_ELLIPSIS">
                                     <font>
                                         <Font size="24.0" />
                                     </font>

@@ -45,7 +45,7 @@ public class WaitingEnemyController implements Initializable {
     Label WaitLabel;
     @FXML
     private Button BackButton;
-    public static int SWITCHER = 2;
+    public static int SWITCHER =2;
     private static final int PORT_NUMBER = 3571;
 
     String path_sound_click = "src/main/resources/sound/button_release_sound.mp3";
@@ -55,6 +55,10 @@ public class WaitingEnemyController implements Initializable {
     String path_sound_move = "src/main/resources/sound/button_click_sound.mp3";
     Media media_move = new Media(new File(path_sound_move).toURI().toString());
     MediaPlayer mediaPlayer_move = new MediaPlayer(media_move);
+
+    String path_music_menu = "src/main/resources/music/PORTMONETKA_MUSIC_MENU.mp3";
+    Media music_menu = new Media(new File(path_music_menu).toURI().toString());
+    MediaPlayer mediaPlayer_menu_music = new MediaPlayer(music_menu);
 
     @FXML
     public void onMouseEntered()
@@ -91,6 +95,9 @@ public class WaitingEnemyController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        mediaPlayer_menu_music.setVolume(0.25);
+        mediaPlayer_menu_music.setCycleCount(MediaPlayer.INDEFINITE);
+        mediaPlayer_menu_music.play();
         if(SWITCHER == 1){
             new Thread(new Runnable() {
                 @Override
@@ -119,7 +126,7 @@ public class WaitingEnemyController implements Initializable {
 
         }else{
             try {
-                GameController.client = new Client(new Socket("172.18.17.254", PORT_NUMBER));
+                GameController.client = new Client(new Socket("localhost", PORT_NUMBER));
                 client.sendMessageToServer(Memory.memory.getUsername());
                 client.listenAndSend();
                 FadeIn();
@@ -158,16 +165,16 @@ public class WaitingEnemyController implements Initializable {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }*/
-                FXMLLoader loader_temp = new FXMLLoader(getClass().getResource("/com/example/Main/Menu/Menu-view.fxml"));
+                /*FXMLLoader loader_temp = new FXMLLoader(getClass().getResource("/com/example/Main/Menu/Menu-view.fxml"));
                 try {
                     Parent root = loader_temp.load();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                MenuController controller_menu = loader_temp.getController();
+                MenuController controller_menu = loader_temp.getController();*/
                 //System.out.println("test wyciszania ktory nie moze wyciszyc ://");
-                controller_menu.Music_menu_on_off(false);
-
+                //controller_menu.Music_menu_on_off(false);
+                mediaPlayer_menu_music.stop();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/Main/Game/Game.fxml"));
                 Parent root = null;
                 try {
@@ -189,10 +196,12 @@ public class WaitingEnemyController implements Initializable {
     @FXML
     public void onBackButton(ActionEvent event) throws IOException
     {
+        MenuController.MenuMusicAllow =true;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/Main/Menu/Menu-view.fxml"));
         Parent root = loader.load();
-        MenuController controller_menu = loader.getController();
-        System.out.println("test");
+        mediaPlayer_menu_music.stop();
+        //MenuController controller_menu = loader.getController();
+        //System.out.println("test");
         //controller_menu.Music_menu_on_off(false);
         //URL url = new File("src/main/resources/com/example/Main/Menu/Menu-view.fxml").toURI().toURL();
         //Testowe przejscie do ekranu gry aby sprawdzic dzialanie gui

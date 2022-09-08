@@ -32,7 +32,6 @@ public class MenuController implements Initializable {
     private HBox NotificationPane;
 public static boolean MenuMusicAllow;
 
-
     String path_sound_click = "src/main/resources/sound/button_release_sound.mp3";
     Media media_click = new Media(new File(path_sound_click).toURI().toString());
     MediaPlayer mediaPlayer_click = new MediaPlayer(media_click);
@@ -73,10 +72,10 @@ public static boolean MenuMusicAllow;
     {
         if(on_off) {
             mediaPlayer_menu_music.play(); /*Z TYM JEST DZIWNY PROBLEM BO NIE DA SIE TEGO WYłACZYC W OGOLE NIGDZIE NIBY CZASEM DZIALA ALE NIE ZAWSZE*/
-            System.out.println("play");
+            //System.out.println("play");
         }
         else {
-            System.out.println("stop");
+            //System.out.println("stop");
             mediaPlayer_menu_music.stop();
         }
 
@@ -114,6 +113,7 @@ public static boolean MenuMusicAllow;
     @FXML
     public void onPlayButton(ActionEvent event) throws IOException
     {
+        mediaPlayer_menu_music.stop();
         URL url = new File("src/main/resources/com/example/Main/Menu/Waiting-Oponent-view.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -182,6 +182,7 @@ public static boolean MenuMusicAllow;
     @FXML
     public void onRankButton(ActionEvent event) throws IOException
     {
+        Music_menu_on_off(false);
         URL url = new File("src/main/resources/com/example/Main/Rank/rank-view.fxml").toURI().toURL();
         Parent root = FXMLLoader.load(url);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -200,8 +201,9 @@ public static boolean MenuMusicAllow;
     public void onLogoutButton(ActionEvent event) throws IOException
     {
         LoginController.FadeTransitionAllow=true;
-        System.out.println("test wylogowania");
-        Music_menu_on_off(false);
+        //System.out.println("test wylogowania");
+        //Music_menu_on_off(false);
+        mediaPlayer_menu_music.stop();
         MenuMusicAllow=false;
         NotificationPane.setVisible(false);
         URL url = new File("src/main/resources/com/example/Main/Login/hello-login-view.fxml").toURI().toURL();
