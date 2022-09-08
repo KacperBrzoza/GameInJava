@@ -147,6 +147,7 @@ public class WaitingEnemyController implements Initializable {
                 }
                 Stage stage = (Stage) ExitButton.getScene().getWindow();
                 Scene scene = new Scene(root);
+
                 stage.setResizable(false);
                 stage.setMaximized(true);
                 stage.setScene(scene);

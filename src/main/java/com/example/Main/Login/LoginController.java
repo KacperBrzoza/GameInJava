@@ -4,7 +4,9 @@ import com.example.Main.Menu.MenuController;
 import com.example.Main.Register.RegisterData;
 import com.example.Main.Service.UserService;
 import javafx.animation.FadeTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +27,7 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -36,7 +39,6 @@ public class LoginController implements Initializable
     private Scene scene;
     private Parent root;
     boolean Music_status_option=true;
-
     @FXML
     private Button RegisterButton, ExitButton, LoginButton, OptionButton;
     @FXML
@@ -65,6 +67,117 @@ public class LoginController implements Initializable
     String path = "src/main/resources/music/ambience_sound.mp3";
     Media media = new Media(new File(path).toURI().toString());
     MediaPlayer mediaPlayer = new MediaPlayer(media);
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        ambient_music(true);
+        LoginButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                PassMsg.setText("ładowanie...");
+                PassMsg.setStyle("-fx-text-fill: #07d9dc");
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        UserService userService = new UserService();
+                        RegisterData registerData = new RegisterData();
+                        if(LoginTextField.getText().trim().isEmpty() || PasswordTextField.getText().trim().isEmpty())//brak wypelnionych pol
+                        {
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mediaPlayer_input_bad.stop();
+                                    mediaPlayer_input_bad.seek(Duration.seconds(0));
+                                    mediaPlayer_input_bad.play();
+                                    PassMsg.setText("Wypełnij wszystkie pola!");
+                                    PassMsg.setStyle("-fx-text-fill: #9e7c26");
+                                }
+                            });
+                        }
+                        else {
+                            registerData.setUsername(LoginTextField.getText());
+                            registerData.setPassword(PasswordTextField.getText());
+                            if (!userService.isUsernameInUse(registerData.getUsername())) //gdy nie ma uzytkownika w bazie
+                            {
+                                Platform.runLater(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mediaPlayer_input_bad.stop();
+                                        mediaPlayer_input_bad.seek(Duration.seconds(0));
+                                        mediaPlayer_input_bad.play();
+                                        PassMsg.setText("Taki użytkownik nie istnieje.");
+                                        PassMsg.setStyle("-fx-text-fill: #d0312d;-fx-font-size: 18pt;");//czerwone
+                                    }
+                                });
+                            } else if (userService.isUsernameInUse(registerData.getUsername()) && !(userService.isCorrect(registerData.getUsername(), registerData.getPassword()))) //jest uzytkownik ale jest zle haslo
+                            {
+                                Platform.runLater(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        mediaPlayer_input_bad.stop();
+                                        mediaPlayer_input_bad.seek(Duration.seconds(0));
+                                        mediaPlayer_input_bad.play();
+                                        PassMsg.setText("Podano złe hasło!");
+                                        PassMsg.setStyle("-fx-text-fill: #d0312d;-fx-font-size: 18pt;");//czerwone
+                                    }
+                                });
+                            } else //Dobre haslo i dobry uzytkownik
+                            {
+                                Platform.runLater(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        //FadeIn(event); //Przyciemnienie na przejście (nie dziala bo trzeba zrobic thready ktore beda zajmowac sie innymi procesami)
+                                        mediaPlayer_login_good.stop();
+                                        mediaPlayer_login_good.seek(Duration.seconds(0));
+                                        mediaPlayer_login_good.play();
+                                        PassMsg.setText("Zalogowano pomyślnie.");
+                                //kontrolna zmiana muzy
+                                //
+                                //
+                                        PassMsg.setStyle("-fx-text-fill: #269e32");
+                                        URL url_menu = null;
+                                        try {
+                                            url_menu = new File("src/main/resources/com/example/Main/Menu/Menu-view.fxml").toURI().toURL();
+                                        } catch (MalformedURLException e) {
+                                            e.printStackTrace();
+                                        }
+                                        try {
+                                            root = FXMLLoader.load(url_menu);
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                        stage = (Stage) LoginButton.getScene().getWindow();
+                                        scene = new Scene(root);
+                                        stage.setResizable(false);
+                                        scene.getStylesheets().add(getClass().getResource("/style/style-class.css").toExternalForm());
+                                        stage.setMaximized(true);
+                                        stage.setScene(scene);
+                                        stage.show();
+                                    }
+                                });
+                            }
+                        }
+                    }
+                }).start();
+            }
+        });
+        LoginTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent ke) {
+                if (ke.getCode().equals(KeyCode.ENTER)) {
+                    //onLoginButtonClick();
+                }
+            }
+        });
+        PasswordTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent ke) {
+                if (ke.getCode().equals(KeyCode.ENTER)) {
+                    //onLoginButtonClick();
+                }
+            }
+        });
+    }
 
     public void ambient_music(boolean on_off)
     {
@@ -144,58 +257,10 @@ public class LoginController implements Initializable
      }
 
     @FXML
-    protected void onLoginButtonClick() {
-
-        UserService userService = new UserService();
-        RegisterData registerData = new RegisterData();
+    protected void onLoginButtonClick() throws IOException {
         mediaPlayer_input_bad.setVolume(0.5);
         mediaPlayer_login_good.setVolume(0.5);
-        if(LoginTextField.getText().trim().isEmpty() || PasswordTextField.getText().trim().isEmpty())//brak wypelnionych pol
-        {
-            mediaPlayer_input_bad.stop();
-            mediaPlayer_input_bad.seek(Duration.seconds(0));
-            mediaPlayer_input_bad.play();
-            PassMsg.setText("Wypełnij wszystkie pola!");
-            PassMsg.setStyle("-fx-text-fill: #9e7c26");
-        }
-        else
-        {
-            registerData.setUsername(LoginTextField.getText());
-            registerData.setPassword(PasswordTextField.getText());
-            if(!userService.isUsernameInUse(registerData.getUsername())) //gdy nie ma uzytkownika w bazie
-            {
-                mediaPlayer_input_bad.stop();
-                mediaPlayer_input_bad.seek(Duration.seconds(0));
-                mediaPlayer_input_bad.play();
-                PassMsg.setText("Taki użytkownik nie istnieje.");
-                PassMsg.setStyle("-fx-text-fill: #d0312d;-fx-font-size: 18pt;");//czerwone
-            }
-            else if(userService.isUsernameInUse(registerData.getUsername()) && !(userService.isCorrect(registerData.getUsername(), registerData.getPassword()))) //jest uzytkownik ale jest zle haslo
-            {
-                mediaPlayer_input_bad.stop();
-                mediaPlayer_input_bad.seek(Duration.seconds(0));
-                mediaPlayer_input_bad.play();
-                PassMsg.setText("Podano złe hasło!");
-                PassMsg.setStyle("-fx-text-fill: #d0312d;-fx-font-size: 18pt;");//czerwone
-            }
-            else //Dobre haslo i dobry uzytkownik
-            {
-                Memory.memory = registerData;
-                //System.out.println(Memory.memory.getUsername());
-                PassMsg.setStyle("-fx-text-fill: #269e32");
-                PassMsg.setText("Zalogowano pomyślnie.");
-                mediaPlayer_login_good.stop();
-                mediaPlayer_login_good.seek(Duration.seconds(0));
-                mediaPlayer_login_good.play();
-                mediaPlayer.stop();
-                FadeIn();
-                //kontrolna zmiana muzy
-                //
-                //
-                //FadeIn(event); //Przyciemnienie na przejście (nie dziala bo trzeba zrobic thready ktore beda zajmowac sie innymi procesami)
-
-            }
-        }
+    }
         /*
 
         else if(true)
@@ -222,7 +287,6 @@ public class LoginController implements Initializable
          */
 
 
-    }
     @FXML
     protected void onOptionButtonClicked()
     {
@@ -249,26 +313,5 @@ public class LoginController implements Initializable
              */
         Stage stage = (Stage) ExitButton.getScene().getWindow();
         stage.close();
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        ambient_music(true);
-        LoginTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
-        @Override
-        public void handle(KeyEvent ke) {
-            if (ke.getCode().equals(KeyCode.ENTER)) {
-                    onLoginButtonClick();
-            }
-        }
-    });
-        PasswordTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
-        @Override
-        public void handle(KeyEvent ke) {
-        if (ke.getCode().equals(KeyCode.ENTER)) {
-            onLoginButtonClick();
-        }
-    }
-    });
     }
 }

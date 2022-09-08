@@ -6,10 +6,11 @@
     <persistence-unit name="MyUnit">
         <class>com.example.Main.Model.UserData</class>
         <properties>
-            <property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/Projekt"/>
+            <property name="hibernate.connection.url" value="jdbc:postgresql://abul.db.elephantsql.com:5432/pvjfjkvx"/>
+            <!--jdbc:postgresql://localhost:5432/Projekt-->
             <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
-            <property name="hibernate.connection.username" value="postgres"/>
-            <property name="hibernate.connection.password" value="Bakalie37"/>
+            <property name="hibernate.connection.username" value="pvjfjkvx"/>
+            <property name="hibernate.connection.password" value="8ezT_pnM1zAJ36g9mDsmVsRL9JbjSatx"/>
         </properties>
     </persistence-unit>
 </persistence>

@@ -61,7 +61,41 @@ CREATE TRIGGER user_data_insert_trigger
 
     EXECUTE PROCEDURE log_last_register_fnc();
 
+--TRIGGER USTAWIAJACY 0 PKT UZYTKOWNIKOWI, KTORY SIE ZAREJESTROWAL---
+
+CREATE OR REPLACE FUNCTION set_0_score_fnc()
+
+	RETURNS trigger AS
+
+$$
+
+BEGIN
+
+
+INSERT INTO "scores" (UID, score)
+
+VALUES(NEW.UID, 0);
+
+RETURN NEW;
+
+END
+
+$$
+
+LANGUAGE 'plpgsql';
+
+CREATE TRIGGER set_0_score_trigger
+
+    AFTER INSERT
+
+    ON "user_data"
+
+    FOR EACH ROW
+
+    EXECUTE PROCEDURE set_0_score_fnc();
+
 
 ---DROPOWANIE TRIGGERA---
 
 drop trigger user_data_insert_trigger on "user_data" ;
+drop trigger set_0_score_trigger on "user_data" ;
