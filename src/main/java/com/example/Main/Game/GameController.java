@@ -4,6 +4,7 @@ import com.example.Main.Login.Memory;
 import com.example.Main.Menu.MenuController;
 import com.example.NetTools.Client;
 import com.example.NetTools.Server;
+import com.sun.xml.fastinfoset.util.CharArray;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -48,9 +49,9 @@ public class GameController implements Initializable
     ImageView BattleGrid,PlayerPicture,MyCharacter,EnemyCharacter;
 
     @FXML
-    ImageView mygrid1,mygrid2,mygrid3,mygrid4,mygrid5;
+    private ImageView mygrid0,mygrid1,mygrid2,mygrid3,mygrid4;
     @FXML
-    ImageView enemygrid5,enemygrid4,enemygrid3,enemygrid2,enemygrid1;
+    private ImageView enemygrid4,enemygrid3,enemygrid2,enemygrid1,enemygrid0;
     @FXML
     ImageView rage1,rage2,rage3;
     @FXML
@@ -502,9 +503,29 @@ public class GameController implements Initializable
          */
     }
 
+    private void onGridEntered(ImageView grid){
+        char[] code = grid.getImage().getUrl().toCharArray();
+        String power;
+        int hp;
+        int atack;
+        int cost;
+        //2099M.png
+        //2099.png
+        //209M.png
+        //999.png
+        for(int i = code.length; i > code.length - 9; i--){
+            System.out.println(code[i]);
+        }
+    }
+
+
     @FXML
-    public void onMyGrid1Entered()
-    {
+    public void onMyGrid0Entered() {
+        onGridEntered(mygrid0);
+        InfoLabel.setText("Moje pole 0");
+    }
+    @FXML
+    public void onMyGrid1Entered() {
         InfoLabel.setText("Moje pole 1");
     }
     @FXML
@@ -523,9 +544,9 @@ public class GameController implements Initializable
         InfoLabel.setText("Moje pole 4");
     }
     @FXML
-    public void onMyGrid5Entered()
+    public void onEnemyGrid0Entered()
     {
-        InfoLabel.setText("Moje pole 5");
+        InfoLabel.setText("Pole przeciwnika 0");
     }
     @FXML
     public void onEnemyGrid1Entered()
@@ -547,11 +568,7 @@ public class GameController implements Initializable
     {
         InfoLabel.setText("Pole przeciwnika 4");
     }
-    @FXML
-    public void onEnemyGrid5Entered()
-    {
-        InfoLabel.setText("Pole przeciwnika 5");
-    }
+
 
 
 
