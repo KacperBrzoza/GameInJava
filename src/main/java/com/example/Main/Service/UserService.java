@@ -1,5 +1,6 @@
 package com.example.Main.Service;
 
+import com.example.Main.Model.IpTable;
 import com.example.Main.Model.UserData;
 import com.example.Main.PersistenceManager.PersistenceManager;
 import javafx.collections.FXCollections;
@@ -10,6 +11,8 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import java.util.List;
+
+import static com.example.Main.Menu.WaitingEnemyController.SWITCHER;
 
 public class UserService
 {
@@ -26,6 +29,68 @@ public class UserService
         transaction.begin();
         entityManager.persist(userData);
         transaction.commit();
+    }
+
+    //Testowo do IP
+    /*
+    public void add_IP(String IP)
+    {
+        IpTable ipTable= new IpTable();
+        ipTable.setIpAddress(IP);
+        EntityManager entityManager = PersistenceManager.getFactory().createEntityManager();
+        EntityTransaction transaction =entityManager.getTransaction();
+        transaction.begin();
+        entityManager.persist(ipTable);
+        transaction.commit();
+    }
+     */
+
+    public void check_in_base_IP(String IP)
+    {
+        IpTable ipTable = new IpTable();
+        EntityManager entityManager = PersistenceManager.getFactory().createEntityManager();
+        Query query = entityManager.createQuery("select i FROM IpTable i");
+        if(query.getResultList().isEmpty())
+        {
+            SWITCHER = 1;
+            ipTable= new IpTable();
+            ipTable.setIpAddress(IP);
+            EntityTransaction transaction = entityManager.getTransaction();
+            transaction.begin();
+            entityManager.persist(ipTable);
+            transaction.commit();
+            System.out.println("Jestem switcherem 1");
+        }
+        else
+        {
+            SWITCHER = 2;
+            delete_IP();
+            System.out.println("Jestem switcherem 2");
+        }
+    }
+
+    public void delete_IP()
+    {
+        /*
+        IpTable ipTable;
+        EntityManager entityManager = PersistenceManager.getFactory().createEntityManager();
+        Query query = entityManager.createQuery("DELETE FROM IpTable i WHERE i.ipid = 1");
+
+         */
+        EntityManager entityManager = PersistenceManager.getFactory().createEntityManager();
+        IpTable ipTable = entityManager.find(IpTable.class, 1);
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        entityManager.remove(ipTable);
+        transaction.commit();
+    }
+
+    public String get_Ip() //List<IpTable>
+    {
+        //IpTable ipTable = new IpTable();
+        EntityManager entityManager = PersistenceManager.getFactory().createEntityManager();
+        Query query = entityManager.createQuery("SELECT i.ipAddress FROM IpTable i WHERE i.ipid = 1");
+        return query.getResultList().toString().replace("[", "").replace("]", "").replace(" ","");
     }
 
     //Funkcja potrzebna do wyswietla nickow graczy - Nie dziala wyswietlanie w rankingu

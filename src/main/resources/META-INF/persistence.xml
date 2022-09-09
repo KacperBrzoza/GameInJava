@@ -6,6 +6,7 @@
     <persistence-unit name="MyUnit">
         <class>com.example.Main.Model.UserData</class>
         <class>com.example.Main.Model.Scores</class>
+        <class>com.example.Main.Model.IpTable</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:postgresql://abul.db.elephantsql.com:5432/pvjfjkvx"/>
             <!--jdbc:postgresql://localhost:5432/Projekt-->

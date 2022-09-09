@@ -10,12 +10,36 @@ CREATE TABLE user_data(
 --- Mozliwie do score dodac default value -->
 
 CREATE TABLE scores(
-                       UID SERIAL PRIMARY KEY NOT NULL,
+                       UID INT PRIMARY KEY NOT NULL,
                        score INT,
                        FOREIGN KEY (UID)
                            REFERENCES user_data(UID)
 );
 
+---TABELA IP---
+--IPID SERIAL PRIMARY KEY NOT NULL,--
+/*
+CREATE TABLE ip_table(
+            IPID SERIAL PRIMARY KEY NOT NULL,
+            ip_address CHAR(30) UNIQUE NOT NULL
+);
+
+ */
+/*
+CREATE TABLE ip_table(
+     IPID INT PRIMARY KEY NOT NULL DEFAULT(1),
+     onerow bool  DEFAULT TRUE,
+     ip_address CHAR(30) UNIQUE NOT NULL,
+     CONSTRAINT onerow_uni CHECK ( onerow )
+);
+
+ */
+
+CREATE TABLE ip_table(
+                         IPID INT UNIQUE DEFAULT(1),
+                         ip_address CHAR(30) UNIQUE NOT NULL,
+                         CONSTRAINT onerow_uni CHECK ( IPID = 1 )
+);
 
 ---TWORZENIE TABELI DO TRIGGERA  UID SERIAL PRIMARY KEY,---
 

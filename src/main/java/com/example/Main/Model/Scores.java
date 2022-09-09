@@ -8,12 +8,14 @@ public class Scores
 {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @Column(name = "uid")
     //@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     //todo
     //Dodac zaleznosci do encji (OnetoOne) oraz okreslic ich typy
     //@Column(name = "uid")
     private int uid;
     @Basic
+    @Column(name = "score")
     //@Column(name = "score")
     private Integer score;
 

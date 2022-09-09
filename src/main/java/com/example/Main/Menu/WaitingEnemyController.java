@@ -2,6 +2,7 @@ package com.example.Main.Menu;
 
 import com.example.Main.Game.GameController;
 import com.example.Main.Login.Memory;
+import com.example.Main.Service.UserService;
 import com.example.NetTools.Client;
 import com.example.NetTools.Server;
 import javafx.animation.FadeTransition;
@@ -22,11 +23,10 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.io.File;
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.URL;
+import java.net.*;
 import java.util.ResourceBundle;
 
 import static com.example.Main.Game.GameController.server;
@@ -45,7 +45,7 @@ public class WaitingEnemyController implements Initializable {
     Label WaitLabel;
     @FXML
     private Button BackButton;
-    public static int SWITCHER = 1;
+    public static int SWITCHER;
     private static final int PORT_NUMBER = 3571;
 
     String path_sound_click = "src/main/resources/sound/button_release_sound.mp3";
@@ -108,6 +108,16 @@ public class WaitingEnemyController implements Initializable {
         //Po nacisnieciu "graj"
         //jesli jest baza pusta to: switcher na 1, dodanie jego ip do bazy
         //Drugi dolacza jest zajeta baza: switcher na 2, usuniecie tamtego ip
+        UserService userService = new UserService();
+        try
+        {
+            InetAddress IP = InetAddress.getLocalHost();
+            System.out.println("Mam to: " + IP.getHostAddress());
+            userService.check_in_base_IP(IP.getHostAddress());
+        } catch (UnknownHostException e)
+        {
+            throw new RuntimeException(e);
+        }
         if(SWITCHER == 1){
             new Thread(new Runnable() {
                 @Override
@@ -141,7 +151,8 @@ public class WaitingEnemyController implements Initializable {
 
         }else{
             try {
-                GameController.client = new Client(new Socket("localhost", PORT_NUMBER));
+                GameController.client = new Client(new Socket(String.valueOf(userService.get_Ip()), PORT_NUMBER));
+                //userService.delete_IP();
                 client.sendMessageToServer(Memory.memory.getUsername());
                 client.listenAndSend();
                 FadeIn();
