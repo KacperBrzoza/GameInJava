@@ -64,7 +64,7 @@ public class UserService
         else
         {
             SWITCHER = 2;
-            delete_IP();
+            //delete_IP();
             System.out.println("Jestem switcherem 2");
         }
     }

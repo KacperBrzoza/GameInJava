@@ -152,7 +152,7 @@ public class WaitingEnemyController implements Initializable {
         }else{
             try {
                 GameController.client = new Client(new Socket(String.valueOf(userService.get_Ip()), PORT_NUMBER));
-                //userService.delete_IP();
+                userService.delete_IP();
                 client.sendMessageToServer(Memory.memory.getUsername());
                 client.listenAndSend();
                 FadeIn();
