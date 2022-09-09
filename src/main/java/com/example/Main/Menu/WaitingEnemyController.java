@@ -109,7 +109,12 @@ public class WaitingEnemyController implements Initializable {
                     try {
                         server = new Server(new ServerSocket(PORT_NUMBER));
                         server.sendAndListen();
-                        FadeIn();
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                FadeIn();
+                            }
+                        });
                         //changeStage();
 
                     } catch (IOException e) {
@@ -117,17 +122,12 @@ public class WaitingEnemyController implements Initializable {
                     }
                 }
             }).start();
-
-
             BackButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
                     server.closeEverything();
                 }
             });
-
-
-
         }else{
             try {
                 GameController.client = new Client(new Socket("localhost", PORT_NUMBER));

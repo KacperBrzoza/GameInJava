@@ -65,6 +65,9 @@ public class GameController implements Initializable
     ImageView EQ1,EQ2,EQ3,EQ4;
 
     @FXML
+    private ImageView lostcardgrid;
+
+    @FXML
     Button TakeCardDeck, RageCardDeck, MoneyStack, LostCardDeck;
 
 
@@ -124,17 +127,8 @@ public class GameController implements Initializable
         mediaPlayer_battle_music.setVolume(0.1);
         mediaPlayer_battle_music.play();
         if(SWITCHER == 1){
-            new Thread(new Runnable()
-            {
-                @Override
-                public void run()
-                {
-                    System.out.println(Memory.memory.getUsername());
-                }
-            });
             server.startGame();
-
-            //server.turns();
+            server.turns();
             //server.sendMessageToClient("wysylam mesedz");
             //server.receiveMessageFromClient();
 
@@ -142,7 +136,7 @@ public class GameController implements Initializable
         }
         else {
             ChangeTextureForClient();
-            //client.turns(EQLabel);
+            client.turns(EQLabel);
             //opponent = Memory.memory.getUsername();
             //client.receiveMessageFromServer();
             //client.sendMessageToServer("Wysylam do serwa :)");
@@ -294,44 +288,168 @@ public class GameController implements Initializable
     protected void onLostCardEntered()
     {
         hover_sound();
-        InfoLabel.setText("Stos kart odrzuconych - ...Kacper dopisz bo ja nie wiem jak to wyjasnic xd");
+        onGridEntered(lostcardgrid);
+    }
+
+    private void onRageEntered(ImageView rageCard){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                char[] code = rageCard.getImage().getUrl().toCharArray();
+                int i = 5;
+                String name = "";
+                String description = "";
+                /*
+                rection lection
+                ar sher cher
+                ts ss
+                et it nt ot
+                 */
+                if((int) code[code.length - i] == 100){
+                    name = "Final Word";
+                    description = "natychmiast wystawiasz jednostke bez wzgledu na koszt (jednorazowe)";
+                }
+                else if((int) code[code.length - i] == 101){
+                    i++;
+                    if((int) code[code.length - i] == 99){
+                        name = "Second Chance";
+                        description = "dobierajac zeton waluty dobierasz dwa, jeden zatrzymujesz, jeden odrzucasz (stale)";
+                    }
+                    //przypadek widomo dla domyslnego obrazka pola karty Rage
+                }
+                else if((int) code[code.length - i] == 102){
+                    name = "Thief";
+                    description = "po kazdym przetasowaniu zetonow waluty dobierasz 3 zetony (stale)";
+                }
+                else if((int) code[code.length - i] == 103){
+                    name = "Recruiting";
+                    description = "natychmiast dobierasz 5 kart stworow (jednorazowe)";
+                }
+                else if((int) code[code.length - i] == 107){
+                    name = "Power Pack";
+                    description = "natychmiast dobierasz 2 karty stworow, 2 zetony waluty i 2 stwory ze stosu kart odrzuconych";
+                }
+                else if((int) code[code.length - i] == 108){
+                    name = "Betrayal";
+                    description = "natychmiast przeciagasz stwora przeciwnika na swoja strone (jednorazowe)";
+                }
+                else if((int) code[code.length - i] == 110){
+                    i += 4;
+                    if((int) code[code.length - i] == 97){
+                        name = "Extermination";
+                        description = "natychmiast zabijasz przeciwnikowi 3 jednostki (jednorazowe)";
+                    }
+                    else {
+                        i += 2;
+                        if((int) code[code.length - i] == 108){
+                            name = "Selection";
+                            description = "dobierajac karte stwora dobierasz dwie, jedna zatrzymujesz, jedna odrzucasz (stale)";
+                        }
+                        else {
+                            name = "Resurection";
+                            description = "natychmiast dobierasz 5 kart stworow ze stosu kart odrzuconych (jednorazowe)";
+                        }
+                    }
+                }
+                else if((int) code[code.length - i] == 114){
+                    i += 1;
+                    if((int) code[code.length - i] == 97){
+                        name = "Common Fear";
+                        description = "wszystkie wrogie jednostki natychmiast wracaja do wlasciciela (jednorazowe)";
+                    }
+                    else {
+                        i += 2;
+                        if((int) code[code.length - i] == 99){
+                            name = "Rat Catcher";
+                            description = "na koniec kazdej swojej tury dobierasz karte stwora (stale)";
+                        }
+                        else{
+                            name = "Crusher";
+                            description = "twoje jednostki moga niszczyc stwory wroga nawet gdy remisuja atakiem z ich hp (stale)";
+                        }
+                    }
+                }
+                else if((int) code[code.length - i] == 115){
+                    i++;
+                    if((int) code[code.length - i] == 115){
+                        name = "Weakness";
+                        description = "rywal natychmiast musi odrzucic 3 karty z ekwipunku (jednorazowe)";
+                    }
+                    else if((int) code[code.length - i] == 116){
+                        name = "Secret Assets";
+                        description = "na koniec kazdej swojej tury dobierasz zeton waluty (stale)";
+                    }
+                }
+                else if((int) code[code.length - i] == 116){
+                    i++;
+                    if((int) code[code.length - i] == 101){
+                        name = "Black Market";
+                        description = "zamiast wystawiania stworow mozesz jednego sprzedac (stale)";
+                    }
+                    else if((int) code[code.length - i] == 105){
+                        name = "Profit";
+                        description = "natychmiast dobierasz 5 zetonow waluty (jednorazowe)";
+                    }
+                    else if((int) code[code.length - i] == 110){
+                        name = "Redeployment";
+                        description = "mozesz cofnac swojego stwora do ekwipunku, jesli to zrobisz - dobierz 3 zetony waluty (jednorazowe)";
+                    }
+                    else if((int) code[code.length - i] == 111){
+                        name = "Countershot";
+                        description = "przeciwnik natychmiast traci serduszko i nie dobiera karty Rage (jednorazowe)";
+                    }
+                }
+
+                final String trueName = name;
+                final String trueDescription = description;
+
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(!trueName.equals(""))
+                            InfoLabel.setText(trueName + " - " + trueDescription);
+                    }
+                });
+            }
+        }).start();
     }
 
     @FXML
     protected void onMyRage1Entered()
     {
         rage1.setX(2);
-        InfoLabel.setText("Obecnie nie masz żadnej karty RAGE");
+        //InfoLabel.setText("Obecnie nie masz żadnej karty RAGE");
+        onRageEntered(rage1);
     }
     @FXML
     protected void onMyRage2Entered()
     {
         rage2.setX(2);
-        InfoLabel.setText("Obecnie nie masz żadnej karty RAGE");
+        onRageEntered(rage2);
     }
     @FXML
     protected void onMyRage3Entered()
     {
         rage3.setX(2);
-        InfoLabel.setText("Obecnie nie masz żadnej karty RAGE");
+        onRageEntered(rage3);
     }
     @FXML
     protected void onEnemyRage1Entered()
     {
         rage1_enemy.setX(2);
-        InfoLabel.setText("Przeciwnik obecnie nie ma żadnej karty RAGE");
+        onRageEntered(rage1_enemy);
     }
     @FXML
     protected void onEnemyRage2Entered()
     {
         rage2_enemy.setX(2);
-        InfoLabel.setText("Przeciwnik obecnie nie ma żadnej karty RAGE");
+        onRageEntered(rage2_enemy);
     }
     @FXML
     protected void onEnemyRage3Entered()
     {
         rage3_enemy.setX(2);
-        InfoLabel.setText("Przeciwnik obecnie nie ma żadnej karty RAGE");
+        onRageEntered(rage3_enemy);
     }
     @FXML
     protected void onMyCharacterEntered()

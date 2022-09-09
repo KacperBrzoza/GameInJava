@@ -93,6 +93,26 @@ public class Server {
         }).start();
     }
 
+    public void sendMessageToClient(String messageToServer){
+        new Thread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                try{
+                    bufferedWriter.write(messageToServer);
+                    bufferedWriter.newLine();
+                    bufferedWriter.flush();
+                } catch (IOException e){
+                    e.printStackTrace();
+                    System.out.println("Error sending message to the client");
+                    closeEverything();
+                }
+            }
+        });
+
+    }
+
     public void turns(){
         new Thread(new Runnable() {
             @Override

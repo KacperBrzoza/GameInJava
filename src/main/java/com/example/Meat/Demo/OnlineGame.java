@@ -69,7 +69,7 @@ public class OnlineGame {
     //tura pierwszego gracza
     public void server_turn(BufferedReader in) throws IOException {
         //out.println("\n\n\nTura Przeciwnika ");
-        //GameController.server.sendMessageToClient("COMMAND_01");
+        GameController.server.sendMessageToClient("COMMAND_01");
         //1. przejścia stworów w stronę bazy przeciwnika
         board.move(you, opponent, discarded, cards,  rage_cards, money, out, in);
         
