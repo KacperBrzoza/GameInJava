@@ -55,21 +55,24 @@ public class OnlineGame {
 
     //początkowe zasoby dla każdego gracza (3 żetony waluty i 3 karty stworów)
     private void startGame(Player you, Player opponent, GameController gameController){
-        for(int i = 0; i < 3; i++){
+        for(int i = 0; i < 6; i++){
             Creature creature = cards.giveCard(out, you, opponent, gameController);
-            you.eq.addCreature(creature);                                                                       //dodanie stwora do eq gracza 1
-            GameController.addImageToEQ(gameController.eqImages, creature.path);                                                 //dodanie zdjecia stwora do listy od eq
-
-            creature = cards.giveCard(out, you, opponent, gameController);
             opponent.eq.addCreature(creature);
             GameController.server.sendMessageToClient("PATH_" + creature.path);
 
+             creature = cards.giveCard(out, you, opponent, gameController);
+            you.eq.addCreature(creature);                                                                       //dodanie stwora do eq gracza 1
+            GameController.addImageToEQ(gameController.eqImages, creature.path);                                                 //dodanie zdjecia stwora do listy od eq
+
+
             you.money += money.giveMoney(you, opponent);
-            GameController.newNumberValue(gameController.MoneyPlayerValue, "" + you.money);
             opponent.money += money.giveMoney(you, opponent);
-            GameController.server.sendMessageToClient("NEW_MY_MONEY_VAL_" + opponent.money);
+
         }
-        GameController.server.sendMessageToClient("DUDE");
+        GameController.server.sendStartSet("NEW_CARDS_STACK_SIZE_" + cards.size(), "NEW_MY_MONEY_VAL_" + opponent.money, "SHOW_EQ");
+        GameController.newNumberValue(gameController.CardCounter, "" + cards.size());
+        GameController.newNumberValue(gameController.MoneyPlayerValue, "" + you.money);
+        GameController.showEQ(gameController.eq_it, gameController.eqImages, gameController.EQ1, gameController.EQ2, gameController.EQ3, gameController.EQ4);
     }
 
 

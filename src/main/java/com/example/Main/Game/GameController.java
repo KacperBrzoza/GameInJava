@@ -73,6 +73,9 @@ public class GameController implements Initializable
     @FXML
     public Button TakeCardDeck, RageCardDeck, MoneyStack, LostCardDeck;
 
+    @FXML
+    public Button LeftShowBut, RightShowBut;
+
 
     private String my_user;
     private String opponent;
@@ -104,7 +107,7 @@ public class GameController implements Initializable
     public static Boolean myTurn = true;
 
     public ArrayList<Image> eqImages;
-    //public int eq_it = 0;
+    public int eq_it = 0;
 
 
 
@@ -131,6 +134,7 @@ public class GameController implements Initializable
 
         eqImages = new ArrayList<>();
         AllScreen.setOpacity(0);
+        LeftShowBut.setDisable(true);
         try {
             FadeOut();
         } catch (IOException e) {
@@ -155,6 +159,7 @@ public class GameController implements Initializable
             //client.receiveMessageFromServer();
             //client.sendMessageToServer("Wysylam do serwa :)");
         }
+
         EndTurnButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -163,6 +168,40 @@ public class GameController implements Initializable
                 }
                 else{
                     client.sendMessageToServer("YOUR_TURN");
+                }
+            }
+        });
+
+        LeftShowBut.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                if(eq_it - 1 >= 0){
+                    eq_it--;
+                    showEQ(eq_it, eqImages, EQ1, EQ2, EQ3, EQ4);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (eq_it - 1 < 0)
+                                LeftShowBut.setDisable(true);
+                        }
+                    });
+                }
+            }
+        });
+
+        RightShowBut.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                if(eq_it + 4 < eqImages.size()){
+                    eq_it++;
+                    showEQ(eq_it, eqImages, EQ1, EQ2, EQ3, EQ4);
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (eq_it + 4 >=  eqImages.size())
+                                RightShowBut.setDisable(true);
+                        }
+                    });
                 }
             }
         });
@@ -219,11 +258,52 @@ public class GameController implements Initializable
             @Override
             public void run() {
                 File file = new File(val);
-                javafx.scene.image.Image image = new javafx.scene.image.Image(file.toURI().toString());
+                Image image = new Image(file.toURI().toString());
                 eqImages.add(image);
             }
         });
     }
+
+    //0 1 2 3
+    public static void showEQ(int eq_it, ArrayList<Image> eqImages, ImageView EQ1, ImageView EQ2, ImageView EQ3, ImageView EQ4){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                int i = eq_it;
+                if(i >= eqImages.size()){
+                    EQ1.setImage(null);
+                }
+                else{
+                    EQ1.setImage(eqImages.get(i));
+                }
+
+                i++;
+                if(i >= eqImages.size()){
+                    EQ2.setImage(null);
+                }
+                else{
+                    EQ2.setImage(eqImages.get(i));
+                }
+
+                i++;
+                if(i >= eqImages.size()){
+                    EQ3.setImage(null);
+                }
+                else{
+                    EQ3.setImage(eqImages.get(i));
+                }
+
+                i++;
+                if(i >= eqImages.size()){
+                    EQ4.setImage(null);
+                }
+                else{
+                    EQ4.setImage(eqImages.get(i));
+                }
+            }
+        });
+    }
+
 
     public static void setImage(ImageView view, int position, ArrayList<Image> eqImages){
         Platform.runLater(new Runnable() {
@@ -654,15 +734,18 @@ public class GameController implements Initializable
     @FXML
     protected void onLeftPageButtonClicked()
     {
-        page_sound();
-        /*Trzeba tu ogarnac programik na przesuwanie tych kafelek z ekwipunku bo jest problem i stylem
-        tak latwo chyba to sie nie naprawi w sensie SelectField1.setstyle("-fx-background-image: sciezkapliku") srednio zadziala jak patrzac w przod
-         */
+        if(eq_it - 1 >= 0) {
+            page_sound();
+            RightShowBut.setDisable(false);
+        }
     }
     @FXML
     protected void onRightPageButtonClicked()
     {
-        page_sound();
+        if(eq_it + 4 < eqImages.size()) {
+            page_sound();
+            LeftShowBut.setDisable(false);
+        }
     }
 
     @FXML

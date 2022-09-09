@@ -102,11 +102,8 @@ public class UserService
     {
         ObservableList<UserData> observableList = FXCollections.observableArrayList(); //Wszystko na string
         EntityManager entityManager = PersistenceManager.getFactory().createEntityManager();
-        List<UserData> uList = entityManager.createQuery("SELECT u FROM UserData u", UserData.class).getResultList();
-        for(UserData userData : uList)
-        {
-            observableList.add(userData);
-        }
+        List<UserData> uList = entityManager.createQuery("select u FROM UserData u", UserData.class).getResultList();
+        observableList.addAll(uList);
         return observableList;
     }
 

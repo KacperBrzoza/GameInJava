@@ -97,6 +97,9 @@ public class Client {
         if (Commands.yourTurn(in)) {
             GameController.changeTurn(gameController.EndTurnButton, gameController.TakeCardDeck, gameController.RageCardDeck, gameController.MoneyStack, gameController.LostCardDeck, gameController.CardCounter);
         }
+        else if (Commands.showEQ(in)){
+            GameController.showEQ(gameController.eq_it, gameController.eqImages, gameController.EQ1, gameController.EQ2, gameController.EQ3, gameController.EQ4);
+        }
         else if (!(val = Commands.newCardStackSize(in)).equals("-1")) {
             GameController.newNumberValue(gameController.CardCounter, val);
         }
@@ -105,11 +108,6 @@ public class Client {
         }
         else if (!(val = Commands.path(in)).equals("-1")) {
             GameController.addImageToEQ(gameController.eqImages, val);
-            System.out.println("hah");
-        }
-        else if (Commands.dude(in)){
-            GameController.setImage(gameController.EQ3, 0, gameController.eqImages);
-            System.out.println("hah");
         }
 
         /*

@@ -135,6 +135,31 @@ public class Server {
         }).start();
     }
 
+    public void sendStartSet(String cardStackSize, String yourMoney, String showEq){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    bufferedWriter.write(cardStackSize);
+                    bufferedWriter.newLine();
+                    bufferedWriter.flush();
+
+                    bufferedWriter.write(yourMoney);
+                    bufferedWriter.newLine();
+                    bufferedWriter.flush();
+
+                    bufferedWriter.write(showEq);
+                    bufferedWriter.newLine();
+                    bufferedWriter.flush();
+                } catch (IOException e){
+                    e.printStackTrace();
+                    System.out.println("Error sending message to the client");
+                    closeEverything();
+                }
+            }
+        }).start();
+    }
+
 
 
     public void receiveMessageFromClient(){

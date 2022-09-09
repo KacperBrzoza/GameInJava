@@ -6,6 +6,11 @@ public class Commands {
         return in.equals("YOUR_TURN");
     }
 
+    //SHOW_EQ
+    public static boolean showEQ(String in){
+        return in.equals("SHOW_EQ");
+    }
+
     //NEW_CARDS_STACK_SIZE_XYZ
     public static String newCardStackSize(String in){
         if(in.length() >= 22 && in.length() <= 24){
@@ -64,7 +69,6 @@ public class Commands {
             }
             if(test.equals("PATH_")){
                 test = "";
-                i++;
                 while (i < in.length()){
                     test += command[i];
                     i++;
@@ -76,7 +80,6 @@ public class Commands {
         return "-1";
     }
 
-    public static boolean dude(String in){
-        return in.equals("DUDE");
-    }
+
+
 }

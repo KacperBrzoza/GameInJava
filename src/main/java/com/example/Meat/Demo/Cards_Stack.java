@@ -3,6 +3,7 @@ package com.example.Meat.Demo;
 import com.example.Main.Game.GameController;
 import com.example.Meat.Creatures.*;
 
+import javax.swing.plaf.PanelUI;
 import java.io.BufferedWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -222,6 +223,10 @@ public class Cards_Stack {
         if(creatures.size() == 0)
             endGame(out, you, opponent);
         return card;
+    }
+
+    public int size(){
+        return creatures.size();
     }
 
     //metoda przerywa grę gdy skończą się karty na stosie (do testów)
