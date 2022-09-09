@@ -1,5 +1,6 @@
 package com.example.Meat.Creatures;
 
+import com.example.Main.Game.GameController;
 import com.example.Meat.Demo.*;
 
 import java.io.BufferedReader;
@@ -22,7 +23,7 @@ public class Z_Creature extends Creature{
     }
 
     @Override
-    public void effect(Player you, Player opponent, Cards_Stack cards, Discardeds_Stack discardeds, Money money, Board board, BufferedWriter out, BufferedReader in) throws IOException {
+    public void effect(Player you, Player opponent, Cards_Stack cards, Discardeds_Stack discardeds, Money money, Board board, BufferedWriter out, BufferedReader in, GameController gameController) throws IOException {
         if(you.id == 1) {
             //jeżeli masz już coś wystawione
             if(you.counter > 1){

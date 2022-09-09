@@ -42,14 +42,14 @@ public class ConnectionMenager {
             System.out.println("[ SERWER ]: Przeciwnik polaczyl sie...");
 
             //inicjalizacja gry online
-            OnlineGame game = new OnlineGame(serverSocket, clientSocket, out, PLAYER_ONE_POINTS, PLAYER_TWO_POINTS);
+            //OnlineGame game = new OnlineGame(serverSocket, clientSocket, out, PLAYER_ONE_POINTS, PLAYER_TWO_POINTS);
 
             //naprzemienne tury graczy
             while (true) {
                 //gracz, który jest serwerem rozgrywa turę jako pierwszy
-                game.server_turn(in);
+                //ame.server_turn(in);
                 //gracz, który jest klientem rozgrywa turę jako pierwszy
-                game.client_turn(in);
+                //game.client_turn(in);
             }
 
         } catch (IOException e) {   //obsługa zdarzenia gdy klient/oponent się rozłączy

@@ -1,5 +1,6 @@
 package com.example.Meat.Rage_Cards;
 
+import com.example.Main.Game.GameController;
 import com.example.Meat.Creatures.Creature;
 import com.example.Meat.Demo.*;
 
@@ -15,7 +16,7 @@ public class CommonFear extends R_Card{
         description = "wszystkie wrogie jednostki wracaja do wlasciciela";
     }
 
-    public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage, BufferedWriter out, BufferedReader in) throws IOException {
+    public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage, BufferedWriter out, BufferedReader in, GameController gameController) throws IOException {
 
         //jeżeli przeciwnik ma coś wystawione
         if(opponent.counter > 0){

@@ -1,5 +1,6 @@
 package com.example.Meat.Demo;
 
+import com.example.Main.Game.GameController;
 import com.example.Meat.Creatures.*;
 import com.example.Meat.Rage_Cards.R_Card;
 
@@ -40,7 +41,7 @@ public class Board {
 
 
     //ruch stworow pojedynczego gracza
-    public void move(Player you, Player opponent, Discardeds_Stack discarded, Cards_Stack cards, Rage_Cards rage_cards, Money money, BufferedWriter out, BufferedReader in) throws IOException {
+    public void move(Player you, Player opponent, Discardeds_Stack discarded, Cards_Stack cards, Rage_Cards rage_cards, Money money, BufferedWriter out, BufferedReader in, GameController gameController) throws IOException {
         //gdy tura pierwszego
         if(you.id == 1){
             //stwor na ostatnim polu wchodzi do bazy przeciwnika
@@ -67,7 +68,7 @@ public class Board {
                     opponent.rage.putCard(rage_card);
                     System.out.println("GRACZ " + opponent.id + " otrzymal karte *" + rage_card + "*");
                     //out.println("GRACZ " + opponent.id + " otrzymal karte *" + rage_card + "*");
-                    rage_card.effect(opponent, you, this, discarded, cards, money, rage_cards, out, in);
+                    rage_card.effect(opponent, you, this, discarded, cards, money, rage_cards, out, in, gameController);
                     //jeżeli zdobytą kartą była karta Rage "Swarm" zwieksza atak o 1 wszystkim swoim wystawionym jednostkom z atakiem = 2
                     if(opponent.Swarm == 1){
                         for (int i = 0; i < 5; i++){
@@ -137,7 +138,7 @@ public class Board {
                     opponent.rage.putCard(rage_card);
                     System.out.println("GRACZ " + opponent.id + " otrzymal karte *" + rage_card + "*");
                     //out.println("GRACZ " + opponent.id + " otrzymal karte *" + rage_card + "*");
-                    rage_card.effect(opponent, you, this, discarded, cards, money, rage_cards, out, in);
+                    rage_card.effect(opponent, you, this, discarded, cards, money, rage_cards, out, in, gameController);
                     //jeżeli zdobytą kartą była karta Rage "Swarm" zwieksza atak o 1 wszystkim swoim wystawionym jednostkom z atakiem = 2
                     if(opponent.Swarm == 1){
                         for (int i = 0; i < 5; i++){

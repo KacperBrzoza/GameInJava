@@ -1,5 +1,6 @@
 package com.example.Meat.Creatures;
 
+import com.example.Main.Game.GameController;
 import com.example.Meat.Demo.*;
 
 import java.io.BufferedReader;
@@ -20,7 +21,7 @@ public class H_Creature extends Creature{
     }
 
     @Override
-    public void effect(Player you, Player opponent, Cards_Stack cards, Discardeds_Stack discardeds, Money money, Board board, BufferedWriter out, BufferedReader in) {
+    public void effect(Player you, Player opponent, Cards_Stack cards, Discardeds_Stack discardeds, Money money, Board board, BufferedWriter out, BufferedReader in, GameController gameController) {
         if(!discardeds.empty()) {
             you.eq.addCreature(discardeds.takeCard());
             if(you.id == 1)

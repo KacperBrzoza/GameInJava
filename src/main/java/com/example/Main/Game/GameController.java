@@ -7,6 +7,7 @@ import com.example.NetTools.Server;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -27,6 +28,8 @@ import javafx.util.Duration;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import static com.example.Main.Menu.WaitingEnemyController.SWITCHER;
@@ -36,39 +39,39 @@ public class GameController implements Initializable
     @FXML
     Pane AllScreen;
     @FXML
-    Button EndTurnButton;
+    public Button EndTurnButton;
     @FXML
-    Label MoneyPlayerValue;
+    public Label MoneyPlayerValue;
     @FXML
     HBox ChoiceHBox;
     @FXML
     ImageView MyTower,EnemyTower;
     @FXML
-    private Label InfoLabel, CardCounter, EQLabel;
+    public Label InfoLabel, CardCounter, EQLabel;
     @FXML
     private Pane InventoryPane;
     @FXML
-    ImageView BattleGrid,PlayerPicture,MyCharacter,EnemyCharacter;
+    public ImageView BattleGrid,PlayerPicture,MyCharacter,EnemyCharacter;
 
     @FXML
-    private ImageView mygrid0,mygrid1,mygrid2,mygrid3,mygrid4;
+    public ImageView mygrid0,mygrid1,mygrid2,mygrid3,mygrid4;
     @FXML
-    private ImageView enemygrid4,enemygrid3,enemygrid2,enemygrid1,enemygrid0;
+    public ImageView enemygrid4,enemygrid3,enemygrid2,enemygrid1,enemygrid0;
     @FXML
-    ImageView rage1,rage2,rage3;
+    public ImageView rage1,rage2,rage3;
     @FXML
-    ImageView rage1_enemy,rage2_enemy,rage3_enemy;
+    public ImageView rage1_enemy,rage2_enemy,rage3_enemy;
     @FXML
-    private Button ExitButton;
+    public Button ExitButton;
 
     @FXML
-    ImageView EQ1,EQ2,EQ3,EQ4;
+    public ImageView EQ1,EQ2,EQ3,EQ4;
 
     @FXML
-    private ImageView lostcardgrid;
+    public ImageView lostcardgrid;
 
     @FXML
-    Button TakeCardDeck, RageCardDeck, MoneyStack, LostCardDeck;
+    public Button TakeCardDeck, RageCardDeck, MoneyStack, LostCardDeck;
 
 
     private String my_user;
@@ -98,6 +101,15 @@ public class GameController implements Initializable
 
     public static String opponentNick;
 
+    public static Boolean myTurn = true;
+
+    public ArrayList<Image> eqImages;
+    //public int eq_it = 0;
+
+
+
+
+
 
     //awaryjne pola do przechwycenia wyniku w razie rozłączenia się, któregoś z graczy
     public static float PLAYER_ONE_POINTS = 0;
@@ -117,6 +129,7 @@ public class GameController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        eqImages = new ArrayList<>();
         AllScreen.setOpacity(0);
         try {
             FadeOut();
@@ -127,8 +140,8 @@ public class GameController implements Initializable
         mediaPlayer_battle_music.setVolume(0.1);
         mediaPlayer_battle_music.play();
         if(SWITCHER == 1){
-            server.startGame();
-            server.turns();
+            server.startGame(this);
+            server.turns(this);
             //server.sendMessageToClient("wysylam mesedz");
             //server.receiveMessageFromClient();
 
@@ -136,16 +149,93 @@ public class GameController implements Initializable
         }
         else {
             ChangeTextureForClient();
-            client.turns(EQLabel);
+            changeTurn(EndTurnButton, TakeCardDeck, RageCardDeck, MoneyStack, LostCardDeck, CardCounter);
+            client.turns(this);
             //opponent = Memory.memory.getUsername();
             //client.receiveMessageFromServer();
             //client.sendMessageToServer("Wysylam do serwa :)");
         }
+        EndTurnButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                if(SWITCHER == 1){
+                    server.sendMessageToClient("YOUR_TURN");
+                }
+                else{
+                    client.sendMessageToServer("YOUR_TURN");
+                }
+            }
+        });
     }
+
+    //metoda
+    public static void changeTurn(Button EndTurnButton, Button TakeCardDeck, Button RageCardDeck, Button MoneyStack, Button LostCardDeck, Label CardCounter){
+        if(myTurn){
+            myTurn = false;
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    EndTurnButton.setText("Tura Przeciwnika");
+                    EndTurnButton.setStyle("-fx-font-size: 22pt;");
+                    //-fx-font-size: 28pt; normalny rozmiar czcionki dla przycisku konca tury jesli tura wroci do gracza
+                    EndTurnButton.setDisable(true);
+                    TakeCardDeck.setDisable(true);
+                    RageCardDeck.setDisable(true);
+                    MoneyStack.setDisable(true);
+                    LostCardDeck.setDisable(true);
+                    CardCounter.setDisable(true);
+                }
+            });
+        }
+        else{
+            myTurn = true;
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    EndTurnButton.setText("Zakoncz ture");
+                    EndTurnButton.setStyle("-fx-font-size: 28pt;");
+                    EndTurnButton.setDisable(false);
+                    TakeCardDeck.setDisable(false);
+                    RageCardDeck.setDisable(false);
+                    MoneyStack.setDisable(false);
+                    LostCardDeck.setDisable(false);
+                    CardCounter.setDisable(false);
+                }
+            });
+        }
+    }
+
+    public static void newNumberValue(Label label, String val){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                label.setText(val);
+            }
+        });
+    }
+
+    public static void addImageToEQ(ArrayList<Image> eqImages, String val){
+        File file = new File(val);
+        javafx.scene.image.Image image = new javafx.scene.image.Image(file.toURI().toString());
+        eqImages.add(image);
+    }
+
+    public static void setImage(ImageView view, int position, ArrayList<Image> eqImages){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                view.setImage(eqImages.get(position));
+                view.setDisable(false);
+                view.setVisible(true);
+            }
+        });
+    }
+
     @FXML
     protected void ChangeTextureForClient()
     {
         onEndTurnButtonClicked();
+        /*
         File file = new File("src/main/resources/img/Game_imgs/players/full_hp_red.gif");
         Image myheroimg = new Image(file.toURI().toString());
         MyCharacter.setImage(myheroimg);
@@ -163,6 +253,7 @@ public class GameController implements Initializable
         File file5 = new File("src/main/resources/img/Game_imgs/player_towers/plate_player_right_blue.png");
         Image enemytowerimg = new Image(file5.toURI().toString());
         EnemyTower.setImage(enemytowerimg);
+         */
         File file6 = new File("src/main/resources/img/Game_imgs/players/my_profile_king2.gif");
         Image statuscharacterimg = new Image(file6.toURI().toString());
         PlayerPicture.setImage(statuscharacterimg);
@@ -173,7 +264,6 @@ public class GameController implements Initializable
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                System.out.println("teraz powinienem podmienic");
                 EQLabel.setText(message);
                 EQLabel.setStyle("-fx-text-fill: green;");
             }
@@ -478,9 +568,10 @@ public class GameController implements Initializable
         TakeCardDeck.setDisable(true);
         RageCardDeck.setDisable(true);
         MoneyStack.setDisable(true);
-        LostCardDeck.setDisable(true);;
+        LostCardDeck.setDisable(true);
         CardCounter.setDisable(true);
     }
+
     @FXML
     protected void onEndTurnButtonEntered()
     {
@@ -610,10 +701,10 @@ public class GameController implements Initializable
 
                     //[48-57]   -   cyfry w ASCI
 
-                    //  Ex.1  20 99M
-                    //  Ex.2  /20 99
-                    //  Ex.3  /2 09M
-                    //  Ex.4  */9 99
+                    //  Ex.1  2079M
+                    //  Ex.2  /2079
+                    //  Ex.3  /209M
+                    //  Ex.4  */789
                     char current_char;  //pomocnicza zmienna do aktualnie przetwarzanego znaku
                     int i = 5;          //pomocnicza zmienna do ustalania znaku z kodu, ktory bedzie do przetworzenia
 

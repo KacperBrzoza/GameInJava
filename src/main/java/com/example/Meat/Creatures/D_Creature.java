@@ -1,5 +1,6 @@
 package com.example.Meat.Creatures;
 
+import com.example.Main.Game.GameController;
 import com.example.Meat.Demo.*;
 
 import java.io.BufferedReader;
@@ -21,8 +22,8 @@ public class D_Creature extends Creature{
     }
 
     @Override
-    public void effect(Player you, Player opponent, Cards_Stack cards, Discardeds_Stack discardeds, Money money, Board board, BufferedWriter out, BufferedReader in) {
-        you.eq.addCreature(cards.giveCard(out, you, opponent));
+    public void effect(Player you, Player opponent, Cards_Stack cards, Discardeds_Stack discardeds, Money money, Board board, BufferedWriter out, BufferedReader in, GameController gameController) {
+        you.eq.addCreature(cards.giveCard(out, you, opponent, gameController));
         if(you.id == 1)
             System.out.println("Moc D dobrala karte");
         //else

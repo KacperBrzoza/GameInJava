@@ -1,5 +1,6 @@
 package com.example.Meat.Rage_Cards;
 
+import com.example.Main.Game.GameController;
 import com.example.Meat.Creatures.Creature;
 import com.example.Meat.Demo.*;
 
@@ -17,7 +18,7 @@ public class FinalWord extends R_Card{
         this.description = "natychmiast wystawiasz jednostke za darmo (jednorazowa)";
     }
 
-    public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage, BufferedWriter out, BufferedReader in) throws IOException {
+    public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage, BufferedWriter out, BufferedReader in, GameController gameController) throws IOException {
         if(you.id == 1){
             //jeżeli aktualny gracz ma coś w ekwipunku i nie ma 4 jednostek na planszy
             if(you.eq.size() > 0 && you.counter < 4) {
@@ -46,7 +47,7 @@ public class FinalWord extends R_Card{
                         }
                         board.put(creature, you, opponent, discardeds);
                         you.counter++;
-                        creature.effect(you, opponent, cards, discardeds, money, board, out, in);
+                        creature.effect(you, opponent, cards, discardeds, money, board, out, in, gameController);
                     }
                 }
                 System.out.println(board);
@@ -81,7 +82,7 @@ public class FinalWord extends R_Card{
                         }
                         board.put(creature, you, opponent, discardeds);
                         you.counter++;
-                        creature.effect(you, opponent, cards, discardeds, money, board, out, in);
+                        creature.effect(you, opponent, cards, discardeds, money, board, out, in, gameController);
                     }
                 }
                 System.out.println(board);

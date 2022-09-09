@@ -1,5 +1,6 @@
 package com.example.Meat.Rage_Cards;
 
+import com.example.Main.Game.GameController;
 import com.example.Meat.Demo.*;
 
 import java.io.BufferedReader;
@@ -15,7 +16,7 @@ public class Weakness extends R_Card{
         description = "przeciwnik traci 3 karty stworow z reki (jednorazowe)";
     }
 
-    public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage, BufferedWriter out, BufferedReader in) throws IOException {
+    public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage, BufferedWriter out, BufferedReader in, GameController gameController) throws IOException {
         if(opponent.id == 1){
             //zadziała gdy przeciwnik ma coś w ekwipunku
             if(opponent.eq.size() > 0) {

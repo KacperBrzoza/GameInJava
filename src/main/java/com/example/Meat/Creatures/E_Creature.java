@@ -1,5 +1,6 @@
 package com.example.Meat.Creatures;
 
+import com.example.Main.Game.GameController;
 import com.example.Meat.Demo.*;
 
 import java.io.BufferedReader;
@@ -25,7 +26,7 @@ public class E_Creature extends Creature{
     }
 
     @Override
-    public void effect(Player you, Player opponent, Cards_Stack cards, Discardeds_Stack discardeds, Money money, Board board, BufferedWriter out, BufferedReader in) throws IOException {
+    public void effect(Player you, Player opponent, Cards_Stack cards, Discardeds_Stack discardeds, Money money, Board board, BufferedWriter out, BufferedReader in, GameController gameController) throws IOException {
         //moc zadziała gdy gracz ma coś w ekwipunku
         if(you.eq.size() > 0){
             //wariant dla gracza 1
@@ -78,7 +79,7 @@ public class E_Creature extends Creature{
                                 }
                             }
                             you.counter++;
-                            creature.effect(you, opponent, cards, discardeds, money, board, out, in);
+                            creature.effect(you, opponent, cards, discardeds, money, board, out, in, gameController);
                             break;
                         }
                         //rezygnacja z mocy
@@ -137,7 +138,7 @@ public class E_Creature extends Creature{
                             }
                         }
                         you.counter++;
-                        creature.effect(you, opponent, cards, discardeds, money, board, out, in);
+                        creature.effect(you, opponent, cards, discardeds, money, board, out, in, gameController);
                     }
                 }
             }

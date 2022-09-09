@@ -28,7 +28,7 @@ public class OnlineGame {
     public float  PLAYER_ONE_POINTS;
     public float  PLAYER_TWO_POINTS;
 
-    public OnlineGame(ServerSocket serverSocket, Socket clientSocket, BufferedWriter out, float PLAYER_ONE_POINTS, float PLAYER_TWO_POINTS){
+    public OnlineGame(ServerSocket serverSocket, Socket clientSocket, BufferedWriter out, float PLAYER_ONE_POINTS, float PLAYER_TWO_POINTS, GameController gameController){
         you = new Player(1);
         opponent = new Player(2);
 
@@ -48,30 +48,39 @@ public class OnlineGame {
 
         board = new Board(this.PLAYER_ONE_POINTS, this.PLAYER_TWO_POINTS);
 
-        startGame(you, opponent);
+        startGame(you, opponent, gameController);
         System.out.println("OK");
     }
 
 
     //początkowe zasoby dla każdego gracza (3 żetony waluty i 3 karty stworów)
-    private void startGame(Player you, Player opponent){
+    private void startGame(Player you, Player opponent, GameController gameController){
         for(int i = 0; i < 3; i++){
-            you.eq.addCreature(cards.giveCard(out, you, opponent));
-            opponent.eq.addCreature(cards.giveCard(out, you, opponent));
+            Creature creature = cards.giveCard(out, you, opponent, gameController);
+            you.eq.addCreature(creature);                                                                       //dodanie stwora do eq gracza 1
+            GameController.addImageToEQ(gameController.eqImages, creature.path);                                                 //dodanie zdjecia stwora do listy od eq
+
+            creature = cards.giveCard(out, you, opponent, gameController);
+            opponent.eq.addCreature(creature);
+            GameController.server.sendMessageToClient("PATH_" + creature.path);
+
             you.money += money.giveMoney(you, opponent);
+            GameController.newNumberValue(gameController.MoneyPlayerValue, "" + you.money);
             opponent.money += money.giveMoney(you, opponent);
+            GameController.server.sendMessageToClient("NEW_MY_MONEY_VAL_" + opponent.money);
         }
+        GameController.server.sendMessageToClient("DUDE");
     }
 
 
     //METODY DLA GRACZA, KTÓRY JEST SERWEREM
 
     //tura pierwszego gracza
-    public void server_turn(BufferedReader in) throws IOException {
-        //out.println("\n\n\nTura Przeciwnika ");
-        GameController.server.sendMessageToClient("COMMAND_01");
+    public void server_turn(BufferedReader in, GameController gameController) throws IOException {
+
+
         //1. przejścia stworów w stronę bazy przeciwnika
-        board.move(you, opponent, discarded, cards,  rage_cards, money, out, in);
+        board.move(you, opponent, discarded, cards,  rage_cards, money, out, in, gameController);
         
         //wysłanie planszy do przeciwnika
         //out.println(board);
@@ -82,7 +91,7 @@ public class OnlineGame {
         you.showMoney();
 
         //2. dobrania kart stworów lub żetonów waluty. Gracz ma dwa dobrania
-        draw();
+        draw(gameController);
 
         //3.Jeżeli gracz ma coś w ekwipunku...
         if(you.eq.size() >= 1) {
@@ -104,7 +113,7 @@ public class OnlineGame {
             }
             //... może wystawiać tyle stworów na ile stać gracza, o ile jakieś ma, przestrzegając limitu 4 swoich stworów na planszy
             if (number == 2)
-                display(in);
+                display(in, gameController);
         }
 
         //4. Jeśli gracz posiada kartę Rage "Secret Assets" dostaje 1 żeton waluty na koniec tury
@@ -115,7 +124,7 @@ public class OnlineGame {
 
         //4. Jeśli gracz posiada kartę Rage "RatCatcher" dostaje 1 kartę stwora na koniec tury
         if(you.RatCatcher == 1){
-            you.eq.addCreature(cards.giveCard(out, you, opponent));
+            you.eq.addCreature(cards.giveCard(out, you, opponent, gameController));
             System.out.println("Dobrano stwora");
         }
 
@@ -123,7 +132,7 @@ public class OnlineGame {
     }
 
     //pozwala pierwszemu graczowi dobrać 2x żeton waluty  lub  2x kartę stwora  lub  1x to i 1x to
-    private void draw(){
+    private void draw(GameController gameController){
         you.select = 2;   //liczba dobrań
 
         while(you.select > 0){
@@ -134,10 +143,10 @@ public class OnlineGame {
 
             //dobranie karty
             if(number == 1){
-                Creature one = cards.giveCard(out, you, opponent);
+                Creature one = cards.giveCard(out, you, opponent, gameController);
                 //jeżeli gracz posiada kartę Rage "Selection" dobiera dwie karty. Jedną zatrzymuje, drugą odrzuca
                 if(you.Selection == 1){
-                    Creature two = cards.giveCard(out, you, opponent);
+                    Creature two = cards.giveCard(out, you, opponent, gameController);
                     System.out.println("(1) " + one);
                     System.out.println("(2) " + two);
                     number = -1;
@@ -186,7 +195,7 @@ public class OnlineGame {
     }
 
     //metoda odpowiadająca za wystawianie kart i dodatkowe akcje
-    private void display(BufferedReader in) throws IOException {
+    private void display(BufferedReader in, GameController gameController) throws IOException {
         if(you.counter < 4)
             while (you.counter < 4 ){
                 System.out.println("Pieniadze: " + you.money);
@@ -226,7 +235,7 @@ public class OnlineGame {
                                 }
                                 board.put(creature, you, opponent, discarded);
                                 you.counter++;
-                                creature.effect(you, opponent, cards, discarded, money, board, out, in);
+                                creature.effect(you, opponent, cards, discarded, money, board, out, in, gameController);
                                 System.out.println("\n" + board);
                                 //out.println("\n" + board);
                             }
@@ -300,12 +309,12 @@ public class OnlineGame {
     //METODY DLA GRACZA, KTÓRY JEST KLIENTEM
 
     //tura drugiego gracza, który jest klientem
-    public void client_turn(BufferedReader in) throws IOException {
+    public void client_turn(BufferedReader in, GameController gameController) throws IOException {
         String fromClient;
         //out.println("\n\n\nTWOJA TURA ");
 
         //1. przejścia stworów w stronę bazy przeciwnika
-        board.move(opponent, you, discarded, cards,  rage_cards, money, out, in);
+        board.move(opponent, you, discarded, cards,  rage_cards, money, out, in, gameController);
 
         //wypisanie samej planszy
         System.out.println(board);
@@ -316,7 +325,7 @@ public class OnlineGame {
         //out.println("Pieniadze: " + opponent.money);
 
         //2. dobrania kart stworów lub żetonów waluty. Gracz ma dwa dobrania
-        draw2(in);
+        draw2(in, gameController);
 
         //3.Jeżeli gracz ma coś w ekwipunku...
         if(opponent.eq.size() >= 1) {
@@ -336,7 +345,7 @@ public class OnlineGame {
             }
             //... może wystawiać tyle stworów na ile stać gracza, o ile jakieś ma, przestrzegając limitu 4 swoich stworów na planszy
             if (number == 2)
-                display2(in);
+                display2(in, gameController);
         }
 
         //4. Jeśli gracz posiada kartę Rage "Secret Assets" dostaje 1 żeton waluty na koniec tury
@@ -347,7 +356,7 @@ public class OnlineGame {
 
         //4. Jeśli gracz posiada kartę Rage "RatCatcher" dostaje 1 kartę stwora na koniec tury
         if(opponent.RatCatcher == 1){
-            opponent.eq.addCreature(cards.giveCard(out, you, opponent));
+            opponent.eq.addCreature(cards.giveCard(out, you, opponent, gameController));
             //out.println("Dobrano stwora");
         }
 
@@ -355,7 +364,7 @@ public class OnlineGame {
     }
 
     //pozwala drugiemu graczowi dobrać 2x żeton waluty  lub  2x kartę stwora  lub  1x to i 1x to
-    private void draw2(BufferedReader in) throws IOException {
+    private void draw2(BufferedReader in, GameController gameController) throws IOException {
         opponent.select = 2;   //liczba dobrań
         String fromClient;
 
@@ -371,10 +380,10 @@ public class OnlineGame {
 
             //dobranie karty
             if (number == 1) {
-                Creature one = cards.giveCard(out, you, opponent);
+                Creature one = cards.giveCard(out, you, opponent, gameController);
                 //jeżeli gracz posiada kartę Rage "Selection" dobiera dwie karty. Jedną zatrzymuje, drugą odrzuca
                 if (opponent.Selection == 1) {
-                    Creature two = cards.giveCard(out, you, opponent);
+                    Creature two = cards.giveCard(out, you, opponent, gameController);
                     //out.println("(1) " + one);
                     //out.println("(2) " + two);
                     //out.println("ONE_OR_TWO");
@@ -420,7 +429,7 @@ public class OnlineGame {
     }
 
     //metoda odpowiadająca za wystawianie kart i dodatkowe akcje
-    private void display2(BufferedReader in) throws IOException {
+    private void display2(BufferedReader in, GameController gameController) throws IOException {
         String fromClient;
         if(opponent.counter < 4) {
             label:
@@ -465,7 +474,7 @@ public class OnlineGame {
                                     }
                                     board.put(creature, opponent, you, discarded);
                                     opponent.counter++;
-                                    creature.effect(opponent, you, cards, discarded, money, board, out, in);
+                                    creature.effect(opponent, you, cards, discarded, money, board, out, in, gameController);
                                     //out.println("\n" + board);
                                     System.out.println("\n" + board);
                                     break;

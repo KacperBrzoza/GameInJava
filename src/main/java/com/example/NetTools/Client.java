@@ -58,7 +58,7 @@ public class Client {
     }
 
 
-    public void turns(Label EQLabel){
+    public void turns(GameController gameController){
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -68,7 +68,7 @@ public class Client {
                     try {
                         fromServer = bufferedReader.readLine();
                         //... i przetwarza wiadomości od serwera
-                        toServer = turnService(fromServer, EQLabel);
+                        toServer = turnService(fromServer, gameController);
                         //jeżeli przetworzona wiadomość jest taka sama jak po jej otrzymaniu, to po prostu ją wyświetl
                         if (toServer.equals(fromServer))
                             System.out.println(fromServer);
@@ -91,9 +91,28 @@ public class Client {
 
     //usługa, z której korzysta klient
     //ma za zadanie przetwarzać wejściowe napisy i zwracać wyjściowe
-    private String turnService(String in, Label EQLabel) throws IOException {
+    private String turnService(String in, GameController gameController) throws IOException {
         String out = "";        //poczatkowo wyjscie jest pustym napisem
+        String val = "";
+        if (Commands.yourTurn(in)) {
+            GameController.changeTurn(gameController.EndTurnButton, gameController.TakeCardDeck, gameController.RageCardDeck, gameController.MoneyStack, gameController.LostCardDeck, gameController.CardCounter);
+        }
+        else if (!(val = Commands.newCardStackSize(in)).equals("-1")) {
+            GameController.newNumberValue(gameController.CardCounter, val);
+        }
+        else if (!(val = Commands.newMyMoneyVal(in)).equals("-1")) {
+            GameController.newNumberValue(gameController.MoneyPlayerValue, val);
+        }
+        else if (!(val = Commands.path(in)).equals("-1")) {
+            GameController.addImageToEQ(gameController.eqImages, val);
+            System.out.println("hah");
+        }
+        else if (Commands.dude(in)){
+            GameController.setImage(gameController.EQ3, 0, gameController.eqImages);
+            System.out.println("hah");
+        }
 
+        /*
         //gdy wejściem jest sygnał poniżej, zmusza klienta do wybrania liczby 1 lub 2
         if(in.equals("ONE_OR_TWO")){
             Scanner scan = new Scanner(System.in);
@@ -107,7 +126,7 @@ public class Client {
             out += number;
         }
 
-        else if(in.equals("COMMAND_01")){
+        else if(in.equals("YOUR_TURN")){
             GameController.showMessage("AAAAAAAAAAAAAAAA", EQLabel);
         }
 
@@ -147,6 +166,8 @@ public class Client {
         }
 
         //w innych przypadkch wejście staje się wyjściem
+
+         */
         else
             out = in;
 

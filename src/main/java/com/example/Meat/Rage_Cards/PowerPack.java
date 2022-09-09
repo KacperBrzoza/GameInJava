@@ -1,5 +1,6 @@
 package com.example.Meat.Rage_Cards;
 
+import com.example.Main.Game.GameController;
 import com.example.Meat.Demo.*;
 
 import java.io.BufferedReader;
@@ -14,9 +15,9 @@ public class PowerPack extends R_Card{
         this.description = "dobierasz 2 zetony waluty, 2 karty stworow i uzdrawiasz dwie jednostki (jednorazowa)";
     }
 
-    public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage, BufferedWriter out, BufferedReader in) throws IOException {
+    public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage, BufferedWriter out, BufferedReader in, GameController gameController) throws IOException {
         for (int i = 0; i < 2; i++){
-            you.eq.addCreature(cards.giveCard(out, you, opponent));
+            you.eq.addCreature(cards.giveCard(out, you, opponent, gameController));
         }
         for (int i = 0; i < 2; i++){
             you.money += money.giveMoney(you, opponent);

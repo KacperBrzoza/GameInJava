@@ -1,5 +1,6 @@
 package com.example.Meat.Creatures;
 
+import com.example.Main.Game.GameController;
 import com.example.Meat.Demo.*;
 
 import java.io.BufferedReader;
@@ -71,7 +72,7 @@ public class Creature {
     public boolean ifUnbroaken(){return Unbroaken == 1;}
 
     //metoda do przeciążania przez stwory z mocami
-    public void effect(Player you, Player opponent, Cards_Stack cards, Discardeds_Stack discardeds, Money money, Board board, BufferedWriter out, BufferedReader in) throws IOException {}
+    public void effect(Player you, Player opponent, Cards_Stack cards, Discardeds_Stack discardeds, Money money, Board board, BufferedWriter out, BufferedReader in, GameController gameController) throws IOException {}
 
     //porównywanie dwóch stworów
     public boolean theSame(Creature c) {

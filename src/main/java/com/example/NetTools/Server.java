@@ -39,9 +39,9 @@ public class Server {
         }
     }
 
-    public void startGame(){
+    public void startGame(GameController gameController){
         //inicjalizacja gry online
-        newGame = new OnlineGame(serverSocket, socket, bufferedWriter, PLAYER_ONE_POINTS, PLAYER_TWO_POINTS);
+        newGame = new OnlineGame(serverSocket, socket, bufferedWriter, PLAYER_ONE_POINTS, PLAYER_TWO_POINTS, gameController);
     }
 
     public void sendAndListen(){
@@ -93,14 +93,14 @@ public class Server {
         }).start();
     }
 
-    public void sendMessageToClient(String messageToServer){
+    public void sendMessageToClient(String messageFromServer){
         new Thread(new Runnable()
         {
             @Override
             public void run()
             {
                 try{
-                    bufferedWriter.write(messageToServer);
+                    bufferedWriter.write(messageFromServer);
                     bufferedWriter.newLine();
                     bufferedWriter.flush();
                 } catch (IOException e){
@@ -109,24 +109,24 @@ public class Server {
                     closeEverything();
                 }
             }
-        });
+        }).start();
 
     }
 
-    public void turns(){
+    public void turns(GameController gameController){
         new Thread(new Runnable() {
             @Override
             public void run() {
                 while (socket.isConnected()){
                     //gracz, który jest serwerem rozgrywa turę jako pierwszy
                     try {
-                        newGame.server_turn(bufferedReader);
+                        newGame.server_turn(bufferedReader, gameController);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                     //gracz, który jest klientem rozgrywa turę jako pierwszy
                     try {
-                        newGame.client_turn(bufferedReader);
+                        newGame.client_turn(bufferedReader, gameController);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
