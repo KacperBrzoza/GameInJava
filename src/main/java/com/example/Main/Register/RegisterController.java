@@ -95,7 +95,11 @@ public class RegisterController implements Initializable
         mediaPlayer_move.seek(Duration.seconds(0));
         mediaPlayer_move.play();
     }
-
+    @FXML
+    public void focusMouse()
+    {
+        LoginTextField.requestFocus();
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         RegisterConfrimButton.setOnAction(new EventHandler<ActionEvent>() {

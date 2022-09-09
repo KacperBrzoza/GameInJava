@@ -370,6 +370,17 @@
     -fx-background-repeat: no-repeat;
     -fx-background-position: 0, 0;
 }
+#ChoiceHBox{
+-fx-background-color: rgba(12,15,25,0.6);
+}
+
+#ChoiceSelect1:hover,#ChoiceSelect2:hover{
+    -fx-background-image: url("../img/Game_imgs/selects/select_field.gif");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 0, 0;
+    -fx-background-size: 500 500;
+}
+
 #SelectInvField{
     -fx-background-color: #302418;
     -fx-border-radius: 0;

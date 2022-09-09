@@ -14,7 +14,7 @@
    <children>
       <AnchorPane fx:id="BlackPane" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../../../style/style-class.css">
          <children>
-            <AnchorPane fx:id="AllScreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../../../style/style-class.css">
+            <AnchorPane fx:id="AllScreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#focusMouse" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../../../style/style-class.css">
                <children>
                   <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="305.0" prefWidth="1917.0">
                      <children>
@@ -36,12 +36,12 @@
                               </VBox>
                            </children>
                         </Pane>
-                        <Button fx:id="ExitButton" alignment="CENTER" contentDisplay="RIGHT" layoutX="1800.0" layoutY="30.0" mnemonicParsing="false" onAction="#onExitButtonClicked" onMousePressed="#onMouseClick" onMouseEntered="#onMouseEntered" prefHeight="60.0" prefWidth="60.0" text="X">
+                        <Button fx:id="ExitButton" alignment="CENTER" contentDisplay="RIGHT" layoutX="1800.0" layoutY="30.0" mnemonicParsing="false" onAction="#onExitButtonClicked" onMouseEntered="#onMouseEntered" onMousePressed="#onMouseClick" prefHeight="60.0" prefWidth="60.0" text="X">
                            <font>
                               <Font size="24.0" />
                            </font>
                         </Button>
-                        <Button fx:id="OptionButton" alignment="CENTER" contentDisplay="RIGHT" layoutX="1674.0" layoutY="30.0" mnemonicParsing="false" onAction="#onOptionButtonClicked" onMousePressed="#onMouseClick" onMouseEntered="#onMouseEntered" prefHeight="60.0" prefWidth="111.0" text="\@" AnchorPane.rightAnchor="145.0">
+                        <Button fx:id="OptionButton" alignment="CENTER" contentDisplay="RIGHT" layoutX="1674.0" layoutY="30.0" mnemonicParsing="false" onAction="#onOptionButtonClicked" onMouseEntered="#onMouseEntered" onMousePressed="#onMouseClick" prefHeight="60.0" prefWidth="111.0" text="\@" AnchorPane.rightAnchor="145.0">
                            <font>
                               <Font size="24.0" />
                            </font>

@@ -4,11 +4,9 @@ import com.example.Main.Login.Memory;
 import com.example.Main.Menu.MenuController;
 import com.example.NetTools.Client;
 import com.example.NetTools.Server;
-import com.sun.xml.fastinfoset.util.CharArray;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,7 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -41,12 +39,14 @@ public class GameController implements Initializable
     Button EndTurnButton;
     @FXML
     Label MoneyPlayerValue;
-
+    @FXML
+    HBox ChoiceHBox;
     @FXML
     ImageView MyTower,EnemyTower;
     @FXML
     private Label InfoLabel, CardCounter, EQLabel;
-
+    @FXML
+    private Pane InventoryPane;
     @FXML
     ImageView BattleGrid,PlayerPicture,MyCharacter,EnemyCharacter;
 
@@ -641,6 +641,36 @@ public class GameController implements Initializable
             case "Z" -> description = "gdy wystawisz tego stwora mozesz natychmiast zamienic go miejscami z innym swoim stworem";
         }
         return " - " + description;
+    }
+    @FXML
+    protected void onChoiceButton()
+    {
+        if(ChoiceHBox.isVisible())
+        {
+            ChoiceHBox.setVisible(false);
+            ChoiceHBox.setDisable(true);
+            InventoryPane.setDisable(false);
+            EndTurnButton.setDisable(false);
+        }
+        else
+        {
+            ChoiceHBox.setVisible(true);
+            ChoiceHBox.setDisable(false);
+            InventoryPane.setDisable(true);
+            EndTurnButton.setDisable(true);
+        }
+    }
+    @FXML
+    protected void onChoice1Entered()
+    {
+        hover_sound();
+
+    }
+    @FXML
+    protected void onChoice2Entered()
+    {
+        hover_sound();
+
     }
 
 }

@@ -68,6 +68,8 @@ public class LoginController implements Initializable
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        LoginTextField.requestFocus();
+
         ambient_music(true);
         LoginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -162,9 +164,13 @@ public class LoginController implements Initializable
                 }).start();
             }
         });
+
+
+
         LoginTextField.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent ke) {
+
                 if (ke.getCode().equals(KeyCode.ENTER)) {
                     LoginButton.fire();
                 }
@@ -179,7 +185,11 @@ public class LoginController implements Initializable
             }
         });
     }
-
+    @FXML
+    public void focusMouse()
+    {
+        LoginTextField.requestFocus();
+    }
     public void ambient_music(boolean on_off)
     {
         mediaPlayer.setVolume(0.8);

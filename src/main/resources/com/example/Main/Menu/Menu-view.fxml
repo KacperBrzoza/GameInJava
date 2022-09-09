@@ -11,7 +11,7 @@
 
 <VBox alignment="CENTER" maxHeight="1080.0" maxWidth="1920.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Main.Menu.MenuController">
     <children>
-      <AnchorPane fx:id="BlackPane" prefHeight="1080.0" prefWidth="1920.0">
+      <AnchorPane fx:id="BlackPane" onMouseEntered="#focusMouse" prefHeight="1080.0" prefWidth="1920.0">
          <children>
               <AnchorPane fx:id="AllScreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../../../style/style-class.css">
                   <children>

@@ -37,6 +37,8 @@ public class RankController implements Initializable
 
     @FXML
     private Button ExitButton;
+    @FXML
+    private Button BackButton;
 
     @FXML
     private TableView<UserData> tableView;
@@ -94,7 +96,11 @@ public class RankController implements Initializable
         mediaPlayer_move.seek(Duration.seconds(0));
         mediaPlayer_click.play();
     }
-
+    @FXML
+    public void focusMouse()
+    {
+        BackButton.requestFocus();
+    }
     @FXML
     public void onExitButton(ActionEvent event) throws IOException
     {

@@ -75,7 +75,11 @@ public class WaitingEnemyController implements Initializable {
         mediaPlayer_move.seek(Duration.seconds(0));
         mediaPlayer_click.play();
     }
-
+    @FXML
+    public void focusMouse()
+    {
+        BackButton.requestFocus();
+    }
     @FXML
     private void FadeIn()
     {

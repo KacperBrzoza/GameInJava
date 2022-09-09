@@ -23,7 +23,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MenuController implements Initializable {
-
+    @FXML
+    private Button AcceptButton;
     @FXML
     private AnchorPane AllScreen;
     @FXML
@@ -109,7 +110,11 @@ public static boolean MenuMusicAllow;
         }
 
     }
-
+    @FXML
+    public void focusMouse()
+    {
+        AcceptButton.requestFocus();
+    }
     @FXML
     public void onPlayButton(ActionEvent event) throws IOException
     {
