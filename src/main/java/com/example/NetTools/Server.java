@@ -100,7 +100,8 @@ public class Server {
             public void run()
             {
                 try{
-                    bufferedWriter.write(messageFromServer);
+                    //do kazdej wiadomosci doklejany jest z przodu znak konca linii, aby komendy nie skleily sie ze soba
+                    bufferedWriter.write("\n" + messageFromServer);
                     bufferedWriter.newLine();
                     bufferedWriter.flush();
                 } catch (IOException e){

@@ -734,16 +734,16 @@ public class GameController implements Initializable
     @FXML
     protected void onLeftPageButtonClicked()
     {
+        page_sound();
         if(eq_it - 1 >= 0) {
-            page_sound();
             RightShowBut.setDisable(false);
         }
     }
     @FXML
     protected void onRightPageButtonClicked()
     {
+        page_sound();
         if(eq_it + 4 < eqImages.size()) {
-            page_sound();
             LeftShowBut.setDisable(false);
         }
     }

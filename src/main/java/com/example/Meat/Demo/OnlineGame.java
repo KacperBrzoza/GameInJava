@@ -55,12 +55,12 @@ public class OnlineGame {
 
     //początkowe zasoby dla każdego gracza (3 żetony waluty i 3 karty stworów)
     private void startGame(Player you, Player opponent, GameController gameController){
-        for(int i = 0; i < 6; i++){
+        for(int i = 0; i < 7; i++){
             Creature creature = cards.giveCard(out, you, opponent, gameController);
             opponent.eq.addCreature(creature);
             GameController.server.sendMessageToClient("PATH_" + creature.path);
 
-             creature = cards.giveCard(out, you, opponent, gameController);
+            creature = cards.giveCard(out, you, opponent, gameController);
             you.eq.addCreature(creature);                                                                       //dodanie stwora do eq gracza 1
             GameController.addImageToEQ(gameController.eqImages, creature.path);                                                 //dodanie zdjecia stwora do listy od eq
 
@@ -69,9 +69,12 @@ public class OnlineGame {
             opponent.money += money.giveMoney(you, opponent);
 
         }
-        GameController.server.sendStartSet("NEW_CARDS_STACK_SIZE_" + cards.size(), "NEW_MY_MONEY_VAL_" + opponent.money, "SHOW_EQ");
+        //GameController.server.sendStartSet("NEW_CARDS_STACK_SIZE_" + cards.size(), "NEW_MY_MONEY_VAL_" + opponent.money, "SHOW_EQ");
+        GameController.server.sendMessageToClient("NEW_CARDS_STACK_SIZE_" + cards.size());
         GameController.newNumberValue(gameController.CardCounter, "" + cards.size());
+        GameController.server.sendMessageToClient("NEW_MY_MONEY_VAL_" + opponent.money);
         GameController.newNumberValue(gameController.MoneyPlayerValue, "" + you.money);
+        GameController.server.sendMessageToClient("SHOW_EQ");
         GameController.showEQ(gameController.eq_it, gameController.eqImages, gameController.EQ1, gameController.EQ2, gameController.EQ3, gameController.EQ4);
     }
 
