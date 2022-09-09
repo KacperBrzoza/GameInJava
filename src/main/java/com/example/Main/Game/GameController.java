@@ -215,9 +215,14 @@ public class GameController implements Initializable
     }
 
     public static void addImageToEQ(ArrayList<Image> eqImages, String val){
-        File file = new File(val);
-        javafx.scene.image.Image image = new javafx.scene.image.Image(file.toURI().toString());
-        eqImages.add(image);
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                File file = new File(val);
+                javafx.scene.image.Image image = new javafx.scene.image.Image(file.toURI().toString());
+                eqImages.add(image);
+            }
+        });
     }
 
     public static void setImage(ImageView view, int position, ArrayList<Image> eqImages){
@@ -225,8 +230,6 @@ public class GameController implements Initializable
             @Override
             public void run() {
                 view.setImage(eqImages.get(position));
-                view.setDisable(false);
-                view.setVisible(true);
             }
         });
     }
