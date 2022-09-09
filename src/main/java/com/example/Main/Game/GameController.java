@@ -660,17 +660,6 @@ public class GameController implements Initializable
             EndTurnButton.setDisable(true);
         }
     }
-    @FXML
-    protected void onChoice1Entered()
-    {
-        hover_sound();
 
-    }
-    @FXML
-    protected void onChoice2Entered()
-    {
-        hover_sound();
-
-    }
 
 }

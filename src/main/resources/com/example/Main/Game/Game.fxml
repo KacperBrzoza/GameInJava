@@ -50,9 +50,9 @@
                                           </Label>
                                        </children>
                                     </Pane>
-                                    <Pane fx:id="HelpInfo" layoutX="400.0" layoutY="10.0" prefHeight="125.0" prefWidth="1120.0">
+                                    <Pane fx:id="HelpInfo" layoutX="400.0" layoutY="3.0" prefHeight="125.0" prefWidth="1120.0">
                                        <children>
-                                          <Label fx:id="InfoLabel" alignment="TOP_LEFT" contentDisplay="CENTER" layoutY="5.0" prefHeight="125.0" prefWidth="1120.0" textOverrun="CLIP" wrapText="true">
+                                          <Label fx:id="InfoLabel" alignment="TOP_LEFT" contentDisplay="CENTER" prefHeight="125.0" prefWidth="1120.0" textOverrun="CLIP" wrapText="true">
                                              <padding>
                                                 <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
                                              </padding>
@@ -419,11 +419,11 @@
                               </Pane>
                            </children>
                         </HBox>
-                        <HBox fx:id="ChoiceHBox" alignment="CENTER" disable="true" prefHeight="655.0" prefWidth="1920.0" visible="false" AnchorPane.topAnchor="0.0">
+                        <HBox fx:id="ChoiceHBox" alignment="CENTER" disable="true" prefHeight="655.0" prefWidth="1920.0" visible="false">
                            <children>
                               <Pane fx:id="ChoiceSelect1" prefHeight="500.0" prefWidth="500.0">
                                  <children>
-                                    <ImageView fitHeight="400.0" fitWidth="400.0" layoutX="50.0" layoutY="127.0" onMouseEntered="#onChoice1Entered" onMousePressed="#click_sound" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="400.0" fitWidth="400.0" layoutX="50.0" layoutY="127.0" onMouseEntered="#hover_sound" onMousePressed="#click_sound" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../../../../img/Creatures/213.png" />
                                        </image>
@@ -435,7 +435,7 @@
                               </Pane>
                               <Pane fx:id="ChoiceSelect2" prefHeight="218.0" prefWidth="500.0">
                                  <children>
-                                    <ImageView fitHeight="400.0" fitWidth="400.0" layoutX="50.0" layoutY="127.0" onMouseEntered="#onChoice2Entered" onMousePressed="#click_sound" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="400.0" fitWidth="400.0" layoutX="50.0" layoutY="127.0" onMouseEntered="#hover_sound" onMousePressed="#click_sound" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../../../../img/Creatures/023.png" />
                                        </image>
