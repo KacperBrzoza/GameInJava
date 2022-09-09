@@ -9,12 +9,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
-import java.util.Iterator;
 import java.util.List;
 
 public class UserService
 {
-    public ObservableList<UserData> observableList;
+    //public ObservableList<UserData> observableList;
 
     //Dodowanie uzytkwnika do bazy
     public void add_user(String username, String password)
@@ -29,34 +28,21 @@ public class UserService
         transaction.commit();
     }
 
-    //Funkcja potrzebna do wyswietla nickow graczy - Nie dziala wyswietlanie w rankinu
+    //Funkcja potrzebna do wyswietla nickow graczy - Nie dziala wyswietlanie w rankingu
     //TODO
-    /*
-    public ObservableList<UserData> show_user()
+    //Potrzeba dodania jakos scoresow z drugiej tabeli do tableview
+    //Zamysl - Zapytanie przez Inner Joina i wyciagniecie nickow + score  - najoptymalniejsze
+    //SELECT u.username, s.score FROM user_data u INNER JOIN scores s ON u.uid = s.uid; -
+    public ObservableList<UserData> getAll()
     {
+        ObservableList<UserData> observableList = FXCollections.observableArrayList(); //Wszystko na string
         EntityManager entityManager = PersistenceManager.getFactory().createEntityManager();
-        EntityTransaction transaction = entityManager.getTransaction();
-        //transaction.begin();
-        Query query = entityManager.createQuery("SELECT c FROM UserData c");
-        ObservableList<UserData> list = FXCollections.observableArrayList(query.getResultList());
-        //transaction.commit();
-        //return list;
-        //System.out.println(observableList.toString());
-    }
-
-     */
-    //TODO
-    public void show_user()
-    {
-        observableList = FXCollections.observableArrayList();
-        EntityManager entityManager = PersistenceManager.getFactory().createEntityManager();
-        Query query = entityManager.createQuery("SELECT c FROM UserData c");
-        Iterator ite = query.getResultList().iterator();
-        while (ite.hasNext())
+        List<UserData> uList = entityManager.createQuery("SELECT u FROM UserData u", UserData.class).getResultList();
+        for(UserData userData : uList)
         {
-            UserData userData = (UserData)ite.next();
             observableList.add(userData);
         }
+        return observableList;
     }
 
     public UserData getUser(String username)

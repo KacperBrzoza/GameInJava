@@ -1,6 +1,7 @@
 package com.example.Main.Rank;
 
 import com.example.Main.Menu.MenuController;
+import com.example.Main.Model.Scores;
 import com.example.Main.Model.UserData;
 import com.example.Main.Service.UserService;
 import javafx.event.ActionEvent;
@@ -19,9 +20,11 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import javax.persistence.EntityManager;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class RankController implements Initializable
@@ -45,40 +48,17 @@ public class RankController implements Initializable
 
     @FXML
     private TableColumn<UserData, String> nickColumn;
-    @FXML
-    private TableColumn<UserData, Integer> uidColumn;
-    @FXML
-    private TableColumn<UserData, String> passwordColumn;
-
-    /*
-    @FXML
-    private TableColumn<String ,String> LostColumn;
 
     @FXML
-    private TableColumn<String ,String> WinColumn;
-
-    @FXML
-    private TableColumn<String ,String> RankColumn;
-
-    @FXML
-    private TableColumn<String ,String> PointsColumn;
-     */
+    private TableColumn<Scores, String> scoreColumn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
-        tableView = new TableView<>();
         UserService userService = new UserService();
-        //userService.show_user();
         nickColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
-        uidColumn.setCellValueFactory(new PropertyValueFactory<>("uid"));
-        passwordColumn.setCellValueFactory(new PropertyValueFactory<>("password"));
-
-        //tableView.setItems(userService.show_user());
-        //tableView.getItems().addAll(userService.show_user());
-        userService.show_user();
-        tableView.setItems(userService.observableList);
-        userService.findAll().forEach(System.out::println);
+        scoreColumn.setCellValueFactory(new PropertyValueFactory<>("score"));
+        tableView.setItems(userService.getAll());
     }
 
     @FXML

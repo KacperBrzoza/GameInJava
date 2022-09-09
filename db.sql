@@ -10,7 +10,7 @@ CREATE TABLE user_data(
 --- Mozliwie do score dodac default value -->
 
 CREATE TABLE scores(
-                       UID INT NOT NULL,
+                       UID SERIAL PRIMARY KEY NOT NULL,
                        score INT,
                        FOREIGN KEY (UID)
                            REFERENCES user_data(UID)

@@ -6,20 +6,20 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "user_data", schema = "public", catalog = "Projekt")
+@Table(name = "user_data", schema = "public")
 public class UserData
 {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "uid")
+    //@Column(name = "uid")
     @NotNull
     private Long uid;
     @Basic
-    @Column(name = "username" ,length = 30)
+    @Column(length = 30) //name = "username" ,
     @NotNull
     private String username;
     @Basic
-    @Column(name = "password" ,length = 20)
+    @Column(length = 20) //name = "password" ,
     @NotNull
     private String password;
 

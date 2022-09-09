@@ -45,7 +45,7 @@ public class WaitingEnemyController implements Initializable {
     Label WaitLabel;
     @FXML
     private Button BackButton;
-    public static int SWITCHER = 2;
+    public static int SWITCHER = 1;
     private static final int PORT_NUMBER = 3571;
 
     String path_sound_click = "src/main/resources/sound/button_release_sound.mp3";
@@ -105,6 +105,9 @@ public class WaitingEnemyController implements Initializable {
 
         //TODO
         //TUTAJ TA BAZA
+        //Po nacisnieciu "graj"
+        //jesli jest baza pusta to: switcher na 1, dodanie jego ip do bazy
+        //Drugi dolacza jest zajeta baza: switcher na 2, usuniecie tamtego ip
         if(SWITCHER == 1){
             new Thread(new Runnable() {
                 @Override
