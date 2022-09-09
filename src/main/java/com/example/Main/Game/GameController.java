@@ -480,8 +480,6 @@ public class GameController implements Initializable
         MoneyStack.setDisable(true);
         LostCardDeck.setDisable(true);;
         CardCounter.setDisable(true);
-
-
     }
     @FXML
     protected void onEndTurnButtonEntered()

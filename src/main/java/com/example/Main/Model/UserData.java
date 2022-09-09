@@ -1,5 +1,7 @@
 package com.example.Main.Model;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -10,12 +12,15 @@ public class UserData
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "uid")
+    @NotNull
     private Long uid;
     @Basic
-    @Column(name = "username")
+    @Column(name = "username" ,length = 30)
+    @NotNull
     private String username;
     @Basic
-    @Column(name = "password")
+    @Column(name = "password" ,length = 20)
+    @NotNull
     private String password;
 
     public Long getUid()

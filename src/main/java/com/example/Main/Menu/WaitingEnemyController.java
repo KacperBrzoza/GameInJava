@@ -102,6 +102,9 @@ public class WaitingEnemyController implements Initializable {
         mediaPlayer_menu_music.setVolume(0.25);
         mediaPlayer_menu_music.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer_menu_music.play();
+
+        //TODO
+        //TUTAJ TA BAZA
         if(SWITCHER == 1){
             new Thread(new Runnable() {
                 @Override
@@ -122,12 +125,17 @@ public class WaitingEnemyController implements Initializable {
                     }
                 }
             }).start();
+
+
             BackButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
                     server.closeEverything();
                 }
             });
+
+
+
         }else{
             try {
                 GameController.client = new Client(new Socket("localhost", PORT_NUMBER));
