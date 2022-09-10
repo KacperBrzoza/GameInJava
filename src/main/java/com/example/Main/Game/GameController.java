@@ -68,10 +68,16 @@ public class GameController implements Initializable
     public ImageView EQ1,EQ2,EQ3,EQ4;
 
     @FXML
+    public Pane SelectField1, SelectField2, SelectField3, SelectField4;
+
+    @FXML
     public ImageView lostcardgrid;
 
     @FXML
     public Button TakeCardDeck, RageCardDeck, MoneyStack, LostCardDeck;
+
+    @FXML
+    public ImageView TakeCardDeckSelect, RageCardDeckSelect, MoneyStackSelect, LostCardDeckSelect;
 
     @FXML
     public Button LeftShowBut, RightShowBut;
@@ -100,6 +106,16 @@ public class GameController implements Initializable
     MediaPlayer mediaPlayer_move = new MediaPlayer(media_move);
 
     public static Server server;
+    /*
+    PHASE VALUES:
+    0 - domyślna
+    1 - faza przesuwania sie postaci
+    2 - faza dobierania
+    3 - faza wystawiania
+    4 - faza konca tury
+     */
+    public static int phase = 0;
+    public static int choice = -1;
     public static Client client;
 
     public static String opponentNick;
@@ -133,6 +149,12 @@ public class GameController implements Initializable
         eqImages = new ArrayList<>();
         AllScreen.setOpacity(0);
         LeftShowBut.setDisable(true);
+        
+        TakeCardDeckSelect.setVisible(false);
+        RageCardDeckSelect.setVisible(false);
+        MoneyStackSelect.setVisible(false);
+        LostCardDeckSelect.setVisible(false);
+
         try {
             FadeOut();
         } catch (IOException e) {
@@ -205,7 +227,6 @@ public class GameController implements Initializable
         });
     }
 
-    //metoda
     public static void changeTurn(Button EndTurnButton, Button TakeCardDeck, Button RageCardDeck, Button MoneyStack, Button LostCardDeck, Label CardCounter){
         if(myTurn){
             myTurn = false;
@@ -303,11 +324,12 @@ public class GameController implements Initializable
     }
 
 
-    public static void setImage(ImageView view, int position, ArrayList<Image> eqImages){
+    public static void selectPhase(ImageView TakeCardDeckSelect, ImageView MoneyStackSelect, boolean true_or_false){
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                view.setImage(eqImages.get(position));
+                TakeCardDeckSelect.setVisible(true_or_false);
+                MoneyStackSelect.setVisible(true_or_false);
             }
         });
     }
@@ -420,6 +442,9 @@ public class GameController implements Initializable
     protected void onTakeCardClicked()
     {
         click_sound();
+        if(phase == 2){
+            choice = 1;
+        }
     }
     @FXML
     protected void onTakeCardEntered()
@@ -443,6 +468,10 @@ public class GameController implements Initializable
     protected void onMoneyStackClicked()
     {
         click_sound();
+        if(phase == 2){
+            choice = 2;
+            System.out.println("zadzialalo po kliknieciu " + choice);
+        }
     }
     @FXML
     protected void onMoneyStackEntered()

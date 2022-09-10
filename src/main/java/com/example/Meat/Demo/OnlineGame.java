@@ -49,7 +49,6 @@ public class OnlineGame {
         board = new Board(this.PLAYER_ONE_POINTS, this.PLAYER_TWO_POINTS);
 
         startGame(you, opponent, gameController);
-        System.out.println("OK");
     }
 
 
@@ -85,12 +84,15 @@ public class OnlineGame {
     public void server_turn(BufferedReader in, GameController gameController) throws IOException {
 
         //1. przejścia stworów w stronę bazy przeciwnika
+        GameController.phase = 1;
         board.move(you, opponent, discarded, cards,  rage_cards, money, out, in, gameController);
 
         //2. dobrania kart stworów lub żetonów waluty. Gracz ma dwa dobrania
+        GameController.phase = 2;
         draw(gameController);
 
         //3.Jeżeli gracz ma coś w ekwipunku...
+        GameController.phase = 3;
         if(you.eq.size() >= 1) {
             Scanner scan = new Scanner(System.in);
             int number = 2;
@@ -114,6 +116,7 @@ public class OnlineGame {
         }
 
         //4. Jeśli gracz posiada kartę Rage "Secret Assets" dostaje 1 żeton waluty na koniec tury
+        GameController.phase = 4;
         if(you.SecretAssets == 1){
             you.money += money.giveMoney(you, opponent);
             System.out.println("Dobrano zeton waluty");
@@ -132,11 +135,16 @@ public class OnlineGame {
     private void draw(GameController gameController){
         you.select = 2;   //liczba dobrań
 
+        GameController.selectPhase(gameController.TakeCardDeckSelect, gameController.MoneyStackSelect, true);
+
         while(you.select > 0){
-            Scanner scan =  new Scanner(System.in);
-            System.out.println("1 - dobierz karte (lub) 2 - dobierz zeton waluty");
-            System.out.print("wybierz: ");
-            int number = scan.nextInt();
+            //Scanner scan =  new Scanner(System.in);
+            //System.out.println("1 - dobierz karte (lub) 2 - dobierz zeton waluty");
+            //System.out.print("wybierz: ");
+            int number = -1;
+            while (number == -1){
+                number = GameController.choice;
+            }
 
             //dobranie karty
             if(number == 1){
@@ -149,18 +157,23 @@ public class OnlineGame {
                     number = -1;
                     while (number < 1 || number > 2){
                         System.out.print("wybierz: ");
-                        number = scan.nextInt();
+                       // number = scan.nextInt();
                     }
-                    if(number == 1)
+                    if(number == 1) {
                         you.eq.addCreature(one);
-                    else
+                        GameController.addImageToEQ(gameController.eqImages, one.path);
+                    }
+                    else {
                         you.eq.addCreature(two);
+                        GameController.addImageToEQ(gameController.eqImages, two.path);
+                    }
                 }
                 else{
-                    System.out.println(one);
                     you.eq.addCreature(one);
+                    GameController.addImageToEQ(gameController.eqImages, one.path);
                 }
                 you.select--;
+                GameController.choice = -1;
             }
 
             //dobranie żetonu waluty
@@ -175,7 +188,7 @@ public class OnlineGame {
                     number = -1;
                     while (number < 1 || number > 2){
                         System.out.print("wybierz: ");
-                        number = scan.nextInt();
+                        //number = scan.nextInt();
                     }
                     if(number == 1)
                         you.money += coin_one;
@@ -183,11 +196,10 @@ public class OnlineGame {
                         you.money += coin_two;
                 }
                 else {
-                    System.out.println(coin_one);
                     you.money += coin_one;
                 }
+                GameController.newNumberValue(gameController.MoneyPlayerValue, "" + you.money);
             }
-            System.out.println("Pozostale ruchy: " + you.select);
         }
     }
 
