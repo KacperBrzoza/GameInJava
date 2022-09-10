@@ -2,7 +2,6 @@ package com.example.Main.Game;
 
 import com.example.Main.Login.Memory;
 import com.example.Main.Menu.MenuController;
-import com.example.Main.Service.UserService;
 import com.example.NetTools.Client;
 import com.example.NetTools.Server;
 import javafx.animation.FadeTransition;
@@ -16,11 +15,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
@@ -30,12 +27,9 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.MalformedURLException;
-import java.net.Socket;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 import static com.example.Main.Menu.WaitingEnemyController.SWITCHER;
@@ -515,8 +509,13 @@ public class GameController implements Initializable
         new Thread(new Runnable() {
             @Override
             public void run() {
-                client.closeEverything();
-                server.closeEverything();
+                if(SWITCHER == 1){
+                    server.sendMessageToClient("LAST_MESSAGE");
+                    server.closeEverything();
+                }
+                else {
+                    client.closeEverything();
+                }
                 System.out.println("DZIALA!!");
                 Platform.runLater(new Runnable() {
                     @Override
@@ -902,31 +901,6 @@ public class GameController implements Initializable
         if(eq_it + 4 < eqImages.size()) {
             LeftShowBut.setDisable(false);
         }
-    }
-
-    @FXML
-    public void openGame(ActionEvent event) throws IOException //static
-    {
-        URL url = new File("src/main/resources/com/example/Main/Menu/Menu-view.fxml").toURI().toURL();
-        Parent root = FXMLLoader.load(url);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-
-        //URL resource = getClass().getResource("src/main/resources/music/the_witcher.mp3");
-
-        /*
-        MediaPlayer a = new MediaPlayer(new Media(resource.toString()));
-        a.setOnEndOfMedia(new Runnable()
-        {
-            public void run()
-            {
-                a.seek(Duration.ZERO);
-            }
-        });
-        a.play();
-         */
     }
 
     private void onGridEntered(ImageView grid){

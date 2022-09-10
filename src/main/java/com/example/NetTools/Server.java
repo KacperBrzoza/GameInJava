@@ -1,12 +1,8 @@
 package com.example.NetTools;
 
 import com.example.Main.Game.GameController;
-import com.example.Main.Login.LoginController;
 import com.example.Main.Login.Memory;
-import com.example.Main.Menu.WaitingEnemyController;
 import com.example.Meat.Demo.OnlineGame;
-import javafx.scene.layout.VBox;
-import org.hibernate.annotations.common.util.impl.Log;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -191,20 +187,25 @@ public class Server {
         try{
             if(bufferedReader != null){
                 bufferedReader.close();
+                //System.out.println("Zamkniecie readera servera");
             }
             if(bufferedWriter != null){
                 bufferedWriter.close();
+                //System.out.println("Zamkniecie writera servera");
             }
             if (serverSocket != null){
                 serverSocket.close();
+                //System.out.println("Zamkniecie server socketa ");
             }
             if(socket != null){
                 socket.close();
+                //System.out.println("Zamkniecie socketa");
             }
+            //System.out.println("Polaczenie zamkniete");
         } catch (IOException e){
-            //e.printStackTrace();
+            e.printStackTrace();
             System.out.println("BLAD SOCKET");
         }
-        System.out.println("Polaczenie zamkniete");
+
     }
 }

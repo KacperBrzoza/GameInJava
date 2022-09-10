@@ -3,12 +3,9 @@ package com.example.NetTools;
 import com.example.Main.Game.GameController;
 import com.example.Main.Login.Memory;
 import javafx.application.Platform;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class Client {
     private Socket socket;
@@ -37,7 +34,7 @@ public class Client {
                     try {
                         String messageFromServer = bufferedReader.readLine();
                         GameController.opponentNick = messageFromServer;
-                        System.out.println(messageFromServer);
+                        //System.out.println(messageFromServer);
                         break;
                     } catch (IOException e){
                         e.printStackTrace();
@@ -98,6 +95,11 @@ public class Client {
         String val;
         if (Commands.yourTurn(in)) {
             GameController.changeTurn(gameController.EndTurnButton, gameController.TakeCardDeck, gameController.RageCardDeck, gameController.MoneyStack, gameController.LostCardDeck, gameController.CardCounter);
+        }
+        else if(Commands.endGame(in))
+        {
+            System.out.println("SEEE YAAA");
+            out = "CONNECTION_CLOSE";
         }
         else if(Commands.unableRightShowBut(in)){
             Platform.runLater(new Runnable() {
@@ -231,16 +233,20 @@ public class Client {
         try{
             if(bufferedReader != null){
                 bufferedReader.close();
+                System.out.println("Zamkniecie readera clienta");
             }
             if(bufferedWriter != null){
                 bufferedWriter.close();
+                System.out.println("Zamkniecie writera clienta");
             }
             if(socket != null){
                 socket.close();
+                System.out.println("Zamkniecie socketa clienta");
             }
+            //System.out.println("Polaczenie zamkniete");
         } catch (IOException e){
             e.printStackTrace();
         }
-        System.out.println("Polaczenie zamkniete");
+
     }
 }

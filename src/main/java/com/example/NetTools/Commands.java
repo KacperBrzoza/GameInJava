@@ -2,6 +2,11 @@ package com.example.NetTools;
 
 public class Commands {
 
+    public static boolean endGame(String in)
+    {
+        return in.equals("LAST_MESSAGE");
+    }
+
     public static boolean yourTurn(String in){
         return in.equals("YOUR_TURN");
     }

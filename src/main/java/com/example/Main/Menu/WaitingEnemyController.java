@@ -1,7 +1,6 @@
 package com.example.Main.Menu;
 
 import com.example.Main.Game.GameController;
-import com.example.Main.Login.LoginController;
 import com.example.Main.Login.Memory;
 import com.example.Main.Service.UserService;
 import com.example.NetTools.Client;
@@ -13,7 +12,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -24,14 +22,12 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.net.*;
 import java.util.ResourceBundle;
 
-import static com.example.Main.Game.GameController.server;
 import static com.example.Main.Game.GameController.client;
+import static com.example.Main.Game.GameController.server;
 
 
 public class WaitingEnemyController implements Initializable {
@@ -63,6 +59,7 @@ public class WaitingEnemyController implements Initializable {
     Media music_menu = new Media(new File(path_music_menu).toURI().toString());
     MediaPlayer mediaPlayer_menu_music = new MediaPlayer(music_menu);
 
+    public static boolean BackButtonClickAllow = true;
     //public static boolean zmiennaAccept = true;
 
     @FXML
@@ -107,7 +104,7 @@ public class WaitingEnemyController implements Initializable {
         mediaPlayer_menu_music.setVolume(0.25);
         mediaPlayer_menu_music.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer_menu_music.play();
-
+        BackButtonClickAllow=true;
         userService = new UserService();
         try
         {
@@ -126,13 +123,16 @@ public class WaitingEnemyController implements Initializable {
                     try {
                         server = new Server(new ServerSocket(PORT_NUMBER));
                         server.sendAndListen();
-                        Platform.runLater(new Runnable() {
-                            @Override
-                            public void run()
-                            {
-                                FadeIn();
-                            }
-                        });
+                        if(BackButtonClickAllow) {
+
+                            Platform.runLater(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                    FadeIn();
+                                }
+                            });
+                        }
                         //changeStage();
 
                     } catch (IOException e) {
@@ -242,19 +242,23 @@ public class WaitingEnemyController implements Initializable {
     {
         //zmiennaAccept = false;
         //userService.delete_IP();
+        mediaPlayer_menu_music.stop();
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    System.out.println("wcisnieto anuluj");
+                    //System.out.println("wcisnieto anuluj");
+                    BackButtonClickAllow=false;
                     client = new Client(new Socket(InetAddress.getLocalHost().getHostAddress(), PORT_NUMBER));
                     userService = new UserService();
-                    userService.delete_IP();
                     client.sendMessageToServer(Memory.memory.getUsername());
+                    userService.delete_IP();
                     client.listenAndSend();
-                    client.closeEverything();
                     server.closeEverything();
+                    client.closeEverything();
+
                 } catch (IOException e) {
+                    System.out.println("błąd zamykania");
                     throw new RuntimeException(e);
                 }
                 Platform.runLater(new Runnable() {
@@ -268,14 +272,6 @@ public class WaitingEnemyController implements Initializable {
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
-                        //*mediaPlayer_menu_music.stop();
-                        //MenuController controller_menu = loader.getController();
-                        //System.out.println("test");
-                        //controller_menu.Music_menu_on_off(false);
-                        //URL url = new File("src/main/resources/com/example/Main/Menu/Menu-view.fxml").toURI().toURL();
-                        //Testowe przejscie do ekranu gry aby sprawdzic dzialanie gui
-                        //URL url = new File("src/main/resources/com/example/Main/Menu/Menu-view.fxml").toURI().toURL();
-                        //Parent root = FXMLLoader.load(url);
                         Stage stage = (Stage) BackButton.getScene().getWindow();
                         Scene scene = new Scene(root);
                         stage.setResizable(false);
