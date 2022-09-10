@@ -138,13 +138,14 @@ public class WaitingEnemyController implements Initializable {
                 }
             }).start();
 
-
+            /*
             BackButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
-                    server.closeEverything();
+                    Thread.currentThread().interrupt();
                 }
             });
+             */
 
             /*
             ExitButton.setOnAction(new EventHandler<ActionEvent>()
@@ -171,12 +172,14 @@ public class WaitingEnemyController implements Initializable {
                 e.printStackTrace();
             }
 
+            /*
             BackButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
                     GameController.client.closeEverything();
                 }
             });
+             */
 
             /*
             ExitButton.setOnAction(new EventHandler<ActionEvent>()
@@ -270,5 +273,7 @@ public class WaitingEnemyController implements Initializable {
 
         Stage stage = (Stage) ExitButton.getScene().getWindow();
         stage.close();
+
+        System.exit(1);
     }
 }
