@@ -98,7 +98,7 @@ public class Cards_Stack {
         for(int i = 0; i < 5; i++)
             creatures.add(new E_Creature(6, 4, 3, "src/main/resources/img/Creatures/643E.png"));
         creatures.add(new E_Creature(0, 5, 4, "src/main/resources/img/Creatures/054E.png"));
-        creatures.add(new E_Creature(11, 10, 2, "src/main/resources/img/Creatures/11102E.png"));
+        creatures.add(new E_Creature(10, 9, 2, "src/main/resources/img/Creatures/11102E.png"));
 
         //z mocą F
         for(int i = 0; i < 3; i++)

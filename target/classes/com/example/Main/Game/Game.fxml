@@ -351,7 +351,7 @@
                                                                <children>
                                                                   <ImageView fx:id="rage1_enemy" fitHeight="160.0" fitWidth="160.0" onMouseEntered="#onEnemyRage1Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true">
                                                                      <image>
-                                                                        <Image url="@../../../../img/Game_imgs/selects/select_field_rage.png" />
+                                                                        <Image url="@../../../../img/RAGE_powers/paranoia.png" />
                                                                      </image>
                                                                   </ImageView>
                                                                </children>

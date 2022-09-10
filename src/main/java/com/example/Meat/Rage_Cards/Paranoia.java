@@ -7,11 +7,10 @@ import com.example.Meat.Demo.*;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 
-public class CommonFear extends R_Card{
+public class Paranoia extends R_Card{
 
-    public CommonFear(){
+    public Paranoia(){
         name = "Common Fear";
         description = "wszystkie wrogie jednostki wracaja do wlasciciela";
     }

@@ -23,7 +23,7 @@ public class Rage_Cards {
         cards.add(new Redeployment());
         cards.add(new Betrayal());
         cards.add(new Extermination());
-        cards.add(new CommonFear());
+        cards.add(new Paranoia());
         cards.add(new Weakness());
         cards.add(new SecretAssets());
         cards.add(new Selection());

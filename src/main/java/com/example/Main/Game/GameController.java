@@ -478,7 +478,11 @@ public class GameController implements Initializable
                 ts ss
                 et it nt ot
                  */
-                if((int) code[code.length - i] == 100){
+                if ((int) code[code.length - i] == 97){
+                    name = "Paranoia";
+                    description = "wszystkie wrogie jednostki natychmiast wracaja do wlasciciela (jednorazowe)";
+                }
+                else if((int) code[code.length - i] == 100){
                     name = "Final Word";
                     description = "natychmiast wystawiasz jednostke bez wzgledu na koszt (jednorazowe)";
                 }
@@ -525,21 +529,14 @@ public class GameController implements Initializable
                     }
                 }
                 else if((int) code[code.length - i] == 114){
-                    i += 1;
-                    if((int) code[code.length - i] == 97){
-                        name = "Common Fear";
-                        description = "wszystkie wrogie jednostki natychmiast wracaja do wlasciciela (jednorazowe)";
+                    i += 3;
+                    if((int) code[code.length - i] == 99){
+                        name = "Rat Catcher";
+                        description = "na koniec kazdej swojej tury dobierasz karte stwora (stale)";
                     }
-                    else {
-                        i += 2;
-                        if((int) code[code.length - i] == 99){
-                            name = "Rat Catcher";
-                            description = "na koniec kazdej swojej tury dobierasz karte stwora (stale)";
-                        }
-                        else{
-                            name = "Crusher";
-                            description = "twoje jednostki moga niszczyc stwory wroga nawet gdy remisuja atakiem z ich hp (stale)";
-                        }
+                    else{
+                        name = "Crusher";
+                        description = "twoje jednostki moga niszczyc stwory wroga nawet gdy remisuja atakiem z ich hp (stale)";
                     }
                 }
                 else if((int) code[code.length - i] == 115){
