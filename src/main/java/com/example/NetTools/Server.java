@@ -198,7 +198,8 @@ public class Server {
                 socket.close();
             }
         } catch (IOException e){
-            e.printStackTrace();
+            //e.printStackTrace();
+            System.out.println("BLAD SOCKET");
         }
         System.out.println("Polaczenie zamkniete");
     }

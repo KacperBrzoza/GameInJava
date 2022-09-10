@@ -1,6 +1,7 @@
 package com.example.Main.Menu;
 
 import com.example.Main.Login.LoginController;
+import com.example.Main.Service.UserService;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,6 +44,8 @@ public static boolean MenuMusicAllow;
     String path_music_menu = "src/main/resources/music/PORTMONETKA_MUSIC_MENU.mp3";
     Media music_menu = new Media(new File(path_music_menu).toURI().toString());
     MediaPlayer mediaPlayer_menu_music = new MediaPlayer(music_menu);
+
+    private UserService userService;
 
 
     @FXML

@@ -1,6 +1,7 @@
 package com.example.Main.Menu;
 
 import com.example.Main.Game.GameController;
+import com.example.Main.Login.LoginController;
 import com.example.Main.Login.Memory;
 import com.example.Main.Service.UserService;
 import com.example.NetTools.Client;
@@ -47,6 +48,8 @@ public class WaitingEnemyController implements Initializable {
     private Button BackButton;
     public static int SWITCHER;
     private static final int PORT_NUMBER = 3571;
+
+    private UserService userService;
 
     String path_sound_click = "src/main/resources/sound/button_release_sound.mp3";
     Media media_click = new Media(new File(path_sound_click).toURI().toString());
@@ -103,12 +106,7 @@ public class WaitingEnemyController implements Initializable {
         mediaPlayer_menu_music.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer_menu_music.play();
 
-        //TODO
-        //TUTAJ TA BAZA
-        //Po nacisnieciu "graj"
-        //jesli jest baza pusta to: switcher na 1, dodanie jego ip do bazy
-        //Drugi dolacza jest zajeta baza: switcher na 2, usuniecie tamtego ip
-        UserService userService = new UserService();
+        userService = new UserService();
         try
         {
             InetAddress IP = InetAddress.getLocalHost();
@@ -118,6 +116,7 @@ public class WaitingEnemyController implements Initializable {
         {
             throw new RuntimeException(e);
         }
+        //Jestesmy serwerem
         if(SWITCHER == 1){
             new Thread(new Runnable() {
                 @Override
@@ -147,8 +146,19 @@ public class WaitingEnemyController implements Initializable {
                 }
             });
 
+            /*
+            ExitButton.setOnAction(new EventHandler<ActionEvent>()
+            {
+                @Override
+                public void handle(ActionEvent event)
+                {
+                    server.closeEverything();
+                }
+            });
+             */
 
 
+        //Jestesmy klientem
         }else{
             try {
                 GameController.client = new Client(new Socket(String.valueOf(userService.get_Ip()), PORT_NUMBER));
@@ -161,13 +171,23 @@ public class WaitingEnemyController implements Initializable {
                 e.printStackTrace();
             }
 
-
             BackButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent actionEvent) {
                     GameController.client.closeEverything();
                 }
             });
+
+            /*
+            ExitButton.setOnAction(new EventHandler<ActionEvent>()
+            {
+                @Override
+                public void handle(ActionEvent event)
+                {
+                    GameController.client.closeEverything();
+                }
+            });
+             */
 
              
         }
@@ -222,10 +242,12 @@ public class WaitingEnemyController implements Initializable {
     @FXML
     public void onBackButton(ActionEvent event) throws IOException
     {
+        userService = new UserService();
+        userService.delete_IP();
         MenuController.MenuMusicAllow =true;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/Main/Menu/Menu-view.fxml"));
         Parent root = loader.load();
-        mediaPlayer_menu_music.stop();
+        //*mediaPlayer_menu_music.stop();
         //MenuController controller_menu = loader.getController();
         //System.out.println("test");
         //controller_menu.Music_menu_on_off(false);
@@ -239,11 +261,13 @@ public class WaitingEnemyController implements Initializable {
         stage.setMaximized(true);
         stage.setScene(scene);
         stage.show();
-
     }
     @FXML
     public void onExitButton(ActionEvent event) throws IOException
     {
+        userService = new UserService();
+        userService.delete_IP();
+
         Stage stage = (Stage) ExitButton.getScene().getWindow();
         stage.close();
     }

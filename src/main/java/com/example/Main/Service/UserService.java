@@ -87,13 +87,7 @@ public class UserService
         return query.getResultList().toString().replace("[", "").replace("]", "").replace(" ","");
     }
 
-    //Funkcja potrzebna do wyswietla nickow graczy - Nie dziala wyswietlanie w rankingu
-    //TODO
-    //Potrzeba dodania jakos scoresow z drugiej tabeli do tableview
-    //Zamysl - Zapytanie przez Inner Joina i wyciagniecie nickow + score  - najoptymalniejsze
-    //SELECT u.username, s.score FROM user_data u INNER JOIN scores s ON u.uid = s.uid; -
-
-
+    //Do wysweitlania nickow graczy w rankingu
     public ObservableList<Scores> getAll()
     {
         ObservableList<Scores> observableList = FXCollections.observableArrayList();

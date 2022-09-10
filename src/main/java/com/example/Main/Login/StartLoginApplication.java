@@ -1,6 +1,5 @@
 package com.example.Main.Login;
 
-import com.example.Main.Service.UserService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -45,7 +44,6 @@ public class StartLoginApplication extends Application
         stage.setScene(scene);
         //ambient_music();
         stage.show();
-
     }
 
     public static void main(String[] args)

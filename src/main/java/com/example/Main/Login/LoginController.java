@@ -255,7 +255,7 @@ public class LoginController implements Initializable
          fadeTransition.play();
      }
      @FXML
-     private void ChangeScene() throws IOException {
+     public void ChangeScene() throws IOException {
          MenuController.MenuMusicAllow=true;
          mediaPlayer.stop();
          URL url_menu = new File("src/main/resources/com/example/Main/Menu/Menu-view.fxml").toURI().toURL();
