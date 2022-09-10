@@ -3,11 +3,9 @@ package com.example.Meat.Demo;
 import com.example.Main.Game.GameController;
 import com.example.Meat.Creatures.*;
 import com.example.Meat.Rage_Cards.R_Card;
+import javafx.scene.image.Image;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -186,6 +184,94 @@ public class Board {
                 }
             }
         }
+        exportImagesFromBackend(gameController);
+    }
+
+    public void exportImagesFromBackend(GameController gameController){
+        File file;
+        Image image0, image1, image2, image3, image4, image5, image6, image7, image8, image9;
+
+        if(this.line1.get(0).empty)
+            image0 = null;
+        else{
+            file = new File(this.line1.get(0).creature.path);
+            System.out.println(this.line1.get(0).creature.path);
+            image0 = new Image(file.toURI().toString());
+        }
+
+        if(this.line1.get(1).empty)
+            image1 = null;
+        else {
+            file = new File(this.line1.get(1).creature.path);
+            System.out.println(this.line1.get(0).creature.path);
+            image1 = new Image(file.toURI().toString());
+        }
+
+        if(this.line1.get(2).empty)
+            image2 = null;
+        else {
+            file = new File(this.line1.get(2).creature.path);
+            System.out.println(this.line1.get(0).creature.path);
+            image2 = new Image(file.toURI().toString());
+        }
+
+        if(this.line1.get(3).empty)
+            image3 = null;
+        else {
+            file = new File(this.line1.get(3).creature.path);
+            System.out.println(this.line1.get(0).creature.path);
+            image3 = new Image(file.toURI().toString());
+        }
+
+        if(this.line1.get(4).empty)
+            image4 = null;
+        else {
+            file = new File(this.line1.get(4).creature.path);
+            System.out.println(this.line1.get(0).creature.path);
+            image4 = new Image(file.toURI().toString());
+        }
+
+        if(this.line2.get(0).empty)
+            image5 = null;
+        else {
+            file = new File(this.line2.get(0).creature.path);
+            System.out.println(this.line1.get(0).creature.path);
+            image5 = new Image(file.toURI().toString());
+        }
+
+        if(this.line2.get(1).empty)
+            image6 = null;
+        else {
+            file = new File(this.line2.get(1).creature.path);
+            System.out.println(this.line1.get(0).creature.path);
+            image6 = new Image(file.toURI().toString());
+        }
+
+        if(this.line2.get(2).empty)
+            image7 = null;
+        else {
+            file = new File(this.line2.get(2).creature.path);
+            System.out.println(this.line1.get(0).creature.path);
+            image7 = new Image(file.toURI().toString());
+        }
+
+        if(this.line2.get(3).empty)
+            image8 = null;
+        else {
+            file = new File(this.line2.get(3).creature.path);
+            System.out.println(this.line1.get(0).creature.path);
+            image8 = new Image(file.toURI().toString());
+        }
+
+        if(this.line2.get(4).empty)
+            image9 = null;
+        else {
+            file = new File(this.line2.get(4).creature.path);
+            System.out.println(this.line1.get(0).creature.path);
+            image9 = new Image(file.toURI().toString());
+        }
+        GameController.setBattleField(gameController.fields, image0, image1, image2, image3, image4, image5, image6, image7, image8, image9);
+        GameController.showBattleField(gameController.fields, gameController.mygrid0, gameController.mygrid1, gameController.mygrid2, gameController.mygrid3, gameController.mygrid4, gameController.enemygrid0, gameController.enemygrid1, gameController.enemygrid2, gameController.enemygrid3, gameController.enemygrid4);
     }
 
     //rozpatruje, czy broniąca się jednostka zginie, czy nie
@@ -311,7 +397,7 @@ public class Board {
     //jednak najpierw sprawdza czy pole i jeśli potrzeba, kolejne pola są zajęte, bo
     //jeżeli są, to przepycha najpierw stwory do przodu, one mają możliwość ataku
     //dopiero wtedy wybrany stwor staje na pierwszym polu i też wykonuje atak, jeśli ma kogo atakować
-    public void put(Creature creature, Player you, Player opponent,  Discardeds_Stack discardeds){
+    public void put(Creature creature, Player you, Player opponent,  Discardeds_Stack discardeds, GameController gameController){
         //wersja dla gracza pierwszego
         if(you.id == 1){
             if(!line1.get(0).empty){
@@ -450,6 +536,7 @@ public class Board {
                 }
             }
         }
+        exportImagesFromBackend(gameController);
     }
 
     //wstawia wybranego stwora na pole o podanym indexie należące do danego gracza, bez wykonania ataku

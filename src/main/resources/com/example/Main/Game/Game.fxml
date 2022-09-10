@@ -36,7 +36,7 @@
                                           <Font size="24.0" />
                                        </font>
                                     </Button>
-                                             <Button fx:id="OptionButton" alignment="CENTER" contentDisplay="CENTER" layoutX="1665.0" layoutY="25.0" mnemonicParsing="false" onMouseClicked="#onChoiceButton" onMouseEntered="#onEnteredButton" onMousePressed="#click_sound" prefHeight="60.0" prefWidth="111.0" text="\@" AnchorPane.rightAnchor="144.0">
+                                             <Button fx:id="OptionButton" alignment="CENTER" contentDisplay="CENTER" layoutX="1665.0" layoutY="25.0" mnemonicParsing="false" onMouseEntered="#onEnteredButton" onMousePressed="#click_sound" prefHeight="60.0" prefWidth="111.0" text="\@" AnchorPane.rightAnchor="144.0">
                                                  <font>
                                                      <Font size="24.0" />
                                                  </font>
@@ -351,7 +351,7 @@
                                                                <children>
                                                                   <ImageView fx:id="rage1_enemy" fitHeight="160.0" fitWidth="160.0" onMouseEntered="#onEnemyRage1Entered" onMouseExited="#hiderInformation" pickOnBounds="true" preserveRatio="true">
                                                                      <image>
-                                                                        <Image url="@../../../../img/RAGE_powers/paranoia.png" />
+                                                                        <Image url="@../../../../img/Game_imgs/selects/select_field_rage.png" />
                                                                      </image>
                                                                   </ImageView>
                                                                </children>
@@ -413,11 +413,7 @@
                            <children>
                               <Pane fx:id="ChoiceSelect1" prefHeight="500.0" prefWidth="500.0">
                                  <children>
-                                    <ImageView fitHeight="400.0" fitWidth="400.0" layoutX="50.0" layoutY="127.0" onMouseEntered="#hover_sound" onMousePressed="#click_sound" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../img/Creatures/213.png" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="choiceOne" fitHeight="400.0" fitWidth="400.0" layoutX="50.0" layoutY="127.0" onMouseEntered="#hover_sound" onMousePressed="#click_sound" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                                  <HBox.margin>
                                     <Insets right="200.0" />
@@ -425,11 +421,7 @@
                               </Pane>
                               <Pane fx:id="ChoiceSelect2" prefHeight="218.0" prefWidth="500.0">
                                  <children>
-                                    <ImageView fitHeight="400.0" fitWidth="400.0" layoutX="50.0" layoutY="127.0" onMouseEntered="#hover_sound" onMousePressed="#click_sound" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../../img/Creatures/023.png" />
-                                       </image>
-                                    </ImageView>
+                                    <ImageView fx:id="choiceTwo" fitHeight="400.0" fitWidth="400.0" layoutX="50.0" layoutY="127.0" onMouseEntered="#hover_sound" onMousePressed="#click_sound" pickOnBounds="true" preserveRatio="true" />
                                  </children>
                               </Pane>
                            </children>

@@ -69,7 +69,7 @@ public class E_Creature extends Creature{
                                 creature.increaseHp();
                             }
                             //wystawienie na plansze wybraną jednostkę
-                            board.put(creature, you, opponent, discardeds);
+                            board.put(creature, you, opponent, discardeds, gameController);
                             e_creatures.remove(number);
                             //usunięcie jej z ekwipunku
                             for (int i = 0; i < you.eq.size(); i++) {
@@ -128,7 +128,7 @@ public class E_Creature extends Creature{
                             creature.increaseHp();
                         }
                         //wystawienie na plansze wybraną jednostkę
-                        board.put(creature, you, opponent, discardeds);
+                        board.put(creature, you, opponent, discardeds, gameController);
                         e_creatures.remove(number);
                         //usunięcie jej z ekwipunku
                         for (int i = 0; i < you.eq.size(); i++) {

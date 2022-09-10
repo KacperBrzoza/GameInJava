@@ -50,7 +50,7 @@ public class O_Creature extends Creature{
                             creature.setUnbroaken(1);
                             creature.increaseHp();
                         }
-                        board.put(creature, you, opponent, discardeds);
+                        board.put(creature, you, opponent, discardeds, gameController);
                         you.counter++;
                         creature.effect(you, opponent, cards, discardeds, money, board, out, in, gameController);
                         break;
@@ -85,7 +85,7 @@ public class O_Creature extends Creature{
                         creature.setUnbroaken(1);
                         creature.increaseHp();
                     }
-                    board.put(creature, you, opponent, discardeds);
+                    board.put(creature, you, opponent, discardeds, gameController);
                     you.counter++;
                     creature.effect(you, opponent, cards, discardeds, money, board, out, in, gameController);
                 }

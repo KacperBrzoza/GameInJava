@@ -2,6 +2,7 @@ package com.example.Meat.Demo;
 
 import com.example.Main.Game.GameController;
 import com.example.Meat.Creatures.*;
+import javafx.application.Platform;
 
 import javax.swing.plaf.PanelUI;
 import java.io.BufferedWriter;
@@ -98,7 +99,7 @@ public class Cards_Stack {
         for(int i = 0; i < 5; i++)
             creatures.add(new E_Creature(6, 4, 3, "src/main/resources/img/Creatures/643E.png"));
         creatures.add(new E_Creature(0, 5, 4, "src/main/resources/img/Creatures/054E.png"));
-        creatures.add(new E_Creature(10, 9, 2, "src/main/resources/img/Creatures/11102E.png"));
+        creatures.add(new E_Creature(10, 9, 2, "src/main/resources/img/Creatures/1092E.png"));
 
         //z mocą F
         for(int i = 0; i < 3; i++)
@@ -220,6 +221,17 @@ public class Cards_Stack {
         //System.out.println("Na stosie zostalo " + creatures.size() + " kart");
         GameController.newNumberValue(gameController.CardCounter, "" + creatures.size());                   //podmiana liczby kart na stosie dla serwera
         GameController.server.sendMessageToClient("NEW_CARDS_STACK_SIZE_" + creatures.size());  //podmiana liczby kart na stosie dla clienta
+        if(you.id == 1) {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    gameController.RightShowBut.setDisable(false);
+                }
+            });
+        }
+        else {
+            GameController.server.sendMessageToClient("UNABLE_RIGHT_SHOW_BUT");
+        }
         if(creatures.size() == 0)
             endGame(out, you, opponent);
         return card;

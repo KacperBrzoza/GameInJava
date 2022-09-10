@@ -2,6 +2,7 @@ package com.example.NetTools;
 
 import com.example.Main.Game.GameController;
 import com.example.Main.Login.Memory;
+import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
@@ -93,9 +94,17 @@ public class Client {
     //ma za zadanie przetwarzać wejściowe napisy i zwracać wyjściowe
     private String turnService(String in, GameController gameController) throws IOException {
         String out = "";        //poczatkowo wyjscie jest pustym napisem
-        String val = "";
+        String val;
         if (Commands.yourTurn(in)) {
             GameController.changeTurn(gameController.EndTurnButton, gameController.TakeCardDeck, gameController.RageCardDeck, gameController.MoneyStack, gameController.LostCardDeck, gameController.CardCounter);
+        }
+        else if(Commands.unableRightShowBut(in)){
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    gameController.RightShowBut.setDisable(false);
+                }
+            });
         }
         else if (Commands.showEQ(in)){
             GameController.showEQ(gameController.eq_it, gameController.eqImages, gameController.EQ1, gameController.EQ2, gameController.EQ3, gameController.EQ4);

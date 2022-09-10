@@ -5,6 +5,9 @@ public class Commands {
     public static boolean yourTurn(String in){
         return in.equals("YOUR_TURN");
     }
+    public static boolean unableRightShowBut(String in){
+        return in.equals("UNABLE_RIGHT_SHOW_BUT");
+    }
 
     //SHOW_EQ
     public static boolean showEQ(String in){

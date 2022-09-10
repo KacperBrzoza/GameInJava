@@ -15,9 +15,11 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
@@ -43,13 +45,13 @@ public class GameController implements Initializable
     @FXML
     public Label MoneyPlayerValue;
     @FXML
-    HBox ChoiceHBox;
+    public HBox ChoiceHBox;
     @FXML
     ImageView MyTower,EnemyTower;
     @FXML
     public Label InfoLabel, CardCounter, EQLabel;
     @FXML
-    private Pane InventoryPane;
+    public Pane InventoryPane;
     @FXML
     public ImageView BattleGrid,PlayerPicture,MyCharacter,EnemyCharacter;
 
@@ -81,6 +83,10 @@ public class GameController implements Initializable
 
     @FXML
     public Button LeftShowBut, RightShowBut;
+
+    @FXML
+    public ImageView choiceOne, choiceTwo;
+
 
 
     private String my_user;
@@ -123,6 +129,8 @@ public class GameController implements Initializable
     public static Boolean myTurn = true;
 
     public ArrayList<Image> eqImages;
+    public ArrayList<Field> fields;
+
     public int eq_it = 0;
 
 
@@ -147,6 +155,9 @@ public class GameController implements Initializable
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         eqImages = new ArrayList<>();
+        fields = new ArrayList<>();
+        for(int i = 0; i < 10; i++)
+            fields.add(new Field(i));
         AllScreen.setOpacity(0);
         LeftShowBut.setDisable(true);
         
@@ -225,6 +236,26 @@ public class GameController implements Initializable
                 }
             }
         });
+
+        choiceOne.setOnDragDetected(mouseEvent -> {
+            choice = 1;
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    setChoiceHBox(ChoiceHBox, InventoryPane, EndTurnButton, choiceOne, choiceTwo,null, null);
+                }
+            });
+        });
+
+        choiceTwo.setOnDragDetected(mouseEvent -> {
+            choice = 2;
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    setChoiceHBox(ChoiceHBox, InventoryPane, EndTurnButton, choiceOne, choiceTwo,null, null);
+                }
+            });
+        });
     }
 
     public static void changeTurn(Button EndTurnButton, Button TakeCardDeck, Button RageCardDeck, Button MoneyStack, Button LostCardDeck, Label CardCounter){
@@ -283,6 +314,15 @@ public class GameController implements Initializable
         });
     }
 
+    public static void removeImageFromEQ(ArrayList<Image> eqImages, int position){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                eqImages.remove(position);
+            }
+        });
+    }
+
     //0 1 2 3
     public static void showEQ(int eq_it, ArrayList<Image> eqImages, ImageView EQ1, ImageView EQ2, ImageView EQ3, ImageView EQ4){
         Platform.runLater(new Runnable() {
@@ -324,12 +364,75 @@ public class GameController implements Initializable
     }
 
 
-    public static void selectPhase(ImageView TakeCardDeckSelect, ImageView MoneyStackSelect, boolean true_or_false){
+    public static void selectPhase(ImageView TakeCardDeckSelect, ImageView MoneyStackSelect,Button EndTurnButton, boolean true_or_false){
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
                 TakeCardDeckSelect.setVisible(true_or_false);
                 MoneyStackSelect.setVisible(true_or_false);
+                EndTurnButton.setDisable(true_or_false);
+            }
+        });
+    }
+
+    public static void setChoiceHBox(HBox ChoiceHBox, Pane InventoryPane, Button EndTurnButton, ImageView choiceOne, ImageView choiceTwo, Image one, Image two)
+    {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                if(ChoiceHBox.isVisible())
+                {
+                    ChoiceHBox.setVisible(false);
+                    ChoiceHBox.setDisable(true);
+                    InventoryPane.setDisable(false);
+                    EndTurnButton.setDisable(false);
+                }
+                else
+                {
+                    choiceOne.setImage(one);
+                    choiceTwo.setImage(two);
+                    ChoiceHBox.setVisible(true);
+                    ChoiceHBox.setDisable(false);
+                    InventoryPane.setDisable(true);
+                    EndTurnButton.setDisable(true);
+                }
+            }
+        });
+    }
+
+    public static void showBattleField(ArrayList<Field> fields, ImageView mygrid0, ImageView mygrid1, ImageView mygrid2, ImageView mygrid3, ImageView mygrid4, ImageView enemygrid0, ImageView enemygrid1, ImageView enemygrid2, ImageView enemygrid3, ImageView enemygrid4){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                mygrid0.setImage(fields.get(0).getImage());
+                mygrid1.setImage(fields.get(1).getImage());
+                mygrid2.setImage(fields.get(2).getImage());
+                mygrid3.setImage(fields.get(3).getImage());
+                mygrid4.setImage(fields.get(4).getImage());
+
+                enemygrid0.setImage(fields.get(5).getImage());
+                enemygrid1.setImage(fields.get(6).getImage());
+                enemygrid2.setImage(fields.get(7).getImage());
+                enemygrid3.setImage(fields.get(8).getImage());
+                enemygrid4.setImage(fields.get(9).getImage());
+            }
+        });
+    }
+
+    public static void setBattleField(ArrayList<Field> fields, Image image0, Image image1, Image image2, Image image3, Image image4, Image image5, Image image6, Image image7, Image image8, Image image9){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                fields.get(0).setImage(image0);
+                fields.get(1).setImage(image1);
+                fields.get(2).setImage(image2);
+                fields.get(3).setImage(image3);
+                fields.get(4).setImage(image4);
+                fields.get(5).setImage(image5);
+                fields.get(6).setImage(image6);
+                fields.get(7).setImage(image7);
+                fields.get(8).setImage(image8);
+                fields.get(9).setImage(image9);
             }
         });
     }
@@ -361,16 +464,6 @@ public class GameController implements Initializable
         Image statuscharacterimg = new Image(file6.toURI().toString());
         PlayerPicture.setImage(statuscharacterimg);
 
-    }
-
-    public static void showMessage(String message, Label EQLabel){
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                EQLabel.setText(message);
-                EQLabel.setStyle("-fx-text-fill: green;");
-            }
-        });
     }
 
     public void page_sound()
@@ -693,6 +786,7 @@ public class GameController implements Initializable
         EQ1.setFitWidth(160);
         EQ1.setX(10);
         EQ1.setY(15);
+        choice = eq_it;
     }
     @FXML
     protected void onSelectField2Pressed()
@@ -701,6 +795,7 @@ public class GameController implements Initializable
         EQ2.setFitWidth(160);
         EQ2.setX(20);
         EQ2.setY(25);
+        choice = eq_it+1;
     }
     @FXML
     protected void onSelectField3Pressed()
@@ -709,6 +804,7 @@ public class GameController implements Initializable
         EQ3.setFitWidth(160);
         EQ3.setX(20);
         EQ3.setY(25);
+        choice = eq_it+2;
     }
     @FXML
     protected void onSelectField4Pressed()
@@ -717,6 +813,7 @@ public class GameController implements Initializable
         EQ4.setFitWidth(160);
         EQ4.setX(20);
         EQ4.setY(25);
+        choice = eq_it+3;
     }
 
     @FXML
@@ -959,24 +1056,27 @@ public class GameController implements Initializable
         }
         return " - " + description;
     }
-    @FXML
-    protected void onChoiceButton()
-    {
-        if(ChoiceHBox.isVisible())
-        {
-            ChoiceHBox.setVisible(false);
-            ChoiceHBox.setDisable(true);
-            InventoryPane.setDisable(false);
-            EndTurnButton.setDisable(false);
+
+    public class Field{
+        public Image image;
+        //0-4 server
+        //5-9 client
+        public int id;
+
+        Field(int id){
+            this.id = id;
+            this.image = null;
         }
-        else
-        {
-            ChoiceHBox.setVisible(true);
-            ChoiceHBox.setDisable(false);
-            InventoryPane.setDisable(true);
-            EndTurnButton.setDisable(true);
+
+        public Image getImage(){
+            return this.image;
+        }
+
+        public void setImage(Image image){
+            this.image = image;
         }
     }
 
-
 }
+
+

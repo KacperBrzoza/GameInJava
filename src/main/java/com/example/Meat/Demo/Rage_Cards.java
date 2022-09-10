@@ -26,11 +26,11 @@ public class Rage_Cards {
         cards.add(new Paranoia());
         cards.add(new Weakness());
         cards.add(new SecretAssets());
-        cards.add(new Selection());
+        //cards.add(new Selection());       chwilowo wyłączona z użytku
         cards.add(new Thief());
-        cards.add(new BlackMarket());
+        //cards.add(new BlackMarket());       chwilowo wyłączona z użytku
         //cards.add(new Swarm());           chwilowo wyłączona z użytku
-        cards.add(new SecondChance());
+        //cards.add(new SecondChance());      chwilowo wyłączona z użytku
         cards.add(new Crusher());
         //cards.add(new Unbroaken());       chwilowo wyłączona z użytku
         cards.add(new RatCatcher());

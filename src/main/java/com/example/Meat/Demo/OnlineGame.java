@@ -2,11 +2,10 @@ package com.example.Meat.Demo;
 
 import com.example.Main.Game.GameController;
 import com.example.Meat.Creatures.*;
+import javafx.application.Platform;
+import javafx.scene.image.Image;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
@@ -86,6 +85,7 @@ public class OnlineGame {
         //1. przejścia stworów w stronę bazy przeciwnika
         GameController.phase = 1;
         board.move(you, opponent, discarded, cards,  rage_cards, money, out, in, gameController);
+        GameController.showBattleField(gameController.fields, gameController.mygrid0, gameController.mygrid1, gameController.mygrid2, gameController.mygrid3, gameController.mygrid4, gameController.enemygrid0, gameController.enemygrid1, gameController.enemygrid2, gameController.enemygrid3, gameController.enemygrid4);
 
         //2. dobrania kart stworów lub żetonów waluty. Gracz ma dwa dobrania
         GameController.phase = 2;
@@ -94,8 +94,8 @@ public class OnlineGame {
         //3.Jeżeli gracz ma coś w ekwipunku...
         GameController.phase = 3;
         if(you.eq.size() >= 1) {
-            Scanner scan = new Scanner(System.in);
             int number = 2;
+            /*
             //3. ... i ma kartę Rage "Black Market" może...
             if (you.BlackMarket == 1) {
                 number = -1;
@@ -109,10 +109,11 @@ public class OnlineGame {
                 //... sprzedawać lub...
                 if (number == 1)
                     sell();
-            }
+            }*/
             //... może wystawiać tyle stworów na ile stać gracza, o ile jakieś ma, przestrzegając limitu 4 swoich stworów na planszy
-            if (number == 2)
+            if (number == 2) {
                 display(in, gameController);
+            }
         }
 
         //4. Jeśli gracz posiada kartę Rage "Secret Assets" dostaje 1 żeton waluty na koniec tury
@@ -135,7 +136,7 @@ public class OnlineGame {
     private void draw(GameController gameController){
         you.select = 2;   //liczba dobrań
 
-        GameController.selectPhase(gameController.TakeCardDeckSelect, gameController.MoneyStackSelect, true);
+        GameController.selectPhase(gameController.TakeCardDeckSelect, gameController.MoneyStackSelect, gameController.EndTurnButton, true);
 
         while(you.select > 0){
             //Scanner scan =  new Scanner(System.in);
@@ -148,38 +149,47 @@ public class OnlineGame {
 
             //dobranie karty
             if(number == 1){
+                you.select--;
                 Creature one = cards.giveCard(out, you, opponent, gameController);
+                /*
                 //jeżeli gracz posiada kartę Rage "Selection" dobiera dwie karty. Jedną zatrzymuje, drugą odrzuca
                 if(you.Selection == 1){
                     Creature two = cards.giveCard(out, you, opponent, gameController);
-                    System.out.println("(1) " + one);
-                    System.out.println("(2) " + two);
+                    File file1 = new File(one.path);
+                    Image first = new Image(file1.toURI().toString());
+                    File file2 = new File(two.path);
+                    Image second = new Image(file2.toURI().toString());
+                    GameController.setChoiceHBox(gameController.ChoiceHBox, gameController.InventoryPane, gameController.EndTurnButton, gameController.choiceOne, gameController.choiceTwo, first, second);
                     number = -1;
-                    while (number < 1 || number > 2){
-                        System.out.print("wybierz: ");
-                       // number = scan.nextInt();
+                    while (number == -1){
+                        number = GameController.choice;
                     }
+
                     if(number == 1) {
+                        System.out.println("wybrano " + one);
                         you.eq.addCreature(one);
                         GameController.addImageToEQ(gameController.eqImages, one.path);
                     }
                     else {
+                        System.out.println("wybrano " + two);
                         you.eq.addCreature(two);
                         GameController.addImageToEQ(gameController.eqImages, two.path);
                     }
                 }
                 else{
+
+                 */
+                    System.out.println("wybrano " + one);
                     you.eq.addCreature(one);
                     GameController.addImageToEQ(gameController.eqImages, one.path);
-                }
-                you.select--;
-                GameController.choice = -1;
+                //}
             }
 
             //dobranie żetonu waluty
             else if(number == 2){
                 you.select--;
                 int coin_one = money.giveMoney(you, opponent);
+                /*
                 //jeżeli gracz posiada kartę Rage "Second Chance" dobiera dwa żetony waluty. Jedną zatrzymuje, drugą odrzuca
                 if(you.SecondChance == 1){
                     int coin_two = money.giveMoney(you, opponent);
@@ -196,101 +206,56 @@ public class OnlineGame {
                         you.money += coin_two;
                 }
                 else {
+
+                 */
                     you.money += coin_one;
-                }
+                //}
                 GameController.newNumberValue(gameController.MoneyPlayerValue, "" + you.money);
             }
+            GameController.choice = -1;
         }
+        GameController.selectPhase(gameController.TakeCardDeckSelect, gameController.MoneyStackSelect, gameController.EndTurnButton, false);
     }
+
+
 
     //metoda odpowiadająca za wystawianie kart i dodatkowe akcje
     private void display(BufferedReader in, GameController gameController) throws IOException {
-        if(you.counter < 4)
-            while (you.counter < 4 ){
-                System.out.println("Pieniadze: " + you.money);
-                System.out.println("1 - wybierz karte \n 2 - podejrzyj plansze \n 3 - spasuj \n 4 - obejrzyj swoje karty Rage \n 5 - legenda mocy stworow");
-
-                Scanner scan = new Scanner(System.in);
-                System.out.println("wybierz: ");
-                int number = scan.nextInt();
-                //wystawienie karty
-                if(number == 1){
-                    System.out.println("\nTwoj ekwpiunek:");
-                    System.out.println(you.eq);
-                    System.out.println("(" + you.eq.size() + ") cofnij");
-                    you.showMoney();
-
-                    number = -1;
-                    while (number < 0 || number > you.eq.size()){
-                        System.out.print("wybierz: ");
-                        number = scan.nextInt();
-                        if(number >= 0 && number < you.eq.size()){
-                            if(you.eq.checkCost(number) <= you.money) {
-                                you.money -= you.eq.checkCost(number);
-                                Creature creature = you.eq.pickCreature(number);
-                                //zwiększenie ataku stwora w przypadku posiadania karty Rage "Swarm"
-                                if(you.Swarm == 1){
-                                    if(creature.getAttack() == 2) {
-                                        creature.increaseAttack();
-                                        creature.setSwarm(1);
-                                    }
-                                }
-                                //zwiększenie hp stwora w przypadku posiadania karty Rage "Unbroaken"
-                                if(you.Unbroaken == 1){
-                                    if(creature.getHp() == 2) {
-                                        creature.increaseHp();
-                                        creature.setUnbroaken(1);
-                                    }
-                                }
-                                board.put(creature, you, opponent, discarded);
-                                you.counter++;
-                                creature.effect(you, opponent, cards, discarded, money, board, out, in, gameController);
-                                System.out.println("\n" + board);
-                                //out.println("\n" + board);
-                            }
-                            else {
-                                System.out.println("Ta jednostka jest za droga!");
-                                number = -1;
+        while (you.counter < 4 ) {
+            int number = -1;
+            while (number == -1){
+                number = GameController.choice;
+            }
+            if (you.eq.checkCost(number) <= you.money) {
+                you.money -= you.eq.checkCost(number);
+                GameController.newNumberValue(gameController.MoneyPlayerValue, "" + you.money);
+                GameController.removeImageFromEQ(gameController.eqImages, number);
+                GameController.showEQ(gameController.eq_it, gameController.eqImages, gameController.EQ1, gameController.EQ2, gameController.EQ3, gameController.EQ4);
+                Creature creature = you.eq.pickCreature(number);
+                /*
+                      //zwiększenie ataku stwora w przypadku posiadania karty Rage "Swarm"
+                       if (you.Swarm == 1) {
+                            if (creature.getAttack() == 2) {
+                                creature.increaseAttack();
+                                creature.setSwarm(1);
                             }
                         }
-                        else if(number == you.eq.size())
-                            break;
-                    }
-                }
-                //podejrzenie planszy
-                else if(number == 2){
-                    System.out.println(this);
-                    System.out.println(board);
-                }
-                //pass
-                else if(number == 3){
-                    break;
-                }
-                //podejrzenie swoich kart Rage
-                else if(number == 4){
-                    System.out.println(you.rage);
-                }
-                //legenda mocy
-                else if(number == 5){
-                    System.out.println();
-                    System.out.println("D - przy wystawieniu dobierasz karte stwora");
-                    System.out.println("E - przy wystawieniu pozwala natychmiast wystawic kolejnego stwora z moca E za darmo");
-                    System.out.println("F - jesli na przeciwnym polu nie ma wroga, probuje walczyc z przeciwnikiem o 1 pole dalszym");
-                    System.out.println("G - odsyla pierwszego napotkanego przeciwnika spowrotem do ekwipunku oponenta");
-                    System.out.println("H - przy wystawieniu uzdrawia jednostke, tzn dobierasz karte stwora ze stosu kart odrzuconych");
-                    System.out.println("J - gdy ta jednostka ginie, zmienia hp swojego zabojcy na 1");
-                    System.out.println("M - przy wystawieniu dobierasz zeton waluty");
-                    System.out.println("N - gdy ta jednostka ma zostac zabita, jednorazowo unika smierci");
-                    System.out.println("O - pozwala natychmiast wystawic kolejnego stwora za darmo");
-                    System.out.println("R - gdy sojusznik ma zginac, ta jednostka zginie zamiast tamtej");
-                    System.out.println("U - sprawia, ze jednostki na dwoch polach za nia sa niezniszczalne, dopoki sama zyje");
-                    System.out.println("X - zabija pierwszego napotkanego przeciwnika bez wzgledu na statystyki");
-                    System.out.println("Z - przy wystawieniu pozwala zamienic miejscami ta jednostke z inna sojusznicza");
-                    System.out.println();
-                }
+                        //zwiększenie hp stwora w przypadku posiadania karty Rage "Unbroaken"
+                        if (you.Unbroaken == 1) {
+                            if (creature.getHp() == 2) {
+                                creature.increaseHp();
+                                creature.setUnbroaken(1);
+                            }
+                        }*/
+                board.put(creature, you, opponent, discarded, gameController);
+                you.counter++;
+                creature.effect(you, opponent, cards, discarded, money, board, out, in, gameController);
+                //out.println("\n" + board);
+            } else {
+                GameController.newNumberValue(gameController.InfoLabel, "Ta jednostka jest za droga!");
             }
-        else
-            System.out.println("Osiagnieto limit 4 kart na planszy!");
+            GameController.choice = -1;
+        }
     }
 
     //służy do sprzedawania stworów jeżeli gracz pierwszy posiada kartę "Black Market"
@@ -481,7 +446,7 @@ public class OnlineGame {
                                             creature.setUnbroaken(1);
                                         }
                                     }
-                                    board.put(creature, opponent, you, discarded);
+                                    board.put(creature, opponent, you, discarded, gameController);
                                     opponent.counter++;
                                     creature.effect(opponent, you, cards, discarded, money, board, out, in, gameController);
                                     //out.println("\n" + board);

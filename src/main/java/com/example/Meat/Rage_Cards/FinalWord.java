@@ -45,7 +45,7 @@ public class FinalWord extends R_Card{
                             creature.setUnbroaken(1);
                             creature.increaseHp();
                         }
-                        board.put(creature, you, opponent, discardeds);
+                        board.put(creature, you, opponent, discardeds, gameController);
                         you.counter++;
                         creature.effect(you, opponent, cards, discardeds, money, board, out, in, gameController);
                     }
@@ -80,7 +80,7 @@ public class FinalWord extends R_Card{
                             creature.setUnbroaken(1);
                             creature.increaseHp();
                         }
-                        board.put(creature, you, opponent, discardeds);
+                        board.put(creature, you, opponent, discardeds, gameController);
                         you.counter++;
                         creature.effect(you, opponent, cards, discardeds, money, board, out, in, gameController);
                     }
