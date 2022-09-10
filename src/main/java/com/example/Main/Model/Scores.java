@@ -9,14 +9,12 @@ public class Scores
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "uid")
-    //@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    //todo
-    //Dodac zaleznosci do encji (OnetoOne) oraz okreslic ich typy
-    //@Column(name = "uid")
     private int uid;
     @Basic
+    @Column(name = "username")
+    private String username;
+    @Basic
     @Column(name = "score")
-    //@Column(name = "score")
     private Integer score;
 
     public int getUid()
@@ -27,6 +25,16 @@ public class Scores
     public void setUid(int uid)
     {
         this.uid = uid;
+    }
+
+    public String getUsername()
+    {
+        return username;
+    }
+
+    public void setUsername(String username)
+    {
+        this.username = username;
     }
 
     public Integer getScore()
@@ -45,12 +53,12 @@ public class Scores
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Scores scores = (Scores) o;
-        return uid == scores.uid && Objects.equals(score, scores.score);
+        return uid == scores.uid && Objects.equals(username, scores.username) && Objects.equals(score, scores.score);
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(uid, score);
+        return Objects.hash(uid, username, score);
     }
 }

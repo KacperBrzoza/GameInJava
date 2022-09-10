@@ -1,23 +1,24 @@
 package com.example.Main.Service;
 
 import com.example.Main.Model.IpTable;
+import com.example.Main.Model.Scores;
 import com.example.Main.Model.UserData;
 import com.example.Main.PersistenceManager.PersistenceManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.util.Pair;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.Main.Menu.WaitingEnemyController.SWITCHER;
 
 public class UserService
 {
-    //public ObservableList<UserData> observableList;
-
     //Dodowanie uzytkwnika do bazy
     public void add_user(String username, String password)
     {
@@ -86,26 +87,22 @@ public class UserService
         return query.getResultList().toString().replace("[", "").replace("]", "").replace(" ","");
     }
 
-    public String lista()
-    {
-        EntityManager entityManager = PersistenceManager.getFactory().createEntityManager();
-        Query query = entityManager.createQuery("SELECT u.username, s.score FROM UserData u INNER JOIN Scores s ON u.uid = s.uid");
-        return query.getResultList().toString();
-    }
-
     //Funkcja potrzebna do wyswietla nickow graczy - Nie dziala wyswietlanie w rankingu
     //TODO
     //Potrzeba dodania jakos scoresow z drugiej tabeli do tableview
     //Zamysl - Zapytanie przez Inner Joina i wyciagniecie nickow + score  - najoptymalniejsze
     //SELECT u.username, s.score FROM user_data u INNER JOIN scores s ON u.uid = s.uid; -
-    public ObservableList<UserData> getAll()
+
+
+    public ObservableList<Scores> getAll()
     {
-        ObservableList<UserData> observableList = FXCollections.observableArrayList(); //Wszystko na string
+        ObservableList<Scores> observableList = FXCollections.observableArrayList();
         EntityManager entityManager = PersistenceManager.getFactory().createEntityManager();
-        List<UserData> uList = entityManager.createQuery("select u FROM UserData u", UserData.class).getResultList();
+        List<Scores> uList = entityManager.createQuery("select s FROM Scores s", Scores.class).getResultList();
         observableList.addAll(uList);
         return observableList;
     }
+
 
     public UserData getUser(String username)
     {

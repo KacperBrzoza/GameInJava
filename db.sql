@@ -10,30 +10,16 @@ CREATE TABLE user_data(
 --- Mozliwie do score dodac default value -->
 
 CREATE TABLE scores(
-                       UID INT PRIMARY KEY NOT NULL,
+                       UID INT PRIMARY KEY NOT NULL,--
+                       username varchar(50) UNIQUE NOT NULL,
                        score INT,
                        FOREIGN KEY (UID)
-                           REFERENCES user_data(UID)
+                          REFERENCES user_data(UID),
+                       FOREIGN KEY (username)
+                            REFERENCES user_data(username)
+
 );
 
----TABELA IP---
---IPID SERIAL PRIMARY KEY NOT NULL,--
-/*
-CREATE TABLE ip_table(
-            IPID SERIAL PRIMARY KEY NOT NULL,
-            ip_address CHAR(30) UNIQUE NOT NULL
-);
-
- */
-/*
-CREATE TABLE ip_table(
-     IPID INT PRIMARY KEY NOT NULL DEFAULT(1),
-     onerow bool  DEFAULT TRUE,
-     ip_address CHAR(30) UNIQUE NOT NULL,
-     CONSTRAINT onerow_uni CHECK ( onerow )
-);
-
- */
 
 CREATE TABLE ip_table(
                          IPID INT UNIQUE DEFAULT(1),
@@ -85,30 +71,32 @@ CREATE TRIGGER user_data_insert_trigger
 
     EXECUTE PROCEDURE log_last_register_fnc();
 
---TRIGGER USTAWIAJACY 0 PKT UZYTKOWNIKOWI, KTORY SIE ZAREJESTROWAL---
 
-CREATE OR REPLACE FUNCTION set_0_score_fnc()
+--TRIGGER DO USTAWIANIA NAZWY GRACZA W SCORES i 0 PUNKTOW--
 
-	RETURNS trigger AS
+
+CREATE OR REPLACE FUNCTION set_username_0_scores_fnc()
+
+    RETURNS trigger AS
 
 $$
 
 BEGIN
 
 
-INSERT INTO "scores" (UID, score)
+    INSERT INTO "scores" (UID, username, score)
 
-VALUES(NEW.UID, 0);
+    VALUES(NEW.UID, NEW.username, 0);
 
-RETURN NEW;
+    RETURN NEW;
 
 END
 
 $$
 
-LANGUAGE 'plpgsql';
+    LANGUAGE 'plpgsql';
 
-CREATE TRIGGER set_0_score_trigger
+CREATE TRIGGER set_username_0_score_trigger
 
     AFTER INSERT
 
@@ -116,10 +104,9 @@ CREATE TRIGGER set_0_score_trigger
 
     FOR EACH ROW
 
-    EXECUTE PROCEDURE set_0_score_fnc();
-
+EXECUTE PROCEDURE set_username_0_scores_fnc();
 
 ---DROPOWANIE TRIGGERA---
 
 drop trigger user_data_insert_trigger on "user_data" ;
-drop trigger set_0_score_trigger on "user_data" ;
+drop trigger set_username_0_score_trigger on "user_data" ;

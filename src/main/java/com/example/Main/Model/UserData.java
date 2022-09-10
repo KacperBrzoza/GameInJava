@@ -23,6 +23,23 @@ public class UserData
     @NotNull
     private String password;
 
+    /*
+    @OneToOne
+    @JoinColumn(name = "scores_uid")
+    private Scores scores;
+
+
+    public Scores getScores()
+    {
+        return scores;
+    }
+
+    public void setScores(Scores scores)
+    {
+        this.scores = scores;
+    }
+     */
+
     public Long getUid()
     {
         return uid;

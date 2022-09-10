@@ -20,11 +20,9 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import javax.persistence.EntityManager;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class RankController implements Initializable
@@ -44,13 +42,13 @@ public class RankController implements Initializable
     private Button BackButton;
 
     @FXML
-    private TableView<UserData> tableView;
+    private TableView<Scores> tableView;
 
     @FXML
-    private TableColumn<UserData, String> nickColumn;
+    private TableColumn<Scores, String> nickColumn;
 
     @FXML
-    private TableColumn<Scores, String> scoreColumn;
+    private TableColumn<Scores, Integer> scoreColumn;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
@@ -59,7 +57,6 @@ public class RankController implements Initializable
         nickColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
         scoreColumn.setCellValueFactory(new PropertyValueFactory<>("score"));
         tableView.setItems(userService.getAll());
-        //System.out.println(userService.lista());
     }
 
     @FXML
