@@ -90,6 +90,7 @@ public static boolean MenuMusicAllow;
     {
         Stage stage = (Stage) ExitButton.getScene().getWindow();
         stage.close();
+        System.exit(1);
     }
     @FXML
     public void onOptionButton()
