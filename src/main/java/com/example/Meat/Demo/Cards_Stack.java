@@ -75,6 +75,7 @@ public class Cards_Stack {
         creatures.add(new Creature(11, 6, 7, "src/main/resources/img/Creatures/1167.png"));
         creatures.add(new Creature(12, 7, 7, "src/main/resources/img/Creatures/1277.png"));
 
+        /*
         //z mocą D
         for(int i = 0; i < 4; i++)
             creatures.add(new D_Creature(4, 2, 3, "src/main/resources/img/Creatures/423D.png"));
@@ -143,7 +144,7 @@ public class Cards_Stack {
         creatures.add(new J_Creature(6, 4, 3, "src/main/resources/img/Creatures/J.png"));
         creatures.add(new J_Creature(7, 3, 5, "src/main/resources/img/Creatures/J.png"));
          */
-
+        /*
 
         //z mocą M
         for(int i = 0; i < 4; i++)
@@ -209,6 +210,8 @@ public class Cards_Stack {
         creatures.add(new Z_Creature(7, 3, 5, "src/main/resources/img/Creatures/735Z.png"));
         creatures.add(new Z_Creature(9, 4, 6, "src/main/resources/img/Creatures/946Z.png"));
         creatures.add(new Z_Creature(10, 6, 5, "src/main/resources/img/Creatures/1065Z.png"));
+
+         */
     }
 
     //poniższa metoda losuje kartę z tego "stosu" i ją zwraca

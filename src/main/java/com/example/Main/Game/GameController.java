@@ -315,10 +315,12 @@ public class GameController implements Initializable
         });
     }
 
-    public static void removeImageFromEQ(ArrayList<Image> eqImages, int position){
+    public static void removeImageFromEQ(ArrayList<Image> eqImages, int position, int eq_it, Button RightShowBut){
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
+                if(eq_it+4 >= eqImages.size())
+                    RightShowBut.setDisable(true);
                 eqImages.remove(position);
             }
         });
@@ -416,6 +418,15 @@ public class GameController implements Initializable
                 enemygrid2.setImage(fields.get(7).getImage());
                 enemygrid3.setImage(fields.get(8).getImage());
                 enemygrid4.setImage(fields.get(9).getImage());
+            }
+        });
+    }
+
+    public static void setSingleField(ArrayList<Field> fields, Image image, int position){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+
             }
         });
     }
@@ -557,6 +568,18 @@ public class GameController implements Initializable
         rage3_enemy.setX(0);
         InfoLabel.setText("");
         InfoLabel.setStyle("-fx-font-size: 14pt;");
+        if(phase == 3){
+            InfoLabel.setText("Mozesz wystawiac karty lub zakonczyc ture");
+            InfoLabel.setStyle("-fx-font-size: 35pt;");
+        }
+        else if(phase == 4){
+            InfoLabel.setText("Zakoncz ture");
+            InfoLabel.setStyle("-fx-font-size: 40pt;");
+        }
+        else if (phase == 5) {
+            InfoLabel.setText("Tura przeciwnika");
+            InfoLabel.setStyle("-fx-font-size: 40pt;");
+        }
     }
     @FXML
     protected void onMoneyScreenEntered()

@@ -120,16 +120,18 @@ public class OnlineGame {
         GameController.phase = 4;
         if(you.SecretAssets == 1){
             you.money += money.giveMoney(you, opponent);
-            System.out.println("Dobrano zeton waluty");
+            GameController.newNumberValue(gameController.MoneyPlayerValue, "" + you.money);
         }
 
         //4. Jeśli gracz posiada kartę Rage "RatCatcher" dostaje 1 kartę stwora na koniec tury
         if(you.RatCatcher == 1){
-            you.eq.addCreature(cards.giveCard(out, you, opponent, gameController));
-            System.out.println("Dobrano stwora");
+            Creature creature = cards.giveCard(out, you, opponent, gameController);
+            you.eq.addCreature(creature);
+            GameController.addImageToEQ(gameController.eqImages, creature.path);
         }
 
-        System.out.println("\n\n\nTURA PRZECIWNIKA");
+        //5. Tura klienta
+        GameController.phase = 5;
     }
 
     //pozwala pierwszemu graczowi dobrać 2x żeton waluty  lub  2x kartę stwora  lub  1x to i 1x to
@@ -229,7 +231,7 @@ public class OnlineGame {
             if (you.eq.checkCost(number) <= you.money) {
                 you.money -= you.eq.checkCost(number);
                 GameController.newNumberValue(gameController.MoneyPlayerValue, "" + you.money);
-                GameController.removeImageFromEQ(gameController.eqImages, number);
+                GameController.removeImageFromEQ(gameController.eqImages, number, gameController.eq_it, gameController.RightShowBut);
                 GameController.showEQ(gameController.eq_it, gameController.eqImages, gameController.EQ1, gameController.EQ2, gameController.EQ3, gameController.EQ4);
                 Creature creature = you.eq.pickCreature(number);
                 /*
