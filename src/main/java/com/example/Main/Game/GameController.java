@@ -2,6 +2,7 @@ package com.example.Main.Game;
 
 import com.example.Main.Login.Memory;
 import com.example.Main.Menu.MenuController;
+import com.example.Main.Service.UserService;
 import com.example.NetTools.Client;
 import com.example.NetTools.Server;
 import javafx.animation.FadeTransition;
@@ -29,6 +30,9 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.MalformedURLException;
+import java.net.Socket;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -508,12 +512,40 @@ public class GameController implements Initializable
     {
         click_sound();
         stopMusic();
-        URL url = new File("src/main/resources/com/example/Main/Menu/Menu-view.fxml").toURI().toURL();
-        Parent root = FXMLLoader.load(url);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                client.closeEverything();
+                server.closeEverything();
+                System.out.println("DZIALA!!");
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        MenuController.MenuMusicAllow =true;
+                        URL url = null;
+                        try
+                        {
+                            url = new File("src/main/resources/com/example/Main/Menu/Menu-view.fxml").toURI().toURL();
+                        } catch (MalformedURLException e)
+                        {
+                            throw new RuntimeException(e);
+                        }
+                        Parent root = null;
+                        try
+                        {
+                            root = FXMLLoader.load(url);
+                        } catch (IOException e)
+                        {
+                            throw new RuntimeException(e);
+                        }
+                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                        Scene scene = new Scene(root);
+                        stage.setScene(scene);
+                        stage.show();
+                    }
+                });
+            }
+        }).start();
     }
     @FXML
     protected void hiderInformation()

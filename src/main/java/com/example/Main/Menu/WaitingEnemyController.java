@@ -128,7 +128,8 @@ public class WaitingEnemyController implements Initializable {
                         server.sendAndListen();
                         Platform.runLater(new Runnable() {
                             @Override
-                            public void run() {
+                            public void run()
+                            {
                                 FadeIn();
                             }
                         });
