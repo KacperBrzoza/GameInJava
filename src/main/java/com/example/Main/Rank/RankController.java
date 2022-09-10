@@ -59,6 +59,7 @@ public class RankController implements Initializable
         nickColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
         scoreColumn.setCellValueFactory(new PropertyValueFactory<>("score"));
         tableView.setItems(userService.getAll());
+        //System.out.println(userService.lista());
     }
 
     @FXML

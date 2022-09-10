@@ -23,6 +23,8 @@ public class StartLoginApplication extends Application
     {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/Main/Login/hello-login-view.fxml"));
         Parent root = loader.load();
+        //UserService userService = new UserService();
+        //userService.lista();
         //URL url = new File("src/main/resources/com/example/Main/Login/hello-login-view.fxml").toURI().toURL();
         //Parent root = FXMLLoader.load(url);
         //LoginController controller = loader.getController();

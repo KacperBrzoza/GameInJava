@@ -25,7 +25,7 @@ public class UserService
         userData.setUsername(username);
         userData.setPassword(password);
         EntityManager entityManager = PersistenceManager.getFactory().createEntityManager();
-        EntityTransaction transaction =entityManager.getTransaction();
+        EntityTransaction transaction = entityManager.getTransaction();
         transaction.begin();
         entityManager.persist(userData);
         transaction.commit();
@@ -64,19 +64,12 @@ public class UserService
         else
         {
             SWITCHER = 2;
-            //delete_IP();
             System.out.println("Jestem switcherem 2");
         }
     }
 
     public void delete_IP()
     {
-        /*
-        IpTable ipTable;
-        EntityManager entityManager = PersistenceManager.getFactory().createEntityManager();
-        Query query = entityManager.createQuery("DELETE FROM IpTable i WHERE i.ipid = 1");
-
-         */
         EntityManager entityManager = PersistenceManager.getFactory().createEntityManager();
         IpTable ipTable = entityManager.find(IpTable.class, 1);
         EntityTransaction transaction = entityManager.getTransaction();
@@ -91,6 +84,13 @@ public class UserService
         EntityManager entityManager = PersistenceManager.getFactory().createEntityManager();
         Query query = entityManager.createQuery("SELECT i.ipAddress FROM IpTable i WHERE i.ipid = 1");
         return query.getResultList().toString().replace("[", "").replace("]", "").replace(" ","");
+    }
+
+    public String lista()
+    {
+        EntityManager entityManager = PersistenceManager.getFactory().createEntityManager();
+        Query query = entityManager.createQuery("SELECT u.username, s.score FROM UserData u INNER JOIN Scores s ON u.uid = s.uid");
+        return query.getResultList().toString();
     }
 
     //Funkcja potrzebna do wyswietla nickow graczy - Nie dziala wyswietlanie w rankingu
