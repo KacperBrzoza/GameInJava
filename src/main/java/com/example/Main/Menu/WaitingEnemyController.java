@@ -63,6 +63,8 @@ public class WaitingEnemyController implements Initializable {
     Media music_menu = new Media(new File(path_music_menu).toURI().toString());
     MediaPlayer mediaPlayer_menu_music = new MediaPlayer(music_menu);
 
+    //public static boolean zmiennaAccept = true;
+
     @FXML
     public void onMouseEntered()
     {
@@ -172,14 +174,6 @@ public class WaitingEnemyController implements Initializable {
                 e.printStackTrace();
             }
 
-            /*
-            BackButton.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    GameController.client.closeEverything();
-                }
-            });
-             */
 
             /*
             ExitButton.setOnAction(new EventHandler<ActionEvent>()
@@ -245,25 +239,53 @@ public class WaitingEnemyController implements Initializable {
     @FXML
     public void onBackButton(ActionEvent event) throws IOException
     {
-        userService = new UserService();
-        userService.delete_IP();
-        MenuController.MenuMusicAllow =true;
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/Main/Menu/Menu-view.fxml"));
-        Parent root = loader.load();
-        //*mediaPlayer_menu_music.stop();
-        //MenuController controller_menu = loader.getController();
-        //System.out.println("test");
-        //controller_menu.Music_menu_on_off(false);
-        //URL url = new File("src/main/resources/com/example/Main/Menu/Menu-view.fxml").toURI().toURL();
-        //Testowe przejscie do ekranu gry aby sprawdzic dzialanie gui
-        //URL url = new File("src/main/resources/com/example/Main/Menu/Menu-view.fxml").toURI().toURL();
-        //Parent root = FXMLLoader.load(url);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
-        stage.setResizable(false);
-        stage.setMaximized(true);
-        stage.setScene(scene);
-        stage.show();
+        //zmiennaAccept = false;
+        //userService.delete_IP();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    System.out.println("wcisnieto anuluj");
+                    client = new Client(new Socket(InetAddress.getLocalHost().getHostAddress(), PORT_NUMBER));
+                    userService = new UserService();
+                    userService.delete_IP();
+                    client.sendMessageToServer(Memory.memory.getUsername());
+                    client.listenAndSend();
+                    client.closeEverything();
+                    server.closeEverything();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        MenuController.MenuMusicAllow =true;
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/Main/Menu/Menu-view.fxml"));
+                        Parent root = null;
+                        try {
+                            root = loader.load();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        //*mediaPlayer_menu_music.stop();
+                        //MenuController controller_menu = loader.getController();
+                        //System.out.println("test");
+                        //controller_menu.Music_menu_on_off(false);
+                        //URL url = new File("src/main/resources/com/example/Main/Menu/Menu-view.fxml").toURI().toURL();
+                        //Testowe przejscie do ekranu gry aby sprawdzic dzialanie gui
+                        //URL url = new File("src/main/resources/com/example/Main/Menu/Menu-view.fxml").toURI().toURL();
+                        //Parent root = FXMLLoader.load(url);
+                        Stage stage = (Stage) BackButton.getScene().getWindow();
+                        Scene scene = new Scene(root);
+                        stage.setResizable(false);
+                        stage.setMaximized(true);
+                        stage.setScene(scene);
+                        stage.show();
+                    }
+                });
+            }
+        }).start();
+
     }
     @FXML
     public void onExitButton(ActionEvent event) throws IOException

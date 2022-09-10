@@ -37,6 +37,7 @@ public class Client {
                     try {
                         String messageFromServer = bufferedReader.readLine();
                         GameController.opponentNick = messageFromServer;
+                        System.out.println(messageFromServer);
                         break;
                     } catch (IOException e){
                         e.printStackTrace();

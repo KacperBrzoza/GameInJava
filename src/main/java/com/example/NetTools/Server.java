@@ -25,14 +25,17 @@ public class Server {
     private OnlineGame newGame;
     private String opponentNick;
 
-
     public Server(ServerSocket serverSocket) {
         try{
             this.serverSocket = serverSocket;
             System.out.println("gniazdko");
-            this.socket = serverSocket.accept();
-            this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+
+            //if(WaitingEnemyController.zmiennaAccept) {
+                this.socket = serverSocket.accept();
+                System.out.println("polaczono");
+                this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+            //}
         } catch (IOException e){
             System.out.println("Error creating server.");
             e.printStackTrace();
@@ -61,6 +64,7 @@ public class Server {
                     try {
                         String messageFromClient = bufferedReader.readLine();
                         GameController.opponentNick = messageFromClient;
+                        System.out.println(messageFromClient);
                         break;
                     } catch (IOException e){
                         e.printStackTrace();

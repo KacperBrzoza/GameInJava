@@ -237,6 +237,7 @@ public class GameController implements Initializable
             }
         });
 
+        /*
         choiceOne.setOnDragDetected(mouseEvent -> {
             choice = 1;
             Platform.runLater(new Runnable() {
@@ -256,6 +257,8 @@ public class GameController implements Initializable
                 }
             });
         });
+
+         */
     }
 
     public static void changeTurn(Button EndTurnButton, Button TakeCardDeck, Button RageCardDeck, Button MoneyStack, Button LostCardDeck, Label CardCounter){
