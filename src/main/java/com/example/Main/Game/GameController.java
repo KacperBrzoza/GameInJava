@@ -111,12 +111,10 @@ public class GameController implements Initializable
 
 
 
-
-
-
     //awaryjne pola do przechwycenia wyniku w razie rozłączenia się, któregoś z graczy
     public static float PLAYER_ONE_POINTS = 0;
     public static float PLAYER_TWO_POINTS = 0;
+
     @FXML
     void FadeOut() throws IOException {
         FXMLLoader loader_menu = new FXMLLoader(getClass().getResource("/com/example/Main/Menu/Menu-view.fxml"));

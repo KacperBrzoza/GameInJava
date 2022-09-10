@@ -61,7 +61,7 @@ public class OnlineGame {
             GameController.server.sendMessageToClient("PATH_" + creature.path);
 
             creature = cards.giveCard(out, you, opponent, gameController);
-            you.eq.addCreature(creature);                                                                       //dodanie stwora do eq gracza 1
+            you.eq.addCreature(creature);                                                                                       //dodanie stwora do eq gracza 1
             GameController.addImageToEQ(gameController.eqImages, creature.path);                                                 //dodanie zdjecia stwora do listy od eq
 
 
@@ -69,7 +69,7 @@ public class OnlineGame {
             opponent.money += money.giveMoney(you, opponent);
 
         }
-        //GameController.server.sendStartSet("NEW_CARDS_STACK_SIZE_" + cards.size(), "NEW_MY_MONEY_VAL_" + opponent.money, "SHOW_EQ");
+        //ponizsze linijki to wyswietlanie informacji u graczy
         GameController.server.sendMessageToClient("NEW_CARDS_STACK_SIZE_" + cards.size());
         GameController.newNumberValue(gameController.CardCounter, "" + cards.size());
         GameController.server.sendMessageToClient("NEW_MY_MONEY_VAL_" + opponent.money);
@@ -84,17 +84,8 @@ public class OnlineGame {
     //tura pierwszego gracza
     public void server_turn(BufferedReader in, GameController gameController) throws IOException {
 
-
         //1. przejścia stworów w stronę bazy przeciwnika
         board.move(you, opponent, discarded, cards,  rage_cards, money, out, in, gameController);
-        
-        //wysłanie planszy do przeciwnika
-        //out.println(board);
-        //GameController.server.sendMessageToClient(board.toString());
-
-        System.out.println(this);
-        System.out.println(board);
-        you.showMoney();
 
         //2. dobrania kart stworów lub żetonów waluty. Gracz ma dwa dobrania
         draw(gameController);
