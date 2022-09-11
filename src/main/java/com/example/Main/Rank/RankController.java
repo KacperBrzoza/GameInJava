@@ -2,7 +2,6 @@ package com.example.Main.Rank;
 
 import com.example.Main.Menu.MenuController;
 import com.example.Main.Model.Scores;
-import com.example.Main.Model.UserData;
 import com.example.Main.Service.UserService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -53,6 +53,8 @@ public class RankController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle)
     {
+        tableView.setPlaceholder(
+                new Label("Brak Graczy w Rankingu"));
         UserService userService = new UserService();
         nickColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
         scoreColumn.setCellValueFactory(new PropertyValueFactory<>("score"));

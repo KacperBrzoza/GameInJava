@@ -182,37 +182,64 @@
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
     -fx-border-radius: 0;
-    -fx-background-color: #a8a8a8;
+    -fx-background-color:  #404040;
     -fx-border-style: solid outside;
     -fx-border-color: #5e5e5e #5e5e5e #404040 #404040;
-    -fx-border-width:  5 7 18 7;
+    -fx-border-width:  8 7 18 7;
     -fx-font-size: 20pt;
+    -fx-background-insets: 0;
+}
+
+.table-view .column-header-background,
+.table-view .column-header-background .filler,
+.table-view .corner {
+	-fx-background-color: #666666;
+
 }
 .table-view:pressed{
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
-    -fx-border-color: #a8a0a0 #a8a0a0 #dbd1d0 #dbd1d0;
 }
+
 .table-view .column-header-background{
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
     -fx-text-fill: white;
-    -fx-background-color: #5e5e5e;
-    -fx-border-width:  0 12 8 12;
-    -fx-border-color: #5e5e5e #5e5e5e #404040 #404040;
+    -fx-border-insets: -6 -4 -4 -4;
+    -fx-background-color: #4a4949;
+    -fx-border-width:  12 0 8 0;
+    -fx-border-color: #404040;
+    -fx-padding: 0;
 }
+
 .table-view .column-header-background:pressed{
     -fx-background-color: #5e5e5e;
-    -fx-border-width:  0 12 8 12;
-    -fx-border-color: #a8a0a0 #a8a0a0 #dbd1d0 #dbd1d0;
 }
 .table-view .column-header {
     -fx-text-fill: white;
-    -fx-background-color: #8c8c8c;
+    -fx-background-color: #666666;
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
 }
+
+.table-row-cell {
+    -fx-table-cell-border-color: white;
+}
 .table-view .table-cell{
+    -fx-alignment: CENTER;
     -fx-background-color: #8c8c8c;
     -fx-border-color: transparent;
+}
+.table-view .column-drag-header{
+    -fx-background-color: #5e5e5e;
+    -fx-cursor: h-resize;
+}
+.table-view .column-resize-line{
+    -fx-text-fill: white;
+    -fx-background-color: #5e5e5e;
+    -fx-fill: white;
+    -fx-border-color: #5e5e5e;
+    -fx-border-width: 0;
 }
 .table-view .virtual-flow .scroll-bar:vertical .thumb{
     -fx-focus-color: transparent;
@@ -223,13 +250,42 @@
     -fx-border-color: #5e5e5e #5e5e5e #404040 #404040;
     -fx-border-width:  5 7 18 7;
 }
+.table-view .scroll-bar *{
+    -fx-min-width: 0;
+    -fx-pref-width: 0;
+    -fx-max-width: 0;
+
+    -fx-min-height: 0;
+    -fx-pref-height: 0;
+    -fx-max-height: 0;
+}
 .table-view .virtual-flow .scroll-bar:vertical:pressed .thumb:pressed{
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
     -fx-border-color: #a8a0a0 #a8a0a0 #dbd1d0 #dbd1d0;
 }
+.table-view .arrow {
+   -fx-mark-color: #d1d1d1 ;
+}
+.table-view .column-header .label {
+    -fx-text-fill: #d1d1d1;
+}
+#nickColumn{
+    -fx-text-fill: #590900;
+    -fx-border-color: #5e5e5e #404040 #404040 #404040;
+    -fx-border-width:  0 3 0 2;
+}
 
+#scoreColumn{
+    -fx-text-fill: #4f0800;
+    -fx-border-color: #404040 #404040 #404040 #404040;
+    -fx-border-width:  0 3 0 2;
+}
 
+.table-row-cell:filled:selected:hover {
+    -fx-text-fill: white;
+	-fx-background-color: #595858;
+}
 #BackgroundScreen{
     -fx-background-color: black;
     -fx-background-image: url("../img/background/background_grass1.png");

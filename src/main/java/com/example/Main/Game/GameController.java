@@ -109,6 +109,14 @@ public class GameController implements Initializable
     Media media_move = new Media(new File(path_sound_move).toURI().toString());
     MediaPlayer mediaPlayer_move = new MediaPlayer(media_move);
 
+    String path_sound_disable = "src/main/resources/sound/block_input_sound.mp3";
+    Media media_disable = new Media(new File(path_sound_disable).toURI().toString());
+    MediaPlayer mediaPlayer_disable = new MediaPlayer(media_disable);
+
+    static String path_sound_card_put = "src/main/resources/sound/card_release_sound.mp3";
+    static Media media_card_put = new Media(new File(path_sound_card_put).toURI().toString());
+    static MediaPlayer mediaPlayer_card_put = new MediaPlayer(media_card_put);
+
     public static Server server;
     /*
     PHASE VALUES:
@@ -322,6 +330,10 @@ public class GameController implements Initializable
                 if(eq_it+4 >= eqImages.size())
                     RightShowBut.setDisable(true);
                 eqImages.remove(position);
+                mediaPlayer_card_put.setVolume(1);
+                mediaPlayer_card_put.stop();
+                mediaPlayer_card_put.seek(Duration.seconds(0));
+                mediaPlayer_card_put.play();
             }
         });
     }
@@ -477,7 +489,20 @@ public class GameController implements Initializable
         PlayerPicture.setImage(statuscharacterimg);
 
     }
-
+    public void card_put_sound()
+    {
+        mediaPlayer_card_put.setVolume(0.5);
+        mediaPlayer_card_put.stop();
+        mediaPlayer_card_put.seek(Duration.seconds(0));
+        mediaPlayer_card_put.play();
+    }
+    public void disable_button_sound()
+    {
+        mediaPlayer_disable.setVolume(0.5);
+        mediaPlayer_disable.stop();
+        mediaPlayer_disable.seek(Duration.seconds(0));
+        mediaPlayer_disable.play();
+    }
     public void page_sound()
     {
         mediaPlayer_page.setVolume(0.2);
@@ -839,6 +864,8 @@ public class GameController implements Initializable
     @FXML
     protected void onSelectField1Pressed()
     {
+        if(!myTurn)
+            disable_button_sound();
         EQ1.setFitHeight(160);
         EQ1.setFitWidth(160);
         EQ1.setX(10);
@@ -848,6 +875,8 @@ public class GameController implements Initializable
     @FXML
     protected void onSelectField2Pressed()
     {
+        if(!myTurn)
+            disable_button_sound();
         EQ2.setFitHeight(160);
         EQ2.setFitWidth(160);
         EQ2.setX(20);
@@ -857,6 +886,8 @@ public class GameController implements Initializable
     @FXML
     protected void onSelectField3Pressed()
     {
+        if(!myTurn)
+            disable_button_sound();
         EQ3.setFitHeight(160);
         EQ3.setFitWidth(160);
         EQ3.setX(20);
@@ -866,6 +897,8 @@ public class GameController implements Initializable
     @FXML
     protected void onSelectField4Pressed()
     {
+        if(!myTurn)
+            disable_button_sound();
         EQ4.setFitHeight(160);
         EQ4.setFitWidth(160);
         EQ4.setX(20);
