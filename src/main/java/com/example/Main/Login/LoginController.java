@@ -125,24 +125,30 @@ public class LoginController implements Initializable
                             else //Dobre haslo i dobry uzytkownik
                             {
                                 //Uzytkownik jest juz zalogowany
-                                //if()
-                                Memory.memory = registerData;
-                                //Wywolam zapytanie SELECT i wyciagne uid z bazy o odanym usernamie
-                                //System.out.println(userService.get_UID(registerData.getUsername()));
-                                userService.set_Usage_true(registerData.getUsername());
-                                Platform.runLater(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        //FadeIn(event); //Przyciemnienie na przejście (nie dziala bo trzeba zrobic thready ktore beda zajmowac sie innymi procesami)
-                                        mediaPlayer_login_good.stop();
-                                        mediaPlayer_login_good.seek(Duration.seconds(0));
-                                        mediaPlayer_login_good.play();
-                                        PassMsg.setText("Zalogowano pomyślnie.");
-                                //kontrolna zmiana muzy
-                                //
-                                //
-                                        PassMsg.setStyle("-fx-text-fill: #269e32");
-                                        FadeIn();
+                                if(userService.check_User(registerData.getUsername()))
+                                {
+                                    PassMsg.setText("Podany uzytkownik jest juz zalogowany!");
+                                    PassMsg.setStyle("-fx-text-fill: #d0312d;-fx-font-size: 18pt;");//czerwone
+                                }
+                                else
+                                {
+                                    Memory.memory = registerData;
+                                    //Wywolam zapytanie SELECT i wyciagne uid z bazy o odanym usernamie
+                                    //System.out.println(userService.get_UID(registerData.getUsername()));
+                                    userService.set_Usage_true(registerData.getUsername());
+                                    Platform.runLater(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            //FadeIn(event); //Przyciemnienie na przejście (nie dziala bo trzeba zrobic thready ktore beda zajmowac sie innymi procesami)
+                                            mediaPlayer_login_good.stop();
+                                            mediaPlayer_login_good.seek(Duration.seconds(0));
+                                            mediaPlayer_login_good.play();
+                                            PassMsg.setText("Zalogowano pomyślnie.");
+                                            //kontrolna zmiana muzy
+                                            //
+                                            //
+                                            PassMsg.setStyle("-fx-text-fill: #269e32");
+                                            FadeIn();
                                         /*URL url_menu = null;
                                         try {
                                             url_menu = new File("src/main/resources/com/example/Main/Menu/Menu-view.fxml").toURI().toURL();
@@ -162,8 +168,10 @@ public class LoginController implements Initializable
                                         stage.setMaximized(true);
                                         stage.setScene(scene);
                                         stage.show();*/
-                                    }
-                                });
+                                        }
+                                    });
+                                }
+
                             }
                         }
                     }
