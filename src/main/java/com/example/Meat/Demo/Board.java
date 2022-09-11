@@ -189,89 +189,121 @@ public class Board {
 
     public void exportImagesFromBackend(GameController gameController){
         File file;
+        String path;
         Image image0, image1, image2, image3, image4, image5, image6, image7, image8, image9;
 
-        if(this.line1.get(0).empty)
+        if(this.line1.get(0).empty) {
             image0 = null;
+            GameController.server.sendMessageToClient("SET_FIELD_0_N");
+        }
         else{
-            file = new File(this.line1.get(0).creature.path);
-            System.out.println(this.line1.get(0).creature.path);
+            path = this.line1.get(0).creature.path;
+            file = new File(path);
             image0 = new Image(file.toURI().toString());
+            GameController.server.sendMessageToClient("SET_FIELD_0_" + path);
         }
 
-        if(this.line1.get(1).empty)
+        if(this.line1.get(1).empty) {
             image1 = null;
+            GameController.server.sendMessageToClient("SET_FIELD_1_N");
+        }
         else {
-            file = new File(this.line1.get(1).creature.path);
-            System.out.println(this.line1.get(0).creature.path);
+            path = this.line1.get(1).creature.path;
+            file = new File(path);
             image1 = new Image(file.toURI().toString());
+            GameController.server.sendMessageToClient("SET_FIELD_1_" + path);
         }
 
-        if(this.line1.get(2).empty)
+        if(this.line1.get(2).empty) {
             image2 = null;
+            GameController.server.sendMessageToClient("SET_FIELD_2_N");
+        }
         else {
-            file = new File(this.line1.get(2).creature.path);
-            System.out.println(this.line1.get(0).creature.path);
+            path = this.line1.get(2).creature.path;
+            file = new File(path);
             image2 = new Image(file.toURI().toString());
+            GameController.server.sendMessageToClient("SET_FIELD_2_" + path);
         }
 
-        if(this.line1.get(3).empty)
+        if(this.line1.get(3).empty) {
             image3 = null;
+            GameController.server.sendMessageToClient("SET_FIELD_3_N");
+        }
         else {
-            file = new File(this.line1.get(3).creature.path);
-            System.out.println(this.line1.get(0).creature.path);
+            path = this.line1.get(3).creature.path;
+            file = new File(path);
             image3 = new Image(file.toURI().toString());
+            GameController.server.sendMessageToClient("SET_FIELD_3_" + path);
         }
 
-        if(this.line1.get(4).empty)
+        if(this.line1.get(4).empty) {
             image4 = null;
+            GameController.server.sendMessageToClient("SET_FIELD_4_N");
+        }
         else {
-            file = new File(this.line1.get(4).creature.path);
-            System.out.println(this.line1.get(0).creature.path);
+            path = this.line1.get(4).creature.path;
+            file = new File(path);
             image4 = new Image(file.toURI().toString());
+            GameController.server.sendMessageToClient("SET_FIELD_4_" + path);
         }
 
-        if(this.line2.get(0).empty)
+        if(this.line2.get(0).empty) {
             image5 = null;
+            GameController.server.sendMessageToClient("SET_FIELD_5_N");
+        }
         else {
-            file = new File(this.line2.get(0).creature.path);
-            System.out.println(this.line1.get(0).creature.path);
+            path = this.line1.get(0).creature.path;
+            file = new File(path);
             image5 = new Image(file.toURI().toString());
+            GameController.server.sendMessageToClient("SET_FIELD_5_" + path);
         }
 
-        if(this.line2.get(1).empty)
+        if(this.line2.get(1).empty) {
             image6 = null;
+            GameController.server.sendMessageToClient("SET_FIELD_6_N");
+        }
         else {
-            file = new File(this.line2.get(1).creature.path);
-            System.out.println(this.line1.get(0).creature.path);
+            path = this.line1.get(1).creature.path;
+            file = new File(path);
             image6 = new Image(file.toURI().toString());
+            GameController.server.sendMessageToClient("SET_FIELD_6_" + path);
         }
 
-        if(this.line2.get(2).empty)
+        if(this.line2.get(2).empty) {
             image7 = null;
+            GameController.server.sendMessageToClient("SET_FIELD_7_N");
+        }
         else {
-            file = new File(this.line2.get(2).creature.path);
-            System.out.println(this.line1.get(0).creature.path);
+            path = this.line1.get(2).creature.path;
+            file = new File(path);
             image7 = new Image(file.toURI().toString());
+            GameController.server.sendMessageToClient("SET_FIELD_7_" + path);
         }
 
-        if(this.line2.get(3).empty)
+        if(this.line2.get(3).empty) {
             image8 = null;
+            GameController.server.sendMessageToClient("SET_FIELD_8_N");
+        }
         else {
-            file = new File(this.line2.get(3).creature.path);
-            System.out.println(this.line1.get(0).creature.path);
+            path = this.line1.get(3).creature.path;
+            file = new File(path);
             image8 = new Image(file.toURI().toString());
+            GameController.server.sendMessageToClient("SET_FIELD_8_" + path);
         }
 
-        if(this.line2.get(4).empty)
+        if(this.line2.get(4).empty) {
             image9 = null;
+            GameController.server.sendMessageToClient("SET_FIELD_9_N");
+        }
         else {
-            file = new File(this.line2.get(4).creature.path);
-            System.out.println(this.line1.get(0).creature.path);
+            path = this.line1.get(4).creature.path;
+            file = new File(path);
             image9 = new Image(file.toURI().toString());
+            GameController.server.sendMessageToClient("SET_FIELD_9_" + path);
         }
         GameController.setBattleField(gameController.fields, image0, image1, image2, image3, image4, image5, image6, image7, image8, image9);
         GameController.showBattleField(gameController.fields, gameController.mygrid0, gameController.mygrid1, gameController.mygrid2, gameController.mygrid3, gameController.mygrid4, gameController.enemygrid0, gameController.enemygrid1, gameController.enemygrid2, gameController.enemygrid3, gameController.enemygrid4);
+        GameController.server.sendMessageToClient("SHOW_BATTLE_FIELD");
     }
 
     //rozpatruje, czy broniąca się jednostka zginie, czy nie

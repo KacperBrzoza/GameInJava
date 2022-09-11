@@ -69,9 +69,9 @@ public class OnlineGame {
         }
         //ponizsze linijki to wyswietlanie informacji u graczy
         GameController.server.sendMessageToClient("NEW_CARDS_STACK_SIZE_" + cards.size());
-        GameController.newNumberValue(gameController.CardCounter, "" + cards.size());
+        GameController.newLabelValue(gameController.CardCounter, "" + cards.size());
         GameController.server.sendMessageToClient("NEW_MY_MONEY_VAL_" + opponent.money);
-        GameController.newNumberValue(gameController.MoneyPlayerValue, "" + you.money);
+        GameController.newLabelValue(gameController.MoneyPlayerValue, "" + you.money);
         GameController.server.sendMessageToClient("SHOW_EQ");
         GameController.showEQ(gameController.eq_it, gameController.eqImages, gameController.EQ1, gameController.EQ2, gameController.EQ3, gameController.EQ4);
     }
@@ -116,11 +116,13 @@ public class OnlineGame {
             }
         }
 
+        System.out.println("wyszedlem z wystawiania");
+
         //4. Jeśli gracz posiada kartę Rage "Secret Assets" dostaje 1 żeton waluty na koniec tury
         GameController.phase = 4;
         if(you.SecretAssets == 1){
             you.money += money.giveMoney(you, opponent);
-            GameController.newNumberValue(gameController.MoneyPlayerValue, "" + you.money);
+            GameController.newLabelValue(gameController.MoneyPlayerValue, "" + you.money);
         }
 
         //4. Jeśli gracz posiada kartę Rage "RatCatcher" dostaje 1 kartę stwora na koniec tury
@@ -128,17 +130,15 @@ public class OnlineGame {
             Creature creature = cards.giveCard(out, you, opponent, gameController);
             you.eq.addCreature(creature);
             GameController.addImageToEQ(gameController.eqImages, creature.path);
+            GameController.showEQ(gameController.eq_it, gameController.eqImages, gameController.EQ1, gameController.EQ2, gameController.EQ3, gameController.EQ4);
         }
-
-        //5. Tura klienta
-        GameController.phase = 5;
     }
 
     //pozwala pierwszemu graczowi dobrać 2x żeton waluty  lub  2x kartę stwora  lub  1x to i 1x to
     private void draw(GameController gameController){
         you.select = 2;   //liczba dobrań
 
-        GameController.selectPhase(gameController.TakeCardDeckSelect, gameController.MoneyStackSelect, gameController.EndTurnButton, true);
+        GameController.selectingPhase(gameController.TakeCardDeckSelect, gameController.MoneyStackSelect, gameController.EndTurnButton, true);
 
         while(you.select > 0){
             //Scanner scan =  new Scanner(System.in);
@@ -181,7 +181,6 @@ public class OnlineGame {
                 else{
 
                  */
-                    System.out.println("wybrano " + one);
                     you.eq.addCreature(one);
                     GameController.addImageToEQ(gameController.eqImages, one.path);
                 //}
@@ -212,11 +211,11 @@ public class OnlineGame {
                  */
                     you.money += coin_one;
                 //}
-                GameController.newNumberValue(gameController.MoneyPlayerValue, "" + you.money);
+                GameController.newLabelValue(gameController.MoneyPlayerValue, "" + you.money);
             }
             GameController.choice = -1;
         }
-        GameController.selectPhase(gameController.TakeCardDeckSelect, gameController.MoneyStackSelect, gameController.EndTurnButton, false);
+        GameController.selectingPhase(gameController.TakeCardDeckSelect, gameController.MoneyStackSelect, gameController.EndTurnButton, false);
     }
 
 
@@ -228,12 +227,16 @@ public class OnlineGame {
             while (number == -1){
                 number = GameController.choice;
             }
-            if (you.eq.checkCost(number) <= you.money) {
-                you.money -= you.eq.checkCost(number);
-                GameController.newNumberValue(gameController.MoneyPlayerValue, "" + you.money);
-                GameController.removeImageFromEQ(gameController.eqImages, number, gameController.eq_it, gameController.RightShowBut);
-                GameController.showEQ(gameController.eq_it, gameController.eqImages, gameController.EQ1, gameController.EQ2, gameController.EQ3, gameController.EQ4);
-                Creature creature = you.eq.pickCreature(number);
+            if(number == -2){
+                break;
+            }
+            else if(number < you.eq.size()){
+                if (you.eq.checkCost(number) <= you.money) {
+                    you.money -= you.eq.checkCost(number);
+                    GameController.newLabelValue(gameController.MoneyPlayerValue, "" + you.money);
+                    GameController.removeImageFromEQ(gameController.eqImages, number, gameController.eq_it, gameController.RightShowBut);
+                    GameController.showEQ(gameController.eq_it, gameController.eqImages, gameController.EQ1, gameController.EQ2, gameController.EQ3, gameController.EQ4);
+                    Creature creature = you.eq.pickCreature(number);
                 /*
                       //zwiększenie ataku stwora w przypadku posiadania karty Rage "Swarm"
                        if (you.Swarm == 1) {
@@ -249,12 +252,16 @@ public class OnlineGame {
                                 creature.setUnbroaken(1);
                             }
                         }*/
-                board.put(creature, you, opponent, discarded, gameController);
-                you.counter++;
-                creature.effect(you, opponent, cards, discarded, money, board, out, in, gameController);
-                //out.println("\n" + board);
-            } else {
-                GameController.newNumberValue(gameController.InfoLabel, "Ta jednostka jest za droga!");
+                    board.put(creature, you, opponent, discarded, gameController);
+                    you.counter++;
+                    creature.effect(you, opponent, cards, discarded, money, board, out, in, gameController);
+                    //out.println("\n" + board);
+                } else {
+                    GameController.newLabelValue(gameController.InfoLabel, "Ta jednostka jest za droga!");
+                }
+            }
+            else {
+                System.out.println("No halo za dalko");
             }
             GameController.choice = -1;
         }
@@ -288,6 +295,7 @@ public class OnlineGame {
     public void client_turn(BufferedReader in, GameController gameController) throws IOException {
         String fromClient;
         //out.println("\n\n\nTWOJA TURA ");
+        GameController.phase = 0;
 
         //1. przejścia stworów w stronę bazy przeciwnika
         board.move(opponent, you, discarded, cards,  rage_cards, money, out, in, gameController);

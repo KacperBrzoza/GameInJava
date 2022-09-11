@@ -200,6 +200,7 @@ public class GameController implements Initializable
         EndTurnButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
+                choice = -2;
                 if(SWITCHER == 1){
                     server.sendMessageToClient("YOUR_TURN");
                 }
@@ -270,6 +271,7 @@ public class GameController implements Initializable
     public static void changeTurn(Button EndTurnButton, Button TakeCardDeck, Button RageCardDeck, Button MoneyStack, Button LostCardDeck, Label CardCounter){
         if(myTurn){
             myTurn = false;
+            phase = 0;
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
@@ -303,7 +305,7 @@ public class GameController implements Initializable
         }
     }
 
-    public static void newNumberValue(Label label, String val){
+    public static void newLabelValue(Label label, String val){
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -338,7 +340,6 @@ public class GameController implements Initializable
         });
     }
 
-    //0 1 2 3
     public static void showEQ(int eq_it, ArrayList<Image> eqImages, ImageView EQ1, ImageView EQ2, ImageView EQ3, ImageView EQ4){
         Platform.runLater(new Runnable() {
             @Override
@@ -379,7 +380,7 @@ public class GameController implements Initializable
     }
 
 
-    public static void selectPhase(ImageView TakeCardDeckSelect, ImageView MoneyStackSelect,Button EndTurnButton, boolean true_or_false){
+    public static void selectingPhase(ImageView TakeCardDeckSelect, ImageView MoneyStackSelect,Button EndTurnButton, boolean true_or_false){
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -438,7 +439,7 @@ public class GameController implements Initializable
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-
+                fields.get(position).setImage(image);
             }
         });
     }
@@ -593,17 +594,17 @@ public class GameController implements Initializable
         rage3_enemy.setX(0);
         InfoLabel.setText("");
         InfoLabel.setStyle("-fx-font-size: 14pt;");
-        if(phase == 3){
+        if(phase == 2){
+            InfoLabel.setText("Dobierz karty stworow lub monety");
+            InfoLabel.setStyle("-fx-font-size: 30pt;");
+        }
+        else if(phase == 3){
             InfoLabel.setText("Mozesz wystawiac karty lub zakonczyc ture");
-            InfoLabel.setStyle("-fx-font-size: 35pt;");
+            InfoLabel.setStyle("-fx-font-size: 30pt;");
         }
         else if(phase == 4){
             InfoLabel.setText("Zakoncz ture");
-            InfoLabel.setStyle("-fx-font-size: 40pt;");
-        }
-        else if (phase == 5) {
-            InfoLabel.setText("Tura przeciwnika");
-            InfoLabel.setStyle("-fx-font-size: 40pt;");
+            InfoLabel.setStyle("-fx-font-size: 30pt;");
         }
     }
     @FXML
@@ -625,7 +626,7 @@ public class GameController implements Initializable
     protected void onTakeCardEntered()
     {
         hover_sound();
-        InfoLabel.setText("Stos kart postaci - ...Kacper dopisz bo ja nie wiem jak to wyjasnic xd");
+        InfoLabel.setText("Stos kart stworow");
 
     }
     @FXML
@@ -637,7 +638,7 @@ public class GameController implements Initializable
     protected void onRageCardEntered()
     {
         hover_sound();
-        InfoLabel.setText("Stos kart RAGE - ...Kacper dopisz bo ja nie wiem jak to wyjasnic xd");
+        InfoLabel.setText("Stos kart RAGE");
     }
     @FXML
     protected void onMoneyStackClicked()
@@ -652,7 +653,7 @@ public class GameController implements Initializable
     protected void onMoneyStackEntered()
     {
         hover_sound();
-        InfoLabel.setText("Stos monet - ...Kacper dopisz bo ja nie wiem jak to wyjasnic xd");
+        InfoLabel.setText("Stos monet");
     }
     @FXML
     protected void onLostCardClicked()
@@ -870,7 +871,6 @@ public class GameController implements Initializable
         EQ1.setFitWidth(160);
         EQ1.setX(10);
         EQ1.setY(15);
-        choice = eq_it;
     }
     @FXML
     protected void onSelectField2Pressed()
@@ -881,7 +881,6 @@ public class GameController implements Initializable
         EQ2.setFitWidth(160);
         EQ2.setX(20);
         EQ2.setY(25);
-        choice = eq_it+1;
     }
     @FXML
     protected void onSelectField3Pressed()
@@ -892,7 +891,6 @@ public class GameController implements Initializable
         EQ3.setFitWidth(160);
         EQ3.setX(20);
         EQ3.setY(25);
-        choice = eq_it+2;
     }
     @FXML
     protected void onSelectField4Pressed()
@@ -903,7 +901,6 @@ public class GameController implements Initializable
         EQ4.setFitWidth(160);
         EQ4.setX(20);
         EQ4.setY(25);
-        choice = eq_it+3;
     }
 
     @FXML
@@ -915,6 +912,8 @@ public class GameController implements Initializable
         EQ1.setFitWidth(180);
         EQ1.setX(0);
         EQ1.setY(0);
+        if(phase == 3)
+            choice = eq_it;
 
     }
     @FXML
@@ -924,6 +923,8 @@ public class GameController implements Initializable
         EQ2.setFitWidth(180);
         EQ2.setX(10);
         EQ2.setY(15);
+        if(phase == 3)
+            choice = eq_it+1;
     }
     @FXML
     protected void onSelectField3Released()
@@ -933,6 +934,8 @@ public class GameController implements Initializable
         EQ3.setFitWidth(180);
         EQ3.setX(10);
         EQ3.setY(15);
+        if(phase == 3)
+            choice = eq_it+2;
     }
     @FXML
     protected void onSelectField4Released()
@@ -941,6 +944,8 @@ public class GameController implements Initializable
         EQ4.setFitWidth(180);
         EQ4.setX(10);
         EQ4.setY(15);
+        if(phase == 3)
+            choice = eq_it+3;
     }
     @FXML
     protected void onLeftPageButtonClicked()

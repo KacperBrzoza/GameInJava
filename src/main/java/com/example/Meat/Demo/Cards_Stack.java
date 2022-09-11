@@ -222,7 +222,7 @@ public class Cards_Stack {
         Creature card = creatures.get(n);
         creatures.remove(n);
         //System.out.println("Na stosie zostalo " + creatures.size() + " kart");
-        GameController.newNumberValue(gameController.CardCounter, "" + creatures.size());                   //podmiana liczby kart na stosie dla serwera
+        GameController.newLabelValue(gameController.CardCounter, "" + creatures.size());                   //podmiana liczby kart na stosie dla serwera
         GameController.server.sendMessageToClient("NEW_CARDS_STACK_SIZE_" + creatures.size());  //podmiana liczby kart na stosie dla clienta
         if(you.id == 1) {
             Platform.runLater(new Runnable() {

@@ -96,8 +96,7 @@ public class Client {
         if (Commands.yourTurn(in)) {
             GameController.changeTurn(gameController.EndTurnButton, gameController.TakeCardDeck, gameController.RageCardDeck, gameController.MoneyStack, gameController.LostCardDeck, gameController.CardCounter);
         }
-        else if(Commands.endGame(in))
-        {
+        else if(Commands.endGame(in)) {
             System.out.println("SEEE YAAA");
             out = "CONNECTION_CLOSE";
         }
@@ -112,11 +111,17 @@ public class Client {
         else if (Commands.showEQ(in)){
             GameController.showEQ(gameController.eq_it, gameController.eqImages, gameController.EQ1, gameController.EQ2, gameController.EQ3, gameController.EQ4);
         }
+        else if (Commands.showBattleField(in)) {
+            GameController.showBattleField(gameController.fields, gameController.mygrid0, gameController.mygrid1, gameController.mygrid2, gameController.mygrid3, gameController.mygrid4, gameController.enemygrid0, gameController.enemygrid1, gameController.enemygrid2, gameController.enemygrid3, gameController.enemygrid4);
+        }
         else if (!(val = Commands.newCardStackSize(in)).equals("-1")) {
-            GameController.newNumberValue(gameController.CardCounter, val);
+            GameController.newLabelValue(gameController.CardCounter, val);
         }
         else if (!(val = Commands.newMyMoneyVal(in)).equals("-1")) {
-            GameController.newNumberValue(gameController.MoneyPlayerValue, val);
+            GameController.newLabelValue(gameController.MoneyPlayerValue, val);
+        }
+        else if (!(val = Commands.setField(in, gameController)).equals("-1")) {
+            //wyjatkowo dzialanie tego ifa zamieszczone jest w komendzie
         }
         else if (!(val = Commands.path(in)).equals("-1")) {
             GameController.addImageToEQ(gameController.eqImages, val);
