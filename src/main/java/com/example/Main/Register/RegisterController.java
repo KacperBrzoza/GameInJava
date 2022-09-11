@@ -68,8 +68,6 @@ public class RegisterController implements Initializable
         Parent root = loader.load();
         LoginController controller = loader.getController();
         controller.ambient_music(false);
-        /*URL url = new File("src/main/resources/com/example/Main/Login/hello-login-view.fxml").toURI().toURL();
-        Parent root = FXMLLoader.load(url);*/
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setResizable(false);

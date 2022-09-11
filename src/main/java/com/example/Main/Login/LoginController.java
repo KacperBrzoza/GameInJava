@@ -127,8 +127,15 @@ public class LoginController implements Initializable
                                 //Uzytkownik jest juz zalogowany
                                 if(userService.check_User(registerData.getUsername()))
                                 {
-                                    PassMsg.setText("Podany uzytkownik jest juz zalogowany!");
-                                    PassMsg.setStyle("-fx-text-fill: #d0312d;-fx-font-size: 18pt;");//czerwone
+                                    Platform.runLater(new Runnable()
+                                    {
+                                        @Override
+                                        public void run()
+                                        {
+                                            PassMsg.setText("Podany uzytkownik jest juz zalogowany!");
+                                            PassMsg.setStyle("-fx-text-fill: #d0312d;-fx-font-size: 18pt;");//czerwone
+                                        }
+                                    });
                                 }
                                 else
                                 {

@@ -30,20 +30,7 @@ public class UserService
         transaction.commit();
     }
 
-    //Testowo do IP
-    /*
-    public void add_IP(String IP)
-    {
-        IpTable ipTable= new IpTable();
-        ipTable.setIpAddress(IP);
-        EntityManager entityManager = PersistenceManager.getFactory().createEntityManager();
-        EntityTransaction transaction =entityManager.getTransaction();
-        transaction.begin();
-        entityManager.persist(ipTable);
-        transaction.commit();
-    }
-     */
-
+    //Sprawdzanie IP w bazie i na tej podstawie ustawianie SWITCHERA
     public void check_in_base_IP(String IP)
     {
         IpTable ipTable = new IpTable();
@@ -67,6 +54,7 @@ public class UserService
         }
     }
 
+    //Usuwanie IP
     public void delete_IP()
     {
         EntityManager entityManager = PersistenceManager.getFactory().createEntityManager();
@@ -77,9 +65,9 @@ public class UserService
         transaction.commit();
     }
 
-    public String get_Ip() //List<IpTable>
+    //Pobieranie IP
+    public String get_Ip()
     {
-        //IpTable ipTable = new IpTable();
         EntityManager entityManager = PersistenceManager.getFactory().createEntityManager();
         Query query = entityManager.createQuery("SELECT i.ipAddress FROM IpTable i WHERE i.ipid = 1");
         return query.getResultList().toString().replace("[", "").replace("]", "").replace(" ","");
@@ -95,7 +83,7 @@ public class UserService
         return observableList;
     }
 
-
+    //Sprawdzanie czy podany uzytkownik jest w bazie
     public UserData getUser(String username)
     {
         UserData userData;
@@ -125,7 +113,7 @@ public class UserService
         return user;
     }
 
-
+    //Sprawdzanie hasla dla uzytkownika
     public String getPassword(String username)
     {
         EntityManager entityManager = PersistenceManager.getFactory().createEntityManager();
@@ -135,6 +123,7 @@ public class UserService
         return result;
     }
 
+    //Sprawdzanie poprawnosci
     public boolean isCorrect(String username, String password)
     {
         boolean correct = false;
@@ -145,13 +134,7 @@ public class UserService
         return correct;
     }
 
-    public List<UserData> findAll()
-    {
-        EntityManager entityManager = PersistenceManager.getFactory().createEntityManager();
-        Query query = entityManager.createQuery("select c from UserData c");
-        return query.getResultList();
-    }
-
+    //Sprawdzam czy user jest true czy false, tzn. zalogowany czy nie
     public Boolean check_User(String username)
     {
         EntityManager entityManager = PersistenceManager.getFactory().createEntityManager();
@@ -160,13 +143,12 @@ public class UserService
         return (Boolean) query.getSingleResult();
     }
 
-    //if true
+    //sprawdzanie zeby przyznac punkty
     public void setScoreOne(String username, double score)
     {
         EntityManager entityManager = PersistenceManager.getFactory().createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
 
-        //UserData userData = entityManager.find(UserData.class, get_UID(username));
         if(check_User(username).equals(true))
         {
             Scores scores = entityManager.find(Scores.class, get_UID(username));
@@ -178,6 +160,7 @@ public class UserService
     }
 
 
+    //Pobieranie uid gracza
     public int get_UID(String username)
     {
         EntityManager entityManager = PersistenceManager.getFactory().createEntityManager();
@@ -186,15 +169,13 @@ public class UserService
         return (int) query.getSingleResult();
     }
 
-    //@Transactional
+    //Ustawianie korzystania na true
     public void set_Usage_true(String username)
     {
         EntityManager entityManager = PersistenceManager.getFactory().createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
         //Nie zadzaiala bo nie jest supportowane przez JPA xd
 
-        //Query query = entityManager.createQuery("UPDATE UserData u SET u.isUser = true WHERE u.username = :username")
-                //.setParameter("username", "hedilele").executeUpdate();
         UserData userData = entityManager.find(UserData.class, get_UID(username));
         entityTransaction.begin();
         userData.setUser(true);
@@ -202,14 +183,13 @@ public class UserService
         entityManager.close();
     }
 
+    //na false
     public void set_Usage_false(String username)
     {
         EntityManager entityManager = PersistenceManager.getFactory().createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
         //Nie zadzaiala bo nie jest supportowane przez JPA xd
 
-        //Query query = entityManager.createQuery("UPDATE UserData u SET u.isUser = true WHERE u.username = :username")
-        //.setParameter("username", "hedilele").executeUpdate();
         UserData userData = entityManager.find(UserData.class, get_UID(username));
         entityTransaction.begin();
         userData.setUser(false);

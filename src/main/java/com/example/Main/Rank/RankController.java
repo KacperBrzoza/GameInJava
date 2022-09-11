@@ -60,8 +60,6 @@ public class RankController implements Initializable
         scoreColumn.setCellValueFactory(new PropertyValueFactory<>("score"));
         tableView.setItems(userService.getAll());
     }
-    //stage.setOnCloseRequest(new EventHandler<WindowEvent>() {     @Override public void handle(WindowEvent t) {         System.out.println("CLOSING");     } });
-
     @FXML
     public void onMouseEntered()
     {
