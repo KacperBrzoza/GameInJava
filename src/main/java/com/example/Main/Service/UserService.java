@@ -6,7 +6,6 @@ import com.example.Main.Model.UserData;
 import com.example.Main.PersistenceManager.PersistenceManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.hibernate.Session;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -153,13 +152,31 @@ public class UserService
         return query.getResultList();
     }
 
-    //Updatowanie wyniku w bazie
-    //ZAPYTANIE
-    /*
-    UPDATE scores s
-    SET s.score = s.score + 2 || -0.5 - w zaleznosci od wyniku gry
-    WHERE s.username = :username;
-     */
+    public Boolean check_User(String username)
+    {
+        EntityManager entityManager = PersistenceManager.getFactory().createEntityManager();
+        Query query = entityManager.createQuery("SELECT u.isUser FROM UserData u WHERE u.username = :username");
+        query.setParameter("username", username);
+        return (Boolean) query.getSingleResult();
+    }
+
+    //if true
+    public void setScoreOne(String username, double score)
+    {
+        EntityManager entityManager = PersistenceManager.getFactory().createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+
+        //UserData userData = entityManager.find(UserData.class, get_UID(username));
+        if(check_User(username).equals(true))
+        {
+            Scores scores = entityManager.find(Scores.class, get_UID(username));
+            entityTransaction.begin();
+            scores.setScore(score);
+            entityTransaction.commit();
+            entityManager.close();
+        }
+    }
+
 
     public int get_UID(String username)
     {

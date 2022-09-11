@@ -16,7 +16,7 @@ CREATE TABLE user_data(
 CREATE TABLE scores(
                        UID INT PRIMARY KEY NOT NULL,--
                        username varchar(50) UNIQUE NOT NULL,
-                       score INT,
+                       score FLOAT,
                        FOREIGN KEY (UID)
                           REFERENCES user_data(UID),
                        FOREIGN KEY (username)
@@ -115,3 +115,9 @@ EXECUTE PROCEDURE set_username_0_scores_fnc();
 
 drop trigger user_data_insert_trigger on "user_data" ;
 drop trigger set_username_0_score_trigger on "user_data" ;
+
+--PRZYDATNE ZAPYTANIA--
+--Do updatowania scoresow
+UPDATE scores
+SET score = 0
+WHERE username = ''; --Wpisujesz nazwe uzytkownika--

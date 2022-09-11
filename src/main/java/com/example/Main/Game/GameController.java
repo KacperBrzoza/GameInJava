@@ -144,8 +144,8 @@ public class GameController implements Initializable
 
 
     //awaryjne pola do przechwycenia wyniku w razie rozłączenia się, któregoś z graczy
-    public static float PLAYER_ONE_POINTS = 0;
-    public static float PLAYER_TWO_POINTS = 0;
+    public static double PLAYER_ONE_POINTS = 0;
+    public static double PLAYER_TWO_POINTS = 0;
 
     @FXML
     void FadeOut() throws IOException {
@@ -546,6 +546,7 @@ public class GameController implements Initializable
     @FXML
     protected void onExitButtonClicked(ActionEvent event) throws IOException
     {
+        UserService userService = new UserService();
         click_sound();
         stopMusic();
         new Thread(new Runnable() {
@@ -554,10 +555,18 @@ public class GameController implements Initializable
                 if(SWITCHER == 1){
                     server.sendMessageToClient("LAST_MESSAGE");
                     server.closeEverything();
+                    PLAYER_ONE_POINTS -= 0.5;
+                    PLAYER_TWO_POINTS += 2.0;
+                    userService.setScoreOne(Memory.memory.getUsername(), PLAYER_ONE_POINTS);
+                    userService.setScoreOne(opponentNick, PLAYER_TWO_POINTS);
                 }
                 else
                 {
                     client.closeEverything();
+                    PLAYER_ONE_POINTS += 2.0;
+                    PLAYER_ONE_POINTS -= 0.5;
+                    userService.setScoreOne(Memory.memory.getUsername(), PLAYER_ONE_POINTS);
+                    userService.setScoreOne(opponentNick, PLAYER_TWO_POINTS);
                 }
                 client.sendMessageToServer("Rozlaczylem sie");
                 //PLAYER_TWO_POINTS += 2.0;
