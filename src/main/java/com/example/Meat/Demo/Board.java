@@ -247,23 +247,23 @@ public class Board {
             GameController.server.sendMessageToClient("SET_FIELD_4_" + path);
         }
 
-        if(this.line2.get(0).empty) {
+        if(this.line2.get(4).empty) {
             image5 = null;
             GameController.server.sendMessageToClient("SET_FIELD_5_N");
         }
         else {
-            path = this.line1.get(0).creature.path;
+            path = this.line2.get(4).creature.path;
             file = new File(path);
             image5 = new Image(file.toURI().toString());
             GameController.server.sendMessageToClient("SET_FIELD_5_" + path);
         }
 
-        if(this.line2.get(1).empty) {
+        if(this.line2.get(3).empty) {
             image6 = null;
             GameController.server.sendMessageToClient("SET_FIELD_6_N");
         }
         else {
-            path = this.line1.get(1).creature.path;
+            path = this.line2.get(3).creature.path;
             file = new File(path);
             image6 = new Image(file.toURI().toString());
             GameController.server.sendMessageToClient("SET_FIELD_6_" + path);
@@ -274,29 +274,29 @@ public class Board {
             GameController.server.sendMessageToClient("SET_FIELD_7_N");
         }
         else {
-            path = this.line1.get(2).creature.path;
+            path = this.line2.get(2).creature.path;
             file = new File(path);
             image7 = new Image(file.toURI().toString());
             GameController.server.sendMessageToClient("SET_FIELD_7_" + path);
         }
 
-        if(this.line2.get(3).empty) {
+        if(this.line2.get(1).empty) {
             image8 = null;
             GameController.server.sendMessageToClient("SET_FIELD_8_N");
         }
         else {
-            path = this.line1.get(3).creature.path;
+            path = this.line2.get(1).creature.path;
             file = new File(path);
             image8 = new Image(file.toURI().toString());
             GameController.server.sendMessageToClient("SET_FIELD_8_" + path);
         }
 
-        if(this.line2.get(4).empty) {
+        if(this.line2.get(0).empty) {
             image9 = null;
             GameController.server.sendMessageToClient("SET_FIELD_9_N");
         }
         else {
-            path = this.line1.get(4).creature.path;
+            path = this.line2.get(0).creature.path;
             file = new File(path);
             image9 = new Image(file.toURI().toString());
             GameController.server.sendMessageToClient("SET_FIELD_9_" + path);

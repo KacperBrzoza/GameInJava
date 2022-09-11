@@ -25,6 +25,10 @@ public class Commands {
     public static boolean showEQ(String in){
         return in.equals("SHOW_EQ");
     }
+
+    //REMOVE_FROM_EQ
+    public static boolean removeFromEQ(String in){return  in.equals("REMOVE_FROM_EQ");}
+    public static boolean expensive(String in){return  in.equals("EXPENSIVE");}
     public static boolean showBattleField(String in){
         return in.equals("SHOW_BATTLE_FIELD");
     }

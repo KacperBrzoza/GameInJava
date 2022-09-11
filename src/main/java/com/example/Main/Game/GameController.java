@@ -213,7 +213,8 @@ public class GameController implements Initializable
                     changeTurn(EndTurnButton, TakeCardDeck, RageCardDeck, MoneyStack, LostCardDeck, CardCounter);
                 }
                 else{
-                    client.sendMessageToServer("YOUR_TURN");
+                    client.sendMessageToServer("" + choice);
+                    changeTurn(EndTurnButton, TakeCardDeck, RageCardDeck, MoneyStack, LostCardDeck, CardCounter);
                 }
             }
         });
@@ -656,7 +657,6 @@ public class GameController implements Initializable
         if(phase == 2){
             choice = 1;
             if(SWITCHER == 2) {
-                System.out.println("no to co wysylam bo nudy");
                 client.sendMessageToServer("" + choice);
             }
         }
@@ -686,7 +686,6 @@ public class GameController implements Initializable
         if(phase == 2){
             choice = 2;
             if(SWITCHER == 2) {
-                System.out.println("no to co wysylam bo nudy");
                 client.sendMessageToServer("" + choice);
             }
         }
@@ -939,8 +938,12 @@ public class GameController implements Initializable
         EQ1.setFitWidth(180);
         EQ1.setX(0);
         EQ1.setY(0);
-        if(phase == 3)
+        if(phase == 3) {
             choice = eq_it;
+            if(SWITCHER == 2){
+                client.sendMessageToServer("" + choice);
+            }
+        }
 
     }
     @FXML
@@ -950,8 +953,12 @@ public class GameController implements Initializable
         EQ2.setFitWidth(180);
         EQ2.setX(10);
         EQ2.setY(15);
-        if(phase == 3)
-            choice = eq_it+1;
+        if(phase == 3) {
+            choice = eq_it + 1;
+            if(SWITCHER == 2){
+                client.sendMessageToServer("" + choice);
+            }
+        }
     }
     @FXML
     protected void onSelectField3Released()
@@ -961,8 +968,12 @@ public class GameController implements Initializable
         EQ3.setFitWidth(180);
         EQ3.setX(10);
         EQ3.setY(15);
-        if(phase == 3)
-            choice = eq_it+2;
+        if(phase == 3) {
+            choice = eq_it + 2;
+            if(SWITCHER == 2){
+                client.sendMessageToServer("" + choice);
+            }
+        }
     }
     @FXML
     protected void onSelectField4Released()
@@ -971,8 +982,9 @@ public class GameController implements Initializable
         EQ4.setFitWidth(180);
         EQ4.setX(10);
         EQ4.setY(15);
-        if(phase == 3)
-            choice = eq_it+3;
+        if(phase == 3) {
+            choice = eq_it + 3;
+        }
     }
     @FXML
     protected void onLeftPageButtonClicked()

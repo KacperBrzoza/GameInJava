@@ -116,6 +116,12 @@ public class Client {
         else if (Commands.showEQ(in)){
             GameController.showEQ(gameController.eq_it, gameController.eqImages, gameController.EQ1, gameController.EQ2, gameController.EQ3, gameController.EQ4);
         }
+        else if (Commands.removeFromEQ(in)) {
+            GameController.removeImageFromEQ(gameController.eqImages, GameController.choice, gameController.eq_it, gameController.RightShowBut);
+        }
+        else if(Commands.expensive(in)){
+            GameController.newLabelValue(gameController.InfoLabel, "Ta jednostka jest za droga!");
+        }
         else if (Commands.showBattleField(in)) {
             GameController.showBattleField(gameController.fields, gameController.mygrid0, gameController.mygrid1, gameController.mygrid2, gameController.mygrid3, gameController.mygrid4, gameController.enemygrid0, gameController.enemygrid1, gameController.enemygrid2, gameController.enemygrid3, gameController.enemygrid4);
         }
