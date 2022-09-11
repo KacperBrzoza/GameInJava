@@ -59,6 +59,8 @@ public class RankController implements Initializable
         nickColumn.setCellValueFactory(new PropertyValueFactory<>("username"));
         scoreColumn.setCellValueFactory(new PropertyValueFactory<>("score"));
         tableView.setItems(userService.getAll());
+        scoreColumn.setSortType(TableColumn.SortType.DESCENDING);
+        tableView.getSortOrder().add(scoreColumn);
     }
     @FXML
     public void onMouseEntered()
