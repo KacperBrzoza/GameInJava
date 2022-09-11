@@ -93,6 +93,22 @@ public class Server {
         }).start();
     }
 
+    public String waitForClientChoice(){
+        String choice = "-1";
+        while (socket.isConnected()){
+            try {
+                choice = bufferedReader.readLine();
+                break;
+            } catch (IOException e){
+                e.printStackTrace();
+                System.out.println("Error receiving message from the client");
+                closeEverything();
+                break;
+            }
+        }
+        return choice;
+    }
+
     public void sendMessageToClient(String messageFromServer){
         new Thread(new Runnable()
         {

@@ -3,6 +3,7 @@ package com.example.NetTools;
 import com.example.Main.Game.GameController;
 import javafx.scene.image.Image;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.io.File;
 
 public class Commands {
@@ -18,6 +19,7 @@ public class Commands {
     public static boolean unableRightShowBut(String in){
         return in.equals("UNABLE_RIGHT_SHOW_BUT");
     }
+    public static boolean selectingPhase(String in){return in.equals("SELECTING_PHASE");}
 
     //SHOW_EQ
     public static boolean showEQ(String in){
@@ -128,6 +130,50 @@ public class Commands {
         return "-1";
     }
 
+    //PHASE_X
+    public static int phase(String in){
+        if(in.length() == 7){
+            char [] command = in.toCharArray();
+            String test = "";
+            int i = 0;
+            while (i < 6){
+                test += command[i];
+                i++;
+            }
+            if(test.equals("PHASE_")){
+                int number;
+                number = command[i] - 48;
+                return number;
+            }
+        }
+        return -1;
+    }
 
+    //CHOSE_X...
+    public static int choice(String in){
+        if(in.length() >= 7) {
+            char[] command = in.toCharArray();
+            String test = "";
+            int i = 0;
+            while (i < 7) {
+                test += command[i];
+                i++;
+            }
+            if(test.equals("CHOSE_")){
+                if(command[i] == 45){
+                    return -1;
+                }
+                else {
+                    test = "";
+                    while (i < in.length()){
+                        test += command[i];
+                        i++;
+                    }
+                    return Integer.parseInt(test);
+                }
+            }
+        }
+        return -100;
+    }
 
 }

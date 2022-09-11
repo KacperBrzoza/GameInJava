@@ -130,6 +130,7 @@ public class GameController implements Initializable
      */
     public static int phase = 0;
     public static int choice = -1;
+    public static boolean selectingPhase;
     public static Client client;
 
     public static String opponentNick;
@@ -162,6 +163,7 @@ public class GameController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        selectingPhase = false;
         eqImages = new ArrayList<>();
         fields = new ArrayList<>();
         for(int i = 0; i < 10; i++)
@@ -208,6 +210,7 @@ public class GameController implements Initializable
                 choice = -2;
                 if(SWITCHER == 1){
                     server.sendMessageToClient("YOUR_TURN");
+                    changeTurn(EndTurnButton, TakeCardDeck, RageCardDeck, MoneyStack, LostCardDeck, CardCounter);
                 }
                 else{
                     client.sendMessageToServer("YOUR_TURN");
@@ -385,15 +388,30 @@ public class GameController implements Initializable
     }
 
 
-    public static void selectingPhase(ImageView TakeCardDeckSelect, ImageView MoneyStackSelect,Button EndTurnButton, boolean true_or_false){
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                TakeCardDeckSelect.setVisible(true_or_false);
-                MoneyStackSelect.setVisible(true_or_false);
-                EndTurnButton.setDisable(true_or_false);
-            }
-        });
+
+    public static void selectingPhase(ImageView TakeCardDeckSelect, ImageView MoneyStackSelect,Button EndTurnButton){
+        if(selectingPhase){
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    selectingPhase = false;
+                    TakeCardDeckSelect.setVisible(selectingPhase);
+                    MoneyStackSelect.setVisible(selectingPhase);
+                    EndTurnButton.setDisable(selectingPhase);
+                }
+            });
+        }
+        else {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    selectingPhase = true;
+                    TakeCardDeckSelect.setVisible(selectingPhase);
+                    MoneyStackSelect.setVisible(selectingPhase);
+                    EndTurnButton.setDisable(selectingPhase);
+                }
+            });
+        }
     }
 
     public static void setChoiceHBox(HBox ChoiceHBox, Pane InventoryPane, Button EndTurnButton, ImageView choiceOne, ImageView choiceTwo, Image one, Image two)
@@ -470,7 +488,6 @@ public class GameController implements Initializable
     @FXML
     protected void ChangeTextureForClient()
     {
-        onEndTurnButtonClicked();
         /*
         File file = new File("src/main/resources/img/Game_imgs/players/full_hp_red.gif");
         Image myheroimg = new Image(file.toURI().toString());
@@ -638,6 +655,10 @@ public class GameController implements Initializable
         click_sound();
         if(phase == 2){
             choice = 1;
+            if(SWITCHER == 2) {
+                System.out.println("no to co wysylam bo nudy");
+                client.sendMessageToServer("" + choice);
+            }
         }
     }
     @FXML
@@ -664,7 +685,10 @@ public class GameController implements Initializable
         click_sound();
         if(phase == 2){
             choice = 2;
-            System.out.println("zadzialalo po kliknieciu " + choice);
+            if(SWITCHER == 2) {
+                System.out.println("no to co wysylam bo nudy");
+                client.sendMessageToServer("" + choice);
+            }
         }
     }
     @FXML
@@ -856,21 +880,6 @@ public class GameController implements Initializable
         InfoLabel.setText("Gracz: " + opponentNick + "\n Życia: 3");
         //System.out.println(Memory.memory.getUsername());
         InfoLabel.setStyle("-fx-font-size: 24pt;");
-    }
-
-    @FXML
-    protected void onEndTurnButtonClicked()
-    {
-        click_sound();
-        EndTurnButton.setText("Tura Przeciwnika");
-        EndTurnButton.setStyle("-fx-font-size: 22pt;");
-        //-fx-font-size: 28pt; normalny rozmiar czcionki dla przycisku konca tury jesli tura wroci do gracza
-        EndTurnButton.setDisable(true);
-        TakeCardDeck.setDisable(true);
-        RageCardDeck.setDisable(true);
-        MoneyStack.setDisable(true);
-        LostCardDeck.setDisable(true);
-        CardCounter.setDisable(true);
     }
 
     @FXML

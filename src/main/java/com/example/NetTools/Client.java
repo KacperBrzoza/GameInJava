@@ -110,11 +110,20 @@ public class Client {
                 }
             });
         }
+        else if (Commands.selectingPhase(in)) {
+            GameController.selectingPhase(gameController.TakeCardDeckSelect, gameController.MoneyStackSelect, gameController.EndTurnButton);
+        }
         else if (Commands.showEQ(in)){
             GameController.showEQ(gameController.eq_it, gameController.eqImages, gameController.EQ1, gameController.EQ2, gameController.EQ3, gameController.EQ4);
         }
         else if (Commands.showBattleField(in)) {
             GameController.showBattleField(gameController.fields, gameController.mygrid0, gameController.mygrid1, gameController.mygrid2, gameController.mygrid3, gameController.mygrid4, gameController.enemygrid0, gameController.enemygrid1, gameController.enemygrid2, gameController.enemygrid3, gameController.enemygrid4);
+        }
+        else if (Commands.phase(in) != -1) {
+            GameController.phase = Commands.phase(in);
+        }
+        else if (Commands.choice(in) != -100){
+            GameController.choice = Commands.choice(in);
         }
         else if (!(val = Commands.newCardStackSize(in)).equals("-1")) {
             GameController.newLabelValue(gameController.CardCounter, val);
@@ -141,10 +150,6 @@ public class Client {
                     number = -1;
             }
             out += number;
-        }
-
-        else if(in.equals("YOUR_TURN")){
-            GameController.showMessage("AAAAAAAAAAAAAAAA", EQLabel);
         }
 
         //gdy wejściem jest sygnał poniżej, zmusza klienta do wybrania liczby z zakresu od 1 do 5
@@ -207,7 +212,7 @@ public class Client {
                     closeEverything();
                 }
             }
-        });
+        }).start();
 
     }
 

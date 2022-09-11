@@ -5,6 +5,7 @@ import com.example.Meat.Creatures.*;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -81,6 +82,7 @@ public class OnlineGame {
 
     //tura pierwszego gracza
     public void server_turn(BufferedReader in, GameController gameController) throws IOException {
+        GameController.server.sendMessageToClient("PHASE_0");
 
         //1. przejścia stworów w stronę bazy przeciwnika
         GameController.phase = 1;
@@ -138,12 +140,9 @@ public class OnlineGame {
     private void draw(GameController gameController){
         you.select = 2;   //liczba dobrań
 
-        GameController.selectingPhase(gameController.TakeCardDeckSelect, gameController.MoneyStackSelect, gameController.EndTurnButton, true);
+        GameController.selectingPhase(gameController.TakeCardDeckSelect, gameController.MoneyStackSelect, gameController.EndTurnButton);
 
         while(you.select > 0){
-            //Scanner scan =  new Scanner(System.in);
-            //System.out.println("1 - dobierz karte (lub) 2 - dobierz zeton waluty");
-            //System.out.print("wybierz: ");
             int number = -1;
             while (number == -1){
                 number = GameController.choice;
@@ -215,7 +214,7 @@ public class OnlineGame {
             }
             GameController.choice = -1;
         }
-        GameController.selectingPhase(gameController.TakeCardDeckSelect, gameController.MoneyStackSelect, gameController.EndTurnButton, false);
+        GameController.selectingPhase(gameController.TakeCardDeckSelect, gameController.MoneyStackSelect, gameController.EndTurnButton);
     }
 
 
@@ -293,27 +292,22 @@ public class OnlineGame {
 
     //tura drugiego gracza, który jest klientem
     public void client_turn(BufferedReader in, GameController gameController) throws IOException {
-        String fromClient;
-        //out.println("\n\n\nTWOJA TURA ");
         GameController.phase = 0;
 
         //1. przejścia stworów w stronę bazy przeciwnika
+        GameController.server.sendMessageToClient("PHASE_1");
         board.move(opponent, you, discarded, cards,  rage_cards, money, out, in, gameController);
-
-        //wypisanie samej planszy
-        System.out.println(board);
-
-        //wysłanie gry, panszy i kasy do przeciwnika
-        //out.println(this);
-        //out.println(board);
-        //out.println("Pieniadze: " + opponent.money);
+        GameController.showBattleField(gameController.fields, gameController.mygrid0, gameController.mygrid1, gameController.mygrid2, gameController.mygrid3, gameController.mygrid4, gameController.enemygrid0, gameController.enemygrid1, gameController.enemygrid2, gameController.enemygrid3, gameController.enemygrid4);
 
         //2. dobrania kart stworów lub żetonów waluty. Gracz ma dwa dobrania
+        GameController.server.sendMessageToClient("PHASE_2");
         draw2(in, gameController);
 
         //3.Jeżeli gracz ma coś w ekwipunku...
+        GameController.server.sendMessageToClient("PHASE_3");
         if(opponent.eq.size() >= 1) {
             int number = 2;
+            /*
             //3. ... i ma kartę Rage "Black Market" może...
             if (opponent.BlackMarket == 1) {
                 //out.println("Mozesz sprzedac JEDNEGO stwora i zakonczyc ture lub wystawiac karty:");
@@ -328,61 +322,64 @@ public class OnlineGame {
                     sell2(in);
             }
             //... może wystawiać tyle stworów na ile stać gracza, o ile jakieś ma, przestrzegając limitu 4 swoich stworów na planszy
-            if (number == 2)
+
+             */
+            if (number == 2) {
                 display2(in, gameController);
+            }
         }
 
         //4. Jeśli gracz posiada kartę Rage "Secret Assets" dostaje 1 żeton waluty na koniec tury
+        GameController.server.sendMessageToClient("PHASE_4");
         if(opponent.SecretAssets == 1){
             opponent.money += money.giveMoney(you, opponent);
-            //out.println("Dobrano zeton waluty");
+            GameController.server.sendMessageToClient("NEW_MY_MONEY_VAL_" + opponent.money);
         }
 
         //4. Jeśli gracz posiada kartę Rage "RatCatcher" dostaje 1 kartę stwora na koniec tury
         if(opponent.RatCatcher == 1){
-            opponent.eq.addCreature(cards.giveCard(out, you, opponent, gameController));
-            //out.println("Dobrano stwora");
+            Creature creature = cards.giveCard(out, you, opponent, gameController);
+            opponent.eq.addCreature(creature);
+            GameController.server.sendMessageToClient("PATH_" + creature.path);
+            GameController.server.sendMessageToClient("SHOW_EQ");
         }
-
-        //out.println("\n\n\nTURA PRZECIWNIKA");
     }
 
     //pozwala drugiemu graczowi dobrać 2x żeton waluty  lub  2x kartę stwora  lub  1x to i 1x to
     private void draw2(BufferedReader in, GameController gameController) throws IOException {
         opponent.select = 2;   //liczba dobrań
-        String fromClient;
+        String clientMessage;
+        GameController.server.sendMessageToClient("SELECTING_PHASE");
 
         while(opponent.select > 0) {
-            //out.println("1 - dobierz karte (lub) 2 - dobierz zeton waluty");
-            //out.println("ONE_OR_TWO");
-            int number;
-            fromClient = in.readLine();
-            if (fromClient.equals("1"))
-                number = 1;
-            else
-                number = 2;
+
+            System.out.print("czekam... ");
+            clientMessage = GameController.server.waitForClientChoice();
+            System.out.println(clientMessage + " jest!");
+            int number = Integer.parseInt(clientMessage);
 
             //dobranie karty
             if (number == 1) {
+                opponent.select--;
                 Creature one = cards.giveCard(out, you, opponent, gameController);
+                /*
                 //jeżeli gracz posiada kartę Rage "Selection" dobiera dwie karty. Jedną zatrzymuje, drugą odrzuca
                 if (opponent.Selection == 1) {
                     Creature two = cards.giveCard(out, you, opponent, gameController);
                     //out.println("(1) " + one);
                     //out.println("(2) " + two);
                     //out.println("ONE_OR_TWO");
-                    fromClient = in.readLine();
-                    if (fromClient.equals("2"))
+                    //fromClient = in.readLine();
+                    //if (fromClient.equals("2"))
                         number = 2;
                     if (number == 1)
                         opponent.eq.addCreature(one);
                     else
                         opponent.eq.addCreature(two);
-                } else {
-                    //out.println(one);
+                } else {*/
                     opponent.eq.addCreature(one);
-                }
-                opponent.select--;
+                GameController.server.sendMessageToClient("PATH_" + one.path);
+                //}
             }
 
             //dobranie żetonu waluty
@@ -390,26 +387,28 @@ public class OnlineGame {
             else if (number == 2) {
                 opponent.select--;
                 int coin_one = money.giveMoney(you, opponent);
+                /*
                 //jeżeli gracz posiada kartę Rage "Second Chance" dobiera dwa żetony waluty. Jedną zatrzymuje, drugą odrzuca
                 if (opponent.SecondChance == 1) {
                     int coin_two = money.giveMoney(you, opponent);
                     //out.println("(1) " + coin_one);
                     //out.println("(2) " + coin_two);
                     //out.println("ONE_OR_TWO");
-                    fromClient = in.readLine();
-                    if (fromClient.equals("1"))
+                    //fromClient = in.readLine();
+                    //if (fromClient.equals("1"))
                         number = 1;
                     if (number == 1)
                         opponent.money += coin_one;
                     else
                         opponent.money += coin_two;
-                } else {
-                    //out.println("zdobyto: " + coin_one);
+                } else {*/
                     opponent.money += coin_one;
-                }
+                //}
+                GameController.server.sendMessageToClient("NEW_MY_MONEY_VAL_" + opponent.money);
             }
-            //out.println("Pozostale ruchy: " + opponent.select);
+            GameController.server.sendMessageToClient("CHOICE_-");
         }
+        GameController.server.sendMessageToClient("SELECTING_PHASE");
     }
 
     //metoda odpowiadająca za wystawianie kart i dodatkowe akcje
