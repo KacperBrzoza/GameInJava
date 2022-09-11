@@ -392,10 +392,10 @@ public class GameController implements Initializable
 
     public static void selectingPhase(ImageView TakeCardDeckSelect, ImageView MoneyStackSelect,Button EndTurnButton){
         if(selectingPhase){
+            selectingPhase = false;
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    selectingPhase = false;
                     TakeCardDeckSelect.setVisible(selectingPhase);
                     MoneyStackSelect.setVisible(selectingPhase);
                     EndTurnButton.setDisable(selectingPhase);
@@ -403,10 +403,11 @@ public class GameController implements Initializable
             });
         }
         else {
+
+            selectingPhase = true;
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    selectingPhase = true;
                     TakeCardDeckSelect.setVisible(selectingPhase);
                     MoneyStackSelect.setVisible(selectingPhase);
                     EndTurnButton.setDisable(selectingPhase);
@@ -655,12 +656,17 @@ public class GameController implements Initializable
     protected void onTakeCardClicked()
     {
         click_sound();
-        if(phase == 2){
-            choice = 1;
-            if(SWITCHER == 2) {
-                client.sendMessageToServer("" + choice);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if(phase == 2){
+                    choice = 1;
+                    if(SWITCHER == 2) {
+                        client.sendMessageToServer("" + choice);
+                    }
+                }
             }
-        }
+        }).start();
     }
     @FXML
     protected void onTakeCardEntered()
@@ -684,12 +690,17 @@ public class GameController implements Initializable
     protected void onMoneyStackClicked()
     {
         click_sound();
-        if(phase == 2){
-            choice = 2;
-            if(SWITCHER == 2) {
-                client.sendMessageToServer("" + choice);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if(phase == 2){
+                    choice = 2;
+                    if(SWITCHER == 2) {
+                        client.sendMessageToServer("" + choice);
+                    }
+                }
             }
-        }
+        }).start();
     }
     @FXML
     protected void onMoneyStackEntered()

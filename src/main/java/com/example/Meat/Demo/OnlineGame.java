@@ -118,8 +118,6 @@ public class OnlineGame {
             }
         }
 
-        System.out.println("wyszedlem z wystawiania");
-
         //4. Jeśli gracz posiada kartę Rage "Secret Assets" dostaje 1 żeton waluty na koniec tury
         GameController.phase = 4;
         if(you.SecretAssets == 1){
@@ -408,7 +406,6 @@ public class OnlineGame {
     //metoda odpowiadająca za wystawianie kart i dodatkowe akcje
     private void display2(BufferedReader in, GameController gameController) throws IOException {
         String clientMessage;
-        System.out.println("faza wystawiania przeciwnika: ");
 
         while (opponent.counter < 4) {
 
@@ -417,6 +414,7 @@ public class OnlineGame {
 
             if(number == -2){
                 GameController.changeTurn(gameController.EndTurnButton, gameController.TakeCardDeck, gameController.RageCardDeck, gameController.MoneyStack, gameController.LostCardDeck, gameController.CardCounter);
+                GameController.choice = -1;
                 break;
             }
             else if(number < opponent.eq.size()){
