@@ -2,6 +2,8 @@ package com.example.Main.Game;
 
 import com.example.Main.Login.Memory;
 import com.example.Main.Menu.MenuController;
+import com.example.Main.Register.RegisterData;
+import com.example.Main.Service.UserService;
 import com.example.NetTools.Client;
 import com.example.NetTools.Server;
 import javafx.animation.FadeTransition;
@@ -181,8 +183,11 @@ public class GameController implements Initializable
         mediaPlayer_battle_music.setVolume(0.1);
         mediaPlayer_battle_music.play();
         if(SWITCHER == 1){
-            server.startGame(this);
-            server.turns(this);
+
+                server.startGame(this);
+                server.turns(this);
+
+
             //server.sendMessageToClient("wysylam mesedz");
             //server.receiveMessageFromClient();
 
@@ -550,9 +555,13 @@ public class GameController implements Initializable
                     server.sendMessageToClient("LAST_MESSAGE");
                     server.closeEverything();
                 }
-                else {
+                else
+                {
                     client.closeEverything();
                 }
+                client.sendMessageToServer("Rozlaczylem sie");
+                //PLAYER_TWO_POINTS += 2.0;
+                //PLAYER_ONE_POINTS -= 0.5;
                 System.out.println("DZIALA!!");
                 Platform.runLater(new Runnable() {
                     @Override

@@ -124,6 +124,9 @@ public class LoginController implements Initializable
                             } else //Dobre haslo i dobry uzytkownik
                             {
                                 Memory.memory = registerData;
+                                //Wywolam zapytanie SELECT i wyciagne uid z bazy o odanym usernamie
+                                //System.out.println(userService.get_UID(registerData.getUsername()));
+                                userService.set_Usage_true(registerData.getUsername());
                                 Platform.runLater(new Runnable() {
                                     @Override
                                     public void run() {
@@ -320,5 +323,6 @@ public class LoginController implements Initializable
     {
         Stage stage = (Stage) ExitButton.getScene().getWindow();
         stage.close();
+        System.exit(1);
     }
 }

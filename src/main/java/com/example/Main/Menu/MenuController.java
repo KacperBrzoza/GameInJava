@@ -1,6 +1,8 @@
 package com.example.Main.Menu;
 
 import com.example.Main.Login.LoginController;
+import com.example.Main.Login.Memory;
+import com.example.Main.Register.RegisterData;
 import com.example.Main.Service.UserService;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
@@ -88,6 +90,8 @@ public static boolean MenuMusicAllow;
     @FXML
     public void onExitButton(ActionEvent event) throws IOException
     {
+        userService = new UserService();
+        userService.set_Usage_false(Memory.memory.getUsername());
         Stage stage = (Stage) ExitButton.getScene().getWindow();
         stage.close();
         System.exit(1);
@@ -209,6 +213,9 @@ public static boolean MenuMusicAllow;
     @FXML
     public void onLogoutButton(ActionEvent event) throws IOException
     {
+        RegisterData registerData = new RegisterData();
+        userService = new UserService();
+        userService.set_Usage_false(Memory.memory.getUsername());
         LoginController.FadeTransitionAllow=true;
         //System.out.println("test wylogowania");
         //Music_menu_on_off(false);

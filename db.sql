@@ -3,8 +3,12 @@
 CREATE TABLE user_data(
                           UID SERIAL PRIMARY KEY,
                           username varchar(50) UNIQUE NOT NULL,
-                          password varchar(50) NOT NULL
+                          password varchar(50) NOT NULL,
+                            --Dodanie nowej kolumny bool
+                          is_user BOOLEAN NOT NULL DEFAULT FALSE
 );
+
+
 
 ---TABELA WYNIKOW---
 --- Mozliwie do score dodac default value -->
@@ -32,6 +36,7 @@ CREATE TABLE ip_table(
 CREATE TABLE user_data_audit (
                              UID SERIAL PRIMARY KEY,
                              username varchar(50) UNIQUE NOT NULL ,
+                             is_user BOOLEAN NOT NULL DEFAULT FALSE,
                              register_time TIMESTAMP(6) NOT NULL
 );
 
@@ -47,9 +52,9 @@ $$
 BEGIN
 
 
-INSERT INTO "user_data_audit" (UID, "username", "register_time")
+INSERT INTO "user_data_audit" (UID, "username",is_user, "register_time")
 
-VALUES(NEW.UID, NEW."username", now());
+VALUES(NEW.UID, NEW."username",NEW.is_user, now());
 
 RETURN NEW;
 

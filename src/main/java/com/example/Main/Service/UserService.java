@@ -6,13 +6,12 @@ import com.example.Main.Model.UserData;
 import com.example.Main.PersistenceManager.PersistenceManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.util.Pair;
+import org.hibernate.Session;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.Main.Menu.WaitingEnemyController.SWITCHER;
@@ -152,6 +151,53 @@ public class UserService
         EntityManager entityManager = PersistenceManager.getFactory().createEntityManager();
         Query query = entityManager.createQuery("select c from UserData c");
         return query.getResultList();
+    }
+
+    //Updatowanie wyniku w bazie
+    //ZAPYTANIE
+    /*
+    UPDATE scores s
+    SET s.score = s.score + 2 || -0.5 - w zaleznosci od wyniku gry
+    WHERE s.username = :username;
+     */
+
+    public int get_UID(String username)
+    {
+        EntityManager entityManager = PersistenceManager.getFactory().createEntityManager();
+        Query query = entityManager.createQuery("SELECT u.uid FROM UserData u WHERE u.username = :username");
+        query.setParameter("username", username);
+        return (int) query.getSingleResult();
+    }
+
+    //@Transactional
+    public void set_Usage_true(String username)
+    {
+        EntityManager entityManager = PersistenceManager.getFactory().createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        //Nie zadzaiala bo nie jest supportowane przez JPA xd
+
+        //Query query = entityManager.createQuery("UPDATE UserData u SET u.isUser = true WHERE u.username = :username")
+                //.setParameter("username", "hedilele").executeUpdate();
+        UserData userData = entityManager.find(UserData.class, get_UID(username));
+        entityTransaction.begin();
+        userData.setUser(true);
+        entityTransaction.commit();
+        entityManager.close();
+    }
+
+    public void set_Usage_false(String username)
+    {
+        EntityManager entityManager = PersistenceManager.getFactory().createEntityManager();
+        EntityTransaction entityTransaction = entityManager.getTransaction();
+        //Nie zadzaiala bo nie jest supportowane przez JPA xd
+
+        //Query query = entityManager.createQuery("UPDATE UserData u SET u.isUser = true WHERE u.username = :username")
+        //.setParameter("username", "hedilele").executeUpdate();
+        UserData userData = entityManager.find(UserData.class, get_UID(username));
+        entityTransaction.begin();
+        userData.setUser(false);
+        entityTransaction.commit();
+        entityManager.close();
     }
 
 }

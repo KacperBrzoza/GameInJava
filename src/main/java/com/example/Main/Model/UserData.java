@@ -1,51 +1,32 @@
 package com.example.Main.Model;
 
-import com.sun.istack.NotNull;
-
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "user_data", schema = "public")
+@Table(name = "user_data", schema = "public", catalog = "pvjfjkvx")
 public class UserData
 {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    //@Column(name = "uid")
-    @NotNull
-    private Long uid;
+    @Column(name = "uid")
+    private int uid;
     @Basic
-    @Column(length = 30) //name = "username" ,
-    @NotNull
+    @Column(name = "username")
     private String username;
     @Basic
-    @Column(length = 20) //name = "password" ,
-    @NotNull
+    @Column(name = "password")
     private String password;
+    @Basic
+    @Column(name = "is_user")
+    private boolean isUser;
 
-    /*
-    @OneToOne
-    @JoinColumn(name = "scores_uid")
-    private Scores scores;
-
-
-    public Scores getScores()
-    {
-        return scores;
-    }
-
-    public void setScores(Scores scores)
-    {
-        this.scores = scores;
-    }
-     */
-
-    public Long getUid()
+    public int getUid()
     {
         return uid;
     }
 
-    public void setUid(Long uid)
+    public void setUid(int uid)
     {
         this.uid = uid;
     }
@@ -70,18 +51,28 @@ public class UserData
         this.password = password;
     }
 
+    public boolean isUser()
+    {
+        return isUser;
+    }
+
+    public void setUser(boolean user)
+    {
+        isUser = user;
+    }
+
     @Override
     public boolean equals(Object o)
     {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserData userData = (UserData) o;
-        return uid == userData.uid && Objects.equals(username, userData.username) && Objects.equals(password, userData.password);
+        return uid == userData.uid && isUser == userData.isUser && Objects.equals(username, userData.username) && Objects.equals(password, userData.password);
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(uid, username, password);
+        return Objects.hash(uid, username, password, isUser);
     }
 }

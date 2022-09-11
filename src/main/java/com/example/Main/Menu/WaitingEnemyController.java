@@ -2,6 +2,7 @@ package com.example.Main.Menu;
 
 import com.example.Main.Game.GameController;
 import com.example.Main.Login.Memory;
+import com.example.Main.Register.RegisterData;
 import com.example.Main.Service.UserService;
 import com.example.NetTools.Client;
 import com.example.NetTools.Server;
@@ -289,6 +290,8 @@ public class WaitingEnemyController implements Initializable {
     {
         userService = new UserService();
         userService.delete_IP();
+
+        userService.set_Usage_false(Memory.memory.getUsername());
 
         Stage stage = (Stage) ExitButton.getScene().getWindow();
         stage.close();

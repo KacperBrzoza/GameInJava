@@ -73,7 +73,9 @@ public class Client {
                             System.out.println(fromServer);
                             //jeżeli serwer zamyka połączenie, bo gra jest skończona, to przerwij nasłuchiwanie
                         else if (toServer.equals("CONNECTION_CLOSE"))
+                        {
                             break;
+                        }
                         //w innym przypadku odeślij do serwera odpowiedź
                         //else
                         //out.println(toServer);
