@@ -121,8 +121,11 @@ public class LoginController implements Initializable
                                         PassMsg.setStyle("-fx-text-fill: #d0312d;-fx-font-size: 18pt;");//czerwone
                                     }
                                 });
-                            } else //Dobre haslo i dobry uzytkownik
+                            }
+                            else //Dobre haslo i dobry uzytkownik
                             {
+                                //Uzytkownik jest juz zalogowany
+                                //if()
                                 Memory.memory = registerData;
                                 //Wywolam zapytanie SELECT i wyciagne uid z bazy o odanym usernamie
                                 //System.out.println(userService.get_UID(registerData.getUsername()));

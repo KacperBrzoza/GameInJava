@@ -121,3 +121,8 @@ drop trigger set_username_0_score_trigger on "user_data" ;
 UPDATE scores
 SET score = 0
 WHERE username = ''; --Wpisujesz nazwe uzytkownika--
+
+--Do updatowania uzytkownika
+UPDATE user_data
+SET is_user = false
+WHERE username = '';
