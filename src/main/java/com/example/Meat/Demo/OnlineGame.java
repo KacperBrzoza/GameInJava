@@ -353,10 +353,10 @@ public class OnlineGame {
 
         while(opponent.select > 0) {
 
-            System.out.print("czekam... ");
+
             clientMessage = GameController.server.waitForClientChoice();
-            System.out.println(clientMessage + " jest!");
             int number = Integer.parseInt(clientMessage);
+
 
             //dobranie karty
             if (number == 1) {
@@ -406,7 +406,6 @@ public class OnlineGame {
                 //}
                 GameController.server.sendMessageToClient("NEW_MY_MONEY_VAL_" + opponent.money);
             }
-            GameController.server.sendMessageToClient("CHOICE_-");
         }
         GameController.server.sendMessageToClient("SELECTING_PHASE");
     }

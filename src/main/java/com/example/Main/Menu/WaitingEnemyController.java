@@ -168,8 +168,7 @@ public class WaitingEnemyController implements Initializable {
             try {
                 GameController.client = new Client(new Socket(String.valueOf(userService.get_Ip()), PORT_NUMBER));
                 userService.delete_IP();
-                client.sendMessageToServer(Memory.memory.getUsername());
-                client.listenAndSend();
+                client.listenAndSend(Memory.memory.getUsername());
                 FadeIn();
                 //changeStage();
             } catch (IOException e){
@@ -254,7 +253,7 @@ public class WaitingEnemyController implements Initializable {
                     userService = new UserService();
                     client.sendMessageToServer(Memory.memory.getUsername());
                     userService.delete_IP();
-                    client.listenAndSend();
+                    client.listenAndSend(Memory.memory.getUsername());
                     server.closeEverything();
                     client.closeEverything();
 

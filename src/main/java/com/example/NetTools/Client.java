@@ -26,7 +26,7 @@ public class Client {
         }
     }
 
-    public void listenAndSend(){
+    public void listenAndSend(String messageToServer){
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -44,7 +44,7 @@ public class Client {
                     }
                 }
                 try{
-                    bufferedWriter.write(Memory.memory.getUsername());
+                    bufferedWriter.write(messageToServer);
                     bufferedWriter.newLine();
                     bufferedWriter.flush();
                 } catch (IOException e){
