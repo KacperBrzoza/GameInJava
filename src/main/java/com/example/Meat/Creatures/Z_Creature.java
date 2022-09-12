@@ -54,8 +54,8 @@ public class Z_Creature extends Creature{
                             Creature buf = board.getCreature(you.id, number);
                             board.setCreature(you.id, number, board.getCreature(you.id, startowe));
                             board.setCreature(you.id, startowe, buf);
-                            board.fight(you, opponent, startowe, discardeds);
-                            board.fight(you, opponent, number, discardeds);
+                            board.fight(you, opponent, startowe, discardeds, gameController);
+                            board.fight(you, opponent, number, discardeds, gameController);
                         } else
                             number = -1;
                     } else if (number == 5)
@@ -96,8 +96,8 @@ public class Z_Creature extends Creature{
                             Creature buf = board.getCreature(you.id, number);
                             board.setCreature(you.id, number, board.getCreature(you.id, startowe));
                             board.setCreature(you.id, startowe, buf);
-                            board.fight(you, opponent, startowe, discardeds);
-                            board.fight(you, opponent, number, discardeds);
+                            board.fight(you, opponent, startowe, discardeds, gameController);
+                            board.fight(you, opponent, number, discardeds, gameController);
                         } else
                             number = -1;
                     } else if (number == 5)
