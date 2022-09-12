@@ -95,11 +95,14 @@ public class Client {
     private String turnService(String in, GameController gameController) throws IOException {
         String out = "";        //poczatkowo wyjscie jest pustym napisem
         String val;
-        if (Commands.yourTurn(in)) {
+        if(in == null){
+            System.out.println("");
+        }
+        else if (Commands.yourTurn(in)) {
             GameController.changeTurn(gameController.EndTurnButton, gameController.TakeCardDeck, gameController.RageCardDeck, gameController.MoneyStack, gameController.LostCardDeck, gameController.CardCounter);
         }
         else if(Commands.endGame(in)) {
-            System.out.println("SEEE YAAA");
+            GameController.connectionClose(gameController.ChoiceHBox, gameController.EndGameLabel, gameController.PointsLabel, gameController.ExitButton);
             out = "CONNECTION_CLOSE";
         }
         else if(Commands.unableRightShowBut(in)){
@@ -266,5 +269,36 @@ public class Client {
             e.printStackTrace();
         }
 
+    }
+
+    public void closeConnection(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    //do kazdej wiadomosci doklejany jest z przodu znak konca linii, aby komendy nie skleily sie ze soba
+                    bufferedWriter.write("9999");
+                    bufferedWriter.newLine();
+                    bufferedWriter.flush();
+                    if(bufferedReader != null){
+                        bufferedReader.close();
+                        //System.out.println("Zamkniecie readera servera");
+                    }
+                    if(bufferedWriter != null){
+                        bufferedWriter.close();
+                        //System.out.println("Zamkniecie writera servera");
+                    }
+                    if(socket != null){
+                        socket.close();
+                        //System.out.println("Zamkniecie socketa");
+                    }
+                    //System.out.println("Polaczenie zamkniete");
+                } catch (IOException e){
+                    e.printStackTrace();
+                    System.out.println("BLAD SOCKET");
+                }
+
+            }
+        }).start();
     }
 }

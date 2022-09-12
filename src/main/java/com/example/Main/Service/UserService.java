@@ -149,14 +149,11 @@ public class UserService
         EntityManager entityManager = PersistenceManager.getFactory().createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
 
-        if(check_User(username).equals(true))
-        {
-            Scores scores = entityManager.find(Scores.class, get_UID(username));
-            entityTransaction.begin();
-            scores.setScore(score);
-            entityTransaction.commit();
-            entityManager.close();
-        }
+        Scores scores = entityManager.find(Scores.class, get_UID(username));
+        entityTransaction.begin();
+        scores.setScore(score);
+        entityTransaction.commit();
+        entityManager.close();
     }
 
 

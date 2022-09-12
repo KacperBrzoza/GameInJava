@@ -88,10 +88,12 @@ public class OnlineGame {
         GameController.phase = 1;
         board.move(you, opponent, discarded, cards,  rage_cards, money, out, in, gameController);
         GameController.showBattleField(gameController.fields, gameController.mygrid0, gameController.mygrid1, gameController.mygrid2, gameController.mygrid3, gameController.mygrid4, gameController.enemygrid0, gameController.enemygrid1, gameController.enemygrid2, gameController.enemygrid3, gameController.enemygrid4);
+        
 
         //2. dobrania kart stworów lub żetonów waluty. Gracz ma dwa dobrania
         GameController.phase = 2;
         draw(gameController);
+
 
         //3.Jeżeli gracz ma coś w ekwipunku...
         GameController.phase = 3;
@@ -101,11 +103,11 @@ public class OnlineGame {
             //3. ... i ma kartę Rage "Black Market" może...
             if (you.BlackMarket == 1) {
                 number = -1;
-                System.out.println("Mozesz sprzedac JEDNEGO stwora i zakonczyc ture lub wystawiac karty:");
-                System.out.println("(1) sprzedaj");
-                System.out.println("(2) wystaw");
+                System.err.println("Mozesz sprzedac JEDNEGO stwora i zakonczyc ture lub wystawiac karty:");
+                System.err.println("(1) sprzedaj");
+                System.err.println("(2) wystaw");
                 while (number < 1 || number > 2) {
-                    System.out.print("wybierz: ");
+                    System.err.print("wybierz: ");
                     number = scan.nextInt();
                 }
                 //... sprzedawać lub...
@@ -117,6 +119,7 @@ public class OnlineGame {
                 display(in, gameController);
             }
         }
+
 
         //4. Jeśli gracz posiada kartę Rage "Secret Assets" dostaje 1 żeton waluty na koniec tury
         GameController.phase = 4;
@@ -165,12 +168,12 @@ public class OnlineGame {
                     }
 
                     if(number == 1) {
-                        System.out.println("wybrano " + one);
+                        System.err.println("wybrano " + one);
                         you.eq.addCreature(one);
                         GameController.addImageToEQ(gameController.eqImages, one.path);
                     }
                     else {
-                        System.out.println("wybrano " + two);
+                        System.err.println("wybrano " + two);
                         you.eq.addCreature(two);
                         GameController.addImageToEQ(gameController.eqImages, two.path);
                     }
@@ -191,11 +194,11 @@ public class OnlineGame {
                 //jeżeli gracz posiada kartę Rage "Second Chance" dobiera dwa żetony waluty. Jedną zatrzymuje, drugą odrzuca
                 if(you.SecondChance == 1){
                     int coin_two = money.giveMoney(you, opponent);
-                    System.out.println("(1) " + coin_one);
-                    System.out.println("(2) " + coin_two);
+                    System.err.println("(1) " + coin_one);
+                    System.err.println("(2) " + coin_two);
                     number = -1;
                     while (number < 1 || number > 2){
-                        System.out.print("wybierz: ");
+                        System.err.print("wybierz: ");
                         //number = scan.nextInt();
                     }
                     if(number == 1)
@@ -263,12 +266,12 @@ public class OnlineGame {
 
     //służy do sprzedawania stworów jeżeli gracz pierwszy posiada kartę "Black Market"
     private void sell(){
-        System.out.println("Wybierz jednostke do sprzedania:");
-        System.out.println(you.eq);
+        System.err.println("Wybierz jednostke do sprzedania:");
+        System.err.println(you.eq);
         Scanner scan = new Scanner(System.in);
         int number = -1;
         while (number < 0 || number >= you.eq.size()){
-            System.out.print("Wybierz: ");
+            System.err.print("Wybierz: ");
             number = scan.nextInt();
             if(number >= 0 && number < you.eq.size()){
                 Creature creature = you.eq.pickCreature(number);
@@ -277,7 +280,7 @@ public class OnlineGame {
                 break;
             }
         }
-        System.out.println("Sprzedano stwora");
+        System.err.println("Sprzedano stwora");
     }
 
 
@@ -296,7 +299,12 @@ public class OnlineGame {
 
         //2. dobrania kart stworów lub żetonów waluty. Gracz ma dwa dobrania
         GameController.server.sendMessageToClient("PHASE_2");
-        draw2(in, gameController);
+        try {
+            draw2(in, gameController);
+        }catch (IOException e){
+            System.err.println("LEVEL 1");
+            throw e;
+        }
 
         //3.Jeżeli gracz ma coś w ekwipunku...
         GameController.server.sendMessageToClient("PHASE_3");
@@ -320,12 +328,17 @@ public class OnlineGame {
 
              */
             if (number == 2) {
-                display2(in, gameController);
+                try {
+                    display2(in, gameController);
+                } catch (IOException e){
+                    System.err.println("LEVEL 1");
+                    throw e;
+                }
             }
         }
 
-        //4. Jeśli gracz posiada kartę Rage "Secret Assets" dostaje 1 żeton waluty na koniec tury
-        GameController.server.sendMessageToClient("PHASE_4");
+
+        //4.Jeśli gracz posiada kartę Rage "Secret Assets" dostaje 1 żeton waluty na koniec tury
         if(opponent.SecretAssets == 1){
             opponent.money += money.giveMoney(you, opponent);
             GameController.server.sendMessageToClient("NEW_MY_MONEY_VAL_" + opponent.money);
@@ -347,10 +360,14 @@ public class OnlineGame {
         GameController.server.sendMessageToClient("SELECTING_PHASE");
 
         while(opponent.select > 0) {
+            try {
+                clientMessage = GameController.server.waitForClientChoice();
+            }catch (IOException e){
+                System.err.println("LEVEL 0");
+                throw e;
+            }
 
-            clientMessage = GameController.server.waitForClientChoice();
             int number = Integer.parseInt(clientMessage);
-
             //dobranie karty
             if (number == 1) {
                 opponent.select--;
@@ -375,8 +392,6 @@ public class OnlineGame {
                 //}
             }
 
-            //dobranie żetonu waluty
-            //!WARNING SIĘ MYLI - TESTOWANE - Kacper Brzoza
             else if (number == 2) {
                 opponent.select--;
                 int coin_one = money.giveMoney(you, opponent);
@@ -398,6 +413,8 @@ public class OnlineGame {
                     opponent.money += coin_one;
                 //}
                 GameController.server.sendMessageToClient("NEW_MY_MONEY_VAL_" + opponent.money);
+            } else if (number == 9999) {
+                throw new IOException();
             }
         }
         GameController.server.sendMessageToClient("SELECTING_PHASE");
@@ -409,13 +426,19 @@ public class OnlineGame {
 
         while (opponent.counter < 4) {
 
-            clientMessage = GameController.server.waitForClientChoice();
+            try {
+                clientMessage = GameController.server.waitForClientChoice();
+            }catch (IOException e){
+                System.err.println("LEVEL 0");
+                throw e;
+            }
             int number = Integer.parseInt(clientMessage);
-
             if(number == -2){
                 GameController.changeTurn(gameController.EndTurnButton, gameController.TakeCardDeck, gameController.RageCardDeck, gameController.MoneyStack, gameController.LostCardDeck, gameController.CardCounter);
                 GameController.choice = -1;
                 break;
+            }else if (number == 9999) {
+                throw new IOException();
             }
             else if(number < opponent.eq.size()){
                 if (opponent.eq.checkCost(number) <= opponent.money) {
@@ -445,6 +468,21 @@ public class OnlineGame {
                 } else {
                     GameController.server.sendMessageToClient("EXPENSIVE");
                 }
+            }
+        }
+        GameController.server.sendMessageToClient("PHASE_4");
+        int number = -1;
+        while (number == -1){
+            try {
+                clientMessage = GameController.server.waitForClientChoice();
+            } catch (IOException e){
+                System.err.println("LEVEL 0");
+                throw e;
+            }
+
+            number = Integer.parseInt(clientMessage);
+            if (number == 9999) {
+                throw new IOException();
             }
         }
     }

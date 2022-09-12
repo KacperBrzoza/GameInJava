@@ -44,7 +44,7 @@ public class Scores
 
     public void setScore(Double score)
     {
-        this.score = score;
+        this.score += score;
     }
 
     @Override

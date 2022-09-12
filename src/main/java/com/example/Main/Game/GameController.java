@@ -38,6 +38,10 @@ import static com.example.Main.Menu.WaitingEnemyController.SWITCHER;
 
 public class GameController implements Initializable
 {
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+
     @FXML
     Pane AllScreen;
     @FXML
@@ -54,6 +58,10 @@ public class GameController implements Initializable
     public Pane InventoryPane;
     @FXML
     public ImageView BattleGrid,PlayerPicture,MyCharacter,EnemyCharacter;
+    @FXML
+    public Label EndGameLabel, PointsLabel;
+    @FXML
+    public Button BackToMenuButton;
 
     @FXML
     public ImageView mygrid0,mygrid1,mygrid2,mygrid3,mygrid4;
@@ -163,6 +171,9 @@ public class GameController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        PLAYER_ONE_POINTS = 0;
+        PLAYER_TWO_POINTS = 0;
+
         selectingPhase = false;
         eqImages = new ArrayList<>();
         fields = new ArrayList<>();
@@ -188,6 +199,7 @@ public class GameController implements Initializable
 
                 server.startGame(this);
                 server.turns(this);
+                //server.connectionGuardian(this);
 
 
             //server.sendMessageToClient("wysylam mesedz");
@@ -469,6 +481,53 @@ public class GameController implements Initializable
         });
     }
 
+    public static void connectionClose(HBox ChoiceHBox, Label EndGameLabel, Label PointsLabel, Button ExitButton){
+        UserService userService = new UserService();
+        if(SWITCHER == 2){
+            PLAYER_ONE_POINTS -= 0.5;
+            PLAYER_TWO_POINTS += 2.0;
+        }
+        else {
+            PLAYER_ONE_POINTS += 2.0;
+            PLAYER_TWO_POINTS -= 0.5;
+
+        }
+
+        userService.setScoreOne(Memory.memory.getUsername(), PLAYER_ONE_POINTS);
+        userService.setScoreOne(opponentNick, PLAYER_TWO_POINTS);
+
+        if(SWITCHER == 2){
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    ChoiceHBox.setDisable(false);
+                    ChoiceHBox.setVisible(true);
+                    EndGameLabel.setStyle("-fx-font-size: 30pt;");
+                    EndGameLabel.setText("Przeciwnik rozlaczyl sie");
+                    PointsLabel.setStyle("-fx-font-size: 25pt;");
+                    PointsLabel.setText("Zdobyte punkty\n" + Memory.memory.getUsername() + ": " + PLAYER_TWO_POINTS+
+                            "\n" + opponentNick + ": " + PLAYER_ONE_POINTS);
+                    ExitButton.setDisable(true);
+                }
+            });
+        }
+        else {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    ChoiceHBox.setDisable(false);
+                    ChoiceHBox.setVisible(true);
+                    EndGameLabel.setStyle("-fx-font-size: 30pt;");
+                    EndGameLabel.setText("Przeciwnik rozlaczyl sie");
+                    PointsLabel.setStyle("-fx-font-size: 25pt;");
+                    PointsLabel.setText("Zdobyte punkty\n" + Memory.memory.getUsername() + ": " + PLAYER_ONE_POINTS+
+                            "\n" + opponentNick + ": " + PLAYER_TWO_POINTS);
+                    ExitButton.setDisable(true);
+                }
+            });
+        }
+    }
+
     public static void setBattleField(ArrayList<Field> fields, Image image0, Image image1, Image image2, Image image3, Image image4, Image image5, Image image6, Image image7, Image image8, Image image9){
         Platform.runLater(new Runnable() {
             @Override
@@ -485,6 +544,21 @@ public class GameController implements Initializable
                 fields.get(9).setImage(image9);
             }
         });
+    }
+
+    @FXML
+    protected void BackToMenu(ActionEvent event) throws IOException
+    {
+        stopMusic();
+        URL url = new File("src/main/resources/com/example/Main/Menu/Menu-view.fxml").toURI().toURL();
+        root = FXMLLoader.load(url);
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setResizable(false);
+        scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/style/style-class.css").toExternalForm());
+        stage.setMaximized(true);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -562,8 +636,26 @@ public class GameController implements Initializable
     {
         mediaPlayer_battle_music.stop();
     }
+
     @FXML
     protected void onExitButtonClicked(ActionEvent event) throws IOException
+    {
+        click_sound();
+        //stopMusic();
+        UserService userService = new UserService();
+        userService.set_Usage_false(Memory.memory.getUsername());
+        if(SWITCHER == 1){
+            server.closeConnection();
+        }
+        else {
+            client.closeConnection();
+        }
+        Stage stage = (Stage) ExitButton.getScene().getWindow();
+        stage.close();
+        System.exit(1);
+    }
+
+    protected void disabledfunciton(ActionEvent event) throws IOException
     {
         UserService userService = new UserService();
         click_sound();
@@ -588,7 +680,7 @@ public class GameController implements Initializable
                     userService.setScoreOne(Memory.memory.getUsername(), PLAYER_ONE_POINTS);
                     userService.setScoreOne(opponentNick, PLAYER_TWO_POINTS);
                 }
-                client.sendMessageToServer("Rozlaczylem sie");
+                //client.sendMessageToServer("Rozlaczylem sie");
                 //PLAYER_TWO_POINTS += 2.0;
                 //PLAYER_ONE_POINTS -= 0.5;
                 System.out.println("DZIALA!!");

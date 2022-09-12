@@ -408,16 +408,29 @@
                         <HBox fx:id="ChoiceHBox" alignment="CENTER" disable="true" prefHeight="655.0" prefWidth="1920.0" visible="false">
                            <children>
                               <Pane fx:id="ChoiceSelect1" prefHeight="500.0" prefWidth="500.0">
-                                 <children>
-                                    <ImageView fx:id="choiceOne" fitHeight="400.0" fitWidth="400.0" layoutX="50.0" layoutY="127.0" onMouseEntered="#hover_sound" onMousePressed="#click_sound" pickOnBounds="true" preserveRatio="true" />
-                                 </children>
                                  <HBox.margin>
                                     <Insets right="200.0" />
                                  </HBox.margin>
-                              </Pane>
-                              <Pane fx:id="ChoiceSelect2" prefHeight="218.0" prefWidth="500.0">
                                  <children>
-                                    <ImageView fx:id="choiceTwo" fitHeight="400.0" fitWidth="400.0" layoutX="50.0" layoutY="127.0" onMouseEntered="#hover_sound" onMousePressed="#click_sound" pickOnBounds="true" preserveRatio="true" />
+                                    <VBox prefHeight="655.0" prefWidth="500.0">
+                                       <children>
+                                          <Pane prefHeight="200.0" prefWidth="500.0">
+                                             <children>
+                                                <Label fx:id="EndGameLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="200.0" prefWidth="500.0" text="Example" textAlignment="CENTER" textFill="#0083ff" />
+                                             </children>
+                                          </Pane>
+                                          <Pane prefHeight="200.0" prefWidth="200.0">
+                                             <children>
+                                                <Label fx:id="PointsLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="200.0" prefWidth="500.0" text="Label" textAlignment="CENTER" textFill="#d7b300" />
+                                             </children>
+                                          </Pane>
+                                          <Pane prefHeight="200.0" prefWidth="200.0">
+                                             <children>
+                                                <Button fx:id="BackToMenuButton" alignment="CENTER" contentDisplay="CENTER" layoutY="50.0" mnemonicParsing="false" onAction="#BackToMenu" prefWidth="500.0" text="Wroc do menu" />
+                                             </children>
+                                          </Pane>
+                                       </children>
+                                    </VBox>
                                  </children>
                               </Pane>
                            </children>

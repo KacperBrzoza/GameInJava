@@ -253,7 +253,6 @@ public class WaitingEnemyController implements Initializable {
                     userService = new UserService();
                     client.sendMessageToServer(Memory.memory.getUsername());
                     userService.delete_IP();
-                    client.listenAndSend(Memory.memory.getUsername());
                     server.closeEverything();
                     client.closeEverything();
 

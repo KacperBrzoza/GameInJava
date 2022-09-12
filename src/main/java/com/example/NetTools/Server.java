@@ -73,35 +73,18 @@ public class Server {
         }).start();
     }
 
-    public void waitForOpponentNick(){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (socket.isConnected()){
-                    try {
-                        String messageFromClient = bufferedReader.readLine();
-                        GameController.opponentNick = messageFromClient;
-                        break;
-                    } catch (IOException e){
-                        e.printStackTrace();
-                        System.out.println("Error receiving message from the client");
-                        closeEverything();
-                        break;
-                    }
-                }
-            }
-        }).start();
-    }
 
-    public String waitForClientChoice(){
+
+    public String waitForClientChoice() throws IOException{
         String choice = "-1";
         while (socket.isConnected()){
             try {
                 choice = bufferedReader.readLine();
                 break;
             } catch (IOException e){
-                e.printStackTrace();
-                System.out.println("Error receiving message from the client");
+                //e.printStackTrace();
+                System.out.println("LEVEL -1");
+                choice = "9999";
                 closeEverything();
                 break;
             }
@@ -121,73 +104,46 @@ public class Server {
                     bufferedWriter.newLine();
                     bufferedWriter.flush();
                 } catch (IOException e){
-                    e.printStackTrace();
-                    System.out.println("Error sending message to the client");
                     closeEverything();
                 }
             }
         }).start();
-
     }
+
 
     public void turns(GameController gameController){
         new Thread(new Runnable() {
             @Override
             public void run() {
+                //connectionGuardian(gameController);
                 while (socket.isConnected()){
-                    //gracz, który jest serwerem rozgrywa turę jako pierwszy
                     try {
-                        newGame.server_turn(bufferedReader, gameController);
+                        newGame.server_turn(bufferedReader, gameController);    //gracz, który jest serwerem rozgrywa turę jako pierwszy
+                        newGame.client_turn(bufferedReader, gameController);    //gracz, który jest klientem rozgrywa turę jako drugi
                     } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    //gracz, który jest klientem rozgrywa turę jako pierwszy
-                    try {
-                        newGame.client_turn(bufferedReader, gameController);
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        System.err.println("LEVEL 2");
+                        GameController.connectionClose(gameController.ChoiceHBox, gameController.EndGameLabel, gameController.PointsLabel, gameController.ExitButton);
+                        closeEverything();
+                        //break;
                     }
                 }
             }
         }).start();
     }
 
-    public void sendStartSet(String cardStackSize, String yourMoney, String showEq){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try{
-                    bufferedWriter.write(cardStackSize);
-                    bufferedWriter.newLine();
-                    bufferedWriter.flush();
-
-                    bufferedWriter.write(yourMoney);
-                    bufferedWriter.newLine();
-                    bufferedWriter.flush();
-
-                    bufferedWriter.write(showEq);
-                    bufferedWriter.newLine();
-                    bufferedWriter.flush();
-                } catch (IOException e){
-                    e.printStackTrace();
-                    System.out.println("Error sending message to the client");
-                    closeEverything();
-                }
-            }
-        }).start();
-    }
 
 
-
-    public void receiveMessageFromClient(){
+    public void connectionGuardian(GameController gameController){
         new Thread(new Runnable() {
             @Override
             public void run() {
                 while (socket.isConnected()){
                     try {
                         String messageFromClient = bufferedReader.readLine();
-                        System.out.println(messageFromClient);
-                        //HelloController.addLabel(messageFromClient, vbox);
+                        if(messageFromClient.equals("LAST_MESSAGE")){
+                            GameController.connectionClose(gameController.ChoiceHBox, gameController.EndGameLabel, gameController.PointsLabel, gameController.ExitButton);
+                            break;
+                        }
                     } catch (IOException e){
                         e.printStackTrace();
                         System.out.println("Error receiving message from the client");
@@ -195,6 +151,7 @@ public class Server {
                         break;
                     }
                 }
+                closeEverything();
             }
         }).start();
     }
@@ -223,5 +180,39 @@ public class Server {
             System.out.println("BLAD SOCKET");
         }
 
+    }
+
+    public void closeConnection() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    //do kazdej wiadomosci doklejany jest z przodu znak konca linii, aby komendy nie skleily sie ze soba
+                    bufferedWriter.write("\n" + "LAST_MESSAGE");
+                    bufferedWriter.newLine();
+                    bufferedWriter.flush();
+                    if (bufferedReader != null) {
+                        bufferedReader.close();
+                        //System.out.println("Zamkniecie readera servera");
+                    }
+                    if (bufferedWriter != null) {
+                        bufferedWriter.close();
+                        //System.out.println("Zamkniecie writera servera");
+                    }
+                    if (serverSocket != null) {
+                        serverSocket.close();
+                        //System.out.println("Zamkniecie server socketa ");
+                    }
+                    if (socket != null) {
+                        socket.close();
+                        //System.out.println("Zamkniecie socketa");
+                    }
+                    //System.out.println("Polaczenie zamkniete");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    System.out.println("BLAD SOCKET");
+                }
+            }
+        }).start();
     }
 }
