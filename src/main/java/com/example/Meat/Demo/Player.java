@@ -36,7 +36,7 @@ public class Player {
         UWAGA W RAMACH NAPRAWDĘ CIEKAWEGO TESTU POLECAM GORĄCO ZMIENIĆ PONIŻSZE ZERA NA JEDYNKI I ZAGRAĆ :DDD
         ODBLOKOWUJE 'TRYB URF', GDZIE KAZDY GRACZ NA START MA WSZYSTKIE KARTY RAGE XD
          */
-        SecretAssets = 1;
+        SecretAssets = 0;
         Selection = 0;
         Thief = 0;
         BlackMarket = 0;
@@ -44,7 +44,7 @@ public class Player {
         SecondChance = 0;
         Crusher = 0;
         Unbroaken = 0;
-        RatCatcher = 1;
+        RatCatcher = 0;
     }
 
     public void loseShield(){

@@ -137,7 +137,7 @@ public class GameController implements Initializable
     4 - faza konca tury
      */
     public static int phase = 0;
-    public static int choice = -1;
+    public static int choice;
     public static boolean selectingPhase;
     public static Client client;
 
@@ -179,6 +179,7 @@ public class GameController implements Initializable
         selectingPhase = false;
         eqImages = new ArrayList<>();
         fields = new ArrayList<>();
+        discardedsImages = new ArrayList<>();
         for(int i = 0; i < 10; i++)
             fields.add(new Field(i));
         AllScreen.setOpacity(0);
@@ -200,6 +201,7 @@ public class GameController implements Initializable
         if(SWITCHER == 1){
 
                 server.startGame(this);
+                changeTurn(EndTurnButton, TakeCardDeck, RageCardDeck, MoneyStack, LostCardDeck, CardCounter);
                 server.turns(this);
                 //server.connectionGuardian(this);
 
@@ -227,7 +229,7 @@ public class GameController implements Initializable
                     changeTurn(EndTurnButton, TakeCardDeck, RageCardDeck, MoneyStack, LostCardDeck, CardCounter);
                 }
                 else{
-                    client.sendMessageToServer("" + choice);
+                    client.sendMessageToServer("10000");
                     changeTurn(EndTurnButton, TakeCardDeck, RageCardDeck, MoneyStack, LostCardDeck, CardCounter);
                 }
             }
@@ -294,7 +296,6 @@ public class GameController implements Initializable
     public static void changeTurn(Button EndTurnButton, Button TakeCardDeck, Button RageCardDeck, Button MoneyStack, Button LostCardDeck, Label CardCounter){
         if(myTurn){
             myTurn = false;
-            phase = 0;
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
@@ -494,13 +495,15 @@ public class GameController implements Initializable
     }
 
     public static void takeDiscardedCard(ArrayList<Image> discardedsImages, ImageView lostcardgrid){
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                lostcardgrid.setImage(discardedsImages.get(discardedsImages.size()-1));
-                discardedsImages.remove(discardedsImages.size()-1);
-            }
-        });
+        if(discardedsImages.size() > 0){
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    lostcardgrid.setImage(discardedsImages.get(discardedsImages.size()-1));
+                    discardedsImages.remove(discardedsImages.size()-1);
+                }
+            });
+        }
     }
 
     public static void connectionClose(HBox ChoiceHBox, Label EndGameLabel, Label PointsLabel, Button ExitButton){
@@ -1048,6 +1051,9 @@ public class GameController implements Initializable
         EQ4.setY(15);
         if(phase == 3) {
             choice = eq_it + 3;
+            if(SWITCHER == 2){
+                client.sendMessageToServer("" + choice);
+            }
         }
     }
     @FXML

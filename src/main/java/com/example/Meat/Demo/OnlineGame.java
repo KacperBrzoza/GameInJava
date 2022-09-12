@@ -82,6 +82,8 @@ public class OnlineGame {
 
     //tura pierwszego gracza
     public void server_turn(BufferedReader in, GameController gameController) throws IOException {
+        GameController.choice = -1;
+        GameController.changeTurn(gameController.EndTurnButton, gameController.TakeCardDeck, gameController.RageCardDeck, gameController.MoneyStack, gameController.LostCardDeck, gameController.CardCounter);
         GameController.server.sendMessageToClient("PHASE_0");
 
         //1. przejścia stworów w stronę bazy przeciwnika
@@ -413,7 +415,8 @@ public class OnlineGame {
                     opponent.money += coin_one;
                 //}
                 GameController.server.sendMessageToClient("NEW_MY_MONEY_VAL_" + opponent.money);
-            } else if (number == 9999) {
+            }
+            else if (number == 9999) {
                 throw new IOException();
             }
         }
@@ -423,6 +426,7 @@ public class OnlineGame {
     //metoda odpowiadająca za wystawianie kart i dodatkowe akcje
     private void display2(BufferedReader in, GameController gameController) throws IOException {
         String clientMessage;
+        int number = -1;
 
         while (opponent.counter < 4) {
 
@@ -432,10 +436,8 @@ public class OnlineGame {
                 System.err.println("LEVEL 0");
                 throw e;
             }
-            int number = Integer.parseInt(clientMessage);
-            if(number == -2){
-                GameController.changeTurn(gameController.EndTurnButton, gameController.TakeCardDeck, gameController.RageCardDeck, gameController.MoneyStack, gameController.LostCardDeck, gameController.CardCounter);
-                GameController.choice = -1;
+            number = Integer.parseInt(clientMessage);
+            if(number == 10000){
                 break;
             }else if (number == 9999) {
                 throw new IOException();
@@ -471,7 +473,8 @@ public class OnlineGame {
             }
         }
         GameController.server.sendMessageToClient("PHASE_4");
-        int number = -1;
+        if(!(number == 10000))
+            number = -1;
         while (number == -1){
             try {
                 clientMessage = GameController.server.waitForClientChoice();
@@ -483,6 +486,9 @@ public class OnlineGame {
             number = Integer.parseInt(clientMessage);
             if (number == 9999) {
                 throw new IOException();
+            }
+            else if (number == 10000) {
+                break;
             }
         }
     }
