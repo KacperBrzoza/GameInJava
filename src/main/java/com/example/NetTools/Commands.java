@@ -134,6 +134,28 @@ public class Commands {
         return "-1";
     }
 
+    //DISCARD_---------
+    public static String discardImage(String in){
+        if(in.length() > 8){
+            char [] command = in.toCharArray();
+            String test = "";
+            int i = 0;
+            while (i < 8){
+                test += command[i];
+                i++;
+            }
+            if(test.equals("DISCARD_")){
+                test = "";
+                while (i < in.length()){
+                    test += command[i];
+                    i++;
+                }
+                return test;
+            }
+        }
+        return "-1";
+    }
+
     //PHASE_X
     public static int phase(String in){
         if(in.length() == 7){

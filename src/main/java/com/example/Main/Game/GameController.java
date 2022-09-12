@@ -148,6 +148,8 @@ public class GameController implements Initializable
     public ArrayList<Image> eqImages;
     public ArrayList<Field> fields;
 
+    public ArrayList<Image> discardedsImages;
+
     public int eq_it = 0;
 
 
@@ -477,6 +479,26 @@ public class GameController implements Initializable
             @Override
             public void run() {
                 fields.get(position).setImage(image);
+            }
+        });
+    }
+
+    public static void discardCard(ArrayList<Image> discardedsImages, Image image, ImageView lostcardgrid){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                lostcardgrid.setImage(image);
+                discardedsImages.add(image);
+            }
+        });
+    }
+
+    public static void takeDiscardedCard(ArrayList<Image> discardedsImages, ImageView lostcardgrid){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                lostcardgrid.setImage(discardedsImages.get(discardedsImages.size()-1));
+                discardedsImages.remove(discardedsImages.size()-1);
             }
         });
     }

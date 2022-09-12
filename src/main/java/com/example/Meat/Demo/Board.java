@@ -44,7 +44,12 @@ public class Board {
         if(you.id == 1){
             //stwor na ostatnim polu wchodzi do bazy przeciwnika
             if(!line1.get(4).empty){
-                discarded.putCard(line1.get(4).removeCard());
+                Creature  creature = line1.get(4).removeCard();
+                discarded.putCard(creature);
+                File file = new File(creature.path);
+                Image image = new Image(file.toURI().toString());
+                GameController.server.sendMessageToClient("DISCARD_" + creature.path);
+                GameController.discardCard(gameController.discardedsImages, image, gameController.lostcardgrid);
                 you.counter--;
 
                 //przeciwnik traci tarcze i jeśli wychodzi na minus, to przegrywa grę
@@ -97,7 +102,7 @@ public class Board {
                     line1.get(i + 1).putCard(line1.get(i).removeCard());
                     //normalna walka
                     if (!line2.get(i + 1).empty) {
-                        if (fight(line1.get(i + 1), line2.get(i + 1), discarded, you, opponent))
+                        if (fight(line1.get(i + 1), line2.get(i + 1), discarded, you, opponent, gameController))
                             opponent.counter--;
                     }
                     //dodatkowa walka dla stworów z mocą F
@@ -105,7 +110,7 @@ public class Board {
                         if(i + 2 < 5) {
                             if (line1.get(i + 1).creature.getPower().equals("F")) {
                                 if (!line2.get(i + 2).empty) {
-                                    if (fight(line1.get(i + 1), line2.get(i + 2), discarded, you, opponent))
+                                    if (fight(line1.get(i + 1), line2.get(i + 2), discarded, you, opponent, gameController))
                                         opponent.counter--;
                                 }
                             }
@@ -118,7 +123,12 @@ public class Board {
         else {
             //stwor na ostatnim polu wchodzi do bazy przeciwnika
             if(!line2.get(0).empty){
-                discarded.putCard(line2.get(0).removeCard());
+                Creature creature = line2.get(0).removeCard();
+                discarded.putCard(creature);
+                File file = new File(creature.path);
+                Image image = new Image(file.toURI().toString());
+                GameController.server.sendMessageToClient("DISCARD_" + creature.path);
+                GameController.discardCard(gameController.discardedsImages, image, gameController.lostcardgrid);
                 you.counter--;
 
                 //przeciwnik traci tarcze i jeśli wychodzi na minus, to przegrywa grę
@@ -167,7 +177,7 @@ public class Board {
                     line2.get(i - 1).putCard(line2.get(i).removeCard());
                     //normalna walka
                     if (!line1.get(i - 1).empty) {
-                        if (fight(line2.get(i - 1), line1.get(i - 1), discarded, you, opponent))
+                        if (fight(line2.get(i - 1), line1.get(i - 1), discarded, you, opponent, gameController))
                             opponent.counter--;
                     }
                     //dodatkowa walka dla stworów z mocą F
@@ -175,7 +185,7 @@ public class Board {
                         if(i - 2 >= 0) {
                             if (line2.get(i - 1).creature.getPower().equals("F")) {
                                 if (!line1.get(i - 2).empty) {
-                                    if (fight(line2.get(i - 1), line1.get(i - 2), discarded, you, opponent))
+                                    if (fight(line2.get(i - 1), line1.get(i - 2), discarded, you, opponent, gameController))
                                         opponent.counter--;
                                 }
                             }
@@ -307,7 +317,7 @@ public class Board {
     }
 
     //rozpatruje, czy broniąca się jednostka zginie, czy nie
-    public boolean fight(Field attack, Field defense, Discardeds_Stack discardeds, Player you, Player opponent){
+    public boolean fight(Field attack, Field defense, Discardeds_Stack discardeds, Player you, Player opponent, GameController gameController){
 
         //gdy postać ma moc X
         if(attack.creature.getPower().equals("X")){
@@ -343,7 +353,12 @@ public class Board {
                 }
 
                 //broniąca się jednostka ginie
-                discardeds.putCard(defense.removeCard());
+                Creature creature = defense.removeCard();
+                discardeds.putCard(creature);
+                File file = new File(creature.path);
+                Image image = new Image(file.toURI().toString());
+                GameController.server.sendMessageToClient("DISCARD_" + creature.path);
+                GameController.discardCard(gameController.discardedsImages, image, gameController.lostcardgrid);
                 return true;
             }
         }
@@ -386,23 +401,29 @@ public class Board {
             }
 
             //broniąca się jednostka ginie
-            discardeds.putCard(defense.removeCard());
+            Creature creature = defense.removeCard();
+            discardeds.putCard(creature);
+            File file = new File(creature.path);
+            Image image = new Image(file.toURI().toString());
+            GameController.server.sendMessageToClient("DISCARD_" + creature.path);
+            GameController.discardCard(gameController.discardedsImages, image, gameController.lostcardgrid);
             return true;
         }
         return false;
     }
 
     //metoda rozszerzająca funkcję fight o argument wybierający konkretne pola do rozpatrzenia walki
-    public void fight(Player you, Player opponent, int target, Discardeds_Stack discardeds){
+    public void fight(Player you, Player opponent, int target, Discardeds_Stack discardeds, GameController gameController)
+    {
         if(you.id == 1){
             if(!line2.get(target).empty) {
-                if (fight(line1.get(target), line2.get(target), discardeds, you, opponent))
+                if (fight(line1.get(target), line2.get(target), discardeds, you, opponent, gameController))
                     opponent.counter--;
             }
             else {
                 if(line1.get(target).creature.getPower().equals("F") && target + 1 < 5){
                     if(!line2.get(target + 1).empty) {
-                        if (fight(line1.get(target), line2.get(target + 1), discardeds, you, opponent))
+                        if (fight(line1.get(target), line2.get(target + 1), discardeds, you, opponent, gameController))
                             opponent.counter--;
                     }
                 }
@@ -410,13 +431,13 @@ public class Board {
         }
         else{
             if(!line1.get(target).empty) {
-                if (fight(line2.get(target), line1.get(target), discardeds, you, opponent))
+                if (fight(line2.get(target), line1.get(target), discardeds, you, opponent, gameController))
                     opponent.counter--;
             }
             else {
                 if(line2.get(target).creature.getPower().equals("F") && target - 1 >= 0){
                     if(!line1.get(target - 1).empty) {
-                        if (fight(line2.get(target), line1.get(target - 1), discardeds, you, opponent))
+                        if (fight(line2.get(target), line1.get(target - 1), discardeds, you, opponent, gameController))
                             opponent.counter--;
                     }
                 }
@@ -438,14 +459,14 @@ public class Board {
                         line1.get(3).putCard(line1.get(2).removeCard());
                         //normalna walka
                         if (!line2.get(3).empty) {
-                            if (fight(line1.get(3), line2.get(3), discardeds, you, opponent))
+                            if (fight(line1.get(3), line2.get(3), discardeds, you, opponent, gameController))
                                 opponent.counter--;
                         }
                         //jeśli postać ma moc F
                         else{
                             if(line1.get(3).creature.getPower().equals("F")){
                                 if (!line2.get(4).empty) {
-                                    if (fight(line1.get(3), line2.get(4), discardeds, you, opponent))
+                                    if (fight(line1.get(3), line2.get(4), discardeds, you, opponent, gameController))
                                             opponent.counter--;
                                 }
                             }
@@ -454,14 +475,14 @@ public class Board {
                     line1.get(2).putCard(line1.get(1).removeCard());
                     //normalna walka
                     if (!line2.get(2).empty) {
-                        if (fight(line1.get(2), line2.get(2), discardeds, you, opponent))
+                        if (fight(line1.get(2), line2.get(2), discardeds, you, opponent, gameController))
                             opponent.counter--;
                     }
                     //jeśli postać ma moc F
                     else{
                         if(line1.get(2).creature.getPower().equals("F")){
                             if (!line2.get(3).empty) {
-                                if (fight(line1.get(2), line2.get(3), discardeds, you, opponent))
+                                if (fight(line1.get(2), line2.get(3), discardeds, you, opponent, gameController))
                                     opponent.counter--;
                             }
                         }
@@ -470,14 +491,14 @@ public class Board {
                 line1.get(1).putCard(line1.get(0).removeCard());
                 //normalna walka
                 if (!line2.get(1).empty) {
-                    if (fight(line1.get(1), line2.get(1), discardeds, you, opponent))
+                    if (fight(line1.get(1), line2.get(1), discardeds, you, opponent, gameController))
                         opponent.counter--;
                 }
                 //jeśli postać ma moc F
                 else{
                     if(line1.get(1).creature.getPower().equals("F")){
                         if (!line2.get(2).empty) {
-                            if (fight(line1.get(1), line2.get(2), discardeds, you, opponent))
+                            if (fight(line1.get(1), line2.get(2), discardeds, you, opponent, gameController))
                                     opponent.counter--;
                         }
                     }
@@ -486,14 +507,14 @@ public class Board {
             line1.get(0).putCard(creature);
             //normalna walka
             if (!line2.get(0).empty) {
-                if (fight(line1.get(0), line2.get(0), discardeds, you, opponent))
+                if (fight(line1.get(0), line2.get(0), discardeds, you, opponent, gameController))
                     opponent.counter--;
             }
             //jeśli postać ma moc F
             else{
                 if(line1.get(0).creature.getPower().equals("F")){
                     if (!line2.get(1).empty) {
-                        if (fight(line1.get(0), line2.get(1), discardeds, you, opponent))
+                        if (fight(line1.get(0), line2.get(1), discardeds, you, opponent, gameController))
                                 opponent.counter--;
                     }
                 }
@@ -507,14 +528,14 @@ public class Board {
                         line2.get(1).putCard(line2.get(2).removeCard());
                         //normalna walka
                         if (!line1.get(1).empty) {
-                            if (fight(line2.get(1), line1.get(1), discardeds, you, opponent))
+                            if (fight(line2.get(1), line1.get(1), discardeds, you, opponent, gameController))
                                 opponent.counter--;
                         }
                         //jeśli postać ma moc F
                         else{
                             if(line2.get(1).creature.getPower().equals("F")){
                                 if (!line1.get(0).empty) {
-                                    if (fight(line2.get(1), line1.get(0), discardeds, you, opponent))
+                                    if (fight(line2.get(1), line1.get(0), discardeds, you, opponent, gameController))
                                         opponent.counter--;
                                 }
                             }
@@ -523,14 +544,14 @@ public class Board {
                     line2.get(2).putCard(line2.get(3).removeCard());
                     //normalna walka
                     if (!line1.get(2).empty) {
-                        if (fight(line2.get(2), line1.get(2), discardeds, you, opponent))
+                        if (fight(line2.get(2), line1.get(2), discardeds, you, opponent, gameController))
                             opponent.counter--;
                     }
                     //jeśli postać ma moc F
                     else{
                         if(line2.get(2).creature.getPower().equals("F")){
                             if (!line1.get(1).empty) {
-                                if (fight(line2.get(2), line1.get(1), discardeds, you, opponent))
+                                if (fight(line2.get(2), line1.get(1), discardeds, you, opponent, gameController))
                                     opponent.counter--;
                             }
                         }
@@ -539,14 +560,14 @@ public class Board {
                 line2.get(3).putCard(line2.get(4).removeCard());
                 //normalna walka
                 if (!line1.get(3).empty) {
-                    if (fight(line2.get(3), line1.get(3), discardeds, you, opponent))
+                    if (fight(line2.get(3), line1.get(3), discardeds, you, opponent, gameController))
                         opponent.counter--;
                 }
                 //jeśli postać ma moc F
                 else {
                     if(line2.get(3).creature.getPower().equals("F")){
                         if (!line1.get(2).empty) {
-                            if (fight(line2.get(3), line1.get(2), discardeds, you, opponent))
+                            if (fight(line2.get(3), line1.get(2), discardeds, you, opponent, gameController))
                                     opponent.counter--;
                         }
                     }
@@ -555,14 +576,14 @@ public class Board {
             line2.get(4).putCard(creature);
             //normalna walka
             if (!line1.get(4).empty) {
-                if (fight(line2.get(4), line1.get(4), discardeds, you, opponent))
+                if (fight(line2.get(4), line1.get(4), discardeds, you, opponent, gameController))
                     opponent.counter--;
             }
             //jeśli postać ma moc F
             else{
                 if(line2.get(4).creature.getPower().equals("F")){
                     if (!line1.get(3).empty) {
-                        if (fight(line2.get(4), line1.get(3), discardeds, you, opponent))
+                        if (fight(line2.get(4), line1.get(3), discardeds, you, opponent, gameController))
                             opponent.counter--;
                     }
                 }

@@ -3,6 +3,7 @@ package com.example.NetTools;
 import com.example.Main.Game.GameController;
 import com.example.Main.Login.Memory;
 import javafx.application.Platform;
+import javafx.scene.image.Image;
 
 import java.io.*;
 import java.net.Socket;
@@ -140,11 +141,16 @@ public class Client {
         else if (!(val = Commands.newMyMoneyVal(in)).equals("-1")) {
             GameController.newLabelValue(gameController.MoneyPlayerValue, val);
         }
+        else if (!(val = Commands.path(in)).equals("-1")) {
+            GameController.addImageToEQ(gameController.eqImages, val);
+        }
         else if (!(val = Commands.setField(in, gameController)).equals("-1")) {
             //wyjatkowo dzialanie tego ifa zamieszczone jest w komendzie
         }
-        else if (!(val = Commands.path(in)).equals("-1")) {
-            GameController.addImageToEQ(gameController.eqImages, val);
+        else if (!(val = Commands.discardImage(in)).equals("-1")){
+            File file = new File(val);
+            Image image = new Image(file.toURI().toString());
+            GameController.discardCard(gameController.discardedsImages, image, gameController.lostcardgrid);
         }
 
         /*
