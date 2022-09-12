@@ -664,8 +664,8 @@ public class GameController implements Initializable
             @Override
             public void run() {
                 if(SWITCHER == 1){
-                    PLAYER_ONE_POINTS -= 0.5;
-                    PLAYER_TWO_POINTS += 2.0;
+                    PLAYER_ONE_POINTS += 2.0;
+                    PLAYER_TWO_POINTS -= 0.5;
                     userService.setScoreOne(Memory.memory.getUsername(), PLAYER_ONE_POINTS);
                     userService.setScoreOne(opponentNick, PLAYER_TWO_POINTS);
 
@@ -675,8 +675,8 @@ public class GameController implements Initializable
                 else
                 {
                     client.closeEverything();
-                    PLAYER_ONE_POINTS += 2.0;
                     PLAYER_ONE_POINTS -= 0.5;
+                    PLAYER_TWO_POINTS += 2.0;
                     userService.setScoreOne(Memory.memory.getUsername(), PLAYER_ONE_POINTS);
                     userService.setScoreOne(opponentNick, PLAYER_TWO_POINTS);
                 }
