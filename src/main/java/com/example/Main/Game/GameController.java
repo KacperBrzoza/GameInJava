@@ -482,21 +482,13 @@ public class GameController implements Initializable
     }
 
     public static void connectionClose(HBox ChoiceHBox, Label EndGameLabel, Label PointsLabel, Button ExitButton){
+
         UserService userService = new UserService();
         if(SWITCHER == 2){
             PLAYER_ONE_POINTS -= 0.5;
             PLAYER_TWO_POINTS += 2.0;
-        }
-        else {
-            PLAYER_ONE_POINTS += 2.0;
-            PLAYER_TWO_POINTS -= 0.5;
-
-        }
-
-        userService.setScoreOne(Memory.memory.getUsername(), PLAYER_ONE_POINTS);
-        userService.setScoreOne(opponentNick, PLAYER_TWO_POINTS);
-
-        if(SWITCHER == 2){
+            userService.setScoreOne(Memory.memory.getUsername(), PLAYER_TWO_POINTS);
+            userService.setScoreOne(opponentNick, PLAYER_ONE_POINTS);
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
@@ -512,6 +504,10 @@ public class GameController implements Initializable
             });
         }
         else {
+            PLAYER_ONE_POINTS += 2.0;
+            PLAYER_TWO_POINTS -= 0.5;
+            userService.setScoreOne(Memory.memory.getUsername(), PLAYER_ONE_POINTS);
+            userService.setScoreOne(opponentNick, PLAYER_TWO_POINTS);
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
@@ -655,64 +651,6 @@ public class GameController implements Initializable
         System.exit(1);
     }
 
-    protected void disabledfunciton(ActionEvent event) throws IOException
-    {
-        UserService userService = new UserService();
-        click_sound();
-        stopMusic();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                if(SWITCHER == 1){
-                    PLAYER_ONE_POINTS += 2.0;
-                    PLAYER_TWO_POINTS -= 0.5;
-                    userService.setScoreOne(Memory.memory.getUsername(), PLAYER_ONE_POINTS);
-                    userService.setScoreOne(opponentNick, PLAYER_TWO_POINTS);
-
-                    server.sendMessageToClient("LAST_MESSAGE");
-                    server.closeEverything();
-                }
-                else
-                {
-                    client.closeEverything();
-                    PLAYER_ONE_POINTS -= 0.5;
-                    PLAYER_TWO_POINTS += 2.0;
-                    userService.setScoreOne(Memory.memory.getUsername(), PLAYER_ONE_POINTS);
-                    userService.setScoreOne(opponentNick, PLAYER_TWO_POINTS);
-                }
-                //client.sendMessageToServer("Rozlaczylem sie");
-                //PLAYER_TWO_POINTS += 2.0;
-                //PLAYER_ONE_POINTS -= 0.5;
-                System.out.println("DZIALA!!");
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        MenuController.MenuMusicAllow =true;
-                        URL url = null;
-                        try
-                        {
-                            url = new File("src/main/resources/com/example/Main/Menu/Menu-view.fxml").toURI().toURL();
-                        } catch (MalformedURLException e)
-                        {
-                            throw new RuntimeException(e);
-                        }
-                        Parent root = null;
-                        try
-                        {
-                            root = FXMLLoader.load(url);
-                        } catch (IOException e)
-                        {
-                            throw new RuntimeException(e);
-                        }
-                        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-                        Scene scene = new Scene(root);
-                        stage.setScene(scene);
-                        stage.show();
-                    }
-                });
-            }
-        }).start();
-    }
     @FXML
     protected void hiderInformation()
     {
