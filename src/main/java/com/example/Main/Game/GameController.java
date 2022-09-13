@@ -269,6 +269,34 @@ public class GameController implements Initializable
             }
         });
 
+        TakeCardDeck.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("faza: " + phase + " | choice: " + choice);
+                if(phase == 2){
+                    choice = 1;
+                    System.out.println("new choice " + choice);
+                    if(SWITCHER == 2) {
+                        client.sendMessageToServer("" + choice);
+                    }
+                }
+            }
+        });
+
+        MoneyStack.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("faza: " + phase + " | choice: " + choice);
+                if(phase == 2){
+                    choice = 2;
+                    System.out.println("new choice " + choice);
+                    if(SWITCHER == 2) {
+                        client.sendMessageToServer("" + choice);
+                    }
+                }
+            }
+        });
+
         /*
         choiceOne.setOnDragDetected(mouseEvent -> {
             choice = 1;
@@ -711,6 +739,7 @@ public class GameController implements Initializable
     protected void onTakeCardClicked()
     {
         click_sound();
+        /*
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -721,7 +750,7 @@ public class GameController implements Initializable
                     }
                 }
             }
-        }).start();
+        }).start();*/
     }
     @FXML
     protected void onTakeCardEntered()
@@ -745,6 +774,7 @@ public class GameController implements Initializable
     protected void onMoneyStackClicked()
     {
         click_sound();
+        /*
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -755,7 +785,7 @@ public class GameController implements Initializable
                     }
                 }
             }
-        }).start();
+        }).start();*/
     }
     @FXML
     protected void onMoneyStackEntered()

@@ -75,7 +75,7 @@ public class Cards_Stack {
         creatures.add(new Creature(11, 6, 7, "src/main/resources/img/Creatures/1167.png"));
         creatures.add(new Creature(12, 7, 7, "src/main/resources/img/Creatures/1277.png"));
 
-        /*
+/*
         //z mocą D
         for(int i = 0; i < 4; i++)
             creatures.add(new D_Creature(4, 2, 3, "src/main/resources/img/Creatures/423D.png"));
@@ -85,6 +85,7 @@ public class Cards_Stack {
             creatures.add(new D_Creature(7, 5, 3, "src/main/resources/img/Creatures/753D.png"));
         creatures.add(new D_Creature(8, 5, 4, "src/main/resources/img/Creatures/854D.png"));
         creatures.add(new D_Creature(8, 7, 2, "src/main/resources/img/Creatures/872D.png"));
+
 
         //z mocą E
         for(int i = 0; i < 10; i++)
@@ -101,7 +102,7 @@ public class Cards_Stack {
             creatures.add(new E_Creature(6, 4, 3, "src/main/resources/img/Creatures/643E.png"));
         creatures.add(new E_Creature(0, 5, 4, "src/main/resources/img/Creatures/054E.png"));
         creatures.add(new E_Creature(10, 9, 2, "src/main/resources/img/Creatures/1092E.png"));
-
+        */
         //z mocą F
         for(int i = 0; i < 3; i++)
             creatures.add(new F_Creature(4, 3, 2, "src/main/resources/img/Creatures/432F.png"));
@@ -110,7 +111,7 @@ public class Cards_Stack {
         creatures.add(new F_Creature(7, 6, 2, "src/main/resources/img/Creatures/762F.png"));
         creatures.add(new F_Creature(9, 8, 2, "src/main/resources/img/Creatures/982F.png"));
         creatures.add(new F_Creature(10, 5, 6, "src/main/resources/img/Creatures/1056F.png"));
-
+        /*
         //z mocą G
         for(int i = 0; i < 3; i++)
             creatures.add(new G_Creature(3, 1, 3, "src/main/resources/img/Creatures/313G.png"));
@@ -146,6 +147,7 @@ public class Cards_Stack {
          */
         /*
 
+
         //z mocą M
         for(int i = 0; i < 4; i++)
             creatures.add(new M_Creature(4, 2, 3, "src/main/resources/img/Creatures/423M.png"));
@@ -155,7 +157,8 @@ public class Cards_Stack {
             creatures.add(new M_Creature(6, 2, 5, "src/main/resources/img/Creatures/625M.png"));
         creatures.add(new M_Creature(5, 2, 4, "src/main/resources/img/Creatures/524M.png"));
         creatures.add(new M_Creature(8, 5, 4, "src/main/resources/img/Creatures/854M.png"));
-        
+
+        */
         //z mocą N
         for(int i = 0; i < 3; i++)
             creatures.add(new N_Creature(3, 2, 2, "src/main/resources/img/Creatures/322N.png"));
@@ -165,7 +168,7 @@ public class Cards_Stack {
             creatures.add(new N_Creature(5, 4, 2, "src/main/resources/img/Creatures/542N.png"));
         creatures.add(new N_Creature(8, 3, 6, "src/main/resources/img/Creatures/836N.png"));
         creatures.add(new N_Creature(8, 4, 5, "src/main/resources/img/Creatures/845N.png"));
-
+/*
         //z mocą O
         for(int i = 0; i < 3; i++)
             creatures.add(new O_Creature(3, 1, 1, "src/main/resources/img/Creatures/311O.png"));
@@ -173,7 +176,7 @@ public class Cards_Stack {
             creatures.add(new O_Creature(4, 1, 2, "src/main/resources/img/Creatures/412O.png"));
         creatures.add(new O_Creature(8, 3, 4, "src/main/resources/img/Creatures/834O.png"));
         creatures.add(new O_Creature(11, 5, 5, "src/main/resources/img/Creatures/1155O.png"));
-
+*/
         //z mocą R
         for(int i = 0; i < 3; i++)
             creatures.add(new R_Creature(1, 1, 1, "src/main/resources/img/Creatures/111R.png"));
@@ -203,7 +206,7 @@ public class Cards_Stack {
         creatures.add(new X_Creature(9, 5, 4, "src/main/resources/img/Creatures/954X.png"));
         creatures.add(new X_Creature(10, 8, 2, "src/main/resources/img/Creatures/1082X.png"));
         creatures.add(new X_Creature(14, 9, 5, "src/main/resources/img/Creatures/1495X.png"));
-        
+        /*
         //z mocą Z
         for(int i = 0; i < 3; i++)
             creatures.add(new Z_Creature(4, 2, 3, "src/main/resources/img/Creatures/423Z.png"));
