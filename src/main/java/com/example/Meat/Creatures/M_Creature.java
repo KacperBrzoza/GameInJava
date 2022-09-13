@@ -23,9 +23,11 @@ public class M_Creature extends Creature{
     @Override
     public void effect(Player you, Player opponent, Cards_Stack cards, Discardeds_Stack discardeds, Money money, Board board, BufferedWriter out, BufferedReader in, GameController gameController) {
         you.money += money.giveMoney(you, opponent);
-        if(you.id == 1)
-            System.out.println("Moc M dobrala zeton waluty");
-        //else
-            //out.println("Moc M dobrala zeton waluty");
+        if(you.id == 1) {
+            GameController.newLabelValue(gameController.MoneyPlayerValue, "" + you.money);
+        }
+        else{
+            GameController.server.sendMessageToClient("NEW_MY_MONEY_VAL_" + you.money);
+        }
     }
 }
