@@ -150,11 +150,13 @@ public class GameController implements Initializable
 
     public int eq_it = 0;
 
+    public static int my_hp, opp_hp;
+
 
 
     //awaryjne pola do przechwycenia wyniku w razie rozłączenia się, któregoś z graczy
-    public static double PLAYER_ONE_POINTS = 0;
-    public static double PLAYER_TWO_POINTS = 0;
+    public static double PLAYER_ONE_POINTS;
+    public static double PLAYER_TWO_POINTS;
 
     @FXML
     void FadeOut() throws IOException {
@@ -173,6 +175,9 @@ public class GameController implements Initializable
 
         PLAYER_ONE_POINTS = 0;
         PLAYER_TWO_POINTS = 0;
+
+        my_hp = 3;
+        opp_hp = 3;
 
         selectingPhase = false;
         eqImages = new ArrayList<>();
@@ -391,7 +396,73 @@ public class GameController implements Initializable
         });
     }
 
-
+    //"src/main/resources/img/Creatures/432F.png"
+    public static void loseHp(ImageView character, int player_id){
+        String path = "src/main/resources/img/Game_imgs/players/";
+        if(player_id == 1){
+            if(SWITCHER == 1){
+                my_hp--;
+                if(my_hp == 2)
+                    path += "two_hp_";
+                else if(my_hp == 1)
+                    path += "one_hp_";
+                else if(my_hp == 0)
+                    path += "none_hp_";
+                else
+                    path += "dead_";
+                path += "blue.gif";
+                server.sendMessageToClient("LOSE_HP_" + path);
+            }
+            else{
+                opp_hp--;
+                if(opp_hp == 2)
+                    path += "two_hp_";
+                else if(opp_hp == 1)
+                    path += "one_hp_";
+                else if(opp_hp == 0)
+                    path += "none_hp_";
+                else
+                    path += "dead_";
+                path += "blue.gif";
+                server.sendMessageToClient("LOSE_HP_" + path);
+            }
+        }
+        else {
+            if(SWITCHER == 1){
+                opp_hp--;
+                if(opp_hp == 2)
+                    path += "two_hp_";
+                else if(opp_hp == 1)
+                    path += "one_hp_";
+                else if(opp_hp == 0)
+                    path += "none_hp_";
+                else
+                    path += "dead_";
+                path += "red.gif";
+                server.sendMessageToClient("LOSE_HP_" + path);
+            }
+            else{
+                my_hp--;
+                if(my_hp == 2)
+                    path += "two_hp_";
+                else if(my_hp == 1)
+                    path += "one_hp_";
+                else if(my_hp == 0)
+                    path += "none_hp_";
+                else
+                    path += "dead_";
+                path += "red.gif";
+            }
+        }
+        File file = new File(path);
+        Image image = new Image(file.toURI().toString());
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                character.setImage(image);
+            }
+        });
+    }
 
     public static void selectingPhase(ImageView TakeCardDeckSelect, ImageView MoneyStackSelect,Button EndTurnButton){
         if(selectingPhase){
@@ -528,6 +599,44 @@ public class GameController implements Initializable
                     ChoiceHBox.setVisible(true);
                     EndGameLabel.setStyle("-fx-font-size: 30pt;");
                     EndGameLabel.setText("Przeciwnik rozlaczyl sie");
+                    PointsLabel.setStyle("-fx-font-size: 25pt;");
+                    PointsLabel.setText("Zdobyte punkty\n" + Memory.memory.getUsername() + ": " + PLAYER_ONE_POINTS+
+                            "\n" + opponentNick + ": " + PLAYER_TWO_POINTS);
+                    ExitButton.setDisable(true);
+                }
+            });
+        }
+    }
+
+    public static void endGame(HBox ChoiceHBox, Label EndGameLabel, Label PointsLabel, Button ExitButton){
+
+        if(SWITCHER == 2){
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    ChoiceHBox.setDisable(false);
+                    ChoiceHBox.setVisible(true);
+                    EndGameLabel.setStyle("-fx-font-size: 30pt;");
+                    EndGameLabel.setText("Gra skonczona!");
+                    PointsLabel.setStyle("-fx-font-size: 25pt;");
+                    PointsLabel.setText("Zdobyte punkty\n" + Memory.memory.getUsername() + ": " + PLAYER_TWO_POINTS+
+                            "\n" + opponentNick + ": " + PLAYER_ONE_POINTS);
+                    ExitButton.setDisable(true);
+                }
+            });
+        }
+        else {
+            server.sendMessageToClient("END_GAME");
+            UserService userService = new UserService();
+            userService.setScoreOne(Memory.memory.getUsername(), PLAYER_ONE_POINTS);
+            userService.setScoreOne(opponentNick, PLAYER_TWO_POINTS);
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    ChoiceHBox.setDisable(false);
+                    ChoiceHBox.setVisible(true);
+                    EndGameLabel.setStyle("-fx-font-size: 30pt;");
+                    EndGameLabel.setText("Gra skonczona!");
                     PointsLabel.setStyle("-fx-font-size: 25pt;");
                     PointsLabel.setText("Zdobyte punkty\n" + Memory.memory.getUsername() + ": " + PLAYER_ONE_POINTS+
                             "\n" + opponentNick + ": " + PLAYER_TWO_POINTS);

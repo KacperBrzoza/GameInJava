@@ -54,7 +54,7 @@ public class OnlineGame {
 
     //początkowe zasoby dla każdego gracza (3 żetony waluty i 3 karty stworów)
     private void startGame(Player you, Player opponent, GameController gameController){
-        for(int i = 0; i < 7; i++){
+        for(int i = 0; i < 3; i++){
             Creature creature = cards.giveCard(out, you, opponent, gameController);
             opponent.eq.addCreature(creature);
             GameController.server.sendMessageToClient("PATH_" + creature.path);
@@ -266,6 +266,7 @@ public class OnlineGame {
                     //out.println("\n" + board);
                 } else {
                     GameController.newLabelValue(gameController.InfoLabel, "Ta jednostka jest za droga!");
+                    gameController.disable_button_sound();
                 }
             }
             GameController.choice = -1;

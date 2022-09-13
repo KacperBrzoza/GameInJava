@@ -18,8 +18,6 @@ public class Board {
     private final List<Field> line2;
 
     //awaryjne pola do przechwycenia wyniku w razie rozłącznia, któregoś z graczy
-    public float  PLAYER_ONE_POINTS;
-    public float  PLAYER_TWO_POINTS;
 
     public Board(float PLAYER_ONE_POINTS, float PLAYER_TWO_POINTS){
         line1 = new ArrayList<>();
@@ -32,9 +30,6 @@ public class Board {
         for (int i = 0; i < 5; i++){
             line2.add(new Field(i));
         }
-
-        this.PLAYER_ONE_POINTS = PLAYER_ONE_POINTS;
-        this.PLAYER_TWO_POINTS = PLAYER_TWO_POINTS;
     }
 
 
@@ -54,24 +49,30 @@ public class Board {
 
                 //przeciwnik traci tarcze i jeśli wychodzi na minus, to przegrywa grę
                 opponent.loseShield();
+                GameController.loseHp(gameController.EnemyCharacter, opponent.id);
                 if(opponent.showShields() == -1){
                     you.score += 2.0;
-                    PLAYER_ONE_POINTS += 2.0;
+                    GameController.PLAYER_ONE_POINTS += 2.0;
+                    GameController.server.sendMessageToClient("PLAYER_ONE_POINTS_2.0");
                     opponent.score -= 0.5;
-                    PLAYER_TWO_POINTS -= 0.5;
-                    endGame(opponent, you, out);
+                    GameController.PLAYER_TWO_POINTS -= 0.5;
+                    GameController.server.sendMessageToClient("PLAYER_TWO_POINTS_0.5");
+                    GameController.endGame(gameController.ChoiceHBox, gameController.EndGameLabel, gameController.PointsLabel, gameController.ExitButton);
                 }
                 //w przeciwnym razie zdobywa kartę Rage
                 else{
                     you.score += 1.0;
-                    PLAYER_ONE_POINTS += 1.0;
+                    GameController.PLAYER_ONE_POINTS += 1.0;
+                    GameController.server.sendMessageToClient("PLAYER_ONE_POINTS_1.0");
                     opponent.score -= 0.5;
-                    PLAYER_TWO_POINTS -= 0.5;
+                    GameController.PLAYER_TWO_POINTS -= 0.5;
+                    GameController.server.sendMessageToClient("PLAYER_TWO_POINTS_0.5");
+                    /*
                     R_Card rage_card = rage_cards.giveCard();
                     opponent.rage.putCard(rage_card);
                     System.out.println("GRACZ " + opponent.id + " otrzymal karte *" + rage_card + "*");
                     //out.println("GRACZ " + opponent.id + " otrzymal karte *" + rage_card + "*");
-                    rage_card.effect(opponent, you, this, discarded, cards, money, rage_cards, out, in, gameController);
+                    rage_card.effect(opponent, you, this, discarded, cards, money, rage_cards, out, in, gameController);*/
                     //jeżeli zdobytą kartą była karta Rage "Swarm" zwieksza atak o 1 wszystkim swoim wystawionym jednostkom z atakiem = 2
                     if(opponent.Swarm == 1){
                         for (int i = 0; i < 5; i++){
@@ -133,20 +134,29 @@ public class Board {
 
                 //przeciwnik traci tarcze i jeśli wychodzi na minus, to przegrywa grę
                 opponent.loseShield();
+                GameController.loseHp(gameController.MyCharacter, opponent.id);
                 if(opponent.showShields() == -1){
+                    GameController.PLAYER_TWO_POINTS += 2.0;
+                    GameController.server.sendMessageToClient("PLAYER_TWO_POINTS_2.0");
                     you.score += 2.0;
+                    GameController.PLAYER_ONE_POINTS -= 0.5;
+                    GameController.server.sendMessageToClient("PLAYER_ONE_POINTS_0.5");
                     opponent.score -= 0.5;
-                    endGame(you, opponent, out);
+                    GameController.endGame(gameController.ChoiceHBox, gameController.EndGameLabel, gameController.PointsLabel, gameController.ExitButton);
                 }
                 //w przeciwnym razie zdobywa kartę Rage
                 else{
+                    GameController.PLAYER_TWO_POINTS += 1.0;
+                    GameController.server.sendMessageToClient("PLAYER_TWO_POINTS_1.0");
                     you.score += 1.0;
                     opponent.score -= 0.5;
-                    R_Card rage_card = rage_cards.giveCard();
+                    GameController.PLAYER_ONE_POINTS -= 0.5;
+                    GameController.server.sendMessageToClient("PLAYER_ONE_POINTS_0.5");
+                    /*R_Card rage_card = rage_cards.giveCard();
                     opponent.rage.putCard(rage_card);
                     System.out.println("GRACZ " + opponent.id + " otrzymal karte *" + rage_card + "*");
                     //out.println("GRACZ " + opponent.id + " otrzymal karte *" + rage_card + "*");
-                    rage_card.effect(opponent, you, this, discarded, cards, money, rage_cards, out, in, gameController);
+                    rage_card.effect(opponent, you, this, discarded, cards, money, rage_cards, out, in, gameController);*/
                     //jeżeli zdobytą kartą była karta Rage "Swarm" zwieksza atak o 1 wszystkim swoim wystawionym jednostkom z atakiem = 2
                     if(opponent.Swarm == 1){
                         for (int i = 0; i < 5; i++){

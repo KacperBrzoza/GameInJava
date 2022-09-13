@@ -102,8 +102,12 @@ public class Client {
         else if (Commands.yourTurn(in)) {
             GameController.changeTurn(gameController.EndTurnButton, gameController.TakeCardDeck, gameController.RageCardDeck, gameController.MoneyStack, gameController.LostCardDeck, gameController.CardCounter);
         }
-        else if(Commands.endGame(in)) {
+        else if(Commands.breakGame(in)) {
             GameController.connectionClose(gameController.ChoiceHBox, gameController.EndGameLabel, gameController.PointsLabel, gameController.ExitButton);
+            out = "CONNECTION_CLOSE";
+        }
+        else if (Commands.endGame(in)){
+            GameController.endGame(gameController.ChoiceHBox, gameController.EndGameLabel, gameController.PointsLabel, gameController.ExitButton);
             out = "CONNECTION_CLOSE";
         }
         else if(Commands.unableRightShowBut(in)){
@@ -125,6 +129,7 @@ public class Client {
         }
         else if(Commands.expensive(in)){
             GameController.newLabelValue(gameController.InfoLabel, "Ta jednostka jest za droga!");
+            gameController.disable_button_sound();
         }
         else if (Commands.showBattleField(in)) {
             GameController.showBattleField(gameController.fields, gameController.mygrid0, gameController.mygrid1, gameController.mygrid2, gameController.mygrid3, gameController.mygrid4, gameController.enemygrid0, gameController.enemygrid1, gameController.enemygrid2, gameController.enemygrid3, gameController.enemygrid4);
@@ -141,6 +146,9 @@ public class Client {
         else if (!(val = Commands.newMyMoneyVal(in)).equals("-1")) {
             GameController.newLabelValue(gameController.MoneyPlayerValue, val);
         }
+        else if (Commands.playerPoints(in)) {
+            //ok
+        }
         else if (!(val = Commands.path(in)).equals("-1")) {
             GameController.addImageToEQ(gameController.eqImages, val);
         }
@@ -151,6 +159,9 @@ public class Client {
             File file = new File(val);
             Image image = new Image(file.toURI().toString());
             GameController.discardCard(gameController.discardedsImages, image, gameController.lostcardgrid);
+        }
+        else if (!(val = Commands.loseHp(in, gameController)).equals("-1")){
+            //dzialanie tego warunku wystepuje w Command.loseHp()
         }
 
         /*

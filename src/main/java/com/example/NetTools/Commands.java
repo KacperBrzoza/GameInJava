@@ -8,9 +8,63 @@ import java.io.File;
 
 public class Commands {
 
-    public static boolean endGame(String in)
+    public static boolean breakGame(String in)
     {
         return in.equals("LAST_MESSAGE");
+    }
+    public static boolean endGame(String in)
+    {
+        return in.equals("END_GAME");
+    }
+
+    //PLAYER_XXX_POINTS_Y.Z
+    //PLAYER_ONE_POINTS_0.5
+    public static boolean playerPoints(String in){
+        if(in.length() == 21){
+            char [] command = in.toCharArray();
+            String test = "";
+            int i = 0;
+            while (i < 8){
+                test += command[i];
+                i++;
+            }
+            if(test.equals("PLAYER_")){
+                test = "";
+                while (i < 11){
+                    test += command[i];
+                    i++;
+                }
+                while (i < 18){
+                    i++;
+                }
+                if(test.equals("ONE")){
+                    test = "";
+                    while (i < 21){
+                        test += command[i];
+                        i++;
+                    }
+                    float number = Float.parseFloat(test);
+                    if(number == 0.5)
+                        GameController.PLAYER_ONE_POINTS -= number;
+                    else
+                        GameController.PLAYER_ONE_POINTS += number;
+                }
+                else{
+                    test = "";
+                    while (i < 21){
+                        test += command[i];
+                        i++;
+                    }
+                    float number = Float.parseFloat(test);
+                    if(number == 0.5)
+                        GameController.PLAYER_TWO_POINTS -= number;
+                    else
+                        GameController.PLAYER_TWO_POINTS += number;
+                }
+                return true;
+            }
+        }
+        return false;
     }
 
     public static boolean yourTurn(String in){
@@ -200,6 +254,38 @@ public class Commands {
             }
         }
         return -100;
+    }
+
+    //LOSE_HP_------
+    public static String loseHp(String in, GameController gameController){
+        if(in.length() > 8){
+            char [] command = in.toCharArray();
+            String test = "";
+            int i = 0;
+            while (i < 8){
+                test += command[i];
+                i++;
+            }
+            if(test.equals("LOSE_HP_")){
+                test = "";
+                while (i < in.length()){
+                    test += command[i];
+                    i++;
+                }
+                //size size-1 size-2 size-3 size-4 size-5
+                //       g      n      p      .     d / u
+                i -= 5;
+                if(command[i] == 'd'){
+                    GameController.loseHp(gameController.EnemyCharacter, 2);
+                }
+                else {
+                    GameController.loseHp(gameController.MyCharacter, 1);
+                }
+
+                return test;
+            }
+        }
+        return "-1";
     }
 
 }

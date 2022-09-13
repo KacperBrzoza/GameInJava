@@ -14,6 +14,7 @@ public class Rage_Cards {
 
     //inicjalizacja stosu kart Rage
     public void initialization(){
+        /*
         cards.add(new Resurrection());
         cards.add(new Profit());
         cards.add(new Recruiting());
@@ -33,7 +34,7 @@ public class Rage_Cards {
         //cards.add(new SecondChance());      chwilowo wyłączona z użytku
         cards.add(new Crusher());
         //cards.add(new Unbroaken());       chwilowo wyłączona z użytku
-        cards.add(new RatCatcher());
+        cards.add(new RatCatcher());*/
 
     }
 
