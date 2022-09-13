@@ -13,9 +13,9 @@
 
 <VBox styleClass="root" stylesheets="@../../../../style/style-class.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.Main.Login.LoginController">
    <children>
-      <AnchorPane fx:id="BlackPane" stylesheets="@../../../../style/style-class.css">
+      <AnchorPane fx:id="BlackPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@../../../../style/style-class.css">
          <children>
-            <AnchorPane fx:id="AllScreen" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="1080.0" minWidth="-Infinity" onMouseEntered="#focusMouse" stylesheets="@../../../../style/style-class.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="AllScreen" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#focusMouse" stylesheets="@../../../../style/style-class.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Pane layoutX="-7.0" layoutY="-5.0" prefHeight="305.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
@@ -37,7 +37,7 @@
                               </VBox>
                            </children>
                            <padding>
-                              <Insets top="30.0" />
+                              <Insets right="35.0" top="30.0" />
                            </padding>
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" maxWidth="3000.0" minWidth="1920.0">

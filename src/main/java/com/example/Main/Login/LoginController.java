@@ -69,7 +69,6 @@ public class LoginController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         LoginTextField.requestFocus();
-
         ambient_music(true);
         LoginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -222,9 +221,19 @@ public class LoginController implements Initializable
         root = FXMLLoader.load(url);
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.setResizable(false);
+        if(StartLoginApplication.checkScreenSize())
+        {
+            stage.setMaximized(true);
+        }
+        else
+        {
+            stage.setX(0);
+            stage.setY(0);
+            stage.setMaximized(false);
+        }
         scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/style/style-class.css").toExternalForm());
-        stage.setMaximized(true);
+
         stage.setScene(scene);
         stage.show();
     }
@@ -259,7 +268,16 @@ public class LoginController implements Initializable
          scene = new Scene(root);
          stage.setResizable(false);
          scene.getStylesheets().add(getClass().getResource("/style/style-class.css").toExternalForm());
-         stage.setMaximized(true);
+         if(StartLoginApplication.checkScreenSize())
+         {
+             stage.setMaximized(true);
+         }
+         else
+         {
+             stage.setX(0);
+             stage.setY(0);
+             stage.setMaximized(false);
+         }
          stage.setScene(scene);
          stage.show();
      }

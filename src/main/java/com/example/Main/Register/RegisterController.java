@@ -1,6 +1,7 @@
 package com.example.Main.Register;
 
 import com.example.Main.Login.LoginController;
+import com.example.Main.Login.StartLoginApplication;
 import com.example.Main.Service.UserService;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -71,7 +72,16 @@ public class RegisterController implements Initializable
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setResizable(false);
-        stage.setMaximized(true);
+        if(StartLoginApplication.checkScreenSize())
+        {
+            stage.setMaximized(true);
+        }
+        else
+        {
+            stage.setX(0);
+            stage.setY(0);
+            stage.setMaximized(false);
+        }
         stage.setScene(scene);
         stage.show();
     }

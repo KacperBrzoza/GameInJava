@@ -1,6 +1,7 @@
 package com.example.Main.Game;
 
 import com.example.Main.Login.Memory;
+import com.example.Main.Login.StartLoginApplication;
 import com.example.Main.Menu.MenuController;
 import com.example.Main.Service.UserService;
 import com.example.NetTools.Client;
@@ -706,7 +707,16 @@ public class GameController implements Initializable
         stage.setResizable(false);
         scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("/style/style-class.css").toExternalForm());
-        stage.setMaximized(true);
+        if(StartLoginApplication.checkScreenSize())
+        {
+            stage.setMaximized(true);
+        }
+        else
+        {
+            stage.setX(0);
+            stage.setY(0);
+            stage.setMaximized(false);
+        }
         stage.setScene(scene);
         stage.show();
     }
@@ -835,6 +845,16 @@ public class GameController implements Initializable
             client.closeConnection();
         }
         Stage stage = (Stage) ExitButton.getScene().getWindow();
+        if(StartLoginApplication.checkScreenSize())
+        {
+            stage.setMaximized(true);
+        }
+        else
+        {
+            stage.setX(0);
+            stage.setY(0);
+            stage.setMaximized(false);
+        }
         stage.close();
         System.exit(1);
     }

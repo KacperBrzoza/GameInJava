@@ -1,5 +1,6 @@
 package com.example.Main.Menu;
 
+import com.example.Main.Login.StartLoginApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -72,7 +73,16 @@ public class FindEnemyController {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setResizable(false);
-        stage.setMaximized(true);
+        if(StartLoginApplication.checkScreenSize())
+        {
+            stage.setMaximized(true);
+        }
+        else
+        {
+            stage.setX(0);
+            stage.setY(0);
+            stage.setMaximized(false);
+        }
         stage.setScene(scene);
         stage.show();
     }
