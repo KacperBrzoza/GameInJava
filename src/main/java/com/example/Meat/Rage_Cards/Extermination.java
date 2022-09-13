@@ -14,6 +14,7 @@ public class Extermination extends R_Card{
     public Extermination(){
         name = "Extermination";
         description = "natychmiast zabijasz rywalowi 3 jednostki (jednorazowe)";
+        this.path = "src/main/resources/img/RAGE_powers/extermination.png";
     }
 
     public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage, BufferedWriter out, BufferedReader in, GameController gameController) throws IOException {

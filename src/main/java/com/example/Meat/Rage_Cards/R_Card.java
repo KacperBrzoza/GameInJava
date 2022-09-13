@@ -13,6 +13,7 @@ public abstract class R_Card{
 
     protected String name;
     protected String description;
+    public String path;
 
     //na tej metodzie "do przeciążania" opierają się karty Rage
     public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage, BufferedWriter out, BufferedReader in, GameController gameController) throws IOException {}

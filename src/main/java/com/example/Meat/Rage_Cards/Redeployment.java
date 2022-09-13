@@ -14,6 +14,7 @@ public class Redeployment extends R_Card{
     public Redeployment(){
         name = "Redeployment";
         description = "mozesz cofnac swoja wybrana jednostke do ekwipunku, jesli to zrobisz zyskasz 3 zetony waluty (jednorazowe)";
+        this.path = "src/main/resources/img/RAGE_powers/redeployment.png";
     }
 
     public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage, BufferedWriter out, BufferedReader in, GameController gameController) throws IOException {

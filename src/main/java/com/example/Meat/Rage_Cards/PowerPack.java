@@ -13,6 +13,7 @@ public class PowerPack extends R_Card{
     public PowerPack(){
         this.name = "Power Pack";
         this.description = "dobierasz 2 zetony waluty, 2 karty stworow i uzdrawiasz dwie jednostki (jednorazowa)";
+        this.path = "src/main/resources/img/RAGE_powers/powerpack.png";
     }
 
     public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage, BufferedWriter out, BufferedReader in, GameController gameController) throws IOException {

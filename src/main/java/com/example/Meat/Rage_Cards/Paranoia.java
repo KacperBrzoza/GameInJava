@@ -13,6 +13,7 @@ public class Paranoia extends R_Card{
     public Paranoia(){
         name = "Common Fear";
         description = "wszystkie wrogie jednostki wracaja do wlasciciela";
+        this.path = "src/main/resources/img/RAGE_powers/paranoia.png";
     }
 
     public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage, BufferedWriter out, BufferedReader in, GameController gameController) throws IOException {

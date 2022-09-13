@@ -14,6 +14,7 @@ public class Weakness extends R_Card{
     public Weakness(){
         name = "Weakness";
         description = "przeciwnik traci 3 karty stworow z reki (jednorazowe)";
+        this.path = "src/main/resources/img/RAGE_powers/weakness.png";
     }
 
     public void effect(Player you, Player opponent, Board board, Discardeds_Stack discardeds, Cards_Stack cards, Money money, Rage_Cards rage, BufferedWriter out, BufferedReader in, GameController gameController) throws IOException {
