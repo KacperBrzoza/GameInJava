@@ -36,7 +36,7 @@ public class Board {
     //ruch stworow pojedynczego gracza
     public void move(Player you, Player opponent, Discardeds_Stack discarded, Cards_Stack cards, Rage_Cards rage_cards, Money money, BufferedWriter out, BufferedReader in, GameController gameController) throws IOException {
 
-        int temp_opp_counter = opponent.counter;
+        int temp_opp_counter = 0;
 
         //gdy tura pierwszego
         if(you.id == 1){
@@ -106,23 +106,27 @@ public class Board {
                     line1.get(i + 1).putCard(line1.get(i).removeCard());
                     //normalna walka
                     if (!line2.get(i + 1).empty) {
-                        if (fight(line1.get(i + 1), line2.get(i + 1), discarded, you, opponent, gameController))
+                        if (fight(line1.get(i + 1), line2.get(i + 1), discarded, you, opponent, gameController)) {
+                            temp_opp_counter++;
                             opponent.counter--;
+                        }
                     }
                     //dodatkowa walka dla stworów z mocą F
                     else{
                         if(i + 2 < 5) {
                             if (line1.get(i + 1).creature.getPower().equals("F")) {
                                 if (!line2.get(i + 2).empty) {
-                                    if (fight(line1.get(i + 1), line2.get(i + 2), discarded, you, opponent, gameController))
+                                    if (fight(line1.get(i + 1), line2.get(i + 2), discarded, you, opponent, gameController)) {
+                                        temp_opp_counter++;
                                         opponent.counter--;
+                                    }
                                 }
                             }
                         }
                     }
                 }
             }
-            if(temp_opp_counter != opponent.counter){
+            if(temp_opp_counter > 0){
                 gameController.my_character_kill_creature_sound();
                 GameController.server.sendMessageToClient("I_KILL_YOUR_MINION");
             }
@@ -194,16 +198,20 @@ public class Board {
                     line2.get(i - 1).putCard(line2.get(i).removeCard());
                     //normalna walka
                     if (!line1.get(i - 1).empty) {
-                        if (fight(line2.get(i - 1), line1.get(i - 1), discarded, you, opponent, gameController))
+                        if (fight(line2.get(i - 1), line1.get(i - 1), discarded, you, opponent, gameController)) {
+                            temp_opp_counter++;
                             opponent.counter--;
+                        }
                     }
                     //dodatkowa walka dla stworów z mocą F
                     else{
                         if(i - 2 >= 0) {
                             if (line2.get(i - 1).creature.getPower().equals("F")) {
                                 if (!line1.get(i - 2).empty) {
-                                    if (fight(line2.get(i - 1), line1.get(i - 2), discarded, you, opponent, gameController))
+                                    if (fight(line2.get(i - 1), line1.get(i - 2), discarded, you, opponent, gameController)) {
+                                        temp_opp_counter++;
                                         opponent.counter--;
+                                    }
                                 }
                             }
                         }
@@ -211,7 +219,7 @@ public class Board {
                 }
             }
         }
-        if(temp_opp_counter != opponent.counter){
+        if(temp_opp_counter > 0){
             gameController.enemy_kill_creature_sound();
             GameController.server.sendMessageToClient("YOU_KILL_MY_MINION");
         }
