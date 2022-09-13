@@ -125,6 +125,27 @@ public class GameController implements Initializable
     static Media media_card_put = new Media(new File(path_sound_card_put).toURI().toString());
     static MediaPlayer mediaPlayer_card_put = new MediaPlayer(media_card_put);
 
+    String path_sound_coinpick = "src/main/resources/sound/coindeck_pick_sound.mp3";
+    Media media_coinpick = new Media(new File(path_sound_coinpick).toURI().toString());
+    MediaPlayer mediaPlayer_coinpick = new MediaPlayer(media_coinpick);
+
+    String path_sound_enemy_heart_broken = "src/main/resources/sound/enemy_heart_broken_sound.mp3";
+    Media media_enemy_heart_broken = new Media(new File(path_sound_enemy_heart_broken).toURI().toString());
+    MediaPlayer mediaPlayer_enemy_heart_broken = new MediaPlayer(media_enemy_heart_broken);
+
+    String path_sound_enemy_kill_creature = "src/main/resources/sound/enemy_kill_creature_sound.mp3";
+    Media media_enemy_kill_creature = new Media(new File(path_sound_enemy_kill_creature).toURI().toString());
+    MediaPlayer mediaPlayer_enemy_kill_creature = new MediaPlayer(media_enemy_kill_creature);
+
+    String path_sound_my_character_kill_creature = "src/main/resources/sound/my_character_kill_creature_sound.mp3";
+    Media media_my_character_kill_creature = new Media(new File(path_sound_my_character_kill_creature).toURI().toString());
+    MediaPlayer mediaPlayer_my_character_kill_creature = new MediaPlayer(media_my_character_kill_creature);
+
+    String path_sound_my_character_heart_broken = "src/main/resources/sound/my_character_heart_broken_sound.mp3";
+    Media media_my_character_heart_broken = new Media(new File(path_sound_my_character_heart_broken).toURI().toString());
+    MediaPlayer mediaPlayer_my_character_heart_broken = new MediaPlayer(media_my_character_heart_broken);
+
+
     public static Server server;
     /*
     PHASE VALUES:
@@ -713,6 +734,41 @@ public class GameController implements Initializable
         mediaPlayer_card_put.seek(Duration.seconds(0));
         mediaPlayer_card_put.play();
     }
+    public void money_pick_sound()
+    {
+        mediaPlayer_coinpick.setVolume(0.5);
+        mediaPlayer_coinpick.stop();
+        mediaPlayer_coinpick.seek(Duration.seconds(0));
+        mediaPlayer_coinpick.play();
+    }
+    public void enemy_heart_sound()
+    {
+        mediaPlayer_enemy_heart_broken.setVolume(0.5);
+        mediaPlayer_enemy_heart_broken.stop();
+        mediaPlayer_enemy_heart_broken.seek(Duration.seconds(0));
+        mediaPlayer_enemy_heart_broken.play();
+    }
+    public void my_character_heart_sound()
+    {
+        mediaPlayer_my_character_heart_broken.setVolume(0.5);
+        mediaPlayer_my_character_heart_broken.stop();
+        mediaPlayer_my_character_heart_broken.seek(Duration.seconds(0));
+        mediaPlayer_my_character_heart_broken.play();
+    }
+    public void enemy_kill_creature_sound()
+    {
+        mediaPlayer_enemy_kill_creature.setVolume(0.5);
+        mediaPlayer_enemy_kill_creature.stop();
+        mediaPlayer_enemy_kill_creature.seek(Duration.seconds(0));
+        mediaPlayer_enemy_kill_creature.play();
+    }
+    public void my_character_kill_creature_sound()
+    {
+        mediaPlayer_my_character_kill_creature.setVolume(0.5);
+        mediaPlayer_my_character_kill_creature.stop();
+        mediaPlayer_my_character_kill_creature.seek(Duration.seconds(0));
+        mediaPlayer_my_character_kill_creature.play();
+    }
     public void disable_button_sound()
     {
         mediaPlayer_disable.setVolume(0.5);
@@ -806,7 +862,7 @@ public class GameController implements Initializable
     @FXML
     protected void onTakeCardClicked()
     {
-        click_sound();
+        //click_sound();
         /*
         new Thread(new Runnable() {
             @Override
@@ -830,7 +886,7 @@ public class GameController implements Initializable
     @FXML
     protected void onRageCardClicked()
     {
-        click_sound();
+        //click_sound();
     }
     @FXML
     protected void onRageCardEntered()
@@ -841,7 +897,7 @@ public class GameController implements Initializable
     @FXML
     protected void onMoneyStackClicked()
     {
-        click_sound();
+        //click_sound();
         /*
         new Thread(new Runnable() {
             @Override
@@ -864,7 +920,7 @@ public class GameController implements Initializable
     @FXML
     protected void onLostCardClicked()
     {
-        click_sound();
+        //click_sound();
     }
     @FXML
     protected void onLostCardEntered()
