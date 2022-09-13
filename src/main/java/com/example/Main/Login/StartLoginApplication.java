@@ -22,6 +22,7 @@ public class StartLoginApplication extends Application
         Scene scene = new Scene(root);
         stage.setHeight(1080);
         stage.setWidth(1920);
+
         Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
         //set Stage boundaries to visible bounds of the main screen
         stage.setX(primaryScreenBounds.getMinX());
@@ -29,6 +30,7 @@ public class StartLoginApplication extends Application
         stage.setWidth(primaryScreenBounds.getWidth());
         stage.setHeight(primaryScreenBounds.getHeight());
         stage.initStyle(StageStyle.UNDECORATED);
+
         Image icon = new Image(String.valueOf(StartLoginApplication.class.getResource("/icon/icon_KTC_og-size.png")));
         stage.getIcons().add(icon);
         stage.setTitle("Kingdoms Towers Collide");

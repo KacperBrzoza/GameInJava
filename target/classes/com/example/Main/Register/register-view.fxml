@@ -6,6 +6,7 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -16,34 +17,51 @@
             <children>
                 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="305.0" prefWidth="1917.0">
                     <children>
-                        <Pane layoutX="577.0" layoutY="38.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="240.0" prefWidth="738.0">
-                            <children>
-                                <VBox fx:id="GameName" alignment="CENTER" layoutX="65.0" layoutY="-5.0" prefHeight="255.0" prefWidth="601.0">
-                                    <children>
-                                        <Label fx:id="GameName0" alignment="CENTER" contentDisplay="CENTER" prefHeight="104.0" prefWidth="555.0" scaleShape="false" text="Kingdoms">
-                                            <font>
-                                                <Font size="40.0" />
-                                            </font>
-                                        </Label>
-                                        <Label fx:id="GameName1" alignment="CENTER" contentDisplay="CENTER" prefHeight="95.0" prefWidth="580.0" scaleShape="false" text="Towers Collide">
-                                            <font>
-                                                <Font size="38.0" />
-                                            </font>
-                                        </Label>
-                                    </children>
-                                </VBox>
-                            </children>
-                        </Pane>
-                        <Button fx:id="ExitButton" alignment="CENTER" contentDisplay="RIGHT" layoutX="1800.0" layoutY="30.0" mnemonicParsing="false" onAction="#onExitButtonClicked" prefHeight="60.0" prefWidth="60.0" text="X">
-                            <font>
-                                <Font size="24.0" />
-                            </font>
-                        </Button>
-                        <Button fx:id="OptionButton" alignment="CENTER" contentDisplay="RIGHT" layoutX="1674.0" layoutY="30.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="111.0" text="\@" AnchorPane.rightAnchor="145.0">
-                            <font>
-                                <Font size="24.0" />
-                            </font>
-                        </Button>
+                  <Pane prefHeight="305.0">
+                     <children>
+                        <HBox alignment="CENTER" minWidth="1920.0">
+                           <children>
+                              <VBox fx:id="GameName" alignment="CENTER" minWidth="600.0" prefHeight="255.0">
+                                 <children>
+                                    <Label fx:id="GameName0" alignment="CENTER" contentDisplay="CENTER" prefHeight="104.0" prefWidth="555.0" scaleShape="false" text="Kingdoms">
+                                       <font>
+                                          <Font size="40.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="GameName1" alignment="CENTER" contentDisplay="CENTER" prefHeight="95.0" prefWidth="580.0" scaleShape="false" text="Towers Collide">
+                                       <font>
+                                          <Font size="38.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                           </children>
+                           <padding>
+                              <Insets top="30.0" />
+                           </padding>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT" maxWidth="3000.0" minWidth="1920.0">
+                           <children>
+                              <Button fx:id="OptionButton" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="65.0" prefWidth="100.0" text="\@">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets right="25.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button fx:id="ExitButton" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#onExitButtonClicked" onMouseEntered="#onMouseEntered" onMousePressed="#onMouseClicked" prefHeight="60.0" prefWidth="60.0" text="X">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                           <padding>
+                              <Insets right="45.0" top="30.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </Pane>
                     </children>
                     <opaqueInsets>
                         <Insets />
