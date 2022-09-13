@@ -75,7 +75,7 @@ public class Cards_Stack {
         creatures.add(new Creature(11, 6, 7, "src/main/resources/img/Creatures/1167.png"));
         creatures.add(new Creature(12, 7, 7, "src/main/resources/img/Creatures/1277.png"));
 
-/*
+
         //z mocą D
         for(int i = 0; i < 4; i++)
             creatures.add(new D_Creature(4, 2, 3, "src/main/resources/img/Creatures/423D.png"));
@@ -87,6 +87,7 @@ public class Cards_Stack {
         creatures.add(new D_Creature(8, 7, 2, "src/main/resources/img/Creatures/872D.png"));
 
 
+        /*
         //z mocą E
         for(int i = 0; i < 10; i++)
             creatures.add(new E_Creature(0, 2, 2, "src/main/resources/img/Creatures/022E.png"));
@@ -111,7 +112,7 @@ public class Cards_Stack {
         creatures.add(new F_Creature(7, 6, 2, "src/main/resources/img/Creatures/762F.png"));
         creatures.add(new F_Creature(9, 8, 2, "src/main/resources/img/Creatures/982F.png"));
         creatures.add(new F_Creature(10, 5, 6, "src/main/resources/img/Creatures/1056F.png"));
-        /*
+
         //z mocą G
         for(int i = 0; i < 3; i++)
             creatures.add(new G_Creature(3, 1, 3, "src/main/resources/img/Creatures/313G.png"));
