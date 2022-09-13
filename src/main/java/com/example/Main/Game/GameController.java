@@ -229,6 +229,9 @@ public class GameController implements Initializable
             server.turns(this);
         }
         else {
+            String buf = Memory.memory.getUsername();
+            Memory.memory.setUsername(opponentNick);
+            opponentNick = buf;
             ChangeTextureForClient();
             changeTurn(EndTurnButton, TakeCardDeck, RageCardDeck, MoneyStack, LostCardDeck, CardCounter);
             client.turns(this);
@@ -369,8 +372,8 @@ public class GameController implements Initializable
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                if(eq_it+4 >= eqImages.size())
-                    RightShowBut.setDisable(true);
+                //if(eq_it+4 >= eqImages.size())
+                    //RightShowBut.setDisable(true);
                 eqImages.remove(position);
                 mediaPlayer_card_put.setVolume(1);
                 mediaPlayer_card_put.stop();
@@ -449,7 +452,6 @@ public class GameController implements Initializable
                 else
                     path += "dead_";
                 path += "blue.gif";
-                server.sendMessageToClient("LOSE_HP_" + path);
             }
         }
         else {
