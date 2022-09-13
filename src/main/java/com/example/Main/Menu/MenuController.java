@@ -78,10 +78,8 @@ public static boolean MenuMusicAllow;
     {
         if(on_off) {
             mediaPlayer_menu_music.play(); /*Z TYM JEST DZIWNY PROBLEM BO NIE DA SIE TEGO WYłACZYC W OGOLE NIGDZIE NIBY CZASEM DZIALA ALE NIE ZAWSZE*/
-            //System.out.println("play");
         }
         else {
-            //System.out.println("stop");
             mediaPlayer_menu_music.stop();
         }
 
@@ -135,50 +133,6 @@ public static boolean MenuMusicAllow;
         stage.setMaximized(true);
         stage.setScene(scene);
         stage.show();
-
-
-
-        //poniżej znajduje się propozycja połączenia rozgrywki z programem w formie takiego pseudokodu
-
-        /*   !!! ROBOTY PROGRAMISTYCZNE !!!
-        ip_adres = null;
-        czy_bede_serwerem = 0;
-        do {
-            //jeżeli w tabeli z ipkami coś jest
-            if (ConnectionMenager.search() != null / 0) {
-                //iteruj po tych wynikach tzn...
-                for(each -> wyniki) {
-                    //... sprawdzaj po kolei z którym ip można się połączyć
-                    //jeśli z tym można, to ...
-                        //ip_adress = ten działający adres
-                        //break;
-                }
-            }
-            //jeżeli w tabeli jest pusto
-             else {
-                //dodaj moje ip do tabeli
-                czy_bede_serwerem = 1;
-            }
-        }
-        while(ip_adres == null && czy_bede_serwerem == 0);
-*/
-
-        //Komentuje bo odpala sie i potem trzeba wylaczac xd
-        /*
-        int czy_bede_serwerem = 1;
-        if(czy_bede_serwerem == 0){
-            ClientThread ct = new ClientThread("188.146.12.132");
-            ct.start();
-        }
-        else{
-            ServerThread st = new ServerThread();
-            st.start();
-        }
-
-         */
-
-         
-
     }
     @FXML
     public void onPlayWithButton(ActionEvent event) throws IOException
@@ -205,6 +159,9 @@ public static boolean MenuMusicAllow;
         stage.setScene(scene);
         stage.show();
     }
+
+    //Tutaj dodanie tworcow
+    //TODO
     @FXML
     public void onCreditsButton()
     {
@@ -217,8 +174,6 @@ public static boolean MenuMusicAllow;
         userService = new UserService();
         userService.set_Usage_false(Memory.memory.getUsername());
         LoginController.FadeTransitionAllow=true;
-        //System.out.println("test wylogowania");
-        //Music_menu_on_off(false);
         mediaPlayer_menu_music.stop();
         MenuMusicAllow=false;
         NotificationPane.setVisible(false);

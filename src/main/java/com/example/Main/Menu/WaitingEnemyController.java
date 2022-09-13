@@ -2,7 +2,6 @@ package com.example.Main.Menu;
 
 import com.example.Main.Game.GameController;
 import com.example.Main.Login.Memory;
-import com.example.Main.Register.RegisterData;
 import com.example.Main.Service.UserService;
 import com.example.NetTools.Client;
 import com.example.NetTools.Server;
@@ -61,7 +60,6 @@ public class WaitingEnemyController implements Initializable {
     MediaPlayer mediaPlayer_menu_music = new MediaPlayer(music_menu);
 
     public static boolean BackButtonClickAllow = true;
-    //public static boolean zmiennaAccept = true;
 
     @FXML
     public void onMouseEntered()
@@ -110,7 +108,6 @@ public class WaitingEnemyController implements Initializable {
         try
         {
             InetAddress IP = InetAddress.getLocalHost();
-            System.out.println("Mam to: " + IP.getHostAddress());
             userService.check_in_base_IP(IP.getHostAddress());
         } catch (UnknownHostException e)
         {
@@ -134,34 +131,12 @@ public class WaitingEnemyController implements Initializable {
                                 }
                             });
                         }
-                        //changeStage();
 
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
             }).start();
-
-            /*
-            BackButton.setOnAction(new EventHandler<ActionEvent>() {
-                @Override
-                public void handle(ActionEvent actionEvent) {
-                    Thread.currentThread().interrupt();
-                }
-            });
-             */
-
-            /*
-            ExitButton.setOnAction(new EventHandler<ActionEvent>()
-            {
-                @Override
-                public void handle(ActionEvent event)
-                {
-                    server.closeEverything();
-                }
-            });
-             */
-
 
         //Jestesmy klientem
         }else{
@@ -170,24 +145,9 @@ public class WaitingEnemyController implements Initializable {
                 userService.delete_IP();
                 client.listenAndSend(Memory.memory.getUsername());
                 FadeIn();
-                //changeStage();
             } catch (IOException e){
                 e.printStackTrace();
             }
-
-
-            /*
-            ExitButton.setOnAction(new EventHandler<ActionEvent>()
-            {
-                @Override
-                public void handle(ActionEvent event)
-                {
-                    GameController.client.closeEverything();
-                }
-            });
-             */
-
-             
         }
     }
 
@@ -196,28 +156,6 @@ public class WaitingEnemyController implements Initializable {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                /*URL url = null;
-                try {
-                    url = new File("src/main/resources/com/example/Main/Game/Game.fxml").toURI().toURL();
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                }
-                //onMediaStart();
-                Parent root = null;
-                try {
-                    root = FXMLLoader.load(url);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }*/
-                /*FXMLLoader loader_temp = new FXMLLoader(getClass().getResource("/com/example/Main/Menu/Menu-view.fxml"));
-                try {
-                    Parent root = loader_temp.load();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                MenuController controller_menu = loader_temp.getController();*/
-                //System.out.println("test wyciszania ktory nie moze wyciszyc ://");
-                //controller_menu.Music_menu_on_off(false);
                 mediaPlayer_menu_music.stop();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/Main/Game/Game.fxml"));
                 Parent root = null;
@@ -240,14 +178,11 @@ public class WaitingEnemyController implements Initializable {
     @FXML
     public void onBackButton(ActionEvent event) throws IOException
     {
-        //zmiennaAccept = false;
-        //userService.delete_IP();
         mediaPlayer_menu_music.stop();
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
-                    //System.out.println("wcisnieto anuluj");
                     BackButtonClickAllow=false;
                     client = new Client(new Socket(InetAddress.getLocalHost().getHostAddress(), PORT_NUMBER));
                     userService = new UserService();

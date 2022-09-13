@@ -117,7 +117,6 @@ public class RegisterController implements Initializable
                                     mediaPlayer_input_bad.stop();
                                     mediaPlayer_input_bad.seek(Duration.seconds(0));
                                     mediaPlayer_input_bad.play();
-                                    //Poprawione wiadomosci alarmowe (alarmy zakomentowalem, mozna usunac jesli nie potrzebne) - Daniel
                                     PassMsg.setText("Proszę wypelnic wszystkie pola");
                                     PassMsg.setStyle("-fx-text-fill: #9e7c26;-fx-font-size: 25pt;");//zolte
 
@@ -171,7 +170,6 @@ public class RegisterController implements Initializable
                                             Platform.runLater(new Runnable() {
                                                 @Override
                                                 public void run() {
-                                                    //Poprawione wiadomosci alarmowe - Daniel
                                                     PassMsg.setText("Zarejestrowano pomyslnie!");
                                                     PassMsg.setStyle("-fx-text-fill: #269e32");//zielone
                                                 }

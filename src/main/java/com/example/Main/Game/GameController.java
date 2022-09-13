@@ -2,7 +2,6 @@ package com.example.Main.Game;
 
 import com.example.Main.Login.Memory;
 import com.example.Main.Menu.MenuController;
-import com.example.Main.Register.RegisterData;
 import com.example.Main.Service.UserService;
 import com.example.NetTools.Client;
 import com.example.NetTools.Server;
@@ -29,7 +28,6 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -200,24 +198,14 @@ public class GameController implements Initializable
         mediaPlayer_battle_music.play();
         if(SWITCHER == 1){
 
-                server.startGame(this);
-                changeTurn(EndTurnButton, TakeCardDeck, RageCardDeck, MoneyStack, LostCardDeck, CardCounter);
-                server.turns(this);
-                //server.connectionGuardian(this);
-
-
-            //server.sendMessageToClient("wysylam mesedz");
-            //server.receiveMessageFromClient();
-
-            //System.out.println("Hehe");
+            server.startGame(this);
+            changeTurn(EndTurnButton, TakeCardDeck, RageCardDeck, MoneyStack, LostCardDeck, CardCounter);
+            server.turns(this);
         }
         else {
             ChangeTextureForClient();
             changeTurn(EndTurnButton, TakeCardDeck, RageCardDeck, MoneyStack, LostCardDeck, CardCounter);
             client.turns(this);
-            //opponent = Memory.memory.getUsername();
-            //client.receiveMessageFromServer();
-            //client.sendMessageToServer("Wysylam do serwa :)");
         }
 
         EndTurnButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -272,10 +260,8 @@ public class GameController implements Initializable
         TakeCardDeck.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("faza: " + phase + " | choice: " + choice);
                 if(phase == 2){
                     choice = 1;
-                    System.out.println("new choice " + choice);
                     if(SWITCHER == 2) {
                         client.sendMessageToServer("" + choice);
                     }
@@ -286,39 +272,14 @@ public class GameController implements Initializable
         MoneyStack.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("faza: " + phase + " | choice: " + choice);
                 if(phase == 2){
                     choice = 2;
-                    System.out.println("new choice " + choice);
                     if(SWITCHER == 2) {
                         client.sendMessageToServer("" + choice);
                     }
                 }
             }
         });
-
-        /*
-        choiceOne.setOnDragDetected(mouseEvent -> {
-            choice = 1;
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    setChoiceHBox(ChoiceHBox, InventoryPane, EndTurnButton, choiceOne, choiceTwo,null, null);
-                }
-            });
-        });
-
-        choiceTwo.setOnDragDetected(mouseEvent -> {
-            choice = 2;
-            Platform.runLater(new Runnable() {
-                @Override
-                public void run() {
-                    setChoiceHBox(ChoiceHBox, InventoryPane, EndTurnButton, choiceOne, choiceTwo,null, null);
-                }
-            });
-        });
-
-         */
     }
 
     public static void changeTurn(Button EndTurnButton, Button TakeCardDeck, Button RageCardDeck, Button MoneyStack, Button LostCardDeck, Label CardCounter){
@@ -329,7 +290,6 @@ public class GameController implements Initializable
                 public void run() {
                     EndTurnButton.setText("Tura Przeciwnika");
                     EndTurnButton.setStyle("-fx-font-size: 22pt;");
-                    //-fx-font-size: 28pt; normalny rozmiar czcionki dla przycisku konca tury jesli tura wroci do gracza
                     EndTurnButton.setDisable(true);
                     TakeCardDeck.setDisable(true);
                     RageCardDeck.setDisable(true);
@@ -690,7 +650,6 @@ public class GameController implements Initializable
     protected void onExitButtonClicked(ActionEvent event) throws IOException
     {
         click_sound();
-        //stopMusic();
         UserService userService = new UserService();
         userService.set_Usage_false(Memory.memory.getUsername());
         if(SWITCHER == 1){

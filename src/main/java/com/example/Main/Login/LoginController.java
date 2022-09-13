@@ -140,8 +140,6 @@ public class LoginController implements Initializable
                                 else
                                 {
                                     Memory.memory = registerData;
-                                    //Wywolam zapytanie SELECT i wyciagne uid z bazy o odanym usernamie
-                                    //System.out.println(userService.get_UID(registerData.getUsername()));
                                     userService.set_Usage_true(registerData.getUsername());
                                     Platform.runLater(new Runnable() {
                                         @Override
@@ -152,29 +150,9 @@ public class LoginController implements Initializable
                                             mediaPlayer_login_good.play();
                                             PassMsg.setText("Zalogowano pomyślnie.");
                                             //kontrolna zmiana muzy
-                                            //
-                                            //
+
                                             PassMsg.setStyle("-fx-text-fill: #269e32");
                                             FadeIn();
-                                        /*URL url_menu = null;
-                                        try {
-                                            url_menu = new File("src/main/resources/com/example/Main/Menu/Menu-view.fxml").toURI().toURL();
-                                        } catch (MalformedURLException e) {
-                                            e.printStackTrace();
-                                        }
-                                        try {
-                                            root = FXMLLoader.load(url_menu);
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                        }
-
-                                        stage = (Stage) LoginButton.getScene().getWindow();
-                                        scene = new Scene(root);
-                                        stage.setResizable(false);
-                                        scene.getStylesheets().add(getClass().getResource("/style/style-class.css").toExternalForm());
-                                        stage.setMaximized(true);
-                                        stage.setScene(scene);
-                                        stage.show();*/
                                         }
                                     });
                                 }
@@ -216,11 +194,9 @@ public class LoginController implements Initializable
         mediaPlayer.setVolume(0.8);
         if(on_off) {
             mediaPlayer.play();
-            //System.out.println("on");
         }
         else {
             mediaPlayer.stop();
-            //System.out.println("off");
         }
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
     }
@@ -238,7 +214,6 @@ public class LoginController implements Initializable
         mediaPlayer_click.stop();
         mediaPlayer_click.seek(Duration.seconds(0));
         mediaPlayer_click.play();
-        //TimeUnit.MILLISECONDS.sleep(1500);
     }
     @FXML
     public void onRegisterButtonClick(ActionEvent event) throws IOException, InterruptedException {
@@ -252,7 +227,6 @@ public class LoginController implements Initializable
         stage.setMaximized(true);
         stage.setScene(scene);
         stage.show();
-        //osobna_funkcja();
     }
 
 
@@ -295,31 +269,6 @@ public class LoginController implements Initializable
         mediaPlayer_input_bad.setVolume(0.5);
         mediaPlayer_login_good.setVolume(0.5);
     }
-        /*
-
-        else if(true)
-        {
-            //FadeIn(event); //Przyciemnienie na przejście (nie dziala bo trzeba zrobic thready ktore beda zajmowac sie innymi procesami)
-            mediaPlayer_login_good.stop();
-            mediaPlayer_login_good.seek(Duration.seconds(0));
-            mediaPlayer_login_good.play();
-            PassMsg.setText("Zalogowano pomyślnie.");
-            //kontrolna zmiana muzy
-            //
-            //
-            PassMsg.setStyle("-fx-text-fill: #269e32");
-            URL url_menu = new File("src/main/resources/com/example/Main/Menu/Menu-view.fxml").toURI().toURL();
-            root = FXMLLoader.load(url_menu);
-            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setResizable(false);
-            scene.getStylesheets().add(getClass().getResource("/style/style-class.css").toExternalForm());
-            stage.setMaximized(true);
-            stage.setScene(scene);
-            stage.show();
-        }
-         */
-
 
     @FXML
     protected void onOptionButtonClicked()
