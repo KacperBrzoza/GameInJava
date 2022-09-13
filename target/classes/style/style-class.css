@@ -31,6 +31,7 @@
     -fx-border-color: #5e5e5e #5e5e5e #404040 #404040;
     -fx-border-width:  5 7 18 7;
     -fx-font-size: 28pt;
+    -fx-cursor: OPEN_HAND;
 
 }
 .button:hover {
@@ -42,6 +43,7 @@
     -fx-text-fill: white;
     -fx-background-color: #5e5e5e;
     -fx-border-color: #591515 #591515 #8c2222 #8c2222;
+    -fx-cursor: HAND;
 }
 #PassMsg{
     -fx-font-family: 'Bitmgothic';
@@ -349,16 +351,19 @@
     -fx-border-color: #5e5e5e #5e5e5e #404040 #404040;
 }
 #RightShowBut{
+
     -fx-rotate: 180;
     -fx-border-color: #404040 #404040 #5e5e5e #5e5e5e ;
 }
 
 #LeftShowBut:hover,#RightShowBut:hover{
+
     -fx-background-image: url("../img/Game_imgs/buttons/page_button_clicked.png");
     -fx-background-size: 75 200;
     -fx-background-position: 3 0;
 }
 #LeftShowBut:pressed,#RightShowBut:pressed{
+    -fx-cursor: hand;
     -fx-background-image: url("../img/Game_imgs/buttons/page_button_hover.png");
     -fx-background-size: 75 200;
     -fx-background-position: 1 0;
@@ -422,9 +427,12 @@
     -fx-background-position: 10, 0;
     -fx-background-size: 180 180;
 }
-#EQ3{
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: 0, 0;
+
+#EQ1,EQ2,EQ3,EQ4{
+-fx-cursor: OPEN_HAND;
+}
+#EQ1:pressed,EQ2:pressed,EQ3:pressed,EQ4:pressed{
+-fx-cursor: CLOSED_HAND;
 }
 #ChoiceHBox{
 -fx-background-color: rgba(12,15,25,0.6);
