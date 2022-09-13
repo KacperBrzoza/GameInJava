@@ -1172,6 +1172,8 @@ public class GameController implements Initializable
             if(SWITCHER == 2){
                 client.sendMessageToServer("" + choice);
             }
+        } else {
+            disable_button_sound();
         }
 
     }
@@ -1187,6 +1189,8 @@ public class GameController implements Initializable
             if(SWITCHER == 2){
                 client.sendMessageToServer("" + choice);
             }
+        }else {
+            disable_button_sound();
         }
     }
     @FXML
@@ -1202,6 +1206,8 @@ public class GameController implements Initializable
             if(SWITCHER == 2){
                 client.sendMessageToServer("" + choice);
             }
+        }else {
+            disable_button_sound();
         }
     }
     @FXML
@@ -1216,6 +1222,8 @@ public class GameController implements Initializable
             if(SWITCHER == 2){
                 client.sendMessageToServer("" + choice);
             }
+        }else {
+            disable_button_sound();
         }
     }
     @FXML
