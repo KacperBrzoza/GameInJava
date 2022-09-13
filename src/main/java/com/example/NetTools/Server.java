@@ -130,31 +130,7 @@ public class Server {
             }
         }).start();
     }
-
-
-
-    public void connectionGuardian(GameController gameController){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (socket.isConnected()){
-                    try {
-                        String messageFromClient = bufferedReader.readLine();
-                        if(messageFromClient.equals("LAST_MESSAGE")){
-                            GameController.connectionClose(gameController.ChoiceHBox, gameController.EndGameLabel, gameController.PointsLabel, gameController.ExitButton);
-                            break;
-                        }
-                    } catch (IOException e){
-                        e.printStackTrace();
-                        System.out.println("Error receiving message from the client");
-                        closeEverything();
-                        break;
-                    }
-                }
-                closeEverything();
-            }
-        }).start();
-    }
+    
 
     public void closeEverything(){
         try{

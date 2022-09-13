@@ -249,30 +249,6 @@ public class Client {
     }
 
 
-    /*
-    public void receiveMessageFromServer(){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                System.out.println("Czekam na wiadomosci");
-                while (socket.isConnected()){
-                    try {
-                        System.out.println("zobacze jakie dostane");
-                        String messageFromServer = bufferedReader.readLine();
-                        System.out.println(messageFromServer);
-
-                        //HelloController.addLabel(messageFromServer, vBox);
-                    } catch (IOException e){
-                        e.printStackTrace();
-                        System.out.println("Error receiving message from the server");
-                        closeEverything(socket, bufferedReader, bufferedWriter);
-                        break;
-                    }
-                }
-            }
-        }).start();
-    }*/
-
     public void closeEverything(){
         try{
             if(bufferedReader != null){
