@@ -35,6 +35,9 @@ public class Board {
 
     //ruch stworow pojedynczego gracza
     public void move(Player you, Player opponent, Discardeds_Stack discarded, Cards_Stack cards, Rage_Cards rage_cards, Money money, BufferedWriter out, BufferedReader in, GameController gameController) throws IOException {
+
+        int temp_opp_counter = opponent.counter;
+
         //gdy tura pierwszego
         if(you.id == 1){
             //stwor na ostatnim polu wchodzi do bazy przeciwnika
@@ -49,7 +52,7 @@ public class Board {
 
                 //przeciwnik traci tarcze i jeśli wychodzi na minus, to przegrywa grę
                 opponent.loseShield();
-                GameController.loseHp(gameController.EnemyCharacter, opponent.id);
+                GameController.loseHp(gameController.EnemyCharacter, opponent.id, gameController);
                 if(opponent.showShields() == -1){
                     you.score += 2.0;
                     GameController.PLAYER_ONE_POINTS += 2.0;
@@ -119,6 +122,10 @@ public class Board {
                     }
                 }
             }
+            if(temp_opp_counter != opponent.counter){
+                gameController.my_character_kill_creature_sound();
+                GameController.server.sendMessageToClient("I_KILL_YOUR_MINION");
+            }
         }
         //gdy tura drugiego; różnica jest taka, że stwory gracza 2 idą w drugą stronę
         else {
@@ -134,7 +141,7 @@ public class Board {
 
                 //przeciwnik traci tarcze i jeśli wychodzi na minus, to przegrywa grę
                 opponent.loseShield();
-                GameController.loseHp(gameController.MyCharacter, opponent.id);
+                GameController.loseHp(gameController.MyCharacter, opponent.id, gameController);
                 if(opponent.showShields() == -1){
                     GameController.PLAYER_TWO_POINTS += 2.0;
                     GameController.server.sendMessageToClient("PLAYER_TWO_POINTS_2.0");
@@ -203,6 +210,10 @@ public class Board {
                     }
                 }
             }
+        }
+        if(temp_opp_counter != opponent.counter){
+            gameController.enemy_kill_creature_sound();
+            GameController.server.sendMessageToClient("YOU_KILL_MY_MINION");
         }
         exportImagesFromBackend(gameController);
     }
@@ -461,6 +472,9 @@ public class Board {
     //jeżeli są, to przepycha najpierw stwory do przodu, one mają możliwość ataku
     //dopiero wtedy wybrany stwor staje na pierwszym polu i też wykonuje atak, jeśli ma kogo atakować
     public void put(Creature creature, Player you, Player opponent,  Discardeds_Stack discardeds, GameController gameController){
+
+        int temp_opp_counter = opponent.counter;
+
         //wersja dla gracza pierwszego
         if(you.id == 1){
             if(!line1.get(0).empty){
@@ -528,6 +542,10 @@ public class Board {
                                 opponent.counter--;
                     }
                 }
+            }
+            if(temp_opp_counter != opponent.counter){
+                gameController.my_character_kill_creature_sound();
+                GameController.server.sendMessageToClient("I_KILL_YOUR_MINION");
             }
         }
         //wersja dla gracza drugiego
@@ -598,6 +616,10 @@ public class Board {
                     }
                 }
             }
+        }
+        if(temp_opp_counter != opponent.counter){
+            gameController.enemy_kill_creature_sound();
+            GameController.server.sendMessageToClient("YOU_KILL_MY_MINION");
         }
         exportImagesFromBackend(gameController);
     }

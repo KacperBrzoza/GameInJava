@@ -87,6 +87,9 @@ public class Commands {
         return in.equals("SHOW_BATTLE_FIELD");
     }
 
+    public static boolean iLostCreature(String in){return in.equals("I_KILL_YOUR_MINION");}
+    public static boolean iKilledCreature(String in){return in.equals("YOU_KILL_MY_MINION");}
+
     //NEW_CARDS_STACK_SIZE_XYZ
     public static String newCardStackSize(String in){
         if(in.length() >= 22 && in.length() <= 24){
@@ -276,10 +279,10 @@ public class Commands {
                 //       g      n      p      .     d / u
                 i -= 5;
                 if(command[i] == 'd'){
-                    GameController.loseHp(gameController.EnemyCharacter, 2);
+                    GameController.loseHp(gameController.EnemyCharacter, 2, gameController);
                 }
                 else {
-                    GameController.loseHp(gameController.MyCharacter, 1);
+                    GameController.loseHp(gameController.MyCharacter, 1, gameController);
                 }
 
                 return test;

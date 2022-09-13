@@ -134,6 +134,12 @@ public class Client {
         else if (Commands.showBattleField(in)) {
             GameController.showBattleField(gameController.fields, gameController.mygrid0, gameController.mygrid1, gameController.mygrid2, gameController.mygrid3, gameController.mygrid4, gameController.enemygrid0, gameController.enemygrid1, gameController.enemygrid2, gameController.enemygrid3, gameController.enemygrid4);
         }
+        else if (Commands.iLostCreature(in)) {
+            gameController.enemy_kill_creature_sound();
+        }
+        else if (Commands.iKilledCreature(in)) {
+            gameController.my_character_kill_creature_sound();
+        }
         else if (Commands.phase(in) != -1) {
             GameController.phase = Commands.phase(in);
         }

@@ -288,6 +288,7 @@ public class GameController implements Initializable
             public void handle(ActionEvent event) {
                 if(phase == 2){
                     choice = 1;
+                    click_sound();
                     if(SWITCHER == 2) {
                         client.sendMessageToServer("" + choice);
                     }
@@ -299,6 +300,7 @@ public class GameController implements Initializable
             @Override
             public void handle(ActionEvent event) {
                 if(phase == 2){
+                    money_pick_sound();
                     choice = 2;
                     if(SWITCHER == 2) {
                         client.sendMessageToServer("" + choice);
@@ -418,10 +420,11 @@ public class GameController implements Initializable
     }
 
     //"src/main/resources/img/Creatures/432F.png"
-    public static void loseHp(ImageView character, int player_id){
+    public static void loseHp(ImageView character, int player_id, GameController gameController){
         String path = "src/main/resources/img/Game_imgs/players/";
         if(player_id == 1){
             if(SWITCHER == 1){
+                gameController.my_character_heart_sound();
                 my_hp--;
                 if(my_hp == 2)
                     path += "two_hp_";
@@ -435,6 +438,7 @@ public class GameController implements Initializable
                 server.sendMessageToClient("LOSE_HP_" + path);
             }
             else{
+                gameController.enemy_heart_sound();
                 opp_hp--;
                 if(opp_hp == 2)
                     path += "two_hp_";
@@ -450,6 +454,7 @@ public class GameController implements Initializable
         }
         else {
             if(SWITCHER == 1){
+                gameController.enemy_heart_sound();
                 opp_hp--;
                 if(opp_hp == 2)
                     path += "two_hp_";
@@ -463,6 +468,7 @@ public class GameController implements Initializable
                 server.sendMessageToClient("LOSE_HP_" + path);
             }
             else{
+                gameController.my_character_heart_sound();
                 my_hp--;
                 if(my_hp == 2)
                     path += "two_hp_";
