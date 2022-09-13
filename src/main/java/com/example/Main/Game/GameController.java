@@ -207,7 +207,7 @@ public class GameController implements Initializable
         for(int i = 0; i < 10; i++)
             fields.add(new Field(i));
         AllScreen.setOpacity(0);
-        LeftShowBut.setDisable(true);
+        //LeftShowBut.setDisable(true);
         
         TakeCardDeckSelect.setVisible(false);
         RageCardDeckSelect.setVisible(false);
@@ -263,6 +263,8 @@ public class GameController implements Initializable
                         public void run() {
                             if (eq_it - 1 < 0)
                                 LeftShowBut.setDisable(true);
+                            if(eq_it + 4 < eqImages.size())
+                                RightShowBut.setDisable(false);
                         }
                     });
                 }
@@ -280,6 +282,7 @@ public class GameController implements Initializable
                         public void run() {
                             if (eq_it + 4 >=  eqImages.size())
                                 RightShowBut.setDisable(true);
+                            LeftShowBut.setDisable(false);
                         }
                     });
                 }
@@ -1230,17 +1233,11 @@ public class GameController implements Initializable
     protected void onLeftPageButtonClicked()
     {
         page_sound();
-        if(eq_it - 1 >= 0) {
-            RightShowBut.setDisable(false);
-        }
     }
     @FXML
     protected void onRightPageButtonClicked()
     {
         page_sound();
-        if(eq_it + 4 < eqImages.size()) {
-            LeftShowBut.setDisable(false);
-        }
     }
 
     private void onGridEntered(ImageView grid){
