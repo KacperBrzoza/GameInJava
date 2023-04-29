@@ -126,3 +126,7 @@ WHERE username = ''; --Wpisujesz nazwe uzytkownika--
 UPDATE user_data
 SET is_user = false
 WHERE username = '';
+
+
+--Do wylogowania wszystkich userów
+Syn
